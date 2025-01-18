@@ -1,0 +1,91 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id           String  @id @default(cuid())
+    businessName String
+    name         String
+    country      String
+    state        String
+    city         String
+    pinCode      String
+    gstNumber    String?
+    address      String
+    orders       Order[]
+
+    level    LEVEL  @default(LOW)
+    role     Role   @default(USER)
+    phone    String @unique
+    email    String @unique
+    password String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Category {
+    id          String    @id @default(cuid())
+    name        String
+    description String?
+    imageUrl    String
+    products    Product[]
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+    id          String   @id @default(cuid())
+    name        String
+    description String
+    imageUrl    String[]
+    minPrice    Float
+    midPrice    Float
+    maxPrice    Float
+
+    categoryId String
+    category   Category @relation(fields: [categoryId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    Orders    Order[]
+}
+
+model Order {
+    id        String  @id @default(cuid())
+    userId    String
+    user      User    @relation(fields: [userId], references: [id])
+    productId String
+    product   Product @relation(fields: [productId], references: [id])
+
+    quantity    Int
+    amount      Float
+    templateUrl String?
+
+    status    OrderStatus @default(PENDING)
+    createdAt DateTime    @default(now())
+    updatedAt DateTime    @updatedAt
+}
+
+enum LEVEL {
+    LOW
+    MID
+    HIGH
+}
+
+enum Role {
+    USER
+    ADMIN
+}
+
+enum OrderStatus {
+    PENDING
+    PROCESSING
+    COMPLETED
+    CANCELLED
+}
