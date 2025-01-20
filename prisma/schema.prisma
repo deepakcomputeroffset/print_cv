@@ -7,85 +7,165 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model User {
-    id           String  @id @default(cuid())
-    businessName String
-    name         String
-    country      String
-    state        String
-    city         String
-    pinCode      String
-    gstNumber    String?
-    address      String
-    orders       Order[]
+model user {
+    id            Int           @id @default(autoincrement())
+    name          String
+    businessName  String
+    user_category USER_CATEGORY @default(LOW)
+    isBanned      Boolean       @default(false)
 
-    level    LEVEL  @default(LOW)
-    role     Role   @default(USER)
-    phone    String @unique
     email    String @unique
+    phone    String @unique
     password String
 
+    addresses address[]
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
-model Category {
-    id          String    @id @default(cuid())
+model address {
+    id     Int @id @default(autoincrement())
+    userId Int @unique
+
+    type       ADDRESS_TYPE
+    Line       String
+    pinCode    String
+    districtId Int
+
+    user      user     @relation(fields: [userId], references: [id])
+    district  district @relation(fields: [districtId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model country {
+    id     Int     @id @default(autoincrement())
+    name   String
+    states state[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model state {
+    id        Int        @id @default(autoincrement())
+    countryId Int
+    name      String
+    districts district[]
+
+    country   country  @relation(fields: [countryId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model district {
+    id        Int       @id @default(autoincrement())
+    stateId   Int
+    name      String
+    addresses address[]
+
+    state     state    @relation(fields: [stateId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model product_category {
+    id          Int      @id @default(autoincrement())
     name        String
     description String?
-    imageUrl    String
-    products    Product[]
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
+    imageUrl    String[]
+
+    parent_categoryId Int? // For subcategories parent category id
+    sub_categories    product_category[] @relation("SubCategories")
+
+    products product[]
+
+    parent_category product_category? @relation("SubCategories", fields: [parent_categoryId], references: [id], onDelete: Restrict)
+    createdAt       DateTime          @default(now())
+    updatedAt       DateTime          @updatedAt
 }
 
-model Product {
-    id          String   @id @default(cuid())
-    name        String
-    description String
-    imageUrl    String[]
-    minPrice    Float
-    midPrice    Float
-    maxPrice    Float
+model product {
+    id            Int            @id @default(autoincrement())
+    name          String
+    description   String
+    imageUrl      String[]
+    categoryId    Int
+    available     Boolean        @default(false)
+    product_items product_item[]
 
-    categoryId String
-    category   Category @relation(fields: [categoryId], references: [id])
+    category  product_category @relation(fields: [categoryId], references: [id])
+    createdAt DateTime         @default(now())
+    updatedAt DateTime         @updatedAt
+}
 
+model product_item {
+    id                 Int                      @id @default(autoincrement())
+    product_code       String
+    productId          Int
+    minQty             Int
+    min_price          Float
+    avg_price          Float
+    max_price          Float
+    sizes              product_size_option[]
+    prints             product_print_option[]
+    product_attributes product_attribute_type[]
+
+    product   product  @relation(fields: [productId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    Orders    Order[]
 }
 
-model Order {
-    id        String  @id @default(cuid())
-    userId    String
-    user      User    @relation(fields: [userId], references: [id])
-    productId String
-    product   Product @relation(fields: [productId], references: [id])
+model product_attribute_type {
+    id                       Int                        @id @default(autoincrement())
+    product_itemId           Int
+    name                     String
+    product_attribute_option product_attribute_option[]
 
-    quantity    Int
-    amount      Float
-    templateUrl String?
-
-    status    OrderStatus @default(PENDING)
-    createdAt DateTime    @default(now())
-    updatedAt DateTime    @updatedAt
+    product_item product_item @relation(fields: [product_itemId], references: [id])
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @updatedAt
 }
 
-enum LEVEL {
+model product_attribute_option {
+    id                       Int    @id @default(autoincrement())
+    product_attribute_typeId Int
+    product_attribure_option String
+
+    product_attribute_type product_attribute_type @relation(fields: [product_attribute_typeId], references: [id])
+    createdAt              DateTime               @default(now())
+    updatedAt              DateTime               @updatedAt
+}
+
+model product_print_option {
+    id             Int    @id @default(autoincrement())
+    name           String
+    product_itemId Int
+
+    product_item product_item @relation(fields: [product_itemId], references: [id])
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @updatedAt
+}
+
+model product_size_option {
+    id             Int    @id @default(autoincrement())
+    name           String
+    product_itemId Int
+
+    product_item product_item @relation(fields: [product_itemId], references: [id])
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @updatedAt
+}
+
+enum USER_CATEGORY {
     LOW
-    MID
+    MEDIUM
     HIGH
 }
 
-enum Role {
-    USER
-    ADMIN
-}
-
-enum OrderStatus {
-    PENDING
-    PROCESSING
-    COMPLETED
-    CANCELLED
+enum ADDRESS_TYPE {
+    HOME
+    OFFICE
+    OTHER
 }
