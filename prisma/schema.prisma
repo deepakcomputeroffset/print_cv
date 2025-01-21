@@ -7,34 +7,34 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model user {
-    id            Int           @id @default(autoincrement())
-    name          String
-    businessName  String
-    user_category USER_CATEGORY @default(LOW)
-    isBanned      Boolean       @default(false)
+model client {
+    id              Int             @id @default(autoincrement())
+    name            String
+    businessName    String
+    client_category CLIENT_CATEGORY @default(LOW)
+    is_Banned       Boolean         @default(false)
 
-    email    String @unique
-    phone    String @unique
+    email    String?
+    phone    String  @unique
     password String
 
     addresses address[]
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    orders    order[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
 }
 
 model address {
-    id     Int @id @default(autoincrement())
-    userId Int @unique
+    id        Int @id @default(autoincrement())
+    client_id Int @unique
 
-    type       ADDRESS_TYPE
-    Line       String
-    pinCode    String
-    districtId Int
+    type        ADDRESS_TYPE
+    Line        String
+    pin_code    String
+    district_id Int
 
-    user      user     @relation(fields: [userId], references: [id])
-    district  district @relation(fields: [districtId], references: [id])
+    client    client   @relation(fields: [client_id], references: [id])
+    city      city     @relation(fields: [district_id], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
@@ -49,23 +49,23 @@ model country {
 }
 
 model state {
-    id        Int        @id @default(autoincrement())
-    countryId Int
-    name      String
-    districts district[]
+    id         Int    @id @default(autoincrement())
+    country_id Int
+    name       String
+    cities     city[]
 
-    country   country  @relation(fields: [countryId], references: [id])
+    country   country  @relation(fields: [country_id], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
-model district {
+model city {
     id        Int       @id @default(autoincrement())
-    stateId   Int
+    state_id  Int
     name      String
     addresses address[]
 
-    state     state    @relation(fields: [stateId], references: [id])
+    state     state    @relation(fields: [state_id], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
@@ -74,14 +74,15 @@ model product_category {
     id          Int      @id @default(autoincrement())
     name        String
     description String?
-    imageUrl    String[]
+    image_url   String[]
 
-    parent_categoryId Int? // For subcategories parent category id
-    sub_categories    product_category[] @relation("SubCategories")
+    parent_category_id Int? // For subcategories parent category id
+    sub_categories     product_category[] @relation("SubCategories")
 
-    products product[]
+    products                product[]
+    product_attribute_types product_attribute_type[]
 
-    parent_category product_category? @relation("SubCategories", fields: [parent_categoryId], references: [id], onDelete: Restrict)
+    parent_category product_category? @relation("SubCategories", fields: [parent_category_id], references: [id], onDelete: Restrict)
     createdAt       DateTime          @default(now())
     updatedAt       DateTime          @updatedAt
 }
@@ -90,75 +91,122 @@ model product {
     id            Int            @id @default(autoincrement())
     name          String
     description   String
-    imageUrl      String[]
-    categoryId    Int
+    image_url     String[]
+    category_id   Int
     available     Boolean        @default(false)
     product_items product_item[]
 
-    category  product_category @relation(fields: [categoryId], references: [id])
+    category  product_category @relation(fields: [category_id], references: [id])
     createdAt DateTime         @default(now())
     updatedAt DateTime         @updatedAt
 }
 
 model product_item {
-    id                 Int                      @id @default(autoincrement())
-    product_code       String
-    productId          Int
-    minQty             Int
-    min_price          Float
-    avg_price          Float
-    max_price          Float
-    sizes              product_size_option[]
-    prints             product_print_option[]
-    product_attributes product_attribute_type[]
+    id              Int                        @id @default(autoincrement())
+    product_code    String
+    product_id      Int
+    min_qty         Int
+    min_price       Int
+    avg_price       Int
+    max_price       Int
+    product_options product_attribute_option[]
+    orders          order[]
 
-    product   product  @relation(fields: [productId], references: [id])
+    product   product  @relation(fields: [product_id], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
-model product_attribute_type {
-    id                       Int                        @id @default(autoincrement())
-    product_itemId           Int
-    name                     String
-    product_attribute_option product_attribute_option[]
-
-    product_item product_item @relation(fields: [product_itemId], references: [id])
-    createdAt    DateTime     @default(now())
-    updatedAt    DateTime     @updatedAt
-}
-
 model product_attribute_option {
-    id                       Int    @id @default(autoincrement())
-    product_attribute_typeId Int
-    product_attribure_option String
+    id                             Int    @id @default(autoincrement())
+    product_item_id                Int
+    product_attribute_type_id      Int
+    product_attribure_option_value String
 
-    product_attribute_type product_attribute_type @relation(fields: [product_attribute_typeId], references: [id])
+    order_id               Int?
+    product_item           product_item           @relation(fields: [product_item_id], references: [id])
+    product_attribute_type product_attribute_type @relation(fields: [product_attribute_type_id], references: [id])
+    order                  order?                 @relation(fields: [order_id], references: [id])
     createdAt              DateTime               @default(now())
     updatedAt              DateTime               @updatedAt
 }
 
-model product_print_option {
-    id             Int    @id @default(autoincrement())
-    name           String
-    product_itemId Int
+model product_attribute_type {
+    id                        Int                        @id @default(autoincrement())
+    name                      String
+    product_attribute_options product_attribute_option[]
 
-    product_item product_item @relation(fields: [product_itemId], references: [id])
+    product_category_id Int
+    product_category    product_category @relation(fields: [product_category_id], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model order {
+    id                        Int                        @id @default(autoincrement())
+    client_id                 Int
+    product_item_id           Int
+    qty                       Int
+    product_attribute_options product_attribute_option[]
+    amount                    Int
+    paid_amount               Int
+    status                    STATUS                     @default(PENDING)
+    process                   task[]
+
+    product_item product_item @relation(fields: [product_item_id], references: [id])
+    client       client       @relation(fields: [client_id], references: [id])
     createdAt    DateTime     @default(now())
     updatedAt    DateTime     @updatedAt
 }
 
-model product_size_option {
-    id             Int    @id @default(autoincrement())
-    name           String
-    product_itemId Int
+model staff {
+    id       Int     @id @default(autoincrement())
+    name     String
+    email    String?
+    phone    String  @unique
+    role     ROLE    @default(STAFF)
+    password String
+    tasks    task[]
 
-    product_item product_item @relation(fields: [product_itemId], references: [id])
-    createdAt    DateTime     @default(now())
-    updatedAt    DateTime     @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
-enum USER_CATEGORY {
+model task {
+    id           Int @id @default(autoincrement())
+    task_type_id Int
+    order_id     Int
+    staff_id     Int
+
+    is_completed    Boolean  @default(false)
+    assigned_date   DateTime @default(now())
+    completed_daate DateTime
+
+    order     order     @relation(fields: [order_id], references: [id])
+    staff     staff     @relation(fields: [staff_id], references: [id], onDelete: Restrict)
+    task_type task_type @relation(fields: [task_type_id], references: [id], onDelete: Restrict)
+}
+
+model task_type {
+    id          Int    @id @default(autoincrement())
+    name        String
+    description String
+
+    tasks     task[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+enum ROLE {
+    ADMIN
+    PRODUCT_MANAGER
+    ORDER_MANAGER
+    ACCOUNTANT
+    STAFF
+}
+
+enum CLIENT_CATEGORY {
     LOW
     MEDIUM
     HIGH
@@ -168,4 +216,11 @@ enum ADDRESS_TYPE {
     HOME
     OFFICE
     OTHER
+}
+
+enum STATUS {
+    PENDING
+    PROCESSING
+    DISPATCHED
+    CANCELLED
 }

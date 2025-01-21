@@ -1,9 +1,9 @@
 import bcrypt from "bcryptjs";
-import { NextAuthOptions } from "next-auth";
+import { AuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 
-export const authConfig: NextAuthOptions = {
+export const authConfig: AuthOptions = {
     pages: {
         signIn: "/login",
         newUser: "/register",
@@ -15,10 +15,10 @@ export const authConfig: NextAuthOptions = {
             credentials: {
                 email: {
                     label: "Email",
-                    type: "email",
+                    type: "text",
                     placeholder: "example@gmail.com",
                 },
-                password: { label: "Password", type: "password" },
+                password: { label: "Password", type: "text" },
             },
             async authorize(credentials) {
                 try {
@@ -45,17 +45,25 @@ export const authConfig: NextAuthOptions = {
                         throw new Error("Invalid Creadentials!!");
                     }
 
+                    // return new Promise((res) => {
+                    // return res(
                     return {
-                        id: user.id,
                         email: user.email,
                         name: user.name,
                         businessName: user.businessName,
+                        phone: user.phone,
+                        isBanned: user.isBanned,
+                        id: user.id.toString(),
+                        user_category: user.user_category,
+
                         // country: user.country,
                         // state: user.state,
                         // city: user.city,
                         // level: user.level,
                         // role: user.role,
                     };
+                    // );
+                    // });
                 } catch (error) {
                     console.error("Error in credentials", error);
                     throw new Error("Wrong credentials");
@@ -66,8 +74,8 @@ export const authConfig: NextAuthOptions = {
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token.role = user.role;
-                token.id = user.id;
+                // token.role = user.role;
+                token.id = Number(user.id);
             }
             return token;
         },
@@ -86,8 +94,8 @@ export const authConfig: NextAuthOptions = {
         // },
         async session({ session, token }) {
             if (token) {
-                session.user.role = token.role;
-                session.user.id = token.id as string;
+                // session.user.role = token.role;
+                session.user.id = token.id;
             }
             return session;
         },
