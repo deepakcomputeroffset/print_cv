@@ -23,20 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-
-const formSchema = z.object({
-    name: z.string().min(2, "Name must be at least 2 characters"),
-    description: z
-        .string()
-        .min(10, "Description must be at least 10 characters"),
-    price: z
-        .string()
-        .refine((val) => !isNaN(parseFloat(val)) && parseFloat(val) > 0, {
-            message: "Price must be a positive number",
-        }),
-    imageUrl: z.string().url("Must be a valid URL"),
-    categoryId: z.string().min(1, "Category is required"),
-});
+import { productFormSchema } from "@/lib/schema/product-schema";
 
 interface Category {
     id: string;
@@ -59,8 +46,8 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof productFormSchema>>({
+        resolver: zodResolver(productFormSchema),
         defaultValues: {
             name: product?.name || "",
             description: product?.description || "",
@@ -85,7 +72,7 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
         fetchCategories();
     }, []);
 
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof productFormSchema>) {
         try {
             setLoading(true);
             const url = product

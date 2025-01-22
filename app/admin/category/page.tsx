@@ -23,7 +23,7 @@ import {
 // import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Pencil, Trash } from "lucide-react";
-import { CategoryForm } from "@/components/admin/category-form";
+import { CategoryForm } from "@/components/admin/forms/category-form";
 
 interface Category {
     id: string;

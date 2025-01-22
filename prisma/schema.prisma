@@ -8,11 +8,11 @@ datasource db {
 }
 
 model customer {
-    id              Int             @id @default(autoincrement())
-    name            String
-    businessName    String
+    id                Int               @id @default(autoincrement())
+    name              String
+    businessName      String
     customer_category CUSTOMER_CATEGORY @default(LOW)
-    is_Banned       Boolean         @default(false)
+    is_Banned         Boolean           @default(false)
 
     email    String?
     phone    String  @unique
@@ -25,7 +25,7 @@ model customer {
 }
 
 model address {
-    id        Int @id @default(autoincrement())
+    id          Int @id @default(autoincrement())
     customer_id Int @unique
 
     type        ADDRESS_TYPE
@@ -33,7 +33,7 @@ model address {
     pin_code    String
     district_id Int
 
-    customer    customer   @relation(fields: [customer_id], references: [id])
+    customer  customer @relation(fields: [customer_id], references: [id])
     city      city     @relation(fields: [district_id], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -145,7 +145,7 @@ model product_attribute_type {
 
 model order {
     id                        Int                        @id @default(autoincrement())
-    customer_id                 Int
+    customer_id               Int
     product_item_id           Int
     qty                       Int
     product_attribute_options product_attribute_option[]
@@ -155,17 +155,17 @@ model order {
     process                   task[]
 
     product_item product_item @relation(fields: [product_item_id], references: [id])
-    customer       customer       @relation(fields: [customer_id], references: [id])
+    customer     customer     @relation(fields: [customer_id], references: [id])
     createdAt    DateTime     @default(now())
     updatedAt    DateTime     @updatedAt
 }
 
 model staff {
-    id       Int     @id @default(autoincrement())
+    id       Int    @id @default(autoincrement())
     name     String
-    email    String?
-    phone    String  @unique
-    role     ROLE    @default(STAFF)
+    email    String
+    phone    String @unique
+    role     ROLE   @default(STAFF)
     password String
     tasks    task[]
 

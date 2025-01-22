@@ -1,22 +1,22 @@
 import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { generateHash } from "@/lib/hash";
 
 export async function POST(req: Request) {
     try {
         const { name, email, password, businessName, phone, address } =
             await req.json();
 
-        if (!name || !email || !password) {
+        if (!name || !phone || !email || !password) {
             return NextResponse.json(
                 { message: "Missing required fields" },
                 { status: 400 },
             );
         }
 
-        // Check if user already exists
-        const existingUser = await prisma.user.findUnique({
-            where: { email },
+        // Check if customer already exists
+        const existingUser = await prisma.customer.findUnique({
+            where: { phone },
         });
 
         if (existingUser) {
@@ -26,31 +26,28 @@ export async function POST(req: Request) {
             );
         }
 
-        // Hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Create user
-        const user = await prisma.user.create({
+        // Create customer
+        const customer = await prisma.customer.create({
             data: {
                 name,
                 email,
-                password: hashedPassword,
+                password: await generateHash(password),
                 businessName,
                 phone,
                 addresses: {
                     create: {
                         // ...address as address,
                         Line: address.line,
-                        pinCode: address.pinCode,
+                        pin_code: address.pinCode,
                         type: address.type,
-                        district: address.district,
+                        city: address.city,
                     },
                 },
             },
         });
 
         return NextResponse.json(
-            { message: "User created successfully", user },
+            { message: "User created successfully", customer },
             { status: 201 },
         );
     } catch (error) {

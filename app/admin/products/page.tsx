@@ -10,17 +10,11 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
+
 import { toast } from "sonner";
-import { Pencil, Trash } from "lucide-react";
-import { ProductForm } from "@/components/admin/product-form";
+// import { Pencil, Trash } from "lucide-react";
+// import { ProductForm } from "@/components/admin/forms/product-form";
+import { Action } from "@/components/action";
 
 interface Category {
     id: string;
@@ -41,10 +35,10 @@ export default function ProductsPage() {
     // const router = useRouter();
     const [products, setProducts] = useState<Product[]>([]);
     // const [loading, setLoading] = useState(true);
-    const [openDialog, setOpenDialog] = useState(false);
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(
-        null,
-    );
+    // const [openDialog, setOpenDialog] = useState(false);
+    // const [selectedProduct, setSelectedProduct] = useState<Product | null>(
+    //     null,
+    // );
 
     const fetchProducts = async () => {
         try {
@@ -63,55 +57,33 @@ export default function ProductsPage() {
         fetchProducts();
     }, []);
 
-    const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this product?")) return;
+    // const handleDelete = async (id: string) => {
+    //     if (!confirm("Are you sure you want to delete this product?")) return;
 
-        try {
-            const response = await fetch(`/api/products/${id}`, {
-                method: "DELETE",
-            });
+    //     try {
+    //         const response = await fetch(`/api/products/${id}`, {
+    //             method: "DELETE",
+    //         });
 
-            if (!response.ok) throw new Error("Failed to delete product");
+    //         if (!response.ok) throw new Error("Failed to delete product");
 
-            toast.success("Product deleted successfully");
-            fetchProducts();
-        } catch (error) {
-            console.error(error);
-            toast.error("Error deleting product");
-        }
-    };
+    //         toast.success("Product deleted successfully");
+    //         fetchProducts();
+    //     } catch (error) {
+    //         console.error(error);
+    //         toast.error("Error deleting product");
+    //     }
+    // };
 
-    const handleEdit = (product: Product) => {
-        setSelectedProduct(product);
-        setOpenDialog(true);
-    };
+    // const handleEdit = (product: Product) => {
+    //     setSelectedProduct(product);
+    //     setOpenDialog(true);
+    // };
 
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold">Products</h1>
-                <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-                    <DialogTrigger asChild>
-                        <Button>Add Product</Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[600px]">
-                        <DialogHeader>
-                            <DialogTitle>
-                                {selectedProduct
-                                    ? "Edit Product"
-                                    : "Add Product"}
-                            </DialogTitle>
-                        </DialogHeader>
-                        <ProductForm
-                            product={selectedProduct}
-                            onSuccess={() => {
-                                setOpenDialog(false);
-                                setSelectedProduct(null);
-                                fetchProducts();
-                            }}
-                        />
-                    </DialogContent>
-                </Dialog>
             </div>
 
             <div className="rounded-md border">
@@ -139,20 +111,10 @@ export default function ProductsPage() {
                                     {product.description}
                                 </TableCell>
                                 <TableCell className="text-right space-x-2">
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        onClick={() => handleEdit(product)}
-                                    >
-                                        <Pencil className="h-4 w-4" />
-                                    </Button>
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        onClick={() => handleDelete(product.id)}
-                                    >
-                                        <Trash className="h-4 w-4" />
-                                    </Button>
+                                    <Action
+                                        deleteBtnClick={() => {}}
+                                        editBtnClick={() => {}}
+                                    />
                                 </TableCell>
                             </TableRow>
                         ))}

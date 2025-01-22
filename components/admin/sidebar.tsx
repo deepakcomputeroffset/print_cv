@@ -19,10 +19,22 @@ const routes = [
         pattern: /^\/admin$/,
     },
     {
-        label: "Users",
+        label: "Staffs",
         icon: Users,
-        href: "/admin/users",
-        pattern: /^\/admin\/users/,
+        href: "/admin/staff",
+        pattern: /^\/admin\/staff/,
+    },
+    {
+        label: "Customers",
+        icon: Users,
+        href: "/admin/customer",
+        pattern: /^\/admin\/customer/,
+    },
+    {
+        label: "Category",
+        icon: ShoppingBag,
+        href: "/admin/category",
+        pattern: /^\/admin\/category/,
     },
     {
         label: "Products",
