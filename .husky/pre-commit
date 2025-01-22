@@ -1,1 +1,1 @@
-npm run lint && prettier --write . && git add -A && npx lint-staged && npm run lint
+npm run lint && prettier --write . && git add -A && npx lint-staged
