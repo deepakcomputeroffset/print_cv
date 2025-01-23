@@ -1,15 +1,36 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { stringToNumber } from "@/lib/utils";
 
-export async function GET() {
+export async function GET(req: Request) {
     try {
+        const { searchParams } = new URL(req.url);
+        const { isNum, num } = stringToNumber(searchParams.get("c_id") || "");
+        const c_id = isNum ? num : 1;
+
         const states = await prisma.state.findMany({
-            include: { country: true, districts: true },
+            where: {
+                country_id: c_id || 1,
+            },
+            select: {
+                id: true,
+                cities: true,
+                country_id: true,
+                name: true,
+            },
         });
-        return NextResponse.json(states, { status: 200 });
+
+        return NextResponse.json(
+            {
+                success: true,
+                data: states,
+            },
+            { status: 200 },
+        );
     } catch (error) {
         return NextResponse.json(
             {
+                success: false,
                 error:
                     (error as { message: string })?.message ||
                     "An unexpected error occurred",
@@ -31,13 +52,17 @@ export async function POST(req: Request) {
         }
 
         const newState = await prisma.state.create({
-            data: { name, countryId },
+            data: { name, country_id: Number(countryId) },
         });
 
-        return NextResponse.json(newState, { status: 201 });
+        return NextResponse.json(
+            { success: true, data: newState },
+            { status: 201 },
+        );
     } catch (error) {
         return NextResponse.json(
             {
+                success: false,
                 error:
                     (error as { message: string })?.message ||
                     "An unexpected error occurred",
@@ -53,7 +78,10 @@ export async function PUT(req: Request) {
 
         if (!id || !name) {
             return NextResponse.json(
-                { error: "id, name, and countryId are required" },
+                {
+                    success: false,
+                    error: "id, name, and countryId are required",
+                },
                 { status: 400 },
             );
         }
@@ -63,10 +91,14 @@ export async function PUT(req: Request) {
             data: { name },
         });
 
-        return NextResponse.json(updatedState, { status: 200 });
+        return NextResponse.json(
+            { success: true, data: updatedState },
+            { status: 200 },
+        );
     } catch (error) {
         return NextResponse.json(
             {
+                success: false,
                 error:
                     (error as { message: string })?.message ||
                     "An unexpected error occurred",

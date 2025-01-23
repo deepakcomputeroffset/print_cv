@@ -23,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { productFormSchema } from "@/lib/schema/product-schema";
+import { productFormSchema } from "@/schemas/product-schema";
 
 interface Category {
     id: string;

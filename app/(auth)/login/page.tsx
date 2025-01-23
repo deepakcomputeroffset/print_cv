@@ -120,7 +120,7 @@ export default function LoginPage() {
                     <p className="text-muted-foreground">
                         Don&apos;t have an account?
                         <Link
-                            href="/rgister"
+                            href="/register"
                             className="text-primary hover:underline"
                         >
                             Sign up

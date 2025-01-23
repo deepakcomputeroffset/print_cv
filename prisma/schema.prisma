@@ -10,31 +10,30 @@ datasource db {
 model customer {
     id                Int               @id @default(autoincrement())
     name              String
-    businessName      String
+    business_name     String
     customer_category CUSTOMER_CATEGORY @default(LOW)
     is_Banned         Boolean           @default(false)
 
-    email    String?
-    phone    String  @unique
+    email    String
+    phone    String @unique
     password String
 
-    addresses address[]
+    address   address?
     orders    order[]
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model address {
     id          Int @id @default(autoincrement())
     customer_id Int @unique
 
-    type        ADDRESS_TYPE
-    Line        String
-    pin_code    String
-    district_id Int
+    line     String
+    pin_code String
+    city_id  Int
 
     customer  customer @relation(fields: [customer_id], references: [id])
-    city      city     @relation(fields: [district_id], references: [id])
+    city      city     @relation(fields: [city_id], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
@@ -210,12 +209,6 @@ enum CUSTOMER_CATEGORY {
     LOW
     MEDIUM
     HIGH
-}
-
-enum ADDRESS_TYPE {
-    HOME
-    OFFICE
-    OTHER
 }
 
 enum STATUS {

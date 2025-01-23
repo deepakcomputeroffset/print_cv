@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { staffFormSchema } from "@/lib/schema/staff-schema";
+import { staffFormSchema } from "@/schemas/staff-schema";
 import { ROLE, staff } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";

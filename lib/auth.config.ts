@@ -6,64 +6,51 @@ import { prisma } from "@/lib/prisma";
 export const authConfig: AuthOptions = {
     pages: {
         signIn: "/login",
-        newUser: "/register",
-        signOut: "/",
-        error: "/error",
+        // newUser: "/register",
+        // signOut: "/",
+        // error: "/error",
     },
     providers: [
         Credentials({
             credentials: {
-                email: {
-                    label: "Email",
-                    type: "text",
-                    placeholder: "example@gmail.com",
-                },
+                phone: { label: "Phone", type: "text" },
                 password: { label: "Password", type: "text" },
             },
+
             async authorize(credentials) {
                 try {
-                    if (!credentials?.password || !credentials?.email) {
+                    if (!credentials?.phone || !credentials?.password) {
                         throw new Error("Enter valid Credentials");
                     }
 
-                    const user = await prisma.user.findUnique({
+                    const customer = await prisma?.customer?.findUnique({
                         where: {
-                            email: credentials.email,
+                            phone: credentials?.phone,
                         },
                     });
 
-                    if (!user) {
+                    if (!customer) {
                         throw new Error("User not found!!");
                     }
 
                     const isPasswordValid = await bcrypt.compare(
-                        credentials.password,
-                        user.password,
+                        credentials?.password,
+                        customer?.password,
                     );
 
                     if (!isPasswordValid) {
                         throw new Error("Invalid Creadentials!!");
                     }
 
-                    // return new Promise((res) => {
-                    // return res(
                     return {
-                        email: user.email,
-                        name: user.name,
-                        businessName: user.businessName,
-                        phone: user.phone,
-                        isBanned: user.isBanned,
-                        id: user.id.toString(),
-                        user_category: user.user_category,
-
-                        // country: user.country,
-                        // state: user.state,
-                        // city: user.city,
-                        // level: user.level,
-                        // role: user.role,
+                        email: customer?.email,
+                        name: customer?.name,
+                        business_name: customer?.business_name,
+                        phone: customer?.phone,
+                        isBanned: customer?.is_Banned,
+                        id: customer?.id.toString(),
+                        customer_category: customer?.customer_category,
                     };
-                    // );
-                    // });
                 } catch (error) {
                     console.error("Error in credentials", error);
                     throw new Error("Wrong credentials");
@@ -79,6 +66,7 @@ export const authConfig: AuthOptions = {
             }
             return token;
         },
+
         // redirect: async ({ url, baseUrl }) => {
         //   // Handle redirects based on user role
         //   const user = await getServerSession(authConfig); // Get user from session
@@ -92,6 +80,7 @@ export const authConfig: AuthOptions = {
         //   }
         //   return baseUrl; // Default redirect
         // },
+
         async session({ session, token }) {
             if (token) {
                 // session.user.role = token.role;
@@ -99,6 +88,7 @@ export const authConfig: AuthOptions = {
             }
             return session;
         },
+
         // authorized({ auth, request: { nextUrl } }) {
         //   const isLoggedIn = !!auth?.user;
         //   const isAdmin = auth?.user?.role === "ADMIN";

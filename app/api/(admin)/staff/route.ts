@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { staffFormSchema } from "@/lib/schema/staff-schema";
+import { staffFormSchema } from "@/schemas/staff-schema";
 import { generateHash } from "@/lib/hash";
 import { stringToNumber } from "@/lib/utils";
 import { per_page_data } from "@/lib/constants";
