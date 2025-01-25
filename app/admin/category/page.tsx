@@ -218,37 +218,39 @@ export default function CategoriesPage() {
                         "https://images.unsplash.com/photo-1606293926075-69a00dbfde81",
                     ],
                     parent_category_id: 1,
-                    sub_categories: [ {
-                        id: 2,
-                        name: "Marketing Materials",
-                        description: "Promotional materials for businesses",
-                        image_url: [
-                            "https://images.unsplash.com/photo-1531973576160-7125cd663d86",
-                        ],
-                        parent_category_id: null,
-                        sub_categories: [
-                            {
-                                id: 6,
-                                name: "Brochures",
-                                description: "Professional brochures",
-                                image_url: [
-                                    "https://images.unsplash.com/photo-1531973576160-7125cd663d86",
-                                ],
-                                parent_category_id: 2,
-                                sub_categories: [],
-                            },
-                            {
-                                id: 7,
-                                name: "Flyers",
-                                description: "Marketing flyers",
-                                image_url: [
-                                    "https://images.unsplash.com/photo-1572025442646-866d16c84a54",
-                                ],
-                                parent_category_id: 2,
-                                sub_categories: [],
-                            },
-                        ],
-                    },],
+                    sub_categories: [
+                        {
+                            id: 2,
+                            name: "Marketing Materials",
+                            description: "Promotional materials for businesses",
+                            image_url: [
+                                "https://images.unsplash.com/photo-1531973576160-7125cd663d86",
+                            ],
+                            parent_category_id: null,
+                            sub_categories: [
+                                {
+                                    id: 6,
+                                    name: "Brochures",
+                                    description: "Professional brochures",
+                                    image_url: [
+                                        "https://images.unsplash.com/photo-1531973576160-7125cd663d86",
+                                    ],
+                                    parent_category_id: 2,
+                                    sub_categories: [],
+                                },
+                                {
+                                    id: 7,
+                                    name: "Flyers",
+                                    description: "Marketing flyers",
+                                    image_url: [
+                                        "https://images.unsplash.com/photo-1572025442646-866d16c84a54",
+                                    ],
+                                    parent_category_id: 2,
+                                    sub_categories: [],
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     id: 5,
@@ -336,7 +338,7 @@ export default function CategoriesPage() {
 
         return (
             <>
-                <TableRow key={`${category.id}-${level}` }>
+                <TableRow key={`${category.id}-${level}`}>
                     <TableCell>
                         <div
                             className="flex items-center"
@@ -511,7 +513,7 @@ export default function CategoriesPage() {
                                 >
                                     <Trash2 className="h-4 w-4" />
                                 </Button>
-                                <AlertDialogContent >
+                                <AlertDialogContent>
                                     <AlertDialogHeader>
                                         <AlertDialogTitle>
                                             Are you sure?

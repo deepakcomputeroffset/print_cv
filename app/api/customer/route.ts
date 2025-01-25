@@ -3,6 +3,104 @@ import { prisma } from "@/lib/prisma";
 import { generateHash } from "@/lib/hash";
 import { customerFormSchema } from "@/schemas/customer-register-schema";
 
+import { Prisma } from "@prisma/client";
+import { stringToNumber } from "@/lib/utils";
+import { QuerySchema } from "@/schemas/query-schema";
+
+export async function GET(request: Request) {
+    try {
+        const { searchParams } = new URL(request.url);
+        const query = QuerySchema.parse(Object.fromEntries(searchParams));
+        const { isNum, num } = stringToNumber(query?.search || "");
+        const where: Prisma.customerWhereInput = {
+            AND: [
+                query.search
+                    ? {
+                          OR: [
+                              {
+                                  name: {
+                                      contains: query?.search,
+                                      mode: "insensitive",
+                                  },
+                              },
+                              {
+                                  business_name: {
+                                      contains: query?.search,
+                                      mode: "insensitive",
+                                  },
+                              },
+                              {
+                                  email: {
+                                      contains: query?.search,
+                                      mode: "insensitive",
+                                  },
+                              },
+                              { phone: { contains: query?.search } },
+                              isNum
+                                  ? {
+                                        id: {
+                                            gte: num,
+                                        },
+                                    }
+                                  : {},
+                          ],
+                      }
+                    : {},
+                query?.category && query?.category !== "all"
+                    ? {
+                          customer_category: query?.category,
+                      }
+                    : {},
+                query?.status && query?.status !== "all"
+                    ? {
+                          is_Banned: query?.status === "true",
+                      }
+                    : {},
+            ],
+        };
+
+        const [total, customers] = await prisma.$transaction([
+            prisma.customer.count({ where }),
+            prisma.customer.findMany({
+                where,
+                include: {
+                    address: {
+                        include: {
+                            city: {
+                                include: {
+                                    state: true,
+                                },
+                            },
+                        },
+                    },
+                },
+                omit: { password: true },
+                orderBy: query?.sortby
+                    ? {
+                          [query?.sortby || "id"]: query?.sortorder || "asc",
+                      }
+                    : undefined,
+                skip: query.page ? (query.page - 1) * (query.perpage || 10) : 0,
+                take: query.perpage || 10,
+            }),
+        ]);
+
+        return NextResponse.json({
+            customers,
+            total,
+            page: query.page || 1,
+            perpage: query.perpage || 10,
+            totalPages: Math.ceil(total / (query.perpage || 10)),
+        });
+    } catch (error) {
+        console.error("Error fetching customers:", error);
+        return NextResponse.json(
+            { error: "Failed to fetch customers" },
+            { status: 500 },
+        );
+    }
+}
+
 export async function POST(req: Request) {
     try {
         const data = await req.json();

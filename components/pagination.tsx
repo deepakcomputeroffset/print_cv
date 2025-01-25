@@ -1,59 +1,82 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { per_page_data } from "@/lib/constants";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import {
+    ChevronLeft,
+    ChevronRight,
+    ChevronsLeft,
+    ChevronsRight,
+} from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { FC } from "react";
-import { Badge } from "./ui/badge";
 
 interface prop {
-    total: number;
+    totalPage: number;
     isLoading: boolean;
 }
 
-const Pagination: FC<prop> = ({ total, isLoading }) => {
+const Pagination: FC<prop> = ({ isLoading, totalPage }) => {
     const { replace } = useRouter();
     const path = usePathname();
     const searchParams = useSearchParams();
-
-    const page = Number(searchParams?.get("page")) || 1;
-
     const params = new URLSearchParams(searchParams!);
 
-    const hasPrev = per_page_data * (page - 1) > 0;
-    const hasNext = per_page_data * (page - 1) + per_page_data < total;
+    const page = Number(searchParams?.get("page")) || 1;
+    const hasPrev = page > 1;
+    const hasNext = page < totalPage;
 
-    const pageHandler = (type: "prev" | "next") => {
-        if (type === "prev") {
+    const pageHandler = (type: "prev" | "next" | "first" | "last") => {
+        if (type === "first") {
+            params.set("page", "1");
+        } else if (type === "last") {
+            params.set("page", `${totalPage}`);
+        } else if (type === "prev") {
             params.set("page", `${page - 1}`);
-        } else {
+        } else if (type === "next") {
             params.set("page", `${page + 1}`);
         }
         replace(`${path}?${params}`);
     };
 
     return (
-        (hasNext || hasPrev) && (
-            <div className="flex justify-around items-center">
+        <div className="flex items-center justify-between mt-4">
+            <div className="text-sm text-muted-foreground">
+                Page {page} of {totalPage}
+            </div>
+            <div className="flex items-center space-x-2">
                 <Button
-                    variant={"outline"}
-                    disabled={!hasPrev || isLoading}
-                    onClick={() => pageHandler("prev")}
+                    variant="outline"
+                    size="icon"
+                    onClick={() => pageHandler("first")}
+                    disabled={page <= 1 || isLoading}
                 >
-                    <ArrowLeft />
+                    <ChevronsLeft className="h-4 w-4" />
                 </Button>
-                <Badge variant={"secondary"} className="text-xs">
-                    {page}
-                </Badge>
                 <Button
-                    variant={"outline"}
-                    disabled={!hasNext || isLoading}
-                    onClick={() => pageHandler("next")}
+                    variant="outline"
+                    size="icon"
+                    onClick={() => pageHandler("prev")}
+                    disabled={!hasPrev || isLoading}
                 >
-                    <ArrowRight />
+                    <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => pageHandler("next")}
+                    disabled={!hasNext || isLoading}
+                >
+                    <ChevronRight className="h-4 w-4" />
+                </Button>
+                <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => pageHandler("last")}
+                    disabled={page >= totalPage || isLoading}
+                >
+                    <ChevronsRight className="h-4 w-4" />
                 </Button>
             </div>
-        )
+        </div>
     );
 };
 

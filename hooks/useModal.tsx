@@ -1,10 +1,27 @@
-import { staff } from "@prisma/client";
+import { address, city, country, customer, staff, state } from "@prisma/client";
 import { create } from "zustand";
 
-type ModalType = "staffEdit" | "staffDelete" | "addStaff";
+type ModalType =
+    | "staffEdit"
+    | "staffDelete"
+    | "addStaff"
+    | "editCustomer"
+    | "viewCustomer"
+    | "customerDelete";
+
+export type customerWithAddress = customer & {
+    address?: address & {
+        city?: city & {
+            state?: state & {
+                country: country;
+            };
+        };
+    };
+};
 
 type DataType = {
     staff?: staff;
+    customer?: customerWithAddress;
     page?: string;
     searchParameter?: string;
 };

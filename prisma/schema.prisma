@@ -13,15 +13,22 @@ model customer {
     business_name     String
     customer_category CUSTOMER_CATEGORY @default(LOW)
     is_Banned         Boolean           @default(false)
+    email             String
+    phone             String            @unique
+    password          String
 
-    email    String
-    phone    String @unique
-    password String
+    gst_number String?
+    address    address?
 
-    address   address?
-    orders    order[]
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    orders order[]
+
+    reference_id Int?
+    references   customer[] @relation("reference")
+    refered_by   customer?  @relation("reference", fields: [reference_id], references: [id])
+
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    customerId Int?
 }
 
 model address {
@@ -32,7 +39,7 @@ model address {
     pin_code String
     city_id  Int
 
-    customer  customer @relation(fields: [customer_id], references: [id])
+    customer  customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
     city      city     @relation(fields: [city_id], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -75,15 +82,15 @@ model product_category {
     description String?
     image_url   String[]
 
-    parent_category_id Int? // For subcategories parent category id
-    sub_categories     product_category[] @relation("SubCategories")
-
     products                product[]
     product_attribute_types product_attribute_type[]
 
-    parent_category product_category? @relation("SubCategories", fields: [parent_category_id], references: [id], onDelete: Restrict)
-    createdAt       DateTime          @default(now())
-    updatedAt       DateTime          @updatedAt
+    parent_category_id Int? // For subcategories parent category id
+    sub_categories     product_category[] @relation("SubCategories")
+    parent_category    product_category?  @relation("SubCategories", fields: [parent_category_id], references: [id], onDelete: Restrict)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model product {

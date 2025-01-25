@@ -52,7 +52,7 @@ export async function PUT(
             );
         }
 
-        const { name, description, imageUrl } = await req.json();
+        const { name, description, image_url } = await req.json();
 
         const { isNum, num: pcid } = stringToNumber(params.id);
         if (!isNum) {
@@ -66,7 +66,7 @@ export async function PUT(
             data: {
                 name,
                 description,
-                imageUrl,
+                image_url,
             },
         });
 

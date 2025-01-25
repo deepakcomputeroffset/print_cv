@@ -49,32 +49,14 @@ export const EditStaffForm = () => {
         },
 
         onError(error: AxiosError<{ message: string; succuss: boolean }>) {
+            onClose();
             toast(error?.response?.data?.message || "Update failed");
         },
 
-        onSuccess(res) {
-            if (res?.success) {
-                try {
-                    queryClient.setQueryData(
-                        [
-                            "admin-staff",
-                            data?.page || "1",
-                            data?.searchParameter || "",
-                        ],
-                        (oldData: staff[]) => {
-                            return oldData.map((s) =>
-                                s.id === res?.data?.id ? res?.data : s,
-                            );
-                        },
-                    );
-                    toast(res?.message);
-                    form.reset();
-                    onClose();
-                } catch (error) {
-                    console.log(error);
-                    console.log("error in staff upadate");
-                }
-            }
+        onSuccess: () => {
+            onClose();
+            queryClient.invalidateQueries({ queryKey: ["admin-staff"] });
+            toast.success("Staff updated successfully");
         },
     });
     return (
