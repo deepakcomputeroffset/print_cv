@@ -77,10 +77,10 @@ model city {
 }
 
 model product_category {
-    id          Int      @id @default(autoincrement())
+    id          Int     @id @default(autoincrement())
     name        String
     description String?
-    image_url   String[]
+    image_url   String
 
     products                product[]
     product_attribute_types product_attribute_type[]

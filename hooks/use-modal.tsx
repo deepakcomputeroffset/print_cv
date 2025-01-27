@@ -1,4 +1,5 @@
-import { address, city, country, customer, staff, state } from "@prisma/client";
+import { customerWithAddress } from "@/types/types";
+import { product_category, staff } from "@prisma/client";
 import { create } from "zustand";
 
 type ModalType =
@@ -7,23 +8,17 @@ type ModalType =
     | "addStaff"
     | "editCustomer"
     | "viewCustomer"
-    | "customerDelete";
-
-export type customerWithAddress = customer & {
-    address?: address & {
-        city?: city & {
-            state?: state & {
-                country: country;
-            };
-        };
-    };
-};
+    | "customerDelete"
+    | "createProductCategory"
+    | "editProductCategory"
+    | "deleteProductCategory";
 
 type DataType = {
     staff?: staff;
     customer?: customerWithAddress;
     page?: string;
     searchParameter?: string;
+    product_category?: product_category;
 };
 
 interface modalStore {

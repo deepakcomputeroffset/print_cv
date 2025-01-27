@@ -877,9 +877,9 @@ export default function ProductsPage() {
         console.log(`Deleting image ${imageUrl} from product ${productId}`);
     };
 
-    const handleImageAdd = (productId: number, newImageUrl: string) => {
-        console.log(`Adding image ${newImageUrl} to product ${productId}`);
-    };
+    // const handleImageAdd = (productId: number, newImageUrl: string) => {
+    //     console.log(`Adding image ${newImageUrl} to product ${productId}`);
+    // };
 
     const sortProducts = (products: Product[]) => {
         return [...products].sort((a, b) => {

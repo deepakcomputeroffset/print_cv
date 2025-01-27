@@ -1,6 +1,6 @@
-import { useModal } from "@/hooks/useModal";
+import { useModal } from "@/hooks/use-modal";
 import { format } from "date-fns";
-import { Modal } from "../modal";
+import { Modal } from "../../modal";
 
 export const CustomerViewModal = () => {
     const { data, isOpen, modal, onClose } = useModal();

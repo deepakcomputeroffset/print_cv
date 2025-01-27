@@ -1,7 +1,7 @@
 "use client";
-import { EditStaffForm } from "@/components/forms/staff-form";
-import { Modal } from "@/components/modals/modal";
-import { useModal } from "@/hooks/useModal";
+import { EditStaffForm } from "@/components/staff/form/staff-form";
+import { Modal } from "@/components/modal";
+import { useModal } from "@/hooks/use-modal";
 
 export function StaffEditModal() {
     const { isOpen, onClose, modal } = useModal();

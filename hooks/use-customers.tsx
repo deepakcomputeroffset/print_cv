@@ -3,8 +3,9 @@ import { toast } from "sonner";
 import * as api from "@/lib/api/customers";
 import { z } from "zod";
 import { customerFormSchema } from "@/schemas/customer-register-schema";
+import { QueryParams } from "@/types/types";
 
-export function useCustomers(props: api.CustomerQueryParams = {}) {
+export function useCustomers(props: QueryParams = {}) {
     const queryClient = useQueryClient();
     const queryKey = ["customers", props];
 
@@ -24,7 +25,7 @@ export function useCustomers(props: api.CustomerQueryParams = {}) {
             data: Partial<z.infer<typeof customerFormSchema>>;
         }) => api.updateCustomer(id, data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["customers"] });
+            queryClient.invalidateQueries({ queryKey });
             toast.success("Customer updated successfully");
         },
         onError: () => {
@@ -36,7 +37,7 @@ export function useCustomers(props: api.CustomerQueryParams = {}) {
     const toggleBanMutation = useMutation({
         mutationFn: api.toggleCustomerBan,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["customers"] });
+            queryClient.invalidateQueries({ queryKey });
             toast.success("Customer status updated successfully");
         },
         onError: () => {
@@ -48,7 +49,7 @@ export function useCustomers(props: api.CustomerQueryParams = {}) {
     const deleteMutation = useMutation({
         mutationFn: api.deleteCustomer,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["customers"] });
+            queryClient.invalidateQueries({ queryKey });
             toast.success("Customer deleted successfully");
         },
         onError: () => {

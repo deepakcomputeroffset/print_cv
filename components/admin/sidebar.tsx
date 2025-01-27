@@ -9,9 +9,16 @@ import {
     ShoppingBag,
     Package,
     Settings,
+    Home,
 } from "lucide-react";
 
 const routes = [
+    {
+        label: "Home",
+        icon: Home,
+        href: "/",
+        pattern: /^\/$/,
+    },
     {
         label: "Dashboard",
         icon: LayoutDashboard,

@@ -24,7 +24,7 @@ import { staffFormSchema } from "@/schemas/staff-schema";
 import { ROLE, staff } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { useModal } from "@/hooks/useModal";
+import { useModal } from "@/hooks/use-modal";
 
 export const EditStaffForm = () => {
     const { data, onClose } = useModal();

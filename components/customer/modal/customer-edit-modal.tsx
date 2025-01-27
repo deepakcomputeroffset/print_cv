@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { useModal } from "@/hooks/useModal";
-import { Modal } from "../modal";
-import { CustomerEditForm } from "@/components/forms/customer-form";
+import { useModal } from "@/hooks/use-modal";
+import { Modal } from "../../modal";
+import { CustomerEditForm } from "@/components/customer/form/customer-form";
 
 export const CustomerEditModal = () => {
     const { isOpen, modal, onClose } = useModal();

@@ -4,11 +4,13 @@ import { customerFormSchema } from "@/schemas/customer-register-schema";
 
 export async function GET(
     request: Request,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
+        // TODO: AUTHENTICATION
+        const { id } = await params;
         const customer = await prisma.customer.findUnique({
-            where: { id: parseInt(params.id) },
+            where: { id: parseInt(id) },
             include: {
                 address: {
                     include: {
@@ -24,12 +26,15 @@ export async function GET(
 
         if (!customer) {
             return NextResponse.json(
-                { error: "Customer not found" },
+                { success: false, error: "Customer not found" },
                 { status: 404 },
             );
         }
 
-        return NextResponse.json(customer);
+        return NextResponse.json(
+            { success: true, data: customer },
+            { status: 200 },
+        );
     } catch (error) {
         console.error("Error fetching customer:", error);
         return NextResponse.json(
@@ -44,10 +49,28 @@ export async function PATCH(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
+        // TODO: AUTHENTICATION
+        const { id } = await params;
+
+        const customer = await prisma.customer.findUnique({
+            where: { id: parseInt(id) },
+        });
+
+        if (!customer) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "customer not found",
+                },
+                { status: 404 },
+            );
+        }
+
         const body = await request.json();
         const validatedData = customerFormSchema.partial().parse(body);
-        const { id } = await params;
-        const updateData: any = {};
+        const updateData: {
+            [key: string]: any;
+        } = {};
 
         if (validatedData?.name) updateData.name = validatedData.name;
         if (validatedData?.business_name)
@@ -108,7 +131,7 @@ export async function PATCH(
             }
         }
 
-        const customer = await prisma.customer.update({
+        const updatedCustomer = await prisma.customer.update({
             where: { id: parseInt(id) },
             data: updateData,
             include: {
@@ -124,7 +147,14 @@ export async function PATCH(
             },
         });
 
-        return NextResponse.json(customer);
+        return NextResponse.json(
+            {
+                success: true,
+                message: "customer updated successfully",
+                data: updatedCustomer,
+            },
+            { status: 200 },
+        );
     } catch (error) {
         console.error("Error updating customer:", error);
         return NextResponse.json(
@@ -139,12 +169,22 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
+        // TODO: AUTHENTICATION
         const { id } = await params;
-        console.log(parseInt(id));
 
-        await prisma.customer.delete({
+        const customer = await prisma.customer.delete({
             where: { id: parseInt(id) },
         });
+
+        if (!customer) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "customer not found",
+                },
+                { status: 404 },
+            );
+        }
 
         return new NextResponse(null, { status: 204 });
     } catch (error) {

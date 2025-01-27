@@ -16,9 +16,9 @@ export const getDirtyFieldsWithValues = <T>(
 ): Partial<T> => {
     const dirtyFieldValues: Partial<T> = {};
 
-    for (let field in dirtyFields) {
-        if (dirtyFields.hasOwnProperty(field)) {
-            const key = field as keyof T;
+    for (const key in dirtyFields) {
+        if (dirtyFields.hasOwnProperty(key)) {
+            // const key = field as keyof T;
 
             if (dirtyFields[key]) {
                 dirtyFieldValues[key] = formValues[key];

@@ -27,15 +27,16 @@ import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useStates } from "@/hooks/use-states";
-import { useModal } from "@/hooks/useModal";
+import { useModal } from "@/hooks/use-modal";
 import { useCustomers } from "@/hooks/use-customers";
 import { getDirtyFieldsWithValues } from "@/lib/utils";
+import { createCustomer } from "@/lib/api/customers";
 
 export const CustomerRegisterForm = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
 
-    const { data: states, isLoading: isStateLoading } = useStates();
+    const { data: states } = useStates();
 
     const form = useForm<z.infer<typeof customerFormSchema>>({
         resolver: zodResolver(customerFormSchema),
@@ -58,11 +59,9 @@ export const CustomerRegisterForm = () => {
     async function onSubmit(values: z.infer<typeof customerFormSchema>) {
         try {
             setLoading(true);
-            const { data } = await axios.post("/api/customer", values);
-            if (data?.success) {
-                toast.success("Registration successful");
-                router.push("/login");
-            }
+            await createCustomer(values);
+            toast.success("Registration successful");
+            router.push("/login");
         } catch (error) {
             console.log(error);
             toast.error(
@@ -299,10 +298,12 @@ export const CustomerRegisterForm = () => {
 
 export const CustomerEditForm = () => {
     const { data, onClose } = useModal();
-    const { data: states, isLoading: isStateLoading } = useStates();
+    const { data: states } = useStates();
     const { updateCustomer } = useCustomers();
-    const form = useForm<z.infer<typeof customerFormSchema>>({
-        resolver: zodResolver(customerFormSchema),
+    const customerFormSchemaUpdated = customerFormSchema?.partial();
+
+    const form = useForm<z.infer<typeof customerFormSchemaUpdated>>({
+        resolver: zodResolver(customerFormSchemaUpdated),
         defaultValues: {
             name: data?.customer?.name,
             business_name: data?.customer?.business_name,
@@ -316,7 +317,6 @@ export const CustomerEditForm = () => {
             line: data?.customer?.address?.line,
             phone: data?.customer?.phone,
             reference_id: data?.customer?.reference_id?.toString(),
-            password: data?.customer?.password || "",
         },
     });
 

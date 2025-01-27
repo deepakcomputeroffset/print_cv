@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useModal } from "@/hooks/useModal";
-import { ConfirmationModal } from "../modal";
+import { useModal } from "@/hooks/use-modal";
+import { ConfirmationModal } from "../../modal";
 import { useCustomers } from "@/hooks/use-customers";
 
 export const CustomerDeleteModal = () => {

@@ -6,12 +6,15 @@ import { customerFormSchema } from "@/schemas/customer-register-schema";
 import { Prisma } from "@prisma/client";
 import { stringToNumber } from "@/lib/utils";
 import { QuerySchema } from "@/schemas/query-schema";
+import { default_customer_per_page } from "@/lib/constants";
 
 export async function GET(request: Request) {
     try {
+        // TODO: AUTHENTICATION
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
         const { isNum, num } = stringToNumber(query?.search || "");
+
         const where: Prisma.customerWhereInput = {
             AND: [
                 query.search
@@ -80,8 +83,11 @@ export async function GET(request: Request) {
                           [query?.sortby || "id"]: query?.sortorder || "asc",
                       }
                     : undefined,
-                skip: query.page ? (query.page - 1) * (query.perpage || 10) : 0,
-                take: query.perpage || 10,
+                skip: query.page
+                    ? (query.page - 1) *
+                      (query.perpage || default_customer_per_page)
+                    : 0,
+                take: query.perpage || default_customer_per_page,
             }),
         ]);
 
@@ -89,8 +95,10 @@ export async function GET(request: Request) {
             customers,
             total,
             page: query.page || 1,
-            perpage: query.perpage || 10,
-            totalPages: Math.ceil(total / (query.perpage || 10)),
+            perpage: query.perpage || default_customer_per_page,
+            totalPages: Math.ceil(
+                total / (query.perpage || default_customer_per_page),
+            ),
         });
     } catch (error) {
         console.error("Error fetching customers:", error);
@@ -103,8 +111,8 @@ export async function GET(request: Request) {
 
 export async function POST(req: Request) {
     try {
+        // TODO: AUTHENTICATION
         const data = await req.json();
-        console.log(data);
         const { success, data: safeData } = customerFormSchema?.safeParse(data);
 
         if (!success) {
@@ -148,7 +156,11 @@ export async function POST(req: Request) {
         });
 
         return NextResponse.json(
-            { success: true, message: "User created successfully", customer },
+            {
+                success: true,
+                message: "customer created successfully",
+                customer,
+            },
             { status: 201 },
         );
     } catch (error) {

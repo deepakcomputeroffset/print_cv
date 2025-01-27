@@ -1,4 +1,4 @@
-import { CustomerRegisterForm } from "@/components/forms/customer-form";
+import { CustomerRegisterForm } from "@/components/customer/form/customer-form";
 import Link from "next/link";
 
 export default function RegisterPage() {
@@ -7,7 +7,7 @@ export default function RegisterPage() {
             <div className="mx-auto container max-w-3xl space-y-6 p-6 bg-card">
                 {/* <div className="space-y-2 text-center border-b-2"> */}
                 <h1 className="text-3xl text-center font-bold text-muted-foreground pb-2">
-                    Apply for "Print Press" membership account
+                    Apply for &quot;Print Press&quot; membership account
                 </h1>
                 {/* </div> */}
             </div>

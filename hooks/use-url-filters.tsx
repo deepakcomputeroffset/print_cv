@@ -1,5 +1,6 @@
 import { CustomerQueryParams } from "@/lib/api/customers";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 
 export const useUrlFilters = () => {
     const { replace } = useRouter();
@@ -8,16 +9,16 @@ export const useUrlFilters = () => {
     const params = new URLSearchParams(searchParams!);
 
     // params.set(data);
-    const setParam = <
-        K extends keyof CustomerQueryParams,
-        V extends CustomerQueryParams[K],
-    >(
-        key: K,
-        value: V,
-    ) => {
-        params.set(key, `${value}`);
-        replace(`${path}?${params}`);
-    };
+    const setParam = useCallback(
+        <K extends keyof CustomerQueryParams, V extends CustomerQueryParams[K]>(
+            key: K,
+            value: V,
+        ) => {
+            params.set(key, `${value}`);
+            replace(`${path}?${params}`);
+        },
+        [],
+    );
     return {
         setParam,
     };

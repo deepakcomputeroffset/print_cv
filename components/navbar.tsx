@@ -51,6 +51,9 @@ export default function Navbar() {
                 </div>
                 <div className="flex flex-1 items-center justify-end space-x-2">
                     <nav className="flex items-center space-x-2">
+                        <Link href="/admin">
+                            <Button variant="ghost">Admin</Button>
+                        </Link>
                         <Link href="/login">
                             <Button variant="ghost">Login</Button>
                         </Link>

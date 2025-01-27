@@ -3,11 +3,13 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(
     request: Request,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
+        // TODO: AUTHENTICATION
+        const { id } = await params;
         const customer = await prisma.customer.findUnique({
-            where: { id: parseInt(params.id) },
+            where: { id: parseInt(id) },
         });
 
         if (!customer) {
@@ -18,11 +20,18 @@ export async function POST(
         }
 
         const updatedCustomer = await prisma.customer.update({
-            where: { id: parseInt(params.id) },
+            where: { id: parseInt(id) },
             data: { is_Banned: !customer.is_Banned },
         });
 
-        return NextResponse.json(updatedCustomer);
+        return NextResponse.json(
+            {
+                success: true,
+                message: "customer ban status updated successfully.",
+                data: updatedCustomer,
+            },
+            { status: 200 },
+        );
     } catch (error) {
         console.error("Error toggling customer ban status:", error);
         return NextResponse.json(

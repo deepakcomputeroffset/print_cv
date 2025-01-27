@@ -4,8 +4,8 @@ import { toast } from "sonner";
 import { staff } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { useModal } from "@/hooks/useModal";
-import { ConfirmationModal } from "../modal";
+import { useModal } from "@/hooks/use-modal";
+import { ConfirmationModal } from "../../modal";
 
 export const StaffDeleteModal = () => {
     const { isOpen, onClose, data, modal } = useModal();
