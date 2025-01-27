@@ -18,6 +18,7 @@ export async function GET(request: Request) {
         const { isNum, num } = stringToNumber(query?.search || "");
 
         const where: Prisma.product_categoryWhereInput = {
+            parent_category_id: null,
             AND: [
                 query.search
                     ? {
@@ -46,7 +47,11 @@ export async function GET(request: Request) {
             prisma.product_category.findMany({
                 where,
                 include: {
-                    sub_categories: true,
+                    sub_categories: {
+                        include: {
+                            sub_categories: true,
+                        },
+                    },
                 },
                 orderBy: query?.sortby
                     ? {

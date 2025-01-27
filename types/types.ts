@@ -4,6 +4,7 @@ import {
     country,
     customer,
     CUSTOMER_CATEGORY,
+    product_category,
     state,
 } from "@prisma/client";
 
@@ -17,9 +18,14 @@ export type customerWithAddress = customer & {
     };
 };
 
+export interface productCategoryWithSubCategory extends product_category {
+    sub_categories: product_category[];
+}
+
 export interface QueryParams {
     page?: number;
     perpage?: number;
+    totalPages?: number;
     search?: string;
     category?: "all" | CUSTOMER_CATEGORY;
     status?: banStatus | "all";

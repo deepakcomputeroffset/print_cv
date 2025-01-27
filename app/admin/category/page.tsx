@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,11 +18,21 @@ import { useProductCategory } from "@/hooks/use-product-categories";
 import { product_category } from "@prisma/client";
 import { LoadingRow } from "@/components/loading-row";
 import { MessageRow } from "@/components/message-row";
-import { ProductCategoryCreateModal } from "@/components/category/modal/create-product-category-modal";
-import { ProductCategoryEditModal } from "@/components/category/modal/edit-product-category-modal";
+import { ProductCategoryCreateModal } from "@/components/category/modal/product-category-create-modal";
+import { ProductCategoryEditModal } from "@/components/category/modal/product-category-edit-modal";
+import { ProductCategoryDeleteModal } from "@/components/category/modal/produt-category-delete-modal";
+import { productCategoryWithSubCategory, QueryParams } from "@/types/types";
+import { ProductCategoryFilter } from "@/components/category/product-category-filter";
+import Pagination from "@/components/pagination";
 
-export default function CategoriesPage() {
-    const { productCategories, isLoading } = useProductCategory();
+export default function CategoriesPage({
+    searchParams,
+}: {
+    searchParams: Promise<QueryParams>;
+}) {
+    const filters = React.use(searchParams);
+    const { productCategories, isLoading, totalPages } =
+        useProductCategory(filters);
     const { onOpen } = useModal();
 
     return (
@@ -36,9 +46,11 @@ export default function CategoriesPage() {
             </div>
 
             <Card className="p-6">
+                <ProductCategoryFilter filters={filters} />
                 <Table>
                     <TableHeader>
                         <TableRow>
+                            <TableHead className="text-center">Id</TableHead>
                             <TableHead>Name</TableHead>
                             <TableHead>Description</TableHead>
                             <TableHead>Image</TableHead>
@@ -52,13 +64,12 @@ export default function CategoriesPage() {
                             <MessageRow text="No category found" />
                         ) : (
                             productCategories?.map(
-                                (category: product_category, idx: number) => (
+                                (
+                                    category: productCategoryWithSubCategory,
+                                    idx: number,
+                                ) => (
                                     <RenderCategoryRow
-                                        category={
-                                            category as product_category & {
-                                                sub_categories: product_category[];
-                                            }
-                                        }
+                                        category={category}
                                         level={0}
                                         key={idx}
                                     />
@@ -67,6 +78,8 @@ export default function CategoriesPage() {
                         )}
                     </TableBody>
                 </Table>
+
+                <Pagination isLoading={isLoading} totalPage={totalPages} />
             </Card>
 
             <ProductCategoryCreateModal />
@@ -78,9 +91,7 @@ const RenderCategoryRow = ({
     category,
     level = 0,
 }: {
-    category: product_category & {
-        sub_categories: product_category[];
-    };
+    category: productCategoryWithSubCategory;
     level?: number;
 }) => {
     const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
@@ -92,21 +103,21 @@ const RenderCategoryRow = ({
                 : [...prev, categoryId],
         );
     };
+
     const isExpanded = expandedCategories.includes(category.id);
-    const hasSubcategories = category.sub_categories.length > 0;
+    const hasSubcategories = category?.sub_categories?.length > 0;
     const { onOpen } = useModal();
     return (
         <>
-            <ProductCategoryEditModal />
             <TableRow key={`${category.id}-${level}`}>
                 <TableCell>
                     <div
-                        className="flex items-center"
+                        className="flex items-center justify-center"
                         style={{ paddingLeft: `${level * 2}rem` }}
                     >
                         {hasSubcategories && (
                             <button
-                                onClick={() => toggleExpand(category.id)}
+                                onClick={() => toggleExpand(category?.id)}
                                 className="p-1 hover:bg-gray-100 rounded-full mr-2"
                             >
                                 {isExpanded ? (
@@ -116,10 +127,13 @@ const RenderCategoryRow = ({
                                 )}
                             </button>
                         )}
-                        {category?.name}
+                        {category?.id}
                     </div>
                 </TableCell>
-                <TableCell>{category?.description}</TableCell>
+                <TableCell>{category?.name}</TableCell>
+                <TableCell className="text-clip">
+                    {category?.description?.substring(0, 30)}...
+                </TableCell>
                 <TableCell>
                     <div className="relative h-10 w-10">
                         <Image
@@ -147,6 +161,7 @@ const RenderCategoryRow = ({
                         <Button
                             variant="ghost"
                             size="icon"
+                            disabled={level >= 2}
                             onClick={() =>
                                 onOpen("createProductCategory", {
                                     product_category: category,
@@ -170,6 +185,7 @@ const RenderCategoryRow = ({
                     </div>
                 </TableCell>
             </TableRow>
+
             {isExpanded &&
                 category.sub_categories.map((subCategory) => (
                     <RenderCategoryRow
@@ -182,6 +198,9 @@ const RenderCategoryRow = ({
                         key={subCategory?.id + level + 1}
                     />
                 ))}
+
+            <ProductCategoryEditModal />
+            <ProductCategoryDeleteModal />
         </>
     );
 };

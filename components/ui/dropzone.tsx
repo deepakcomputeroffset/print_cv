@@ -26,7 +26,7 @@ export function Dropzone({
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop: handleDrop,
         accept: {
-            "image/*": [".jpeg", ".jpg", ".png", ".webp"],
+            "image/jpeg": [".jpeg", ".jpg", ".png", ".webp"],
         },
         maxFiles,
         maxSize,

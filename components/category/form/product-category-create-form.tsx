@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/hooks/use-modal";
 import { useProductCategory } from "@/hooks/use-product-categories";
-import { getDirtyFieldsWithValues } from "@/lib/utils";
 import { productCategorySchema } from "@/schemas/product-category-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Trash } from "lucide-react";
@@ -23,62 +22,50 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-export const ProductCategoryEditForm = () => {
+export const ProductCategoryCreateForm = () => {
     const { onClose, data } = useModal();
     const form = useForm<z.infer<typeof productCategorySchema>>({
         resolver: zodResolver(productCategorySchema),
         defaultValues: {
-            name: data?.product_category?.name,
-            description: data?.product_category?.description!,
-            image_url: data?.product_category?.image_url,
+            name: "",
+            description: "",
+            image_url: undefined,
             parent_category_id: data?.product_category?.id || null,
         },
     });
     const {
-        updateProductCategory: { mutateAsync, isPending },
+        createProductCategory: { mutate, isPending, mutateAsync },
     } = useProductCategory();
 
-    const formData = form.watch();
-    const dirtyFields = form.formState.dirtyFields;
-    const dirtyFieldsWithValues = getDirtyFieldsWithValues(
-        dirtyFields,
-        formData,
-    );
     const handleDrop = useCallback(async (files: File[]) => {
         if (files[0]) {
-            const base64 = new Promise((res) => {
-                const fileReader = new FileReader();
-                fileReader.readAsDataURL(files[0]);
-                fileReader.onload = () => {
-                    toast.success("Image loaded");
-                    res(fileReader.result);
-                    form.setValue("image_url", fileReader.result as string, {
-                        shouldDirty: true,
-                    });
-                };
-            });
-
-            return await base64;
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(files[0]);
+            fileReader.onload = () => {
+                form.setValue("image_url", fileReader.result as string);
+            };
+        } else {
+            toast.error("Image size must be less 5mb");
         }
     }, []);
     const handleDelete = useCallback(() => {
         if (!!form.getValues("image_url")) {
-            form.setValue("image_url", "", { shouldDirty: false });
+            form.setValue("image_url", "");
         }
     }, []);
 
-    const handleSubmit = async () => {
-        await mutateAsync({
-            id: data?.product_category?.id!,
-            data: dirtyFieldsWithValues,
-        });
+    const handleSubmit = async (
+        values: z.infer<typeof productCategorySchema>,
+    ) => {
+        await mutateAsync(values);
         onClose();
         form.reset();
     };
+
     return (
         <Form {...form}>
             <form
-                onSubmit={form.handleSubmit(() => handleSubmit())}
+                onSubmit={form.handleSubmit((values) => handleSubmit(values))}
                 className="space-y-4"
             >
                 <FormField
@@ -88,12 +75,13 @@ export const ProductCategoryEditForm = () => {
                         <FormItem>
                             <FormLabel>Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="Name Here" {...field} />
+                                <Input placeholder="Aditya Kumar" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
+
                 <FormField
                     control={form.control}
                     name="description"
@@ -102,7 +90,7 @@ export const ProductCategoryEditForm = () => {
                             <FormLabel>Description</FormLabel>
                             <FormControl>
                                 <Textarea
-                                    placeholder="Description Here..."
+                                    placeholder="This is description"
                                     {...field}
                                 />
                             </FormControl>
@@ -114,7 +102,7 @@ export const ProductCategoryEditForm = () => {
                 <FormField
                     control={form.control}
                     name="image_url"
-                    render={({ field }) => (
+                    render={() => (
                         <FormItem>
                             <FormLabel>Image</FormLabel>
                             <FormControl>
@@ -159,7 +147,7 @@ export const ProductCategoryEditForm = () => {
                     {isPending ? (
                         <Loader2 className="animate-spin" />
                     ) : (
-                        "update"
+                        "create"
                     )}
                 </Button>
             </form>

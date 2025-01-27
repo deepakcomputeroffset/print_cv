@@ -1,20 +1,20 @@
 import { NextResponse } from "next/server";
 // import { prisma } from "@/lib/prisma";
-import { auth } from "@/lib/auth";
+// import { auth } from "@/lib/auth";
 
 export async function GET(
     req: Request,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        const session = await auth();
+        // const session = await auth();
 
-        if (!session?.user) {
-            return NextResponse.json(
-                { message: "Unauthorized" },
-                { status: 401 },
-            );
-        }
+        // if (!session?.user) {
+        //     return NextResponse.json(
+        //         { message: "Unauthorized" },
+        //         { status: 401 },
+        //     );
+        // }
 
         // const order = await prisma.order.findUnique({
         //     where: { id: params.id },
@@ -55,21 +55,18 @@ export async function GET(
 
 export async function PATCH(
     req: Request,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        const session = await auth();
-
-        if (session?.user?.role !== "ADMIN") {
-            return NextResponse.json(
-                { message: "Unauthorized" },
-                { status: 401 },
-            );
-        }
-        console.log(params);
-
+        // const session = await auth();
+        // if (session?.user?.role !== "ADMIN") {
+        //     return NextResponse.json(
+        //         { message: "Unauthorized" },
+        //         { status: 401 },
+        //     );
+        // }
+        // console.log(params);
         // const { status } = await req.json();
-
         // const order = await prisma.order.update({
         //     where: { id: params.id },
         //     data: { status },
@@ -82,7 +79,6 @@ export async function PATCH(
         //         },
         //     },
         // });
-
         // return NextResponse.json(order);
     } catch (error) {
         console.log(error);

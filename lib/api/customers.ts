@@ -2,11 +2,12 @@ import queryString from "query-string";
 import axios from "axios";
 import { z } from "zod";
 import { customerFormSchema } from "@/schemas/customer-register-schema";
-import { QueryParams } from "@/types/types";
+import { customerWithAddress, QueryParams } from "@/types/types";
 import { customerBaseUrl } from "../urls";
 
-export async function fetchCustomers(params: QueryParams = {}) {
-    console.log("calling");
+export async function fetchCustomers(
+    params: QueryParams = {},
+): Promise<QueryParams & { customers: customerWithAddress[] }> {
     const url = queryString.stringifyUrl({
         url: customerBaseUrl,
         query: { ...params },

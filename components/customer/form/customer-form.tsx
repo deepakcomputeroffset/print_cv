@@ -23,7 +23,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useStates } from "@/hooks/use-states";
@@ -329,8 +329,11 @@ export const CustomerEditForm = () => {
     );
 
     const onSubmit = () => {
-        if (Object.keys(dirtyFieldsWithValues).length > 0) {
-            updateCustomer(data?.customer?.id!, dirtyFieldsWithValues);
+        if (
+            Object.keys(dirtyFieldsWithValues).length > 0 &&
+            data?.customer?.id
+        ) {
+            updateCustomer(data?.customer?.id, dirtyFieldsWithValues);
         }
         onClose();
     };

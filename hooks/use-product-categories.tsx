@@ -66,10 +66,12 @@ export function useProductCategory(props: QueryParams = {}) {
         isLoading,
         refetch,
         createProductCategory: createMutation,
-        updateProductCategory: (
-            id: number,
-            data: Partial<z.infer<typeof productCategorySchema>>,
-        ) => updateMutation.mutate({ id, data }),
-        deleteProductCategory: (id: number) => deleteMutation.mutate(id),
+        // updateProductCategory: async (
+        //     id: number,
+        //     data: Partial<z.infer<typeof productCategorySchema>>,
+        // ) => updateMutation.mutateAsync({ id, data }),
+        updateProductCategory: updateMutation,
+        deleteProductCategory: async (id: number) =>
+            await deleteMutation.mutateAsync(id),
     };
 }

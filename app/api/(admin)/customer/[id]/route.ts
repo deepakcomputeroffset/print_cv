@@ -68,9 +68,10 @@ export async function PATCH(
 
         const body = await request.json();
         const validatedData = customerFormSchema.partial().parse(body);
-        const updateData: {
-            [key: string]: any;
-        } = {};
+        type NestedObject<T = any> = {
+            [key: string]: T | NestedObject<T>;
+        };
+        const updateData: NestedObject = {};
 
         if (validatedData?.name) updateData.name = validatedData.name;
         if (validatedData?.business_name)

@@ -65,7 +65,6 @@ export async function PATCH(
         }
 
         const data = await request.json();
-        console.log(data);
         const validatedData = productCategorySchema.partial().parse(data);
 
         if (validatedData?.image_url) {
@@ -148,7 +147,7 @@ export async function DELETE(
                 { status: 404 },
             );
         }
-        await DELETE_FILE(product_category?.image_url);
+        DELETE_FILE(product_category?.image_url);
         return new NextResponse(null, { status: 204 });
     } catch (error) {
         console.error("Error deleting product_category:", `${error}`);

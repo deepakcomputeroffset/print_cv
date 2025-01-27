@@ -5,10 +5,11 @@ import { stringToNumber } from "@/lib/utils";
 
 export async function GET(
     req: Request,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        const { isNum, num: pid } = stringToNumber(params.id);
+        const { id } = await params;
+        const { isNum, num: pid } = stringToNumber(id);
         if (!isNum) {
             return NextResponse.json(
                 { message: "Invalid product_categoryId" },
@@ -40,7 +41,7 @@ export async function GET(
 
 export async function PATCH(
     req: Request,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
         const session = await auth();
@@ -53,7 +54,8 @@ export async function PATCH(
         }
 
         const { name, description, imageUrl, categoryId } = await req.json();
-        const { isNum, num: pid } = stringToNumber(params.id);
+        const { id } = await params;
+        const { isNum, num: pid } = stringToNumber(id);
         if (!isNum) {
             return NextResponse.json(
                 { message: "Invalid product_categoryId" },
@@ -66,8 +68,8 @@ export async function PATCH(
                 name,
                 description,
                 // price: parseFloat(price),
-                imageUrl,
-                categoryId,
+                // imageUrl,
+                // categoryId,
             },
             include: {
                 category: true,
@@ -86,7 +88,7 @@ export async function PATCH(
 
 export async function DELETE(
     req: Request,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
         const session = await auth();
@@ -97,7 +99,8 @@ export async function DELETE(
                 { status: 401 },
             );
         }
-        const { isNum, num: pid } = stringToNumber(params.id);
+        const { id } = await params;
+        const { isNum, num: pid } = stringToNumber(id);
         if (!isNum) {
             return NextResponse.json(
                 { message: "Invalid product_categoryId" },

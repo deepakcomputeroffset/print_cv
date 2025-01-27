@@ -7,8 +7,9 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { order } from "@prisma/client";
 
-export function RecentOrders({ orders }) {
+export function RecentOrders({ orders }: { orders: order[] }) {
     return (
         <Table>
             <TableHeader>
@@ -23,9 +24,9 @@ export function RecentOrders({ orders }) {
                 {orders.map((order) => (
                     <TableRow key={order.id}>
                         <TableCell className="font-medium">
-                            #{order.id.slice(0, 8)}
+                            #{order.id}
                         </TableCell>
-                        <TableCell>{order.user.name}</TableCell>
+                        <TableCell>{order.customer_id}</TableCell>
                         <TableCell>{order.status}</TableCell>
                         <TableCell>
                             {formatDistanceToNow(new Date(order.createdAt), {

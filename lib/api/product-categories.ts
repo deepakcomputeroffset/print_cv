@@ -1,11 +1,13 @@
 import queryString from "query-string";
 import axios from "axios";
 import { z } from "zod";
-import { QueryParams } from "@/types/types";
+import { productCategoryWithSubCategory, QueryParams } from "@/types/types";
 import { productCategoryBaseUrl } from "../urls";
 import { productCategorySchema } from "@/schemas/product-category-schema";
 
-export async function fetchProductCategories(params: QueryParams = {}) {
+export async function fetchProductCategories(
+    params: QueryParams = {},
+): Promise<QueryParams & { data: productCategoryWithSubCategory[] }> {
     const url = queryString.stringifyUrl({
         url: productCategoryBaseUrl,
         query: { ...params },

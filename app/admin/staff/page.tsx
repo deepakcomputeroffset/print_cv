@@ -124,7 +124,10 @@ export default function StaffPage({
                         </TableBody>
                     </Table>
 
-                    <Pagination total={datas?.total} isLoading={isLoading} />
+                    <Pagination
+                        totalPage={datas?.totalPage}
+                        isLoading={isLoading}
+                    />
                 </div>
             )}
         </div>

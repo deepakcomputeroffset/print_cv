@@ -3,10 +3,10 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET() {
     try {
-        const districts = await prisma.district.findMany({
+        const Citys = await prisma.city.findMany({
             include: { state: true },
         });
-        return NextResponse.json(districts, { status: 200 });
+        return NextResponse.json(Citys, { status: 200 });
     } catch (error) {
         return NextResponse.json(
             {
@@ -30,11 +30,11 @@ export async function POST(req: Request) {
             );
         }
 
-        const newDistrict = await prisma.district.create({
-            data: { name, stateId },
+        const newCity = await prisma.city.create({
+            data: { name, state_id: stateId },
         });
 
-        return NextResponse.json(newDistrict, { status: 201 });
+        return NextResponse.json(newCity, { status: 201 });
     } catch (error) {
         return NextResponse.json(
             {
@@ -58,12 +58,12 @@ export async function PUT(req: Request) {
             );
         }
 
-        const updatedDistrict = await prisma.district.update({
+        const updatedCity = await prisma.city.update({
             where: { id },
             data: { name },
         });
 
-        return NextResponse.json(updatedDistrict, { status: 200 });
+        return NextResponse.json(updatedCity, { status: 200 });
     } catch (error) {
         return NextResponse.json(
             {
@@ -87,12 +87,12 @@ export async function DELETE(req: Request) {
             );
         }
 
-        const deletedDistrict = await prisma.district.delete({
+        const deletedCity = await prisma.city.delete({
             where: { id },
         });
 
         return NextResponse.json(
-            { message: "District deleted successfully", deletedDistrict },
+            { message: "City deleted successfully", deletedCity },
             { status: 200 },
         );
     } catch (error) {
