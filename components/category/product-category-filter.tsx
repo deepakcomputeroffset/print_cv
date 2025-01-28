@@ -46,31 +46,32 @@ export const ProductCategoryFilter = ({
                     />
                 </div>
             </div>
+            <div className="flex justify-between gap-3">
+                <Select
+                    value={filters?.sortby || "id"}
+                    onValueChange={(value) => setParam("sortby", value)}
+                >
+                    <SelectTrigger className="md:w-[180px]">
+                        <SelectValue placeholder="Sort By" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>Sort By</SelectLabel>
+                            <SelectItem value="id">Id</SelectItem>
+                            <SelectItem value="name">Name</SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
 
-            <Select
-                value={filters?.sortby || "id"}
-                onValueChange={(value) => setParam("sortby", value)}
-            >
-                <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Sort By" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectGroup>
-                        <SelectLabel>Sort By</SelectLabel>
-                        <SelectItem value="id">Id</SelectItem>
-                        <SelectItem value="name">Name</SelectItem>
-                    </SelectGroup>
-                </SelectContent>
-            </Select>
-
-            <Button
-                variant="outline"
-                onClick={() =>
-                    setSortOrder(sortOrder == "asc" ? "desc" : "asc")
-                }
-            >
-                {sortOrder === "desc" ? "↑" : "↓"}
-            </Button>
+                <Button
+                    variant="outline"
+                    onClick={() =>
+                        setSortOrder(sortOrder == "asc" ? "desc" : "asc")
+                    }
+                >
+                    {sortOrder === "desc" ? "↑" : "↓"}
+                </Button>
+            </div>
         </div>
     );
 };

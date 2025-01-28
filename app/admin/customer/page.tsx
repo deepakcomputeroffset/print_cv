@@ -11,6 +11,7 @@ import { default_customer_per_page } from "@/lib/constants";
 import { CustomerFilter } from "@/components/customer/customer-filter";
 import { CustomerListTable } from "@/components/customer/customer-list-table";
 import { QueryParams } from "@/types/types";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function CustomersPage({
     searchParams,
@@ -41,9 +42,10 @@ export default function CustomersPage({
     }
 
     return (
-        <div className="p-6 space-y-6 h-full min-h-full">
-            <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold">Customers</h1>
+        <div className="space-y-6 h-full min-h-full">
+            <div className="flex items-center gap-3">
+                <SidebarTrigger className="w-8 h-8" />
+                <h1 className="text-2xl font-normal">Customers</h1>
             </div>
 
             <Card>

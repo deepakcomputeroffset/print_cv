@@ -24,6 +24,8 @@ import { ProductCategoryDeleteModal } from "@/components/category/modal/produt-c
 import { productCategoryWithSubCategory, QueryParams } from "@/types/types";
 import { ProductCategoryFilter } from "@/components/category/product-category-filter";
 import Pagination from "@/components/pagination";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
 
 export default function CategoriesPage({
     searchParams,
@@ -36,12 +38,19 @@ export default function CategoriesPage({
     const { onOpen } = useModal();
 
     return (
-        <div className="p-6">
+        <div>
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold">Categories</h1>
-                <Button onClick={() => onOpen("createProductCategory", {})}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Category
+                <div className="flex items-center gap-3">
+                    <SidebarTrigger className="w-8 h-8" />
+                    <h1 className="text-2xl font-normal">Categories</h1>
+                </div>
+                <Button
+                    variant={"outline"}
+                    size={"sm"}
+                    className="flex items-center justify-center"
+                    onClick={() => onOpen("createProductCategory", {})}
+                >
+                    <Plus className="h-4 w-4" />
                 </Button>
             </div>
 

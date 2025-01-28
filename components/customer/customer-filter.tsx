@@ -33,7 +33,7 @@ export const CustomerFilter = ({ filters }: { filters: QueryParams }) => {
     return (
         <div className="flex flex-col md:flex-row gap-4 mb-6 flex-wrap">
             <div className="flex-1">
-                <div className="relative">
+                <div className="relative min-w-28">
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                         placeholder="Search customers..."
@@ -43,69 +43,73 @@ export const CustomerFilter = ({ filters }: { filters: QueryParams }) => {
                     />
                 </div>
             </div>
-            <Select
-                value={filters?.category || "all"}
-                onValueChange={(value) =>
-                    setParam("category", value as "all" | CUSTOMER_CATEGORY)
-                }
-            >
-                <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Customer Category" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="all">All Categories</SelectItem>
-                    <SelectItem value="LOW">Low</SelectItem>
-                    <SelectItem value="MEDIUM">Medium</SelectItem>
-                    <SelectItem value="HIGH">High</SelectItem>
-                </SelectContent>
-            </Select>
+            <div className="flex items-center gap-3">
+                <Select
+                    value={filters?.category || "all"}
+                    onValueChange={(value) =>
+                        setParam("category", value as "all" | CUSTOMER_CATEGORY)
+                    }
+                >
+                    <SelectTrigger className="md:w-[180px]">
+                        <SelectValue placeholder="Customer Category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">All Categories</SelectItem>
+                        <SelectItem value="LOW">Low</SelectItem>
+                        <SelectItem value="MEDIUM">Medium</SelectItem>
+                        <SelectItem value="HIGH">High</SelectItem>
+                    </SelectContent>
+                </Select>
 
-            <Select
-                value={filters?.status || "all"}
-                onValueChange={(value) =>
-                    setParam("status", (value as banStatus) || "all")
-                }
-            >
-                <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="all">All Status</SelectItem>
-                    <SelectItem value="false">Active</SelectItem>
-                    <SelectItem value="true">Banned</SelectItem>
-                </SelectContent>
-            </Select>
+                <Select
+                    value={filters?.status || "all"}
+                    onValueChange={(value) =>
+                        setParam("status", (value as banStatus) || "all")
+                    }
+                >
+                    <SelectTrigger className="md:w-[180px]">
+                        <SelectValue placeholder="Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">All Status</SelectItem>
+                        <SelectItem value="false">Active</SelectItem>
+                        <SelectItem value="true">Banned</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
 
-            <Select
-                value={filters?.sortby || "id"}
-                onValueChange={(value) => setParam("sortby", value)}
-            >
-                <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Sort By" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectGroup>
-                        <SelectLabel>Sort By</SelectLabel>
-                        <SelectItem value="id">Id</SelectItem>
-                        <SelectItem value="is_Banned">Status</SelectItem>
-                        <SelectItem value="name">Name</SelectItem>
-                        <SelectItem value="business_name">
-                            Business Name
-                        </SelectItem>
-                        <SelectItem value="email">Email</SelectItem>
-                        <SelectItem value="phone">Phone</SelectItem>
-                    </SelectGroup>
-                </SelectContent>
-            </Select>
+            <div className="flex items-center gap-3">
+                <Select
+                    value={filters?.sortby || "id"}
+                    onValueChange={(value) => setParam("sortby", value)}
+                >
+                    <SelectTrigger className="md:w-[180px]">
+                        <SelectValue placeholder="Sort By" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>Sort By</SelectLabel>
+                            <SelectItem value="id">Id</SelectItem>
+                            <SelectItem value="is_Banned">Status</SelectItem>
+                            <SelectItem value="name">Name</SelectItem>
+                            <SelectItem value="business_name">
+                                Business Name
+                            </SelectItem>
+                            <SelectItem value="email">Email</SelectItem>
+                            <SelectItem value="phone">Phone</SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
 
-            <Button
-                variant="outline"
-                onClick={() =>
-                    setSortOrder(sortOrder == "asc" ? "desc" : "asc")
-                }
-            >
-                {sortOrder === "desc" ? "↑" : "↓"}
-            </Button>
+                <Button
+                    variant="outline"
+                    onClick={() =>
+                        setSortOrder(sortOrder == "asc" ? "desc" : "asc")
+                    }
+                >
+                    {sortOrder === "desc" ? "↑" : "↓"}
+                </Button>
+            </div>
         </div>
     );
 };

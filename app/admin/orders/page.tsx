@@ -267,6 +267,7 @@ import {
     Calendar,
 } from "lucide-react";
 import Link from "next/link";
+import { format } from "date-fns";
 
 interface Order {
     id: string;
@@ -716,9 +717,9 @@ export default function OrdersPage() {
                                     </Badge>
                                 </TableCell>
                                 <TableCell>
-                                    {new Date(
+                                    {format(
                                         order.createdAt,
-                                    ).toLocaleDateString()}
+                                    "hh-M dd/mm/yyyy")}
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex space-x-2">

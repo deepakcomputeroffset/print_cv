@@ -1,6 +1,7 @@
 // import { redirect } from "next/navigation";
 // import { auth } from "@/lib/auth";
-import { AdminSidebar } from "@/components/admin/sidebar";
+import { AppSidebar } from "@/components/sidebar/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default async function AdminLayout({
     children,
@@ -15,10 +16,13 @@ export default async function AdminLayout({
 
     return (
         <div className="flex h-screen">
-            <AdminSidebar />
-            <main className="flex-1 overflow-y-auto p-8 h-full">
-                {children}
-            </main>
+            <SidebarProvider>
+                {/* <AdminSidebar /> */}
+                <AppSidebar />
+                <main className="flex-1 overflow-y-auto p-8 h-full">
+                    {children}
+                </main>
+            </SidebarProvider>
         </div>
     );
 }
