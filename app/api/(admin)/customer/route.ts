@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateHash } from "@/lib/hash";
-import { customerFormSchema } from "@/schemas/customer-register-schema";
+import { customerFormSchema } from "@/schemas/customer-schema";
 
 import { Prisma } from "@prisma/client";
 import { stringToNumber } from "@/lib/utils";

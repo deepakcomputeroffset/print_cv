@@ -29,7 +29,7 @@ export const ProductCategoryEditForm = () => {
         resolver: zodResolver(productCategorySchema),
         defaultValues: {
             name: data?.product_category?.name,
-            description: data?.product_category?.description!,
+            description: data?.product_category?.description || "",
             image_url: data?.product_category?.image_url,
             parent_category_id: data?.product_category?.id || null,
         },
@@ -61,6 +61,7 @@ export const ProductCategoryEditForm = () => {
             return await base64;
         }
     }, []);
+
     const handleDelete = useCallback(() => {
         if (!!form.getValues("image_url")) {
             form.setValue("image_url", "", { shouldDirty: false });
@@ -68,12 +69,14 @@ export const ProductCategoryEditForm = () => {
     }, []);
 
     const handleSubmit = async () => {
-        await mutateAsync({
-            id: data?.product_category?.id!,
-            data: dirtyFieldsWithValues,
-        });
-        onClose();
-        form.reset();
+        if (data?.product_category?.id) {
+            await mutateAsync({
+                id: data?.product_category?.id,
+                data: dirtyFieldsWithValues,
+            });
+            onClose();
+            form.reset();
+        }
     };
     return (
         <Form {...form}>
@@ -114,7 +117,7 @@ export const ProductCategoryEditForm = () => {
                 <FormField
                     control={form.control}
                     name="image_url"
-                    render={({ field }) => (
+                    render={() => (
                         <FormItem>
                             <FormLabel>Image</FormLabel>
                             <FormControl>

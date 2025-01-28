@@ -28,11 +28,8 @@ export const customerFormSchema = z.object({
 
     phone: z
         .string()
-        .min(9, "Enter valid phone number")
-        .regex(
-            /^\+?[1-9]\d{1,14}$/,
-            "Invalid phone number format. Include country code, e.g., +1234567890.",
-        ),
+        .min(10, "Enter valid phone number")
+        .regex(/^\d{1,10}$/, "Invalid phone number format. e.g., 1234567890."),
     email: z.string().email("Enter valid email address."),
     reference_id: z.string().optional(),
 

@@ -45,7 +45,7 @@ export default function CustomersPage({
         <div className="space-y-6 h-full min-h-full">
             <div className="flex items-center gap-3">
                 <SidebarTrigger className="w-8 h-8" />
-                <h1 className="text-2xl font-normal">Customers</h1>
+                <h1 className="text-2xl font-semibold">Customers</h1>
             </div>
 
             <Card>

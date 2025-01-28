@@ -3,7 +3,7 @@
 import React from "react";
 import { useModal } from "@/hooks/use-modal";
 import { Modal } from "../../modal";
-import { CustomerEditForm } from "@/components/customer/form/customer-form";
+import { CustomerEditForm } from "@/components/customer/form/customer-edit-form";
 
 export const CustomerEditModal = () => {
     const { isOpen, modal, onClose } = useModal();

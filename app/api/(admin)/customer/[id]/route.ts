@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { customerFormSchema } from "@/schemas/customer-register-schema";
+import { customerFormSchema } from "@/schemas/customer-schema";
 
 export async function GET(
     request: Request,
@@ -68,6 +68,8 @@ export async function PATCH(
 
         const body = await request.json();
         const validatedData = customerFormSchema.partial().parse(body);
+
+        // eslint-disable-next-line
         type NestedObject<T = any> = {
             [key: string]: T | NestedObject<T>;
         };

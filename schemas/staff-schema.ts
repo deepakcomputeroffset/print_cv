@@ -6,9 +6,9 @@ export const staffFormSchema = z.object({
     email: z.string().email("Enter valid email address."),
     phone: z
         .string()
-        .min(9, "Enter valid phone number")
+        .min(10, "Enter valid phone number")
         .regex(
-            /^\+?[1-9]\d{1,14}$/,
+            /^\d{1,10}$/,
             "Invalid phone number format. Include country code, e.g., +1234567890.",
         ),
     role: z.nativeEnum(ROLE, { message: "Invalid role." }),

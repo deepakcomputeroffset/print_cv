@@ -1,22 +1,26 @@
 import "next-auth";
-import { user, UserRole } from "@prisma/client";
+import { customer, staff } from "@prisma/client";
 
 declare module "next-auth" {
-    interface Session {
-        user: user & {
-            // id: string;
-            // email: string;
-            // phone: string;
-            // isBanned: boolean;
-            // businessName: string;
-            // name: string;
-            // role: UserRole;
-        };
+    interface User {
+        userType: "staff" | "customer";
+        customer: customer;
+        staff: staff;
     }
 
-    interface User extends user {}
+    interface Session {
+        user: {
+            userType: "staff" | "customer";
+            customer: customer;
+            staff: staff;
+        };
+    }
 }
 
 declare module "next-auth/jwt" {
-    interface JWT extends user {}
+    interface JWT {
+        userType?: "staff" | "customer";
+        customer?: customer;
+        staff?: staff;
+    }
 }

@@ -25,7 +25,6 @@ import { productCategoryWithSubCategory, QueryParams } from "@/types/types";
 import { ProductCategoryFilter } from "@/components/category/product-category-filter";
 import Pagination from "@/components/pagination";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
 
 export default function CategoriesPage({
     searchParams,
@@ -42,7 +41,7 @@ export default function CategoriesPage({
             <div className="flex justify-between items-center mb-6">
                 <div className="flex items-center gap-3">
                     <SidebarTrigger className="w-8 h-8" />
-                    <h1 className="text-2xl font-normal">Categories</h1>
+                    <h1 className="text-2xl font-semibold">Categories</h1>
                 </div>
                 <Button
                     variant={"outline"}

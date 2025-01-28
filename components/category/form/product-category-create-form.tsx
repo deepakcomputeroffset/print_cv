@@ -34,7 +34,7 @@ export const ProductCategoryCreateForm = () => {
         },
     });
     const {
-        createProductCategory: { mutate, isPending, mutateAsync },
+        createProductCategory: { isPending, mutateAsync },
     } = useProductCategory();
 
     const handleDrop = useCallback(async (files: File[]) => {

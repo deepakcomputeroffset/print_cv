@@ -1,135 +1,89 @@
 "use client";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
-import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
-import { Action } from "@/components/action";
-import { useModal } from "@/hooks/use-modal";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import queryString from "query-string";
-import { staff } from "@prisma/client";
-import { StaffEditModal } from "@/components/staff/modal/staff-edit-modal";
-import { Button } from "@/components/ui/button";
-import { StaffAddModal } from "@/components/staff/modal/staff-add-modal";
-import { StaffDeleteModal } from "@/components/staff/modal/staff-delete-modal";
-import React from "react";
-import { SearchBar } from "@/components/search";
-import Pagination from "@/components/pagination";
 
-export default function StaffPage({
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import Pagination from "@/components/pagination";
+import { default_staff_per_page } from "@/lib/constants";
+import { QueryParams } from "@/types/types";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { useStaff } from "@/hooks/use-staff";
+import { StaffListTable } from "@/components/staff/staff-list-table";
+import { StaffAddModal } from "@/components/staff/modal/staff-add-modal";
+import { StaffEditModal } from "@/components/staff/modal/staff-edit-modal";
+import { StaffDeleteModal } from "@/components/staff/modal/staff-delete-modal";
+import { Button } from "@/components/ui/button";
+import { useModal } from "@/hooks/use-modal";
+import { StaffFilter } from "@/components/staff/staff-filter";
+import { Plus } from "lucide-react";
+
+export default function StaffsPage({
     searchParams,
 }: {
-    searchParams: Promise<{ page: string; id: string }>;
+    searchParams: Promise<QueryParams>;
 }) {
-    const { page, id } = React.use(searchParams);
-    const { data: datas, isLoading } = useQuery({
-        queryKey: ["admin-staff", page || "1", id || ""],
-        queryFn: async () => {
-            try {
-                const url = queryString.stringifyUrl({
-                    url: "/api/staff",
-                    query: {
-                        page: page,
-                        id,
-                    },
-                });
-                const { data } = await axios(url);
-                return data;
-            } catch (error) {
-                if (error) {
-                    console.log(error);
-                    toast("Unable to load data");
-                    return [];
-                }
-            }
-        },
+    const filters = React.use(searchParams);
+
+    const { staffs, totalPages, isLoading, error, toggleBanStatus } = useStaff({
+        ...filters,
+        sortorder:
+            filters?.sortorder !== undefined ? filters?.sortorder : "asc",
+        perpage: filters?.perpage || default_staff_per_page,
     });
 
     const { onOpen } = useModal();
 
-    return (
-        <div className="space-y-6">
-            <StaffEditModal />
-            <StaffAddModal />
-            <StaffDeleteModal />
-            <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold">Staffs</h1>
-                <div className="flex items-center gap-2">
-                    <SearchBar queryName="id" />
-                    <Button onClick={() => onOpen("addStaff", {})}>
-                        Add Staff
-                    </Button>
+    if (error) {
+        return (
+            <div className="p-6">
+                <div className="bg-red-50 text-red-800 p-4 rounded-md">
+                    Error loading staffs:
+                    {error instanceof Error
+                        ? error.message
+                        : "An error occurred"}
                 </div>
             </div>
+        );
+    }
 
-            {isLoading ? (
-                <div className="w-full h-[50vh] flex justify-center items-center">
-                    <Loader2 className="animate-spin" />
+    return (
+        <div className="space-y-6 h-full min-h-full">
+            <div className="flex justify-between items-center">
+                <div className="flex items-center gap-3">
+                    <SidebarTrigger className="w-8 h-8" />
+                    <h1 className="text-2xl font-semibold">Staffs</h1>
                 </div>
-            ) : (
-                <div className="rounded-md border pb-1">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Id</TableHead>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Email</TableHead>
-                                <TableHead>Phone</TableHead>
-                                <TableHead>Role</TableHead>
-                                <TableHead>Joined</TableHead>
-                                <TableHead className="text-right">
-                                    Actions
-                                </TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {!!datas?.data &&
-                                datas?.data?.map((data: staff) => (
-                                    <TableRow key={data?.id}>
-                                        <TableCell>{data?.id}</TableCell>
-                                        <TableCell>{data?.name}</TableCell>
-                                        <TableCell>{data?.email}</TableCell>
-                                        <TableCell>{data?.phone}</TableCell>
-                                        <TableCell>{data?.role}</TableCell>
-                                        <TableCell>
-                                            {new Date(
-                                                data.createdAt,
-                                            ).toLocaleDateString()}
-                                        </TableCell>
-                                        <TableCell className="text-right space-x-2">
-                                            <Action
-                                                deleteBtnClick={() =>
-                                                    onOpen("staffDelete", {
-                                                        staff: data,
-                                                    })
-                                                }
-                                                editBtnClick={() =>
-                                                    onOpen("staffEdit", {
-                                                        staff: data,
-                                                        page: page,
-                                                        searchParameter: id,
-                                                    })
-                                                }
-                                            />
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                        </TableBody>
-                    </Table>
+                <Button
+                    variant={"outline"}
+                    size={"sm"}
+                    onClick={() => onOpen("addStaff", {})}
+                >
+                    <Plus/>
+                </Button>
+            </div>
 
-                    <Pagination
-                        totalPage={datas?.totalPage}
-                        isLoading={isLoading}
-                    />
-                </div>
-            )}
+            <Card>
+                <CardContent className="p-6">
+                    {/* Filter */}
+                    <StaffFilter filters={filters} />
+
+                    <div className="rounded-md border">
+                        <StaffListTable
+                            customers={staffs}
+                            isLoading={isLoading}
+                            toggleBanStatus={toggleBanStatus}
+                        />
+                    </div>
+
+                    {/* Pagination */}
+                    <Pagination isLoading={isLoading} totalPage={totalPages} />
+                </CardContent>
+            </Card>
+
+            {/* Modal */}
+            <StaffAddModal />
+            {/* <CustomerViewModal /> */}
+            <StaffEditModal />
+            <StaffDeleteModal />
         </div>
     );
 }

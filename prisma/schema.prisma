@@ -167,13 +167,14 @@ model order {
 }
 
 model staff {
-    id       Int    @id @default(autoincrement())
-    name     String
-    email    String
-    phone    String @unique
-    role     ROLE   @default(STAFF)
-    password String
-    tasks    task[]
+    id        Int     @id @default(autoincrement())
+    name      String
+    email     String
+    phone     String  @unique
+    role      ROLE    @default(STAFF)
+    is_Banned Boolean @default(false)
+    password  String
+    tasks     task[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

@@ -6,9 +6,7 @@ import { prisma } from "@/lib/prisma";
 export const authConfig: AuthOptions = {
     pages: {
         signIn: "/login",
-        // newUser: "/register",
-        // signOut: "/",
-        // error: "/error",
+        signOut: "/",
     },
     providers: [
         Credentials({
@@ -17,43 +15,85 @@ export const authConfig: AuthOptions = {
                 password: { label: "Password", type: "text" },
             },
 
-            async authorize(credentials) {
+            async authorize(credentials, req) {
                 try {
-                    if (!credentials?.phone || !credentials?.password) {
-                        throw new Error("Enter valid Credentials");
+                    const userType: "staff" | "customer" = req?.body?.userType;
+                    if (
+                        !credentials?.phone ||
+                        !credentials?.password ||
+                        !userType
+                    ) {
+                        throw new Error("Enter all Credentials");
                     }
 
-                    const customer = await prisma?.customer?.findUnique({
-                        where: {
-                            phone: credentials?.phone,
-                        },
-                    });
+                    if (userType === "customer") {
+                        const customer = await prisma?.customer?.findUnique({
+                            where: {
+                                phone: credentials?.phone,
+                            },
+                        });
 
-                    if (!customer) {
-                        throw new Error("User not found!!");
+                        if (!customer) {
+                            throw new Error("User not found!!");
+                        }
+
+                        const isPasswordValid = await bcrypt.compare(
+                            credentials?.password,
+                            customer?.password,
+                        );
+
+                        if (!isPasswordValid) {
+                            throw new Error("Invalid Creadentials!!");
+                        }
+
+                        return {
+                            userType,
+                            customer: {
+                                email: customer?.email,
+                                name: customer?.name,
+                                business_name: customer?.business_name,
+                                phone: customer?.phone,
+                                isBanned: customer?.is_Banned,
+                                id: customer?.id,
+                                customer_category: customer?.customer_category,
+                            },
+                        };
+                    } else if (userType === "staff") {
+                        const staff = await prisma?.staff?.findUnique({
+                            where: {
+                                phone: credentials?.phone,
+                            },
+                        });
+
+                        if (!staff) {
+                            throw new Error("staff not found!!");
+                        }
+
+                        const isPasswordValid = await bcrypt.compare(
+                            credentials?.password,
+                            staff?.password,
+                        );
+
+                        if (!isPasswordValid) {
+                            throw new Error("Invalid Creadentials!!");
+                        }
+
+                        return {
+                            userType,
+                            staff: {
+                                id: staff?.id,
+                                name: staff?.name,
+                                phone: staff?.phone,
+                                email: staff?.email,
+                                role: staff?.role,
+                            },
+                        };
+                    } else {
+                        return null;
                     }
-
-                    const isPasswordValid = await bcrypt.compare(
-                        credentials?.password,
-                        customer?.password,
-                    );
-
-                    if (!isPasswordValid) {
-                        throw new Error("Invalid Creadentials!!");
-                    }
-
-                    return {
-                        email: customer?.email,
-                        name: customer?.name,
-                        business_name: customer?.business_name,
-                        phone: customer?.phone,
-                        isBanned: customer?.is_Banned,
-                        id: customer?.id.toString(),
-                        customer_category: customer?.customer_category,
-                    };
                 } catch (error) {
                     console.error("Error in credentials", error);
-                    throw new Error("Wrong credentials");
+                    throw new Error(error as string);
                 }
             },
         }),
@@ -83,8 +123,12 @@ export const authConfig: AuthOptions = {
 
         async session({ session, token }) {
             if (token) {
-                // session.user.role = token.role;
-                session.user.id = token.id;
+                if (token?.customer?.id) {
+                    session.user.customer.id = token.customer.id;
+                }
+                if (token?.staff?.id) {
+                    session.user.staff.id = token.staff.id;
+                }
             }
             return session;
         },

@@ -1,55 +1,24 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
-import { staff } from "@prisma/client";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
 import { useModal } from "@/hooks/use-modal";
 import { ConfirmationModal } from "../../modal";
+import { useStaff } from "@/hooks/use-staff";
+import { Loader2 } from "lucide-react";
 
 export const StaffDeleteModal = () => {
     const { isOpen, onClose, data, modal } = useModal();
     const open = isOpen && modal === "staffDelete";
 
-    const queryClient = useQueryClient();
-    const { mutate, isPending } = useMutation({
-        mutationFn: async (id: number) => {
-            const { data: res } = await axios.delete("/api/staff", {
-                data: {
-                    id,
-                },
-            });
-            return res;
-        },
+    const {
+        deletestaff: { mutateAsync, isPending },
+    } = useStaff();
 
-        onError(error: AxiosError<{ message: string; succuss: boolean }>) {
-            toast(error?.response?.data?.message || "Delete failed");
-        },
-
-        onSuccess(res) {
-            if (res?.success) {
-                try {
-                    queryClient.setQueryData(
-                        [
-                            "admin-staff",
-                            data?.page || "1",
-                            data?.searchParameter || "",
-                        ],
-                        (oldData: staff[]) => {
-                            return oldData.filter(
-                                (s) => s.id !== res?.data?.id,
-                            );
-                        },
-                    );
-                    toast(res?.message);
-                    onClose();
-                } catch (error) {
-                    console.log(error);
-                    console.log("error in staff upadate");
-                }
-            }
-        },
-    });
+    const handleDelete = async () => {
+        if (data?.staff?.id) {
+            await mutateAsync(data?.staff?.id);
+            onClose();
+        }
+    };
 
     return (
         <ConfirmationModal
@@ -74,11 +43,16 @@ export const StaffDeleteModal = () => {
                     Cancel
                 </Button>
                 <Button
-                    variant={"destructive"}
+                    type="submit"
+                    className={`w-full`}
                     disabled={isPending}
-                    onClick={() => mutate(data?.staff?.id as number)}
+                    onClick={handleDelete}
                 >
-                    {isPending ? "Deleting" : "Confirm"}
+                    {isPending ? (
+                        <Loader2 className="animate-spin" />
+                    ) : (
+                        "update"
+                    )}
                 </Button>
             </div>
         </ConfirmationModal>

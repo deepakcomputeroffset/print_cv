@@ -20,7 +20,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
 const formSchema = z.object({
-    email: z.string().email("Invalid email address"),
+    phone: z.string({ required_error: "Enter phone number" }).trim().min(9),
     password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -31,8 +31,8 @@ export default function LoginPage() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            email: "",
-            password: "",
+            phone: "7479796212",
+            password: "Abc123@@",
         },
     });
 
@@ -40,13 +40,13 @@ export default function LoginPage() {
         try {
             setLoading(true);
             const result = await signIn("credentials", {
-                email: values.email,
+                phone: values.phone,
+                userType: "staff",
+                callbackUrl: "/admin",
                 password: values.password,
-                userType: "customer",
-                callbackUrl: "/customer/dashboard",
                 redirect: false,
             });
-
+            console.log(result);
             if (result?.error) {
                 toast.error("Invalid credentials");
                 return;
@@ -66,7 +66,7 @@ export default function LoginPage() {
         <div className="flex min-h-screen items-center justify-center">
             <div className="mx-auto w-full max-w-md space-y-6 p-6 bg-card rounded-lg shadow-lg">
                 <div className="space-y-2 text-center">
-                    <h1 className="text-3xl font-bold">Welcome back</h1>
+                    <h1 className="text-3xl font-bold">Admin Login</h1>
                     <p className="text-muted-foreground">
                         Enter your credentials to sign in
                     </p>
@@ -78,13 +78,13 @@ export default function LoginPage() {
                     >
                         <FormField
                             control={form.control}
-                            name="email"
+                            name="phone"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel>Phone</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="john@example.com"
+                                            placeholder="1234567890"
                                             {...field}
                                         />
                                     </FormControl>
@@ -122,7 +122,7 @@ export default function LoginPage() {
                     <p className="text-muted-foreground">
                         Don&apos;t have an account?
                         <Link
-                            href="/register"
+                            href="/admin-register"
                             className="text-primary hover:underline"
                         >
                             Sign up

@@ -717,9 +717,7 @@ export default function OrdersPage() {
                                     </Badge>
                                 </TableCell>
                                 <TableCell>
-                                    {format(
-                                        order.createdAt,
-                                    "hh-M dd/mm/yyyy")}
+                                    {format(order.createdAt, "hh-M dd/mm/yyyy")}
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex space-x-2">

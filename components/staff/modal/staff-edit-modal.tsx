@@ -1,5 +1,5 @@
 "use client";
-import { EditStaffForm } from "@/components/staff/form/staff-form";
+import { EditStaffForm } from "@/components/staff/form/staff-edit-form";
 import { Modal } from "@/components/modal";
 import { useModal } from "@/hooks/use-modal";
 

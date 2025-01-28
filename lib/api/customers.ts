@@ -1,7 +1,7 @@
 import queryString from "query-string";
 import axios from "axios";
 import { z } from "zod";
-import { customerFormSchema } from "@/schemas/customer-register-schema";
+import { customerFormSchema } from "@/schemas/customer-schema";
 import { customerWithAddress, QueryParams } from "@/types/types";
 import { customerBaseUrl } from "../urls";
 
