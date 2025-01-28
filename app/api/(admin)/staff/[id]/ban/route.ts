@@ -8,7 +8,6 @@ export async function POST(
     try {
         // TODO: AUTHENTICATION
         const { id } = await params;
-        console.log(id)
         const staff = await prisma.staff.findUnique({
             where: { id: parseInt(id) },
         });

@@ -57,7 +57,7 @@ export default function StaffsPage({
                     size={"sm"}
                     onClick={() => onOpen("addStaff", {})}
                 >
-                    <Plus/>
+                    <Plus />
                 </Button>
             </div>
 
