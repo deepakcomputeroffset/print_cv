@@ -1,4 +1,4 @@
-import { CustomerRegisterForm } from "@/components/customer/form/customer-edit-form";
+import { CustomerRegisterForm } from "@/components/customer/form/customer-add-form";
 import Link from "next/link";
 
 export default function RegisterPage() {

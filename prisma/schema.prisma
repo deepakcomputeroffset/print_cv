@@ -99,7 +99,6 @@ model product {
     description   String
     image_url     String[]
     category_id   Int
-    available     Boolean        @default(false)
     product_items product_item[]
 
     category  product_category @relation(fields: [category_id], references: [id])
@@ -108,39 +107,39 @@ model product {
 }
 
 model product_item {
-    id              Int                        @id @default(autoincrement())
-    product_code    String
-    product_id      Int
-    min_qty         Int
-    min_price       Int
-    avg_price       Int
-    max_price       Int
-    product_options product_attribute_option[]
-    orders          order[]
+    id                        Int                       @id @default(autoincrement())
+    sku                       String
+    product_id                Int
+    min_qty                   Int
+    og_price                  Int
+    min_price                 Int
+    avg_price                 Int
+    max_price                 Int
+    image_url                 String[]
+    available                 Boolean                   @default(false)
+    product_attribute_options product_attribute_value[]
+    orders                    order[]
 
     product   product  @relation(fields: [product_id], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
-model product_attribute_option {
-    id                             Int    @id @default(autoincrement())
-    product_item_id                Int
-    product_attribute_type_id      Int
-    product_attribure_option_value String
+model product_attribute_value {
+    id                           Int            @id @default(autoincrement())
+    product_items                product_item[]
+    product_attribute_type_id    Int
+    product_attribute_type_value String
 
-    order_id               Int?
-    product_item           product_item           @relation(fields: [product_item_id], references: [id])
     product_attribute_type product_attribute_type @relation(fields: [product_attribute_type_id], references: [id])
-    order                  order?                 @relation(fields: [order_id], references: [id])
     createdAt              DateTime               @default(now())
     updatedAt              DateTime               @updatedAt
 }
 
 model product_attribute_type {
-    id                        Int                        @id @default(autoincrement())
+    id                        Int                       @id @default(autoincrement())
     name                      String
-    product_attribute_options product_attribute_option[]
+    product_attribute_options product_attribute_value[]
 
     product_category_id Int
     product_category    product_category @relation(fields: [product_category_id], references: [id])
@@ -150,15 +149,14 @@ model product_attribute_type {
 }
 
 model order {
-    id                        Int                        @id @default(autoincrement())
-    customer_id               Int
-    product_item_id           Int
-    qty                       Int
-    product_attribute_options product_attribute_option[]
-    amount                    Int
-    paid_amount               Int
-    status                    STATUS                     @default(PENDING)
-    process                   task[]
+    id              Int    @id @default(autoincrement())
+    customer_id     Int
+    product_item_id Int
+    qty             Int
+    amount          Int
+    paid_amount     Int
+    status          STATUS @default(PENDING)
+    process         task[]
 
     product_item product_item @relation(fields: [product_item_id], references: [id])
     customer     customer     @relation(fields: [customer_id], references: [id])

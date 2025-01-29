@@ -1,5 +1,5 @@
 import { customerWithAddress } from "@/types/types";
-import { product_category, staff } from "@prisma/client";
+import { product, product_category, staff } from "@prisma/client";
 import { create } from "zustand";
 
 type ModalType =
@@ -11,7 +11,11 @@ type ModalType =
     | "customerDelete"
     | "createProductCategory"
     | "editProductCategory"
-    | "deleteProductCategory";
+    | "deleteProductCategory"
+    | "addNewproduct"
+    | "editProduct"
+    | "deleteProduct"
+    | "addAttribute";
 
 type DataType = {
     staff?: staff;
@@ -19,6 +23,8 @@ type DataType = {
     page?: string;
     searchParameter?: string;
     product_category?: product_category;
+    product?: product;
+    product_category_id?: number;
 };
 
 interface modalStore {
