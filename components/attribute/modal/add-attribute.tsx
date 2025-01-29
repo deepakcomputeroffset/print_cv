@@ -43,7 +43,7 @@ export const AddAttributeModal = ({
             setNewValue("");
         }
     };
-    
+
     return (
         <Modal title="Add Attribute" isOpen={isModalOpen} onClose={onClose}>
             <div className="space-y-4 pt-4">

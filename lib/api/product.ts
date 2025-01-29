@@ -17,9 +17,7 @@ export async function fetchProducts(
     return data;
 }
 
-export async function createProduct(
-    data: z.infer<typeof productFormSchema>,
-) {
+export async function createProduct(data: z.infer<typeof productFormSchema>) {
     const url = `${productBaseUrl}`;
     const { data: response } = await axios.post(url, data);
     return response;
