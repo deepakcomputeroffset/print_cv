@@ -7,6 +7,7 @@ export const productFormSchema = z.object({
     description: z.string().min(10, {
         message: "Product description must be at least 10 characters.",
     }),
+    is_avialable: z.boolean().default(false),
     product_category_id: z.string(),
     image_url: z.array(z.string()),
 

@@ -37,3 +37,8 @@ export async function deleteProduct(id: number) {
     const { data } = await axios.delete(url);
     return data;
 }
+export async function toggleAvialability(id: number) {
+    const url = `${productBaseUrl}/${id}/avialable`;
+    const { data } = await axios.get(url);
+    return data;
+}

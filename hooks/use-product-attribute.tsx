@@ -33,7 +33,7 @@ export function useProductAttributeType(product_category_id?: number) {
 
     // Delete ProductAttributeType mutation
     const deleteMutation = useMutation({
-        mutationFn: api.createProductAttributeType,
+        mutationFn: api.deleteProductAttributeType,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });
             toast.success("product attribute type deleted successfully");

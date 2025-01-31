@@ -99,6 +99,7 @@ model product {
     description   String
     image_url     String[]
     category_id   Int
+    is_avialable Boolean @default(false)
     product_items product_item[]
 
     category  product_category @relation(fields: [category_id], references: [id])
