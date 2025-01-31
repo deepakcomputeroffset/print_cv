@@ -217,9 +217,7 @@ export function ProductAttributes({
                     </DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>
-                                Add Product Attribute
-                            </DialogTitle>
+                            <DialogTitle>Add Product Attribute</DialogTitle>
                         </DialogHeader>
                         <div className="space-y-4 pt-4">
                             <div className="flex gap-2">
