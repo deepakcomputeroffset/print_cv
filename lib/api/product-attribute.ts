@@ -2,13 +2,13 @@ import axios from "axios";
 import { z } from "zod";
 import { ProductAttributeTypeSchema } from "@/schemas/product-attribute-type";
 import { productAttributeTypeBaseUrl } from "../urls";
-import { product_attribute_type } from "@prisma/client";
 import queryString from "query-string";
+import { productAttributeWithOptions } from "@/types/types";
 
 export async function fetchProductAttributes(
     product_category_id?: number,
 ): Promise<{
-    data: product_attribute_type[];
+    data: productAttributeWithOptions[];
 }> {
     const url = queryString.stringifyUrl({
         url: productAttributeTypeBaseUrl,

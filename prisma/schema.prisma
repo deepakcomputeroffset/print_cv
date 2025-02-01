@@ -130,7 +130,7 @@ model product_attribute_value {
     id                           Int            @id @default(autoincrement())
     product_items                product_item[]
     product_attribute_type_id    Int
-    product_attribute_type_value String
+    product_attribute_value String
 
     product_attribute_type product_attribute_type @relation(fields: [product_attribute_type_id], references: [id])
     createdAt              DateTime               @default(now())

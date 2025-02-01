@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductForm } from "@/components/product/form/product-form";
+import { ProductForm } from "@/components/product/form/add-product-form";
 
 export default function CreateProductPage() {
     return (
