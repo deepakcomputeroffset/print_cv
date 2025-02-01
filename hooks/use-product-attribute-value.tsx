@@ -20,9 +20,7 @@ export function useProductAttributeValue(productAttributeId?: number) {
             api.createProductAttributeValue(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });
-            toast.success(
-                "product attribute value created created successfully",
-            );
+            toast.success("product attribute value created successfully");
         },
         onError: (error: AxiosError) => {
             console.log(error);

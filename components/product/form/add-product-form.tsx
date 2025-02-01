@@ -37,7 +37,6 @@ import { Trash } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Dropzone } from "@/components/ui/dropzone";
 import { useProducts } from "@/hooks/use-product";
-import { useProductAttributeType } from "@/hooks/use-product-attribute";
 
 export function ProductForm() {
     const [selectProductCategory, setProductCategory] = useState<number>(0);
@@ -93,6 +92,7 @@ export function ProductForm() {
                     ...images,
                 ]);
             } catch (error) {
+                console.log(error);
                 toast.error("Error processing files.");
             }
         },

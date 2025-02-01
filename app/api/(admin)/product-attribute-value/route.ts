@@ -47,7 +47,6 @@ export async function POST(req: Request) {
     try {
         // TODO: AUTHENTICATION
         const data = await req.json();
-        console.log(data);
         const { success, data: safeData } =
             ProductAttributeValueSchema.safeParse(data);
 

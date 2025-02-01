@@ -3,10 +3,12 @@
 import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
-import { AttributeCard } from "./product-attribute-card";
 import { productAttributeWithOptions, ProductVariantType } from "@/types/types";
 import { AddProductAttributeModal } from "./modal/add-product-attribute-modal";
 import { useModal } from "@/hooks/use-modal";
+import { AddProductAttributeValueModal } from "./modal/add-product-attribute-value-modal";
+import { AttributeCard } from "./attribute-card";
+import { product_attribute_value } from "@prisma/client";
 
 interface ProductAttributesProps {
     onVariantsGenerated: (variants: ProductVariantType[]) => void;
@@ -19,8 +21,13 @@ export function ProductAttributes({
     isLoading,
     product_category_id,
 }: ProductAttributesProps) {
+    const { onOpen } = useModal();
+
     const [selectedAttributes, setSelectedAttributes] = useState<
         productAttributeWithOptions[]
+    >([]);
+    const [selectedOptions, setSelectedOptions] = useState<
+        product_attribute_value[]
     >([]);
 
     const removeAttribute = useCallback((attributeId: number) => {
@@ -29,7 +36,17 @@ export function ProductAttributes({
         );
     }, []);
 
-    const { onOpen } = useModal();
+    const handleAttributeValueSelect = (v: product_attribute_value) => {
+        if (selectedOptions.includes(v)) return;
+        setSelectedOptions((prev) => [...prev, v]);
+    };
+
+    const handleRemoveValue = useCallback((value: product_attribute_value) => {
+        setSelectedOptions((prev) => {
+            return prev.filter((v) => v.id != value?.id);
+        });
+    }, []);
+
     return (
         <div className="space-y-4">
             <div className="flex justify-between items-center">
@@ -52,9 +69,14 @@ export function ProductAttributes({
             <div className="space-y-4">
                 {selectedAttributes.map((attribute) => (
                     <AttributeCard
+                        selectedValue={selectedOptions?.filter(
+                            (atr) =>
+                                atr.product_attribute_type_id == attribute?.id,
+                        )}
                         key={attribute.id}
                         attribute={attribute}
                         onRemoveAttribute={() => removeAttribute(attribute.id)}
+                        onRemoveValue={handleRemoveValue}
                     />
                 ))}
             </div>
@@ -64,6 +86,11 @@ export function ProductAttributes({
                     Generate Variants
                 </Button>
             )}
+
+            <AddProductAttributeValueModal
+                selectedOptions={selectedOptions}
+                onSelect={handleAttributeValueSelect}
+            />
         </div>
     );
 }

@@ -43,14 +43,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Dropzone } from "@/components/ui/dropzone";
 import { SortableImage } from "@/components/ui/sortable-image";
-import {
-    Plus,
-    Pencil,
-    Trash2,
-    Search,
-    Filter,
-    SlidersHorizontal,
-} from "lucide-react";
+import { Plus, Pencil, Trash2, Search, SlidersHorizontal } from "lucide-react";
 import Image from "next/image";
 import { DndContext, closestCenter, DragEndEvent } from "@dnd-kit/core";
 import {
@@ -58,10 +51,6 @@ import {
     arrayMove,
     rectSortingStrategy,
 } from "@dnd-kit/sortable";
-import {
-    // optimizeImage,
-    formatFileSize,
-} from "@/lib/image-utils";
 import { toast } from "sonner";
 
 interface Category {

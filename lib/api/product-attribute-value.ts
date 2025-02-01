@@ -12,7 +12,7 @@ export async function fetchProductAttributeValues(
 }> {
     const url = queryString.stringifyUrl({
         url: productAttributeValueBaseUrl,
-        query: { product_attribute_type_id },
+        query: { productAttributeId: product_attribute_type_id },
     });
     if (!product_attribute_type_id) return { data: [] };
     const { data } = await axios(url);

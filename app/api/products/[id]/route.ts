@@ -44,14 +44,14 @@ export async function PATCH(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        const session = await auth();
+        // const session = await auth();
 
-        if (session?.user?.role !== "ADMIN") {
-            return NextResponse.json(
-                { message: "Unauthorized" },
-                { status: 401 },
-            );
-        }
+        // if (session?.user?.role !== "ADMIN") {
+        //     return NextResponse.json(
+        //         { message: "Unauthorized" },
+        //         { status: 401 },
+        //     );
+        // }
 
         const { name, description, imageUrl, categoryId } = await req.json();
         const { id } = await params;
@@ -91,14 +91,14 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        const session = await auth();
+        // const session = await auth();
 
-        if (session?.user?.role !== "ADMIN") {
-            return NextResponse.json(
-                { message: "Unauthorized" },
-                { status: 401 },
-            );
-        }
+        // if (session?.user?.role !== "ADMIN") {
+        //     return NextResponse.json(
+        //         { message: "Unauthorized" },
+        //         { status: 401 },
+        //     );
+        // }
         const { id } = await params;
         const { isNum, num: pid } = stringToNumber(id);
         if (!isNum) {
