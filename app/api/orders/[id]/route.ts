@@ -42,7 +42,7 @@ export async function GET(
         //         { status: 401 },
         //     );
         // }
-        console.log(params);
+        console.log(req,params);
         // return NextResponse.json(order);
     } catch (error) {
         console.log(error);
@@ -80,6 +80,7 @@ export async function PATCH(
         //     },
         // });
         // return NextResponse.json(order);
+        console.log(req,params);
     } catch (error) {
         console.log(error);
         return NextResponse.json(

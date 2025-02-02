@@ -224,6 +224,7 @@ export default function ProductsPage() {
         sortBy: "name",
         sortOrder: "asc" as "asc" | "desc",
     });
+    console.log(isUploading);
 
     const handleDrop = useCallback(
         async (productId: number, files: File[]) => {
@@ -238,7 +239,7 @@ export default function ProductsPage() {
                     }),
                 );
 
-                console.log("Optimized files:", optimizedFiles);
+                console.log("Optimized files:", productId, optimizedFiles);
 
                 // toast({
                 //     title: "Images processed successfully",
@@ -252,6 +253,7 @@ export default function ProductsPage() {
                 //         "There was an error optimizing the images. Please try again.",
                 //     variant: "destructive",
                 // });
+                console.log(error);
                 toast("image failed");
             } finally {
                 setIsUploading(false);

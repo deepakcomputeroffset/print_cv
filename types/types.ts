@@ -38,10 +38,7 @@ export interface ProductVariantType {
     max_price: number;
     image_url: string[];
     available: boolean;
-    product_attribute_options: {
-        product_attribute_type_id: number;
-        product_attribute_type_value: string;
-    }[];
+    product_attribute_options: product_attribute_value[];
 }
 
 export interface QueryParams {

@@ -1,1 +1,1 @@
- prettier --write .
+npm run lint && prettier --write .

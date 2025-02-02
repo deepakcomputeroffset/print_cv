@@ -37,9 +37,20 @@ import { Trash } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Dropzone } from "@/components/ui/dropzone";
 import { useProducts } from "@/hooks/use-product";
+import {
+    product_attribute_type,
+    product_attribute_value,
+} from "@prisma/client";
 
 export function ProductForm() {
     const [selectProductCategory, setProductCategory] = useState<number>(0);
+    const [variants, setVariants] = useState<ProductVariantType[]>([]);
+    const [selectedAttributes, setSelectedAttributes] = useState<
+        product_attribute_type[]
+    >([]);
+    const [selectedOptions, setSelectedOptions] = useState<
+        product_attribute_value[]
+    >([]);
 
     const form = useForm<z.infer<typeof productFormSchema>>({
         resolver: zodResolver(productFormSchema),
@@ -60,7 +71,7 @@ export function ProductForm() {
         },
     } = useProducts();
 
-    const handleDrop = useCallback(
+    const handleImageDrop = useCallback(
         async (files: File[]) => {
             if (!files.length) {
                 toast.error("No files selected.");
@@ -99,7 +110,7 @@ export function ProductForm() {
         [form],
     );
 
-    const handleDelete = useCallback((idx: number) => {
+    const handleImageRemove = useCallback((idx: number) => {
         if (!idx) return;
         if (!!form.getValues("image_url")) {
             form.setValue(
@@ -119,12 +130,24 @@ export function ProductForm() {
         }
     }
 
-    const [variants, setVariants] = useState<ProductVariantType[]>([]);
-
     const handleVariantsGenerated = (newVariants: ProductVariantType[]) => {
         setVariants(newVariants);
         form.setValue("product_items", newVariants);
     };
+
+    const getAttributeNameById = useCallback(
+        (id: number): string => {
+            let name = "";
+            selectedAttributes?.forEach((attr) => {
+                if (attr?.id === id) {
+                    name = attr.name;
+                    return;
+                }
+            });
+            return name;
+        },
+        [selectedAttributes],
+    );
 
     return (
         <Form {...form}>
@@ -206,7 +229,7 @@ export function ProductForm() {
                             <FormControl>
                                 <div>
                                     <Dropzone
-                                        onDrop={handleDrop}
+                                        onDrop={handleImageDrop}
                                         className="mb-4"
                                         maxFiles={5}
                                         maxSize={5242880}
@@ -227,7 +250,7 @@ export function ProductForm() {
                                                             }
                                                             className="rounded-full py-2.5 absolute cursor-pointer top-2 right-2"
                                                             onClick={() =>
-                                                                handleDelete(
+                                                                handleImageRemove(
                                                                     idx,
                                                                 )
                                                             }
@@ -281,10 +304,18 @@ export function ProductForm() {
                     isLoading={isLoading}
                     product_category_id={selectProductCategory}
                     onVariantsGenerated={handleVariantsGenerated}
+                    selectedAttributes={selectedAttributes}
+                    setSelectedAttributes={setSelectedAttributes}
+                    selectedOptions={selectedOptions}
+                    setSelectedOptions={setSelectedOptions}
                 />
 
                 {variants.length > 0 && (
-                    <ProductVariants variants={variants} form={form} />
+                    <ProductVariants
+                        variants={variants}
+                        form={form}
+                        getAttributeNameById={getAttributeNameById}
+                    />
                 )}
 
                 <Button

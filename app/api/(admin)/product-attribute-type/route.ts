@@ -26,9 +26,6 @@ export async function GET(request: Request) {
                 where: {
                     product_category_id: id,
                 },
-                include: {
-                    product_attribute_options: true,
-                },
             });
 
         return NextResponse.json(

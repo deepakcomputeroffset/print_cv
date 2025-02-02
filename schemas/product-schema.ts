@@ -23,8 +23,11 @@ export const productFormSchema = z.object({
             available: z.boolean().default(true),
             product_attribute_options: z.array(
                 z.object({
+                    id: z.number(),
                     product_attribute_type_id: z.number(),
-                    product_attribute_type_value: z.string(),
+                    product_attribute_value: z.string(),
+                    createdAt: z.date(),
+                    updatedAt: z.date(),
                 }),
             ),
         }),

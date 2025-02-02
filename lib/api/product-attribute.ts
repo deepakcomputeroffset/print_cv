@@ -3,12 +3,12 @@ import { z } from "zod";
 import { ProductAttributeTypeSchema } from "@/schemas/product-attribute-type";
 import { productAttributeTypeBaseUrl } from "../urls";
 import queryString from "query-string";
-import { productAttributeWithOptions } from "@/types/types";
+import { product_attribute_type } from "@prisma/client";
 
 export async function fetchProductAttributes(
     product_category_id?: number,
 ): Promise<{
-    data: productAttributeWithOptions[];
+    data: product_attribute_type[];
 }> {
     const url = queryString.stringifyUrl({
         url: productAttributeTypeBaseUrl,

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { auth } from "@/lib/auth";
+// import { auth } from "@/lib/auth";
 import { stringToNumber } from "@/lib/utils";
 
 export async function GET(
@@ -53,7 +53,7 @@ export async function PATCH(
         //     );
         // }
 
-        const { name, description, imageUrl, categoryId } = await req.json();
+        const { name, description, } = await req.json();
         const { id } = await params;
         const { isNum, num: pid } = stringToNumber(id);
         if (!isNum) {

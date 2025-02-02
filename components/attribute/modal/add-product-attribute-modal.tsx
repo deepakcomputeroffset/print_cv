@@ -4,15 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useModal } from "@/hooks/use-modal";
 import { useProductAttributeType } from "@/hooks/use-product-attribute";
-import { productAttributeWithOptions } from "@/types/types";
+import { product_attribute_type } from "@prisma/client";
 import { Check, Loader2, Trash } from "lucide-react";
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
 
 interface propsType {
     product_category_id: number;
-    selectedAttributes: productAttributeWithOptions[];
+    selectedAttributes: product_attribute_type[];
     setSelectedAttributes: Dispatch<
-        SetStateAction<productAttributeWithOptions[]>
+        SetStateAction<product_attribute_type[]>
     >;
 }
 
@@ -46,7 +46,7 @@ export const AddProductAttributeModal = ({
     };
 
     const selectAttributeHandler = useCallback(
-        (attribute: productAttributeWithOptions) => {
+        (attribute: product_attribute_type) => {
             setSelectedAttributes((prev) => [...prev, attribute]);
         },
         [],
@@ -101,9 +101,9 @@ const ProductAttribute = ({
     product_category_id,
     selectHandler,
 }: {
-    productAttribute: productAttributeWithOptions;
+    productAttribute: product_attribute_type;
     product_category_id: number;
-    selectHandler: (value: productAttributeWithOptions) => void;
+    selectHandler: (value: product_attribute_type) => void;
 }) => {
     const { deleteProductAttributeType } =
         useProductAttributeType(product_category_id);

@@ -258,14 +258,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import {
-    Eye,
-    Pencil,
-    Trash2,
-    Search,
-    SlidersHorizontal,
-    Calendar,
-} from "lucide-react";
+import { Eye, Pencil, Trash2, Search, SlidersHorizontal } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 
@@ -391,7 +384,7 @@ export default function OrdersPage() {
         sortBy: "date",
         sortOrder: "desc" as "asc" | "desc",
     });
-
+    console.log(selectedOrder);
     const getStatusColor = (status: Order["status"]) => {
         const colors = {
             PENDING: "bg-yellow-100 text-yellow-800",

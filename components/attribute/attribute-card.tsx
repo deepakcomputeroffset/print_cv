@@ -2,14 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import { PlusCircle, X } from "lucide-react";
-import { productAttributeWithOptions } from "@/types/types";
 import { useModal } from "@/hooks/use-modal";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { product_attribute_value } from "@prisma/client";
+import {
+    product_attribute_type,
+    product_attribute_value,
+} from "@prisma/client";
 
 interface AttributeCardProps {
-    attribute: productAttributeWithOptions;
+    attribute: product_attribute_type;
     onRemoveAttribute: () => void;
     selectedValue: product_attribute_value[];
     onRemoveValue: (v: product_attribute_value) => void;
@@ -31,6 +33,7 @@ export function AttributeCard({
                     <Button
                         variant="ghost"
                         size="sm"
+                        type="button"
                         onClick={onRemoveAttribute}
                     >
                         <X className="h-4 w-4" />
@@ -55,6 +58,7 @@ export function AttributeCard({
                     <Button
                         variant="outline"
                         size="sm"
+                        type="button"
                         onClick={() =>
                             onOpen("addAttributeValue", {
                                 productAttribute: attribute,
