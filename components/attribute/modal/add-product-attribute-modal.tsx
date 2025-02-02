@@ -11,9 +11,7 @@ import { Dispatch, SetStateAction, useCallback, useState } from "react";
 interface propsType {
     product_category_id: number;
     selectedAttributes: product_attribute_type[];
-    setSelectedAttributes: Dispatch<
-        SetStateAction<product_attribute_type[]>
-    >;
+    setSelectedAttributes: Dispatch<SetStateAction<product_attribute_type[]>>;
 }
 
 export const AddProductAttributeModal = ({

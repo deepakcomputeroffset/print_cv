@@ -236,6 +236,7 @@ export default function ProductsPage() {
                         // const originalSize = formatFileSize(file.size);
                         // const optimizedSize = formatFileSize(optimized.size);
                         // return { file: optimized, originalSize, optimizedSize };
+                        console.log(file);
                     }),
                 );
 

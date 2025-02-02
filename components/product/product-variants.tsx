@@ -52,8 +52,8 @@ export function ProductVariants({
                                             >
                                                 {getAttributeNameById(
                                                     combo?.product_attribute_type_id,
-                                                )}
-                                                {" "}:{" "}
+                                                )}{" "}
+                                                :{" "}
                                                 {combo?.product_attribute_value}
                                             </Badge>
                                         ),

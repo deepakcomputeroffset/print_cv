@@ -53,7 +53,7 @@ export async function PATCH(
         //     );
         // }
 
-        const { name, description, } = await req.json();
+        const { name, description } = await req.json();
         const { id } = await params;
         const { isNum, num: pid } = stringToNumber(id);
         if (!isNum) {
