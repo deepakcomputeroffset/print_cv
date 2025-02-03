@@ -7,9 +7,13 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { order } from "@prisma/client";
+import { customer, order } from "@prisma/client";
 
-export function RecentOrders({ orders }: { orders: order[] }) {
+export function RecentOrders({
+    orders,
+}: {
+    orders: (order & { customer: Partial<customer> })[];
+}) {
     return (
         <Table>
             <TableHeader>

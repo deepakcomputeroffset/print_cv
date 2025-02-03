@@ -3,7 +3,6 @@
 import { useCallback, Dispatch, SetStateAction } from "react";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
-import { ProductVariantType } from "@/types/types";
 import { AddProductAttributeModal } from "./modal/add-product-attribute-modal";
 import { useModal } from "@/hooks/use-modal";
 import { AddProductAttributeValueModal } from "./modal/add-product-attribute-value-modal";
@@ -14,7 +13,6 @@ import {
 } from "@prisma/client";
 
 interface ProductAttributesProps {
-    onVariantsGenerated: (variants: ProductVariantType[]) => void;
     product_category_id: number;
     isLoading: boolean;
     selectedAttributes: product_attribute_type[];
@@ -24,7 +22,6 @@ interface ProductAttributesProps {
 }
 
 export function ProductAttributes({
-    onVariantsGenerated,
     isLoading,
     product_category_id,
     selectedAttributes,
@@ -38,6 +35,11 @@ export function ProductAttributes({
         setSelectedAttributes((prev) =>
             prev.filter((a) => a.id !== attributeId),
         );
+        setSelectedOptions((prev) => {
+            return prev.filter(
+                (v) => v.product_attribute_type_id !== attributeId,
+            );
+        });
     }, []);
 
     const handleAttributeValueSelect = (v: product_attribute_value) => {
@@ -50,60 +52,6 @@ export function ProductAttributes({
             return prev.filter((v) => v.id != value?.id);
         });
     }, []);
-
-    const generateVariants = () => {
-        const generateCombinations = (
-            attributes: product_attribute_type[],
-            values: product_attribute_value[],
-            current: product_attribute_value[] = [],
-            index = 0,
-        ): product_attribute_value[][] => {
-            if (index === attributes.length) {
-                return [current];
-            }
-
-            const attribute = attributes[index];
-            const attributeValues =
-                values?.filter(
-                    (v) => v.product_attribute_type_id === attribute?.id,
-                ) || [];
-
-            const combinations: product_attribute_value[][] = [];
-
-            for (const value of attributeValues) {
-                combinations.push(
-                    ...generateCombinations(
-                        attributes,
-                        values,
-                        [...current, value],
-                        index + 1,
-                    ),
-                );
-            }
-
-            return combinations;
-        };
-
-        const combinations = generateCombinations(
-            selectedAttributes,
-            selectedOptions,
-        );
-
-        const newVariants = combinations.map((combination, index) => ({
-            id: `variant-${index}`,
-            product_attribute_options: combination,
-            sku: `PROD-${index + 1}`,
-            min_qty: 1,
-            og_price: 0,
-            min_price: 0,
-            avg_price: 0,
-            max_price: 0,
-            image_url: [],
-            available: false,
-        }));
-
-        onVariantsGenerated(newVariants);
-    };
 
     return (
         <div className="space-y-4">
@@ -134,16 +82,6 @@ export function ProductAttributes({
                     />
                 ))}
             </div>
-
-            {selectedAttributes?.length > 0 && (
-                <Button
-                    type="button"
-                    className="w-full mt-4"
-                    onClick={() => generateVariants()}
-                >
-                    Generate Variants
-                </Button>
-            )}
 
             <AddProductAttributeModal
                 product_category_id={product_category_id}

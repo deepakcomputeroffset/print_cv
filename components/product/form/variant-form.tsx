@@ -11,6 +11,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { productFormSchema } from "@/schemas/product-schema";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "../../ui/select";
 
 interface VariantFormProps {
     form: UseFormReturn<z.infer<typeof productFormSchema>>;
@@ -22,7 +29,7 @@ export function VariantForm({ form, index }: VariantFormProps) {
         <div className="grid grid-cols-2 gap-4 mt-4">
             <FormField
                 control={form.control}
-                name={`product_items.${index}.product_code`}
+                name={`product_items.${index}.sku`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Product Code</FormLabel>
@@ -42,8 +49,8 @@ export function VariantForm({ form, index }: VariantFormProps) {
                         <FormLabel>Minimum Quantity</FormLabel>
                         <FormControl>
                             <Input
-                                type="number"
                                 {...field}
+                                type="number"
                                 onChange={(e) =>
                                     field.onChange(parseInt(e.target.value))
                                 }
@@ -109,6 +116,52 @@ export function VariantForm({ form, index }: VariantFormProps) {
                                 }
                             />
                         </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name={`product_items.${index}.og_price`}
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Original Price</FormLabel>
+                        <FormControl>
+                            <Input
+                                type="number"
+                                {...field}
+                                onChange={(e) =>
+                                    field.onChange(parseInt(e.target.value))
+                                }
+                            />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+
+            <FormField
+                control={form.control}
+                name={`product_items.${index}.is_avialable`}
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Available</FormLabel>
+                        <Select
+                            {...field}
+                            onValueChange={(v) =>
+                                field.onChange(v === "true" ? true : false)
+                            }
+                            value={field.value === true ? "true" : "false"}
+                            defaultValue="false"
+                        >
+                            <SelectTrigger>
+                                <SelectValue placeholder="Is product avialable to sell?" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value={"false"}>No</SelectItem>
+                                <SelectItem value={"true"}>Yes</SelectItem>
+                            </SelectContent>
+                        </Select>
                         <FormMessage />
                     </FormItem>
                 )}

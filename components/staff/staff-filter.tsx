@@ -30,7 +30,7 @@ export const StaffFilter = ({ filters }: { filters: QueryParams }) => {
     }, [debouncedSearch, debouncedSortOrder, setParam]);
 
     return (
-        <div className="flex flex-col md:flex-row gap-4 mb-6 flex-wrap">
+        <div className="flex flex-col md:flex-row gap-4 flex-wrap">
             <div className="flex-1">
                 <div className="relative min-w-28">
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />

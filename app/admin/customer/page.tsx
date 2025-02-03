@@ -48,11 +48,13 @@ export default function CustomersPage({
                 <h1 className="text-2xl font-semibold">Customers</h1>
             </div>
 
+            <Card className="p-4">
+                {/* Filter */}
+                <CustomerFilter filters={filters} />
+            </Card>
+
             <Card>
                 <CardContent className="p-6">
-                    {/* Filter */}
-                    <CustomerFilter filters={filters} />
-
                     <div className="rounded-md border">
                         <CustomerListTable
                             customers={customers}

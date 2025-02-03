@@ -21,20 +21,20 @@ export const ProductCategoryFilter = ({
     filters: QueryParams;
 }) => {
     const [search, setSearch] = useState(filters?.search || "");
-    const [sortOrder, setSortOrder] = useState<sortType>(
-        filters?.sortorder !== undefined ? filters?.sortorder : "asc",
+    const [sortOrder, setSortOrder] = useState<sortType | undefined>(
+        filters?.sortorder,
     );
     const debouncedSearch = useDebounce(search, 300);
     const debouncedSortOrder = useDebounce(sortOrder, 300);
     const { setParam } = useUrlFilters();
 
     useEffect(() => {
-        setParam("search", debouncedSearch);
-        setParam("sortorder", debouncedSortOrder);
+        if (!!search) setParam("search", debouncedSearch);
+        if (!!sortOrder) setParam("sortorder", debouncedSortOrder);
     }, [debouncedSearch, debouncedSortOrder, setParam]);
 
     return (
-        <div className="flex flex-col md:flex-row gap-4 mb-6 flex-wrap">
+        <div className="flex flex-col md:flex-row gap-4 flex-wrap">
             <div className="flex-1">
                 <div className="relative">
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />

@@ -4,11 +4,16 @@ import { z } from "zod";
 import { QueryParams } from "@/types/types";
 import { productBaseUrl } from "../urls";
 import { productFormSchema } from "@/schemas/product-schema";
-import { product } from "@prisma/client";
+import { product, product_category, product_item } from "@prisma/client";
 
-export async function fetchProducts(
-    params: QueryParams = {},
-): Promise<QueryParams & { data: product[] }> {
+export async function fetchProducts(params: QueryParams = {}): Promise<
+    QueryParams & {
+        data: (product & {
+            product_items: product_item[];
+            category: product_category;
+        })[];
+    }
+> {
     const url = queryString.stringifyUrl({
         url: productBaseUrl,
         query: { ...params },

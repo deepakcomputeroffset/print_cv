@@ -78,11 +78,9 @@ export async function GET(request: Request) {
                     },
                 },
                 omit: { password: true },
-                orderBy: query?.sortby
-                    ? {
-                          [query?.sortby || "id"]: query?.sortorder || "asc",
-                      }
-                    : undefined,
+                orderBy: {
+                    [query?.sortby ?? "id"]: query?.sortorder || "asc",
+                },
                 skip: query.page
                     ? (query.page - 1) *
                       (query.perpage || default_customer_per_page)

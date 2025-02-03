@@ -35,7 +35,7 @@ export const StaffListTable = ({
             </TableHeader>
             <TableBody>
                 {isLoading ? (
-                    <LoadingRow text="Loading customers..." />
+                    <LoadingRow text="Loading customers..." colSpan={8} />
                 ) : customers.length === 0 ? (
                     <MessageRow text="No customers found" />
                 ) : (

@@ -6,6 +6,7 @@ import {
     Package,
     Settings,
     ShoppingBag,
+    ShoppingCart,
     Users,
 } from "lucide-react";
 
@@ -21,6 +22,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarRail,
+    useSidebar,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -59,27 +61,22 @@ const routes = [
     },
     {
         title: "Products",
-        icon: ShoppingBag,
+        icon: Package,
         url: "/admin/products",
         pattern: /^\/admin\/products(?:\/.*)?$/,
     },
     {
         title: "Orders",
-        icon: Package,
+        icon: ShoppingCart,
         url: "/admin/orders",
         pattern: /^\/admin\/orders(?:\/.*)?$/,
-    },
-    {
-        title: "Settings",
-        icon: Settings,
-        url: "/admin/settings",
-        pattern: /^\/admin\/settings/,
     },
 ];
 
 export function AppSidebar() {
     const currentPath = usePathname();
     const isRouteActive = (pattern: RegExp) => pattern.test(currentPath);
+    const { isMobile, toggleSidebar } = useSidebar();
     return (
         <Sidebar variant="floating" collapsible="icon">
             <SidebarHeader>
@@ -112,7 +109,12 @@ export function AppSidebar() {
                                         className={`sidebar-item ${isRouteActive(item.pattern) ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""}`}
                                         asChild
                                     >
-                                        <Link href={item?.url} className="">
+                                        <Link
+                                            href={item?.url}
+                                            onClick={() =>
+                                                isMobile && toggleSidebar()
+                                            }
+                                        >
                                             <item.icon />
                                             <span className="text-base font-semibold">
                                                 {item?.title}

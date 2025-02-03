@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Overview } from "@/components/admin/overview";
-import { RecentOrders } from "@/components/admin/recent-orders";
+// import { RecentOrders } from "@/components/admin/recent-orders";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default async function AdminDashboard() {
     const datas = [
@@ -24,7 +25,10 @@ export default async function AdminDashboard() {
 
     return (
         <div className="space-y-8">
-            <h1 className="text-3xl font-bold">Dashboard</h1>
+            <div className="flex items-center gap-3">
+                <SidebarTrigger className="w-8 h-8" />
+                <h1 className="text-3xl font-bold">Dashboard</h1>
+            </div>
 
             <div className="grid gap-4 md:grid-cols-3">
                 {datas?.map((data) => (
@@ -57,11 +61,11 @@ export default async function AdminDashboard() {
                         <CardTitle>Recent Orders</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <RecentOrders
+                        {/* <RecentOrders
                             orders={[
                                 {
-                                    id: "order1",
-                                    user: {
+                                    id: 1,
+                                    customer: {
                                         name: "John Doe",
                                         email: "john@example.com",
                                     },
@@ -76,12 +80,12 @@ export default async function AdminDashboard() {
                                             price: 99.98,
                                         },
                                     ],
-                                    status: "COMPLETED",
+                                    status: "DISPATCHED",
                                     totalAmount: 99.98,
-                                    createdAt: "2024-03-01T10:00:00Z",
+                                    createdAt: new Date("2024-03-15T09:45:00Z"),
                                 },
                                 {
-                                    id: "order2",
+                                    id: 2,
                                     user: {
                                         name: "Jane Smith",
                                         email: "jane@example.com",
@@ -99,10 +103,10 @@ export default async function AdminDashboard() {
                                     ],
                                     status: "PENDING",
                                     totalAmount: 79.99,
-                                    createdAt: "2024-03-10T15:30:00Z",
+                                    createdAt: new Date("2024-03-15T09:45:00Z"),
                                 },
                                 {
-                                    id: "order3",
+                                    id: 3,
                                     user: {
                                         name: "Mike Johnson",
                                         email: "mike@example.com",
@@ -120,10 +124,10 @@ export default async function AdminDashboard() {
                                     ],
                                     status: "PROCESSING",
                                     totalAmount: 599.97,
-                                    createdAt: "2024-03-15T09:45:00Z",
+                                    createdAt: new Date("2024-03-15T09:45:00Z"),
                                 },
                             ]}
-                        />
+                        /> */}
                     </CardContent>
                 </Card>
             </div>

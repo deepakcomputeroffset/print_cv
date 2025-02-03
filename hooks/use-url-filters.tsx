@@ -1,4 +1,4 @@
-import { CustomerQueryParams } from "@/lib/api/customers";
+import { QueryParams } from "@/types/types";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
@@ -10,7 +10,7 @@ export const useUrlFilters = () => {
 
     // params.set(data);
     const setParam = useCallback(
-        <K extends keyof CustomerQueryParams, V extends CustomerQueryParams[K]>(
+        <K extends keyof QueryParams, V extends QueryParams[K]>(
             key: K,
             value: V,
         ) => {

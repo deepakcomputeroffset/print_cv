@@ -1,3 +1,4 @@
+import { QuerySchema } from "@/schemas/query-schema";
 import {
     address,
     city,
@@ -7,8 +8,10 @@ import {
     product_attribute_type,
     product_attribute_value,
     product_category,
+    product_item,
     state,
 } from "@prisma/client";
+import { z } from "zod";
 
 export type customerWithAddress = customer & {
     address?: address & {
@@ -28,28 +31,16 @@ export interface productAttributeWithOptions extends product_attribute_type {
     product_attribute_options: product_attribute_value[];
 }
 
-export interface ProductVariantType {
-    id: string;
-    sku: string;
-    og_price: number;
-    min_qty: number;
-    min_price: number;
-    avg_price: number;
-    max_price: number;
-    image_url: string[];
-    available: boolean;
+export interface ProductVariantType
+    extends Omit<
+        product_item,
+        "createdAt" | "updatedAt" | "product_id" | "id"
+    > {
     product_attribute_options: product_attribute_value[];
 }
 
-export interface QueryParams {
-    page?: number;
-    perpage?: number;
+export interface QueryParams extends z.infer<typeof QuerySchema> {
     totalPages?: number;
-    search?: string;
-    category?: "all" | CUSTOMER_CATEGORY;
-    status?: banStatus | "all";
-    sortby?: string;
-    sortorder?: sortType;
 }
 
 export type banStatus = "true" | "false";

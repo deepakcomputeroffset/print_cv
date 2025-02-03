@@ -53,11 +53,9 @@ export async function GET(request: Request) {
                         },
                     },
                 },
-                orderBy: query?.sortby
-                    ? {
-                          [query?.sortby || "id"]: query?.sortorder || "asc",
-                      }
-                    : undefined,
+                orderBy: {
+                    [query?.sortby ?? "id"]: query?.sortorder || "asc",
+                },
                 skip: query.page
                     ? (query.page - 1) *
                       (query.perpage || default_product_category_per_page)

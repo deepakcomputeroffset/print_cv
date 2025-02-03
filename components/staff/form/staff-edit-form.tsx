@@ -75,7 +75,7 @@ export const EditStaffForm = () => {
                         <FormItem>
                             <FormLabel>Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="Aditya Kumar" {...field} />
+                                <Input placeholder="Abc" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -89,7 +89,7 @@ export const EditStaffForm = () => {
                             <FormLabel>Email</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="aaditya1392@gmail.com"
+                                    placeholder="example@gmail.com"
                                     {...field}
                                 />
                             </FormControl>
@@ -106,7 +106,7 @@ export const EditStaffForm = () => {
                             <FormControl>
                                 <Input
                                     type="tel"
-                                    placeholder="+917479796212"
+                                    placeholder="1234567890"
                                     {...field}
                                 />
                             </FormControl>

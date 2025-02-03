@@ -8,8 +8,14 @@ export const productFormSchema = z.object({
         message: "Product description must be at least 10 characters.",
     }),
     is_avialable: z.boolean().default(false),
-    product_category_id: z.string(),
+    product_category_id: z.string().refine((v) => v !== "0", "Select Category"),
     image_url: z.array(z.string()),
+    sku: z.string(),
+    min_qty: z.number().min(1),
+    og_price: z.number().min(0),
+    min_price: z.number().min(0),
+    avg_price: z.number().min(0),
+    max_price: z.number().min(0),
 
     product_items: z.array(
         z.object({
@@ -20,14 +26,10 @@ export const productFormSchema = z.object({
             avg_price: z.number().min(0),
             max_price: z.number().min(0),
             image_url: z.array(z.string()),
-            available: z.boolean().default(true),
+            is_avialable: z.boolean().default(true),
             product_attribute_options: z.array(
                 z.object({
                     id: z.number(),
-                    product_attribute_type_id: z.number(),
-                    product_attribute_value: z.string(),
-                    createdAt: z.date(),
-                    updatedAt: z.date(),
                 }),
             ),
         }),

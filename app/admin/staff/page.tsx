@@ -61,11 +61,13 @@ export default function StaffsPage({
                 </Button>
             </div>
 
+            <Card className="p-4">
+                {/* Filter */}
+                <StaffFilter filters={filters} />
+            </Card>
+
             <Card>
                 <CardContent className="p-6">
-                    {/* Filter */}
-                    <StaffFilter filters={filters} />
-
                     <div className="rounded-md border">
                         <StaffListTable
                             customers={staffs}

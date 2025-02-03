@@ -47,7 +47,7 @@ export function useProducts(props: QueryParams = {}) {
     });
 
     // Toggle avialable status mutation
-    const toggleProductAvialability = useMutation({
+    const toggleProductAvailability = useMutation({
         mutationFn: api.toggleAvialability,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });
@@ -79,7 +79,7 @@ export function useProducts(props: QueryParams = {}) {
         refetch,
         createProduct: createMutation,
         updateproduct: updateMutation,
-        toggleBanStatus: toggleProductAvialability,
+        toggleProductAvailability: toggleProductAvailability,
         deleteproduct: deleteMutation,
     };
 }

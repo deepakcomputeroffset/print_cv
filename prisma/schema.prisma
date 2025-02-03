@@ -87,7 +87,7 @@ model product_category {
 
     parent_category_id Int? // For subcategories parent category id
     sub_categories     product_category[] @relation("SubCategories")
-    parent_category    product_category?  @relation("SubCategories", fields: [parent_category_id], references: [id], onDelete: Restrict)
+    parent_category    product_category?  @relation("SubCategories", fields: [parent_category_id], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -99,7 +99,13 @@ model product {
     description   String
     image_url     String[]
     category_id   Int
-    is_avialable Boolean @default(false)
+    is_avialable  Boolean        @default(false)
+    sku           String
+    min_qty       Int
+    og_price      Int
+    min_price     Int
+    avg_price     Int
+    max_price     Int
     product_items product_item[]
 
     category  product_category @relation(fields: [category_id], references: [id])
@@ -109,15 +115,15 @@ model product {
 
 model product_item {
     id                        Int                       @id @default(autoincrement())
-    sku                       String
     product_id                Int
+    sku                       String
     min_qty                   Int
     og_price                  Int
     min_price                 Int
     avg_price                 Int
     max_price                 Int
     image_url                 String[]
-    available                 Boolean                   @default(false)
+    is_avialable              Boolean                   @default(false)
     product_attribute_options product_attribute_value[]
     orders                    order[]
 
@@ -127,12 +133,12 @@ model product_item {
 }
 
 model product_attribute_value {
-    id                           Int            @id @default(autoincrement())
-    product_items                product_item[]
-    product_attribute_type_id    Int
-    product_attribute_value String
+    id                        Int            @id @default(autoincrement())
+    product_items             product_item[]
+    product_attribute_type_id Int
+    product_attribute_value   String
 
-    product_attribute_type product_attribute_type @relation(fields: [product_attribute_type_id], references: [id])
+    product_attribute_type product_attribute_type @relation(fields: [product_attribute_type_id], references: [id], onDelete: Cascade)
     createdAt              DateTime               @default(now())
     updatedAt              DateTime               @updatedAt
 }

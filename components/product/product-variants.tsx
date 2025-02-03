@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
-import { VariantForm } from "./variant-form";
+import { VariantForm } from "./form/variant-form";
 import { ProductVariantType } from "@/types/types";
 import { z } from "zod";
 import { productFormSchema } from "@/schemas/product-schema";
@@ -21,24 +21,24 @@ export function ProductVariants({
     form,
     getAttributeNameById,
 }: ProductVariantsProps) {
-    const [expandedVariant, setExpandedVariant] = useState<string | null>(null);
+    const [expandedVariant, setExpandedVariant] = useState<number | null>(null);
 
-    const toggleVariant = (variantId: string) => {
-        setExpandedVariant(expandedVariant === variantId ? null : variantId);
+    const toggleVariant = (idx: number) => {
+        setExpandedVariant(expandedVariant === idx ? null : idx);
     };
 
     return (
         <div>
             <h2 className="text-xl font-semibold mb-4">Product Variants</h2>
             {variants?.map((variant, index) => (
-                <Card key={variant.id} className="mb-4">
+                <Card key={index} className="mb-4">
                     <CardContent className="pt-6">
                         <div
                             className="flex justify-between items-center cursor-pointer"
-                            onClick={() => toggleVariant(variant.id)}
+                            onClick={() => toggleVariant(index)}
                         >
                             <h3 className="text-lg font-medium">
-                                ProductVariantType {index + 1}
+                                Variant {index + 1}
                             </h3>
                             <div className="flex items-center gap-4">
                                 <div className="flex flex-wrap gap-2">
@@ -59,7 +59,7 @@ export function ProductVariants({
                                         ),
                                     )}
                                 </div>
-                                {expandedVariant === variant.id ? (
+                                {expandedVariant === index ? (
                                     <ChevronUp className="h-4 w-4" />
                                 ) : (
                                     <ChevronDown className="h-4 w-4" />
@@ -67,7 +67,7 @@ export function ProductVariants({
                             </div>
                         </div>
 
-                        {expandedVariant === variant.id && (
+                        {expandedVariant === index && (
                             <VariantForm form={form} index={index} />
                         )}
                     </CardContent>

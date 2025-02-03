@@ -37,7 +37,7 @@ export default function CategoriesPage({
     const { onOpen } = useModal();
 
     return (
-        <div>
+        <div className="space-y-6 h-full min-h-full">
             <div className="flex justify-between items-center mb-6">
                 <div className="flex items-center gap-3">
                     <SidebarTrigger className="w-8 h-8" />
@@ -52,13 +52,15 @@ export default function CategoriesPage({
                     <Plus className="h-4 w-4" />
                 </Button>
             </div>
+            <Card className="p-4">
+                <ProductCategoryFilter filters={filters} />
+            </Card>
 
             <Card className="p-6">
-                <ProductCategoryFilter filters={filters} />
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="text-center">Id</TableHead>
+                            <TableHead>Id</TableHead>
                             <TableHead>Name</TableHead>
                             <TableHead>Description</TableHead>
                             <TableHead>Image</TableHead>
@@ -91,6 +93,8 @@ export default function CategoriesPage({
             </Card>
 
             <ProductCategoryCreateModal />
+            <ProductCategoryEditModal />
+            <ProductCategoryDeleteModal />
         </div>
     );
 }
@@ -119,10 +123,7 @@ const RenderCategoryRow = ({
         <>
             <TableRow key={`${category.id}-${level}`}>
                 <TableCell>
-                    <div
-                        className="flex items-center justify-center"
-                        style={{ paddingLeft: `${level * 2}rem` }}
-                    >
+                    <div style={{ paddingLeft: `${level * 2}rem` }}>
                         {hasSubcategories && (
                             <button
                                 onClick={() => toggleExpand(category?.id)}
@@ -206,9 +207,6 @@ const RenderCategoryRow = ({
                         key={subCategory?.id + level + 1}
                     />
                 ))}
-
-            <ProductCategoryEditModal />
-            <ProductCategoryDeleteModal />
         </>
     );
 };

@@ -15,7 +15,8 @@ export const authConfig: AuthOptions = {
                 password: { label: "Password", type: "text" },
             },
 
-            async authorize(credentials, req) {
+            // eslint-disable-next-line
+            async authorize(credentials, req): Promise<any> {
                 try {
                     const userType: "staff" | "customer" = req?.body?.userType;
                     if (
