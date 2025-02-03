@@ -89,10 +89,7 @@ export const ProductCategoryCreateForm = () => {
                         <FormItem>
                             <FormLabel>Description</FormLabel>
                             <FormControl>
-                                <Textarea
-                                    placeholder="Abc"
-                                    {...field}
-                                />
+                                <Textarea placeholder="Abc" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

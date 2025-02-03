@@ -4,7 +4,6 @@ import {
     Home,
     LayoutDashboard,
     Package,
-    Settings,
     ShoppingBag,
     ShoppingCart,
     Users,
