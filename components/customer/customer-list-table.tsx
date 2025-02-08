@@ -36,7 +36,7 @@ export const CustomerListTable = ({
                 {isLoading ? (
                     <LoadingRow text="Loading customers..." colSpan={7} />
                 ) : customers.length === 0 ? (
-                    <MessageRow text="No customers found" />
+                    <MessageRow colSpan={7} text="No customers found" />
                 ) : (
                     customers?.map((customer: customerWithAddress) => (
                         <CustomerTableRow

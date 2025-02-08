@@ -75,7 +75,7 @@ export async function GET(request: Request) {
                     category: true,
                 },
                 orderBy: {
-                    [query?.sortby ?? "id"]: query?.sortorder || "asc",
+                    [query?.sortby ?? "id"]: query?.sortorder ?? "asc",
                 },
                 skip: query.page
                     ? (query.page - 1) *
@@ -85,7 +85,18 @@ export async function GET(request: Request) {
             }),
         ]);
 
-        return NextResponse.json({ data: products, total }, { status: 200 });
+        return NextResponse.json(
+            {
+                data: products,
+                total,
+                page: query.page || 1,
+                perpage: query.perpage || default_product_per_page,
+                totalPages: Math.ceil(
+                    total / (query.perpage || default_product_per_page),
+                ),
+            },
+            { status: 200 },
+        );
     } catch (error) {
         return NextResponse.json(
             { message: "Error fetching products", error },
@@ -101,7 +112,7 @@ export async function POST(req: Request) {
 
         const {
             success,
-            data: safeDate,
+            data: safeData,
             error,
         } = productFormSchema.safeParse(data);
 
@@ -111,19 +122,19 @@ export async function POST(req: Request) {
 
         const newProduct = await prisma?.product.create({
             data: {
-                name: safeDate.name,
-                description: safeDate.description,
-                image_url: safeDate.image_url,
-                category_id: parseInt(safeDate.product_category_id, 10), // Convert to integer
-                is_avialable: safeDate.is_avialable,
-                sku: safeDate.sku,
-                min_qty: safeDate.min_qty,
-                og_price: safeDate.og_price,
-                min_price: safeDate.min_price,
-                avg_price: safeDate.avg_price,
-                max_price: safeDate.max_price,
+                name: safeData.name,
+                description: safeData.description,
+                image_url: safeData.image_url,
+                category_id: parseInt(safeData.category_id, 10), // Convert to integer
+                is_avialable: safeData.is_avialable,
+                sku: safeData.sku,
+                min_qty: safeData.min_qty,
+                og_price: safeData.og_price,
+                min_price: safeData.min_price,
+                avg_price: safeData.avg_price,
+                max_price: safeData.max_price,
                 product_items: {
-                    create: safeDate.product_items.map((item) => ({
+                    create: safeData.product_items.map((item) => ({
                         sku: item.sku,
                         min_qty: item.min_qty,
                         og_price: item.og_price,

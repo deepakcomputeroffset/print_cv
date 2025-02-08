@@ -65,7 +65,7 @@ export const StaffFilter = ({ filters }: { filters: QueryParams }) => {
                     value={filters?.sortby || "id"}
                     onValueChange={(value) => setParam("sortby", value)}
                 >
-                    <SelectTrigger className="md:w-[180px]">
+                    <SelectTrigger className="md:min-w-[180px]">
                         <SelectValue placeholder="Sort By" />
                     </SelectTrigger>
                     <SelectContent>
@@ -88,6 +88,28 @@ export const StaffFilter = ({ filters }: { filters: QueryParams }) => {
                 >
                     {sortOrder === "desc" ? "↑" : "↓"}
                 </Button>
+
+                <Select
+                    value={`${filters?.perpage || "100"}`}
+                    onValueChange={(value) =>
+                        setParam("perpage", Number(value))
+                    }
+                >
+                    <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Per Page" />
+                    </SelectTrigger>
+                    <SelectContent className="md:w-[180px]">
+                        <SelectGroup>
+                            <SelectLabel>Per Page</SelectLabel>
+                            {process.env.NODE_ENV === "development" && (
+                                <SelectItem value="1">1</SelectItem>
+                            )}
+                            <SelectItem value="100">100</SelectItem>
+                            <SelectItem value="200">200</SelectItem>
+                            <SelectItem value="400">400</SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
             </div>
         </div>
     );

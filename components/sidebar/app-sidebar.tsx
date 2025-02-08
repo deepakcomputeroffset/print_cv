@@ -43,25 +43,25 @@ const routes = [
     {
         title: "Staffs",
         icon: Users,
-        url: "/admin/staff",
+        url: "/admin/staff?search=&sortorder=asc&perpage=100",
         pattern: /^\/admin\/staff(?:\/.*)?$/, // Matches /admin/staff and any nested route
     },
     {
         title: "Customers",
         icon: Users,
-        url: "/admin/customer",
+        url: "/admin/customer?search=&sortorder=asc&perpage=100",
         pattern: /^\/admin\/customer(?:\/.*)?$/,
     },
     {
         title: "Category",
         icon: ShoppingBag,
-        url: "/admin/category",
+        url: "/admin/category?search=&sortorder=asc&perpage=100",
         pattern: /^\/admin\/category(?:\/.*)?$/,
     },
     {
         title: "Products",
         icon: Package,
-        url: "/admin/products",
+        url: "/admin/products?search=&sortorder=asc&perpage=100",
         pattern: /^\/admin\/products(?:\/.*)?$/,
     },
     {

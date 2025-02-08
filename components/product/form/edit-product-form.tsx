@@ -34,44 +34,87 @@ import { Loader2, X } from "lucide-react";
 import { Dropzone } from "@/components/ui/dropzone";
 import { useProducts } from "@/hooks/use-product";
 import {
+    product,
     product_attribute_type,
     product_attribute_value,
+    product_item,
 } from "@prisma/client";
 import { getAllProductCategory } from "@/lib/get-categories";
+import { getDirtyFieldsWithValues } from "@/lib/utils";
+import { useMount } from "@/hooks/use-mount";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import { UploadApiResponse } from "cloudinary";
 
-export function ProductForm() {
+type productItemWithOptions = product_item & {
+    product_attribute_options?: (product_attribute_value & {
+        product_attribute_type?: product_attribute_type;
+    })[];
+};
+
+export function EditProductForm({
+    product,
+}: {
+    product?: product & {
+        product_items?: productItemWithOptions[];
+    };
+}) {
     const [uploading, setUploading] = useState(false);
-    const [variants, setVariants] = useState<ProductVariantType[]>([]);
+    const attribute = product?.product_items
+        ?.flatMap((p) =>
+            p?.product_attribute_options?.flatMap(
+                (pp) => pp?.product_attribute_type,
+            ),
+        )
+        ?.filter(
+            (value, index, self): value is product_attribute_type =>
+                value !== undefined &&
+                index === self.findIndex((t) => t?.id === value?.id), // Ensure uniqueness
+        );
+
+    const options = product?.product_items
+        ?.flatMap((p) => p?.product_attribute_options ?? []) // Ensure it's always an array
+        ?.filter((opt): opt is product_attribute_value => opt !== undefined) // Remove undefined values
+        ?.filter(
+            (value, index, self) =>
+                index === self.findIndex((t) => t.id === value.id), // Ensure uniqueness based on 'id'
+        );
+
+    const [variants, setVariants] = useState<
+        ProductVariantType[] | productItemWithOptions[]
+    >(product?.product_items ?? []);
+
     const [selectedAttributes, setSelectedAttributes] = useState<
         product_attribute_type[]
-    >([]);
+    >(attribute ?? []);
+
     const [selectedOptions, setSelectedOptions] = useState<
         product_attribute_value[]
-    >([]);
+    >(options ?? []);
+
+    const router = useRouter();
 
     const form = useForm<z.infer<typeof productFormSchema>>({
         resolver: zodResolver(productFormSchema),
         defaultValues: {
-            name: "",
-            description: "",
-            image_url: [],
-            category_id: "0",
-            product_items: [],
-            avg_price: 0,
-            is_avialable: false,
-            max_price: 0,
-            min_price: 0,
-            min_qty: 0,
-            og_price: 0,
-            sku: "",
+            name: product?.name,
+            description: product?.description,
+            image_url: product?.image_url || [],
+            category_id: product?.category_id.toString(),
+            product_items: product?.product_items,
+            avg_price: product?.avg_price,
+            is_avialable: product?.is_avialable,
+            max_price: product?.max_price,
+            min_price: product?.min_price,
+            min_qty: product?.min_qty,
+            og_price: product?.og_price,
+            sku: product?.sku,
         },
     });
 
     const { productCategories, isLoading } = useProductCategory();
 
-    const { createProduct } = useProducts();
+    const { updateproduct } = useProducts();
 
     const handleImageDrop = useCallback(
         async (files: File[]) => {
@@ -106,16 +149,14 @@ export function ProductForm() {
                         files: images,
                     },
                 );
-
+                console.log(data);
                 form.setValue(
                     "image_url",
                     [
                         ...form.getValues("image_url"),
                         ...data?.map((url) => url?.secure_url),
                     ],
-                    {
-                        shouldDirty: true,
-                    },
+                    { shouldDirty: true },
                 );
             } catch (error) {
                 console.log(error);
@@ -134,23 +175,12 @@ export function ProductForm() {
             form.setValue(
                 "image_url",
                 form.getValues("image_url").filter((v, i) => i != idx),
-                { shouldDirty: true },
+                {
+                    shouldDirty: true,
+                },
             );
         }
     }, []);
-
-    async function onSubmit(data: z.infer<typeof productFormSchema>) {
-        try {
-            await createProduct.mutateAsync(data);
-            form.reset();
-            setVariants([]);
-            setSelectedAttributes([]);
-            setSelectedOptions([]);
-        } catch (error) {
-            toast.error("Error While creating product.");
-            console.log("Error creating product:", error);
-        }
-    }
 
     const getAttributeNameById = useCallback(
         (id: number): string => {
@@ -217,18 +247,53 @@ export function ProductForm() {
         }));
 
         setVariants(newVariants);
-        form.setValue("product_items", newVariants);
+        form.setValue("product_items", newVariants, { shouldDirty: true });
     }, [selectedAttributes, selectedOptions]);
 
+    const dirtyFields = form.formState.dirtyFields;
+
+    const dirtyFieldsWithValues = getDirtyFieldsWithValues(
+        dirtyFields,
+        form.watch(),
+    );
+
+    async function onSubmit() {
+        try {
+            await updateproduct.mutateAsync({
+                id: product?.id as number,
+                data: dirtyFieldsWithValues,
+            });
+            router.push("/admin/products?search=&sortorder=asc&perpage=100");
+        } catch (error) {
+            toast.error("Error While updating product.");
+            console.log("Error creating product:", error);
+        }
+    }
+    const mount = useMount();
+
     useEffect(() => {
-        if (selectedAttributes?.length > 0 && selectedOptions?.length > 0)
+        if (mount && selectedAttributes?.length === 0) {
+            setSelectedOptions([]);
+            setVariants([]);
+        }
+    }, [selectedAttributes]);
+
+    useEffect(() => {
+        if (
+            mount &&
+            selectedAttributes?.length > 0 &&
+            selectedOptions.length > 0
+        ) {
             generateVariants();
-        else setVariants([]);
+        }
     }, [selectedAttributes, selectedOptions]);
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form
+                onSubmit={form.handleSubmit(() => onSubmit())}
+                className="space-y-8"
+            >
                 <div className="grid grid-cols-2 gap-8">
                     <FormField
                         control={form.control}
@@ -314,8 +379,8 @@ export function ProductForm() {
                                         </div>
                                     )}
                                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4">
-                                        {!!form?.getValues("image_url")
-                                            .length &&
+                                        {form?.getValues("image_url").length >
+                                            0 &&
                                             form
                                                 ?.getValues("image_url")
                                                 .map((url, idx) => (
@@ -540,7 +605,7 @@ export function ProductForm() {
 
                 {variants?.length > 0 && (
                     <ProductVariants
-                        variants={variants}
+                        variants={variants as ProductVariantType[]}
                         form={form}
                         getAttributeNameById={getAttributeNameById}
                     />
@@ -549,12 +614,16 @@ export function ProductForm() {
                 <Button
                     type="submit"
                     className="w-full"
-                    disabled={isLoading || createProduct?.isPending}
+                    disabled={
+                        !form.formState.isDirty ||
+                        isLoading ||
+                        updateproduct?.isPending
+                    }
                 >
-                    {createProduct?.isPending ? (
+                    {updateproduct?.isPending ? (
                         <Loader2 className="animate-spin" />
                     ) : (
-                        "Create Product"
+                        "Update Product"
                     )}
                 </Button>
             </form>

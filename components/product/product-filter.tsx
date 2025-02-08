@@ -24,7 +24,7 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
         perpage: 100,
     });
     const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-    const [search, setSearch] = useState(filters?.search);
+    const [search, setSearch] = useState(filters?.search || "");
     const [sortOrder, setSortOrder] = useState<sortType | undefined>(
         filters?.sortorder,
     );
@@ -41,8 +41,8 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
     const debouncedMinQty = useDebounce(minQty, 300);
 
     useEffect(() => {
-        if (!!search) setParam("search", debouncedSearch);
-        if (!!sortOrder) setParam("sortorder", debouncedSortOrder);
+        setParam("search", debouncedSearch);
+        setParam("sortorder", debouncedSortOrder);
         if (!!minQty) setParam("min_qty", minQty);
         if (!!priceRange?.min) setParam("min_price", priceRange?.min);
         if (!!priceRange?.max) setParam("max_price", priceRange?.max);
@@ -70,7 +70,12 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
                         </div>
                     </div>
 
-                    <Select>
+                    <Select
+                        value={filters?.category_id ?? "all"}
+                        onValueChange={(v) => {
+                            setParam("category_id", v);
+                        }}
+                    >
                         <SelectTrigger>
                             <SelectValue placeholder="Select category" />
                         </SelectTrigger>
@@ -189,6 +194,29 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
                             >
                                 {sortOrder === "desc" ? "↑" : "↓"}
                             </Button>
+
+                            <Select
+                                value={`${filters?.perpage || "100"}`}
+                                onValueChange={(value) =>
+                                    setParam("perpage", Number(value))
+                                }
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Per Page" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Per Page</SelectLabel>
+                                        {process.env.NODE_ENV ===
+                                            "development" && (
+                                            <SelectItem value="1">1</SelectItem>
+                                        )}
+                                        <SelectItem value="100">100</SelectItem>
+                                        <SelectItem value="200">200</SelectItem>
+                                        <SelectItem value="400">400</SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
                         </div>
                     </div>
                 )}

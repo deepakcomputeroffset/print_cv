@@ -39,7 +39,7 @@ export function useProducts(props: QueryParams = {}) {
         }) => api.updateProduct(id, data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });
-            toast.success("Product created successfully");
+            toast.success("Product updated successfully");
         },
         onError: () => {
             toast.error("Failed to update product");
@@ -48,13 +48,13 @@ export function useProducts(props: QueryParams = {}) {
 
     // Toggle avialable status mutation
     const toggleProductAvailability = useMutation({
-        mutationFn: api.toggleAvialability,
+        mutationFn: api.toggleAvailability,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });
-            toast.success("product status created successfully");
+            toast.success("product status updated successfully");
         },
         onError: () => {
-            toast.error("Failed to create product status");
+            toast.error("Failed to update product status");
         },
     });
 

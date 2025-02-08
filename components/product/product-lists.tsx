@@ -10,16 +10,21 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Pencil, Trash2 } from "lucide-react";
+import { Check, Eye, Pencil, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import { useProducts } from "@/hooks/use-product";
 import { LoadingRow } from "@/components/loading-row";
 import { MessageRow } from "@/components/message-row";
 import Pagination from "@/components/pagination";
 import { QueryParams } from "@/types/types";
+import { useModal } from "@/hooks/use-modal";
+import { ProductDeleteModal } from "./modal/product-delete-modal";
+import Link from "next/link";
 
 export const ProductLists = ({ filters }: { filters: QueryParams }) => {
-    const { products, totalPages, isLoading } = useProducts({ ...filters });
+    const { products, totalPages, isLoading, toggleProductAvailability } =
+        useProducts({ ...filters });
+    const { onOpen } = useModal();
 
     return (
         <Card className="p-6">
@@ -42,7 +47,7 @@ export const ProductLists = ({ filters }: { filters: QueryParams }) => {
                     {isLoading ? (
                         <LoadingRow colSpan={7} text="Loading products..." />
                     ) : products?.length === 0 ? (
-                        <MessageRow text="No Products found" />
+                        <MessageRow colSpan={8} text="No Products found" />
                     ) : (
                         products?.map((product) => (
                             <TableRow key={product?.id}>
@@ -87,11 +92,45 @@ export const ProductLists = ({ filters }: { filters: QueryParams }) => {
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex justify-end space-x-2">
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            onClick={() =>
+                                                toggleProductAvailability.mutate(
+                                                    product?.id,
+                                                )
+                                            }
+                                        >
+                                            {product?.is_avialable ? (
+                                                <X className="h-4 w-4 text-red-600" />
+                                            ) : (
+                                                <Check className="h-4 w-4 text-green-600" />
+                                            )}
+                                        </Button>
                                         <Button variant="ghost" size="icon">
-                                            <Pencil className="h-4 w-4" />
+                                            <Eye className="h-4 w-4" />
+                                        </Button>
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            asChild
+                                        >
+                                            <Link
+                                                href={`/admin/products/${product?.id}/edit`}
+                                            >
+                                                <Pencil className="h-4 w-4" />
+                                            </Link>
                                         </Button>
 
-                                        <Button variant="ghost" size="icon">
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            onClick={() =>
+                                                onOpen("deleteProduct", {
+                                                    product,
+                                                })
+                                            }
+                                        >
                                             <Trash2 className="h-4 w-4" />
                                         </Button>
                                     </div>
@@ -103,6 +142,7 @@ export const ProductLists = ({ filters }: { filters: QueryParams }) => {
             </Table>
 
             <Pagination totalPage={totalPages} isLoading={isLoading} />
+            <ProductDeleteModal />
         </Card>
     );
 };
