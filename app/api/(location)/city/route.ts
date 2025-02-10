@@ -3,10 +3,10 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET() {
     try {
-        const Citys = await prisma.city.findMany({
+        const Cities = await prisma.city.findMany({
             include: { state: true },
         });
-        return NextResponse.json(Citys, { status: 200 });
+        return NextResponse.json(Cities, { status: 200 });
     } catch (error) {
         return NextResponse.json(
             {

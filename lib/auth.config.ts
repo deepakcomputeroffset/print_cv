@@ -102,48 +102,42 @@ export const authConfig: AuthOptions = {
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                // token.role = user.role;
-                token.id = Number(user.id);
+                token.userType = user.userType;
+                if (user.customer) {
+                    token.customer = user.customer;
+                }
+                if (user.staff) {
+                    token.staff = user.staff;
+                }
             }
+
             return token;
         },
 
-        // redirect: async ({ url, baseUrl }) => {
-        //   // Handle redirects based on user role
-        //   const user = await getServerSession(authConfig); // Get user from session
-
-        //   if (user && user?.user.role === "admin") {
-        //     return `${baseUrl}/admin`;
-        //   } else if (user && user?.user.role === "staff") {
-        //     return `${baseUrl}/staff`;
-        //   } else if (user && user.user.role === "customer") {
-        //     return `${baseUrl}/customer`;
-        //   }
-        //   return baseUrl; // Default redirect
-        // },
+        async redirect({ url, baseUrl }) {
+            if (url.startsWith(baseUrl)) return url;
+            return baseUrl;
+        },
 
         async session({ session, token }) {
-            if (token) {
-                if (token?.customer?.id) {
-                    session.user.customer.id = token.customer.id;
-                }
-                if (token?.staff?.id) {
-                    session.user.staff.id = token.staff.id;
-                }
+            if (token.userType === "customer" && token.customer) {
+                session.user = { ...session.user, customer: token.customer };
+            } else if (token.userType === "staff" && token.staff) {
+                session.user = { ...session.user, staff: token.staff };
             }
             return session;
         },
 
         // authorized({ auth, request: { nextUrl } }) {
-        //   const isLoggedIn = !!auth?.user;
-        //   const isAdmin = auth?.user?.role === "ADMIN";
-        //   const isAdminPanel = nextUrl.pathname.startsWith("/admin");
+        //     const isLoggedIn = !!auth?.user;
+        //     const isAdmin = auth?.user?.role === "ADMIN";
+        //     const isAdminPanel = nextUrl.pathname.startsWith("/admin");
 
-        //   if (isAdminPanel && !isAdmin) {
-        //     return false;
-        //   }
+        //     if (isAdminPanel && !isAdmin) {
+        //         return false;
+        //     }
 
-        //   return true;
+        //     return true;
         // },
     },
 };

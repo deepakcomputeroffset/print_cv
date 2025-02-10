@@ -20,7 +20,10 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
 const formSchema = z.object({
-    email: z.string().email("Invalid email address"),
+    phone: z
+        .string()
+        .min(10, "Enter valid phone number")
+        .regex(/^\d{1,10}$/, "Invalid phone number format. e.g., 1234567890."),
     password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -31,8 +34,8 @@ export default function LoginPage() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            email: "",
-            password: "",
+            phone: "1234567890",
+            password: "Abc1234@@",
         },
     });
 
@@ -40,13 +43,13 @@ export default function LoginPage() {
         try {
             setLoading(true);
             const result = await signIn("credentials", {
-                email: values.email,
+                phone: values.phone,
                 password: values.password,
                 userType: "customer",
-                callbackUrl: "/customer/dashboard",
+                callbackUrl: "/customer",
                 redirect: false,
             });
-
+            console.log(result);
             if (result?.error) {
                 toast.error("Invalid credentials");
                 return;
@@ -78,13 +81,13 @@ export default function LoginPage() {
                     >
                         <FormField
                             control={form.control}
-                            name="email"
+                            name="phone"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel>Phone</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="john@example.com"
+                                            placeholder="1234567890"
                                             {...field}
                                         />
                                     </FormControl>
@@ -120,7 +123,7 @@ export default function LoginPage() {
                 </Form>
                 <div className="text-center text-sm">
                     <p className="text-muted-foreground">
-                        Don&apos;t have an account?
+                        Don&apos;t have an account?{" "}
                         <Link
                             href="/register"
                             className="text-primary hover:underline"
