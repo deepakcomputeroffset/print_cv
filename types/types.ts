@@ -4,7 +4,6 @@ import {
     city,
     country,
     customer,
-    CUSTOMER_CATEGORY,
     product_attribute_type,
     product_attribute_value,
     product_category,
@@ -41,6 +40,7 @@ export interface ProductVariantType
 
 export interface QueryParams extends z.infer<typeof QuerySchema> {
     totalPages?: number;
+    parent_category_id?: string;
 }
 
 export type banStatus = "true" | "false";

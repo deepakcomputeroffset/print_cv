@@ -7,13 +7,13 @@ import { default_staff_per_page } from "@/lib/constants";
 import { QueryParams } from "@/types/types";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useStaff } from "@/hooks/use-staff";
-import { StaffListTable } from "@/components/staff/staff-list-table";
-import { StaffAddModal } from "@/components/staff/modal/staff-add-modal";
-import { StaffEditModal } from "@/components/staff/modal/staff-edit-modal";
-import { StaffDeleteModal } from "@/components/staff/modal/staff-delete-modal";
+import { StaffListTable } from "@/components/admin/staff/staff-list-table";
+import { StaffAddModal } from "@/components/admin/staff/modal/staff-add-modal";
+import { StaffEditModal } from "@/components/admin/staff/modal/staff-edit-modal";
+import { StaffDeleteModal } from "@/components/admin/staff/modal/staff-delete-modal";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
-import { StaffFilter } from "@/components/staff/staff-filter";
+import { StaffFilter } from "@/components/admin/staff/staff-filter";
 import { Plus } from "lucide-react";
 
 export default function StaffsPage({

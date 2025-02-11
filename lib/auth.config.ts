@@ -115,15 +115,17 @@ export const authConfig: AuthOptions = {
         },
 
         async redirect({ url, baseUrl }) {
-            if (url.startsWith(baseUrl)) return url;
-            return baseUrl;
+            if (url.match(baseUrl)) return url;
+            return baseUrl + url;
         },
 
         async session({ session, token }) {
             if (token.userType === "customer" && token.customer) {
                 session.user = { ...session.user, customer: token.customer };
+                session.user.userType = token.userType;
             } else if (token.userType === "staff" && token.staff) {
                 session.user = { ...session.user, staff: token.staff };
+                session.user.userType = token.userType;
             }
             return session;
         },

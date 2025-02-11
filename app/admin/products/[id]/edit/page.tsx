@@ -1,4 +1,4 @@
-import { EditProductForm } from "@/components/product/form/edit-product-form";
+import { EditProductForm } from "@/components/admin/product/form/edit-product-form";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { prisma } from "@/lib/prisma";
 

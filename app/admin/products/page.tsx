@@ -2,8 +2,8 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { QueryParams } from "@/types/types";
-import { ProductFilter } from "@/components/product/product-filter";
-import { ProductLists } from "@/components/product/product-lists";
+import { ProductFilter } from "@/components/admin/product/product-filter";
+import { ProductLists } from "@/components/admin/product/product-lists";
 import React from "react";
 
 export default function ProductsPage({

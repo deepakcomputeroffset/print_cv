@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductForm } from "@/components/product/form/add-product-form";
+import { ProductForm } from "@/components/admin/product/form/add-product-form";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function CreateProductPage() {

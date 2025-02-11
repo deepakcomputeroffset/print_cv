@@ -18,11 +18,11 @@ import { useProductCategory } from "@/hooks/use-product-categories";
 import { product_category } from "@prisma/client";
 import { LoadingRow } from "@/components/loading-row";
 import { MessageRow } from "@/components/message-row";
-import { ProductCategoryCreateModal } from "@/components/category/modal/product-category-create-modal";
-import { ProductCategoryEditModal } from "@/components/category/modal/product-category-edit-modal";
-import { ProductCategoryDeleteModal } from "@/components/category/modal/produt-category-delete-modal";
+import { ProductCategoryCreateModal } from "@/components/admin/category/modal/product-category-create-modal";
+import { ProductCategoryEditModal } from "@/components/admin/category/modal/product-category-edit-modal";
+import { ProductCategoryDeleteModal } from "@/components/admin/category/modal/produt-category-delete-modal";
 import { productCategoryWithSubCategory, QueryParams } from "@/types/types";
-import { ProductCategoryFilter } from "@/components/category/product-category-filter";
+import { ProductCategoryFilter } from "@/components/admin/category/product-category-filter";
 import Pagination from "@/components/pagination";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 

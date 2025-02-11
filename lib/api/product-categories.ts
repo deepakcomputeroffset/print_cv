@@ -12,7 +12,9 @@ export async function fetchProductCategories(
         url: productCategoryBaseUrl,
         query: { ...params },
     });
-    const { data } = await axios(url);
+
+    console.log(url);
+    const { data } = await axios.get(url);
     return data;
 }
 

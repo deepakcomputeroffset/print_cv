@@ -18,7 +18,7 @@ export async function GET(request: Request) {
         const { isNum, num } = stringToNumber(query?.search || "");
 
         const where: Prisma.product_categoryWhereInput = {
-            parent_category_id: null,
+            parent_category_id: Number(query?.category_id) ?? null,
             AND: [
                 query.search
                     ? {
