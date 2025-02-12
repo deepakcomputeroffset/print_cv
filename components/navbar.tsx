@@ -17,40 +17,41 @@ export default function Navbar() {
                         <Printer className="h-6 w-6" />
                         <span className="font-bold">Print Press</span>
                     </Link>
-                    {session?.status === "authenticated" && (
-                        <nav className="flex items-center space-x-6 text-sm font-medium">
-                            <Link
-                                href="/categories"
-                                className={
-                                    pathname === "/categories"
-                                        ? "text-foreground"
-                                        : "text-foreground/60"
-                                }
-                            >
-                                Categories
-                            </Link>
-                            <Link
-                                href="/products"
-                                className={
-                                    pathname === "/products"
-                                        ? "text-foreground"
-                                        : "text-foreground/60"
-                                }
-                            >
-                                Products
-                            </Link>
-                            <Link
-                                href="/orders"
-                                className={
-                                    pathname === "/orders"
-                                        ? "text-foreground"
-                                        : "text-foreground/60"
-                                }
-                            >
-                                My Orders
-                            </Link>
-                        </nav>
-                    )}
+                    {session?.status === "authenticated" &&
+                        session?.data?.user?.userType === "customer" && (
+                            <nav className="flex items-center space-x-6 text-sm font-medium">
+                                <Link
+                                    href="/customer/categories"
+                                    className={
+                                        pathname === "/categories"
+                                            ? "text-foreground"
+                                            : "text-foreground/60"
+                                    }
+                                >
+                                    Categories
+                                </Link>
+                                <Link
+                                    href="/customer/products"
+                                    className={
+                                        pathname === "/products"
+                                            ? "text-foreground"
+                                            : "text-foreground/60"
+                                    }
+                                >
+                                    Products
+                                </Link>
+                                <Link
+                                    href="/customer/orders"
+                                    className={
+                                        pathname === "/orders"
+                                            ? "text-foreground"
+                                            : "text-foreground/60"
+                                    }
+                                >
+                                    My Orders
+                                </Link>
+                            </nav>
+                        )}
                 </div>
                 <div className="flex flex-1 items-center justify-end space-x-2">
                     {session.status === "authenticated" &&

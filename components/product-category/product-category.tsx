@@ -28,7 +28,7 @@ export const ProductCategoryList = ({
         if (category?._count?.sub_categories > 0) {
             setParam("parent_category_id", category?.id.toString());
         } else {
-            router.push(`/products?category_id=${category.id}`);
+            router.push(`/customer/products?category_id=${category.id}`);
         }
     };
 
@@ -58,7 +58,7 @@ export const ProductCategoryList = ({
 
                 {categories[0]?.parent_category !== null && (
                     <ArrowLeft
-                        onClick={() => router?.push("/categories")}
+                        onClick={() => router?.push("/customer/categories")}
                         className="cursor-pointer"
                     />
                 )}

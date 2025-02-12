@@ -4,6 +4,7 @@ import {
     city,
     country,
     customer,
+    product,
     product_attribute_type,
     product_attribute_value,
     product_category,
@@ -43,5 +44,11 @@ export interface QueryParams extends z.infer<typeof QuerySchema> {
     parent_category_id?: string;
 }
 
+export type ProductTypeOnlyWithPrice = Omit<
+    product,
+    "min_price" | "price" | "mid_price" | "og_price"
+> & {
+    price: number;
+};
 export type banStatus = "true" | "false";
 export type sortType = "asc" | "desc";

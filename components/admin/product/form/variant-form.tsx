@@ -17,7 +17,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "../../ui/select";
+} from "@/components/ui/select";
 
 interface VariantFormProps {
     form: UseFormReturn<z.infer<typeof productFormSchema>>;
