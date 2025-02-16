@@ -12,7 +12,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { customerFormSchema } from "@/schemas/customer-schema";
+import { customerFormSchema } from "@/schemas/customer.form.schema";
 import {
     Select,
     SelectContent,
@@ -22,7 +22,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { useStates } from "@/hooks/use-states";
+import { useStates } from "@/hooks/useStates";
 import { useModal } from "@/hooks/use-modal";
 import { useCustomers } from "@/hooks/use-customers";
 import { getDirtyFieldsWithValues } from "@/lib/utils";

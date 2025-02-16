@@ -1,5 +1,5 @@
 import { stringToNumber } from "@/lib/utils";
-import ProductLists from "../../../../components/product/product-lists";
+import ProductLists from "../../../../components/product/productLists";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProductTypeOnlyWithPrice } from "@/types/types";

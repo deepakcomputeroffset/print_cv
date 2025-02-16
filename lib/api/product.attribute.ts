@@ -1,6 +1,6 @@
 import axios from "axios";
 import { z } from "zod";
-import { ProductAttributeTypeSchema } from "@/schemas/product-attribute-type";
+import { ProductAttributeTypeSchema } from "@/schemas/product.attribute.type.form.schema";
 import { productAttributeTypeBaseUrl } from "../urls";
 import queryString from "query-string";
 import { product_attribute_type } from "@prisma/client";
@@ -22,8 +22,10 @@ export async function fetchProductAttributes(
 export async function createProductAttributeType(
     data: z.infer<typeof ProductAttributeTypeSchema>,
 ) {
-    const url = `${productAttributeTypeBaseUrl}`;
-    const { data: response } = await axios.post(url, data);
+    const { data: response } = await axios.post(
+        productAttributeTypeBaseUrl,
+        data,
+    );
     return response;
 }
 

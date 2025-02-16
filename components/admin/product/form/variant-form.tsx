@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { z } from "zod";
-import { productFormSchema } from "@/schemas/product-schema";
+import { productFormSchema } from "@/schemas/product.form.schema";
 import {
     Select,
     SelectContent,

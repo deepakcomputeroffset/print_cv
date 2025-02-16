@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { productFormSchema } from "@/schemas/product-schema";
+import { productFormSchema } from "@/schemas/product.form.schema";
 import { prisma } from "@/lib/prisma";
-import { QuerySchema } from "@/schemas/query-schema";
+import { QuerySchema } from "@/schemas/query.param.schema";
 import { stringToNumber } from "@/lib/utils";
 import { Prisma } from "@prisma/client";
 import { default_product_per_page } from "@/lib/constants";

@@ -1,8 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import * as api from "@/lib/api/customers";
+import * as api from "@/lib/api/customer";
 import { z } from "zod";
-import { customerFormSchema } from "@/schemas/customer-schema";
+import { customerFormSchema } from "@/schemas/customer.form.schema";
 import { QueryParams } from "@/types/types";
 
 export function useCustomers(props: QueryParams = {}) {

@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateHash } from "@/lib/hash";
-import { staffFormSchema } from "@/schemas/staff-schema";
+import { staffFormSchema } from "@/schemas/staff.form.schema";
 import { Prisma } from "@prisma/client";
 import { stringToNumber } from "@/lib/utils";
-import { QuerySchema } from "@/schemas/query-schema";
+import { QuerySchema } from "@/schemas/query.param.schema";
 import { default_staff_per_page } from "@/lib/constants";
 
 export async function GET(request: Request) {

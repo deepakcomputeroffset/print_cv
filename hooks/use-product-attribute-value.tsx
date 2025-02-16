@@ -1,9 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import * as api from "@/lib/api/product-attribute-value";
+import * as api from "@/lib/api/product.attribute.value";
 import { z } from "zod";
 import { AxiosError } from "axios";
-import { ProductAttributeValueSchema } from "@/schemas/product-attribute-type-value";
+import { ProductAttributeValueSchema } from "@/schemas/product.attribute.value.form.schema";
 
 export function useProductAttributeValue(productAttributeId?: number) {
     const queryClient = useQueryClient();

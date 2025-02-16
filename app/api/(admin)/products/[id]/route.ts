@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { stringToNumber } from "@/lib/utils";
-import { partialProductFormSchema } from "@/schemas/product-schema";
+import { partialProductFormSchema } from "@/schemas/product.form.schema";
 import { ZodError } from "zod";
 
 export async function GET(

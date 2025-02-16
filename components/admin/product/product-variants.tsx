@@ -8,7 +8,7 @@ import { useState } from "react";
 import { VariantForm } from "./form/variant-form";
 import { ProductVariantType } from "@/types/types";
 import { z } from "zod";
-import { productFormSchema } from "@/schemas/product-schema";
+import { productFormSchema } from "@/schemas/product.form.schema";
 
 interface ProductVariantsProps {
     variants: ProductVariantType[];

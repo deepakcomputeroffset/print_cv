@@ -1,9 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import * as api from "@/lib/api/product-attribute";
+import * as api from "@/lib/api/product.attribute";
 import { z } from "zod";
 import { AxiosError } from "axios";
-import { ProductAttributeTypeSchema } from "@/schemas/product-attribute-type";
+import { ProductAttributeTypeSchema } from "@/schemas/product.attribute.type.form.schema";
 
 export function useProductAttributeType(product_category_id?: number) {
     const queryClient = useQueryClient();

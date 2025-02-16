@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { productCategorySchema } from "@/schemas/product-category-schema";
+import { productCategorySchema } from "@/schemas/product.category.form.schema";
 import { max_image_size } from "@/lib/constants";
 import {
     calculateBase64Size,

@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
 import { ConfirmationModal } from "../../../modal";
-import { useProductCategory } from "@/hooks/use-product-categories";
+import { useProductCategory } from "@/hooks/useProductCategory";
 
 export const ProductCategoryDeleteModal = () => {
     const { isOpen, onClose, data, modal } = useModal();

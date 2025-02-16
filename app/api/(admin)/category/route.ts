@@ -2,12 +2,12 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { stringToNumber } from "@/lib/utils";
-import { QuerySchema } from "@/schemas/query-schema";
+import { QuerySchema } from "@/schemas/query.param.schema";
 import {
     default_product_category_per_page,
     max_image_size,
 } from "@/lib/constants";
-import { productCategorySchema } from "@/schemas/product-category-schema";
+import { productCategorySchema } from "@/schemas/product.category.form.schema";
 import { calculateBase64Size, UPLOAD_TO_CLOUDINARY } from "@/lib/cloudinary";
 
 export async function GET(request: Request) {

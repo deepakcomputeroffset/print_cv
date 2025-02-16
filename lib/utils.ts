@@ -55,20 +55,3 @@ export const getDirtyFieldsWithValues = <T extends ZodSchema>(
 
     return dirtyFieldValues;
 };
-
-// export const getDirtyFieldsWithValues = <T>(
-//     dirtyFields: Partial<Record<keyof T, boolean>>,
-//     formValues: T,
-// ): Partial<T> => {
-//     const dirtyFieldValues: Partial<T> = {};
-
-//     for (const key in dirtyFields) {
-//         if (dirtyFields.hasOwnProperty(key)) {
-//             if (dirtyFields[key]) {
-//                 dirtyFieldValues[key] = formValues[key];
-//             }
-//         }
-//     }
-
-//     return dirtyFieldValues;
-// };

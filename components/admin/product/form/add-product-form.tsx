@@ -24,8 +24,8 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { ProductAttributes } from "../../attribute/product-attribute";
 import { ProductVariants } from "../product-variants";
-import { useProductCategory } from "@/hooks/use-product-categories";
-import { productFormSchema } from "@/schemas/product-schema";
+import { useProductCategory } from "@/hooks/useProductCategory";
+import { productFormSchema } from "@/schemas/product.form.schema";
 import { ProductVariantType } from "@/types/types";
 import { toast } from "sonner";
 import { max_image_size } from "@/lib/constants";
@@ -37,7 +37,7 @@ import {
     product_attribute_type,
     product_attribute_value,
 } from "@prisma/client";
-import { getAllProductCategory } from "@/lib/get-categories";
+import { getAllProductCategory } from "@/lib/get.categories";
 import axios from "axios";
 import { UploadApiResponse } from "cloudinary";
 

@@ -12,9 +12,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/hooks/use-modal";
-import { useProductCategory } from "@/hooks/use-product-categories";
+import { useProductCategory } from "@/hooks/useProductCategory";
 import { getDirtyFieldsWithValues } from "@/lib/utils";
-import { productCategorySchema } from "@/schemas/product-category-schema";
+import { productCategorySchema } from "@/schemas/product.category.form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Trash } from "lucide-react";
 import Image from "next/image";

@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateHash } from "@/lib/hash";
-import { customerFormSchema } from "@/schemas/customer-schema";
+import { customerFormSchema } from "@/schemas/customer.form.schema";
 
 import { Prisma } from "@prisma/client";
 import { stringToNumber } from "@/lib/utils";
-import { QuerySchema } from "@/schemas/query-schema";
+import { QuerySchema } from "@/schemas/query.param.schema";
 import { default_customer_per_page } from "@/lib/constants";
 
 export async function GET(request: Request) {

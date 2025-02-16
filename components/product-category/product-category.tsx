@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search, ChevronRight, ArrowLeft } from "lucide-react";
-import { useUrlFilters } from "@/hooks/use-url-filters";
+import { useUrlFilters } from "@/hooks/useUrlFilter";
 import { product_category } from "@prisma/client";
 
 type productCategory = product_category & {

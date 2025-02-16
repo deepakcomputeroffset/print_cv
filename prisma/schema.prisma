@@ -8,39 +8,37 @@ datasource db {
 }
 
 model customer {
-    id                Int               @id @default(autoincrement())
-    name              String
-    business_name     String
-    customer_category CUSTOMER_CATEGORY @default(LOW)
-    is_Banned         Boolean           @default(false)
-    email             String
-    phone             String            @unique
-    password          String
+    id               Int               @id @default(autoincrement())
+    name             String
+    businessName     String
+    customerCategory CUSTOMER_CATEGORY @default(LOW)
+    isBanned         Boolean           @default(false)
+    email            String
+    phone            String            @unique
+    password         String
 
-    gst_number String?
-    address    address?
+    gstNumber String?
+    address   address?
 
     orders order[]
 
-    reference_id Int?
-    references   customer[] @relation("reference")
-    refered_by   customer?  @relation("reference", fields: [reference_id], references: [id])
+    referenceId Int?
+    references  customer[] @relation("reference")
+    referedBy   customer?  @relation("reference", fields: [referenceId], references: [id])
 
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
-    customerId Int?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model address {
-    id          Int @id @default(autoincrement())
-    customer_id Int @unique
+    id         Int    @id @default(autoincrement())
+    customerId Int    @unique
+    line       String
+    pinCode    String
+    cityId     Int
 
-    line     String
-    pin_code String
-    city_id  Int
-
-    customer  customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
-    city      city     @relation(fields: [city_id], references: [id])
+    customer  customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+    city      city     @relation(fields: [cityId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
@@ -55,152 +53,153 @@ model country {
 }
 
 model state {
-    id         Int    @id @default(autoincrement())
-    country_id Int
-    name       String
-    cities     city[]
+    id        Int    @id @default(autoincrement())
+    countryId Int
+    name      String
+    cities    city[]
 
-    country   country  @relation(fields: [country_id], references: [id])
+    country   country  @relation(fields: [countryId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
 model city {
     id        Int       @id @default(autoincrement())
-    state_id  Int
+    stateId   Int
     name      String
     addresses address[]
 
-    state     state    @relation(fields: [state_id], references: [id])
+    state     state    @relation(fields: [stateId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
-model product_category {
+model productCategory {
     id          Int     @id @default(autoincrement())
     name        String
     description String?
-    image_url   String
+    imageUrl    String
 
-    products                product[]
-    product_attribute_types product_attribute_type[]
+    products              product[]
+    productAttributeTypes productAttributeType[]
 
-    parent_category_id Int? // For subcategories parent category id
-    sub_categories     product_category[] @relation("SubCategories")
-    parent_category    product_category?  @relation("SubCategories", fields: [parent_category_id], references: [id], onDelete: Cascade)
+    parentCategoryId Int? // For subcategories parent category id
+    subCategories    productCategory[] @relation("SubCategories")
+    parentCategory   productCategory?  @relation("SubCategories", fields: [parentCategoryId], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
 model product {
-    id            Int            @id @default(autoincrement())
-    name          String
-    description   String
-    image_url     String[]
-    category_id   Int
-    is_avialable  Boolean        @default(false)
-    sku           String
-    min_qty       Int
-    og_price      Int
-    min_price     Int
-    avg_price     Int
-    max_price     Int
-    product_items product_item[]
+    id           Int           @id @default(autoincrement())
+    name         String
+    description  String
+    imageUrl     String[]
+    categoryId   Int
+    isAvialable  Boolean       @default(false)
+    sku          String        @unique
+    minQty       Int
+    ogPrice      Int
+    min_price    Int
+    avgPrice     Int
+    maxPrice     Int
+    productItems productItem[]
 
-    category  product_category @relation(fields: [category_id], references: [id])
-    createdAt DateTime         @default(now())
-    updatedAt DateTime         @updatedAt
+    category  productCategory @relation(fields: [categoryId], references: [id])
+    createdAt DateTime        @default(now())
+    updatedAt DateTime        @updatedAt
 }
 
-model product_item {
-    id                        Int                       @id @default(autoincrement())
-    product_id                Int
-    sku                       String
-    min_qty                   Int
-    og_price                  Int
-    min_price                 Int
-    avg_price                 Int
-    max_price                 Int
-    image_url                 String[]
-    is_avialable              Boolean                   @default(false)
-    product_attribute_options product_attribute_value[]
-    orders                    order[]
+model productItem {
+    id                      Int                     @id @default(autoincrement())
+    productId               Int
+    sku                     String
+    minQty                  Int
+    ogPrice                 Int
+    minPrice                Int
+    avgPrice                Int
+    maxPrice                Int
+    imageUrl                String[]
+    isAvialable             Boolean                 @default(false)
+    productAttributeOptions productAttributeValue[]
+    orders                  order[]
 
-    product   product  @relation(fields: [product_id], references: [id])
+    product   product  @relation(fields: [productId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
-model product_attribute_value {
-    id                        Int            @id @default(autoincrement())
-    product_items             product_item[]
-    product_attribute_type_id Int
-    product_attribute_value   String
+model productAttributeValue {
+    id                     Int           @id @default(autoincrement())
+    productItems           productItem[]
+    productAttributeTypeId Int
+    productAttributeValue  String
 
-    product_attribute_type product_attribute_type @relation(fields: [product_attribute_type_id], references: [id], onDelete: Cascade)
-    createdAt              DateTime               @default(now())
-    updatedAt              DateTime               @updatedAt
+    productAttributeType productAttributeType @relation(fields: [productAttributeTypeId], references: [id], onDelete: Cascade)
+    createdAt            DateTime             @default(now())
+    updatedAt            DateTime             @updatedAt
 }
 
-model product_attribute_type {
-    id                        Int                       @id @default(autoincrement())
-    name                      String
-    product_attribute_options product_attribute_value[]
+model productAttributeType {
+    id                      Int                     @id @default(autoincrement())
+    name                    String
+    productAttributeOptions productAttributeValue[]
 
-    product_category_id Int
-    product_category    product_category @relation(fields: [product_category_id], references: [id])
+    productCategoryId Int
+    productCategory   productCategory @relation(fields: [productCategoryId], references: [id])
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
 model order {
-    id              Int    @id @default(autoincrement())
-    customer_id     Int
-    product_item_id Int
-    qty             Int
-    amount          Int
-    paid_amount     Int
-    status          STATUS @default(PENDING)
-    process         task[]
+    id             Int    @id @default(autoincrement())
+    customerId     Int
+    productItemId  Int
+    qty            Int
+    amount         Int
+    deliveryCharge Int?
+    status         STATUS @default(PENDING)
+    process        task[]
 
-    product_item product_item @relation(fields: [product_item_id], references: [id])
-    customer     customer     @relation(fields: [customer_id], references: [id])
-    createdAt    DateTime     @default(now())
-    updatedAt    DateTime     @updatedAt
+    productItem productItem @relation(fields: [productItemId], references: [id])
+    customer    customer    @relation(fields: [customerId], references: [id])
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
 }
 
 model staff {
-    id        Int     @id @default(autoincrement())
-    name      String
-    email     String
-    phone     String  @unique
-    role      ROLE    @default(STAFF)
-    is_Banned Boolean @default(false)
-    password  String
-    tasks     task[]
+    id       Int     @id @default(autoincrement())
+    name     String
+    email    String
+    phone    String  @unique
+    role     ROLE    @default(STAFF)
+    isBanned Boolean @default(false)
+    password String
+    tasks    task[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
 model task {
-    id           Int @id @default(autoincrement())
-    task_type_id Int
-    order_id     Int
-    staff_id     Int
+    id         Int @id @default(autoincrement())
+    taskTypeId Int
+    orderId    Int
+    staffId    Int
 
-    is_completed    Boolean  @default(false)
-    assigned_date   DateTime @default(now())
-    completed_daate DateTime
+    isCompleted   Boolean  @default(false)
+    completedDate DateTime
 
-    order     order     @relation(fields: [order_id], references: [id])
-    staff     staff     @relation(fields: [staff_id], references: [id], onDelete: Restrict)
-    task_type task_type @relation(fields: [task_type_id], references: [id], onDelete: Restrict)
+    order     order    @relation(fields: [orderId], references: [id])
+    staff     staff    @relation(fields: [staffId], references: [id], onDelete: Restrict)
+    taskType  taskType @relation(fields: [taskTypeId], references: [id], onDelete: Restrict)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
-model task_type {
+model taskType {
     id          Int    @id @default(autoincrement())
     name        String
     description String

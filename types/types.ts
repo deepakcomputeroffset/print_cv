@@ -1,4 +1,4 @@
-import { QuerySchema } from "@/schemas/query-schema";
+import { QuerySchema } from "@/schemas/query.param.schema";
 import {
     address,
     city,
@@ -50,5 +50,16 @@ export type ProductTypeOnlyWithPrice = Omit<
 > & {
     price: number;
 };
+
+export type ProductItemTypeOnlyWithPrice = Omit<
+    product_item,
+    "min_price" | "price" | "mid_price" | "og_price"
+> & {
+    price: number;
+    product_attribute_options: (product_attribute_value & {
+        product_attribute_type: product_attribute_type;
+    })[];
+};
+
 export type banStatus = "true" | "false";
 export type sortType = "asc" | "desc";

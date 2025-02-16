@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import * as api from "@/lib/api/staff";
 import { z } from "zod";
-import { staffFormSchema } from "@/schemas/staff-schema";
+import { staffFormSchema } from "@/schemas/staff.form.schema";
 import { QueryParams } from "@/types/types";
 import { AxiosError } from "axios";
 

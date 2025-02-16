@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import * as api from "@/lib/api/product";
 import { z } from "zod";
 import { QueryParams } from "@/types/types";
-import { productFormSchema } from "@/schemas/product-schema";
+import { productFormSchema } from "@/schemas/product.form.schema";
 
 export function useProducts(props: QueryParams = {}) {
     const queryClient = useQueryClient();

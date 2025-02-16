@@ -24,8 +24,8 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { ProductAttributes } from "../../attribute/product-attribute";
 import { ProductVariants } from "../product-variants";
-import { useProductCategory } from "@/hooks/use-product-categories";
-import { productFormSchema } from "@/schemas/product-schema";
+import { useProductCategory } from "@/hooks/useProductCategory";
+import { productFormSchema } from "@/schemas/product.form.schema";
 import { ProductVariantType } from "@/types/types";
 import { toast } from "sonner";
 import { max_image_size } from "@/lib/constants";
@@ -39,7 +39,7 @@ import {
     product_attribute_value,
     product_item,
 } from "@prisma/client";
-import { getAllProductCategory } from "@/lib/get-categories";
+import { getAllProductCategory } from "@/lib/get.categories";
 import { getDirtyFieldsWithValues } from "@/lib/utils";
 import { useMount } from "@/hooks/use-mount";
 import { useRouter } from "next/navigation";
@@ -60,6 +60,7 @@ export function EditProductForm({
     };
 }) {
     const [uploading, setUploading] = useState(false);
+
     const attribute = product?.product_items
         ?.flatMap((p) =>
             p?.product_attribute_options?.flatMap(
@@ -251,7 +252,6 @@ export function EditProductForm({
     }, [selectedAttributes, selectedOptions]);
 
     const dirtyFields = form.formState.dirtyFields;
-
     const dirtyFieldsWithValues = getDirtyFieldsWithValues(
         dirtyFields,
         form.watch(),
@@ -259,6 +259,10 @@ export function EditProductForm({
 
     async function onSubmit() {
         try {
+            if (dirtyFields?.product_items)
+                dirtyFieldsWithValues.product_items =
+                    form?.getValues("product_items");
+
             await updateproduct.mutateAsync({
                 id: product?.id as number,
                 data: dirtyFieldsWithValues,

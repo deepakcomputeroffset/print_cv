@@ -1,9 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import * as api from "@/lib/api/product-categories";
+import * as api from "@/lib/api/product.category";
 import { z } from "zod";
 import { QueryParams } from "@/types/types";
-import { productCategorySchema } from "@/schemas/product-category-schema";
+import { productCategorySchema } from "@/schemas/product.category.form.schema";
 
 export function useProductCategory(props: QueryParams = {}) {
     const queryClient = useQueryClient();

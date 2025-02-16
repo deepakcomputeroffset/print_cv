@@ -13,7 +13,7 @@ import { Search } from "lucide-react";
 import { Button } from "../../ui/button";
 import { banStatus, QueryParams, sortType } from "@/types/types";
 import { useDebounce } from "@/hooks/use-debounce";
-import { useUrlFilters } from "@/hooks/use-url-filters";
+import { useUrlFilters } from "@/hooks/useUrlFilter";
 import { useEffect, useState } from "react";
 
 export const CustomerFilter = ({ filters }: { filters: QueryParams }) => {

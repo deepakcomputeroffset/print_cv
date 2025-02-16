@@ -3,7 +3,7 @@ import axios from "axios";
 import { z } from "zod";
 import { productCategoryWithSubCategory, QueryParams } from "@/types/types";
 import { productCategoryBaseUrl } from "../urls";
-import { productCategorySchema } from "@/schemas/product-category-schema";
+import { productCategorySchema } from "@/schemas/product.category.form.schema";
 
 export async function fetchProductCategories(
     params: QueryParams = {},
@@ -13,7 +13,6 @@ export async function fetchProductCategories(
         query: { ...params },
     });
 
-    console.log(url);
     const { data } = await axios.get(url);
     return data;
 }
@@ -21,8 +20,7 @@ export async function fetchProductCategories(
 export async function createProductCategory(
     data: z.infer<typeof productCategorySchema>,
 ) {
-    const url = `${productCategoryBaseUrl}`;
-    const { data: response } = await axios.post(url, data);
+    const { data: response } = await axios.post(productCategoryBaseUrl, data);
     return response;
 }
 

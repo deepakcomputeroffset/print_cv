@@ -19,7 +19,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { staffFormSchema } from "@/schemas/staff-schema";
+import { staffFormSchema } from "@/schemas/staff.form.schema";
 import { ROLE } from "@prisma/client";
 import { useModal } from "@/hooks/use-modal";
 import { getDirtyFieldsWithValues } from "@/lib/utils";

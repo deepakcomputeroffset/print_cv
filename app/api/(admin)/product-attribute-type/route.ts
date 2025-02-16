@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { stringToNumber } from "@/lib/utils";
-import { ProductAttributeTypeSchema } from "@/schemas/product-attribute-type";
+import { ProductAttributeTypeSchema } from "@/schemas/product.attribute.type.form.schema";
 
 export async function GET(request: Request) {
     try {

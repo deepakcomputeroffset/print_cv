@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { customerFormSchema } from "@/schemas/customer-schema";
+import { customerFormSchema } from "@/schemas/customer.form.schema";
 import {
     Select,
     SelectContent,
@@ -26,8 +26,8 @@ import {
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useStates } from "@/hooks/use-states";
-import { createCustomer } from "@/lib/api/customers";
+import { useStates } from "@/hooks/useStates";
+import { createCustomer } from "@/lib/api/customer";
 
 export const CustomerRegisterForm = () => {
     const router = useRouter();

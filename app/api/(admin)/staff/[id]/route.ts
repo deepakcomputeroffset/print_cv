@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { staffFormSchema } from "@/schemas/staff-schema";
+import { staffFormSchema } from "@/schemas/staff.form.schema";
 
 export async function GET(
     request: Request,

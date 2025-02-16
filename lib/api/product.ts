@@ -3,7 +3,7 @@ import axios from "axios";
 import { z } from "zod";
 import { QueryParams } from "@/types/types";
 import { productBaseUrl } from "../urls";
-import { productFormSchema } from "@/schemas/product-schema";
+import { productFormSchema } from "@/schemas/product.form.schema";
 import { product, product_category, product_item } from "@prisma/client";
 
 export async function fetchProducts(params: QueryParams = {}): Promise<
@@ -23,8 +23,7 @@ export async function fetchProducts(params: QueryParams = {}): Promise<
 }
 
 export async function createProduct(data: z.infer<typeof productFormSchema>) {
-    const url = `${productBaseUrl}`;
-    const { data: response } = await axios.post(url, data);
+    const { data: response } = await axios.post(productBaseUrl, data);
     return response;
 }
 

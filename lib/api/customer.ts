@@ -1,7 +1,7 @@
 import queryString from "query-string";
 import axios from "axios";
 import { z } from "zod";
-import { customerFormSchema } from "@/schemas/customer-schema";
+import { customerFormSchema } from "@/schemas/customer.form.schema";
 import { customerWithAddress, QueryParams } from "@/types/types";
 import { customerBaseUrl } from "../urls";
 
@@ -26,8 +26,7 @@ export async function updateCustomer(
 }
 
 export async function createCustomer(data: z.infer<typeof customerFormSchema>) {
-    const url = `${customerBaseUrl}`;
-    const { data: response } = await axios.post(url, data);
+    const { data: response } = await axios.post(customerBaseUrl, data);
     return response;
 }
 

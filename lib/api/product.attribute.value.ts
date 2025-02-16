@@ -3,7 +3,7 @@ import { z } from "zod";
 import { productAttributeValueBaseUrl } from "../urls";
 import { product_attribute_value } from "@prisma/client";
 import queryString from "query-string";
-import { ProductAttributeValueSchema } from "@/schemas/product-attribute-type-value";
+import { ProductAttributeValueSchema } from "@/schemas/product.attribute.value.form.schema";
 
 export async function fetchProductAttributeValues(
     product_attribute_type_id?: number,
@@ -22,8 +22,10 @@ export async function fetchProductAttributeValues(
 export async function createProductAttributeValue(
     data: z.infer<typeof ProductAttributeValueSchema>,
 ) {
-    const url = `${productAttributeValueBaseUrl}`;
-    const { data: response } = await axios.post(url, data);
+    const { data: response } = await axios.post(
+        productAttributeValueBaseUrl,
+        data,
+    );
     return response;
 }
 

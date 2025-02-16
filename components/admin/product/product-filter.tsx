@@ -13,10 +13,10 @@ import { Search, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QueryParams, sortType } from "@/types/types";
 import { useDebounce } from "@/hooks/use-debounce";
-import { useUrlFilters } from "@/hooks/use-url-filters";
+import { useUrlFilters } from "@/hooks/useUrlFilter";
 import { useEffect, useState } from "react";
-import { getAllProductCategory } from "@/lib/get-categories";
-import { useProductCategory } from "@/hooks/use-product-categories";
+import { getAllProductCategory } from "@/lib/get.categories";
+import { useProductCategory } from "@/hooks/useProductCategory";
 import { Card } from "@/components/ui/card";
 
 export const ProductFilter = ({ filters }: { filters: QueryParams }) => {

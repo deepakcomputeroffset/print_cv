@@ -14,7 +14,7 @@ import {
 import { Plus, Pencil, Trash2, ChevronRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { useModal } from "@/hooks/use-modal";
-import { useProductCategory } from "@/hooks/use-product-categories";
+import { useProductCategory } from "@/hooks/useProductCategory";
 import { product_category } from "@prisma/client";
 import { LoadingRow } from "@/components/loading-row";
 import { MessageRow } from "@/components/message-row";
