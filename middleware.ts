@@ -7,18 +7,16 @@ export async function middleware(request: NextRequest) {
 
     if (token) {
         if (
-            (pathname.startsWith("/alogin") ||
-                pathname.startsWith("/aregister")) &&
-            token?.userType === "staff"
-        )
-            return NextResponse.redirect(new URL("/admin", request.url));
-
-        if (
-            (pathname.startsWith("/login") ||
-                pathname.startsWith("/register")) &&
-            token?.userType === "customer"
-        )
-            return NextResponse.redirect(new URL("/customer", request.url));
+            pathname.startsWith("/alogin") ||
+            pathname.startsWith("/aregister") ||
+            pathname.startsWith("/login") ||
+            pathname.startsWith("/register")
+        ) {
+            if (token?.userType === "staff")
+                return NextResponse.redirect(new URL("/admin", request.url));
+            else if (token?.userType === "customer")
+                return NextResponse.redirect(new URL("/customer", request.url));
+        }
 
         // Block non-admin users from accessing the admin panel
         if (pathname.startsWith("/admin") && token?.userType !== "staff")
@@ -42,7 +40,6 @@ export async function middleware(request: NextRequest) {
 export const config = {
     matcher: [
         "/admin/:path*",
-        "/customer",
         "/customer/:path*",
         "/alogin",
         "/aregister",

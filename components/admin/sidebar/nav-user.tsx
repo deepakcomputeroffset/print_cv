@@ -26,16 +26,9 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar";
 import { signOut } from "next-auth/react";
+import { Session } from "next-auth";
 
-export function NavUser({
-    user,
-}: {
-    user: {
-        name: string;
-        email: string;
-        avatar: string;
-    };
-}) {
+export function NavUser({ session }: { session: Session | null }) {
     const { isMobile } = useSidebar();
 
     return (
@@ -48,20 +41,17 @@ export function NavUser({
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         >
                             <Avatar className="h-8 w-8 rounded-lg">
-                                <AvatarImage
-                                    src={user.avatar}
-                                    alt={user.name}
-                                />
+                                <AvatarImage alt={session?.user?.staff?.name} />
                                 <AvatarFallback className="rounded-lg">
-                                    AK
+                                    {session?.user?.staff?.name.substring(0, 1)}
                                 </AvatarFallback>
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-semibold">
-                                    {user.name}
+                                    {session?.user?.staff?.name}
                                 </span>
                                 <span className="truncate text-xs">
-                                    {user.email}
+                                    {session?.user?.staff?.email}
                                 </span>
                             </div>
                             <ChevronsUpDown className="ml-auto size-4" />
@@ -77,46 +67,26 @@ export function NavUser({
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                 <Avatar className="h-8 w-8 rounded-lg">
                                     <AvatarImage
-                                        src={user.avatar}
-                                        alt={user.name}
+                                        alt={session?.user?.staff?.name}
                                     />
                                     <AvatarFallback className="rounded-lg">
-                                        AK
+                                        {session?.user?.staff?.name.substring(
+                                            0,
+                                            1,
+                                        )}
                                     </AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-semibold">
-                                        {user.name}
+                                        {session?.user?.staff?.name}
                                     </span>
                                     <span className="truncate text-xs">
-                                        {user.email}
+                                        {session?.user?.staff?.email}
                                     </span>
                                 </div>
                             </div>
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        {/* <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <Sparkles />
-                                Upgrade to Pro
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuSeparator /> */}
-                        {/* <DropdownMenuGroup> */}
-                        {/* <DropdownMenuItem>
-                                <BadgeCheck />
-                                Account
-                            </DropdownMenuItem> */}
-                        {/* <DropdownMenuItem>
-                                <CreditCard />
-                                Billing
-                            </DropdownMenuItem> */}
-                        {/* <DropdownMenuItem>
-                                <Bell />
-                                Notifications
-                            </DropdownMenuItem> */}
-                        {/* </DropdownMenuGroup> */}
-                        {/* <DropdownMenuSeparator /> */}
                         <DropdownMenuItem
                             onClick={() => signOut()}
                             className="cursor-pointer"

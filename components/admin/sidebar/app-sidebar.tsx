@@ -26,6 +26,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavUser } from "./nav-user";
+import { Session } from "next-auth";
 
 const routes = [
     {
@@ -72,7 +73,7 @@ const routes = [
     },
 ];
 
-export function AppSidebar() {
+export function AppSidebar({ session }: { session: Session | null }) {
     const currentPath = usePathname();
     const isRouteActive = (pattern: RegExp) => pattern.test(currentPath);
     const { isMobile, toggleSidebar } = useSidebar();
@@ -128,13 +129,7 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavUser
-                    user={{
-                        name: "Aditya",
-                        email: "aditya@g.com",
-                        avatar: "AK",
-                    }}
-                />
+                <NavUser session={session} />
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>

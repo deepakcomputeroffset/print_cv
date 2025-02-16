@@ -12,5 +12,7 @@ export function getPriceAccordingToCategoryOfCustomer(
             return productItem?.avgPrice;
         case "HIGH":
             return productItem?.minPrice;
+        default:
+            return productItem?.maxPrice;
     }
 }
