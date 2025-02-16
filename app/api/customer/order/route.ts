@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mockOrders } from "../../../lib/mock/orders";
+import { mockOrders } from "../../../../lib/mock/orders";
 import { auth } from "@/lib/auth";
 import { orderFormSchema } from "@/schemas/order.form.schema";
 import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
@@ -26,7 +26,8 @@ export async function POST(request: Request) {
         const session = await auth();
         if (
             session?.user?.userType != "customer" ||
-            session?.user?.customer?.isBanned
+            session?.user?.customer?.isBanned ||
+            !session?.user?.customer
         ) {
             return NextResponse.json(
                 { message: "Unauthorised" },

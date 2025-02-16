@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { stringToNumber } from "@/lib/utils";
 import { partialProductFormSchema } from "@/schemas/product.form.schema";
 import { ZodError } from "zod";
+import { auth } from "@/lib/auth";
 
 export async function GET(
     req: Request,
@@ -10,15 +10,14 @@ export async function GET(
 ) {
     try {
         const { id } = await params;
-        const { isNum, num: pid } = stringToNumber(id);
-        if (!isNum) {
+        if (isNaN(parseInt(id))) {
             return NextResponse.json(
                 { message: "Invalid productId" },
                 { status: 400 },
             );
         }
         const product = await prisma.product.findUnique({
-            where: { id: pid },
+            where: { id: parseInt(id) },
             include: {
                 category: true,
             },
@@ -46,8 +45,7 @@ export async function PATCH(
 ) {
     try {
         const { id } = await params;
-        const { isNum, num: pid } = stringToNumber(id);
-        if (!isNum || !pid) {
+        if (isNaN(parseInt(id))) {
             return NextResponse.json(
                 { message: "Invalid productId" },
                 { status: 400 },
@@ -61,7 +59,7 @@ export async function PATCH(
 
         // Find existing product
         const existingProduct = await prisma?.product?.findUnique({
-            where: { id: pid },
+            where: { id: parseInt(id) },
             include: {
                 productItems: true,
             },
@@ -124,10 +122,8 @@ export async function PATCH(
             });
         }
 
-        console.log(pid, updateData);
-
         const updatedData = await prisma?.product?.update({
-            where: { id: pid },
+            where: { id: parseInt(id) },
             data: { ...updateData },
         });
 
@@ -164,24 +160,23 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // const session = await auth();
+        const session = await auth();
 
-        // if (session?.user?.role !== "ADMIN") {
-        //     return NextResponse.json(
-        //         { message: "Unauthorized" },
-        //         { status: 401 },
-        //     );
-        // }
+        if (session?.user?.staff?.role !== "PRODUCT_MANAGER") {
+            return NextResponse.json(
+                { message: "Unauthorized" },
+                { status: 401 },
+            );
+        }
         const { id } = await params;
-        const { isNum, num: pid } = stringToNumber(id);
-        if (!isNum) {
+        if (isNaN(parseInt(id))) {
             return NextResponse.json(
                 { message: "Invalid productId" },
                 { status: 400 },
             );
         }
         await prisma.product.delete({
-            where: { id: pid },
+            where: { id: parseInt(id) },
         });
 
         return NextResponse.json(

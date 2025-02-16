@@ -16,9 +16,9 @@ model customer {
     email            String
     phone            String            @unique
     password         String
-
-    gstNumber String?
-    address   address?
+    wallet           wallet?
+    gstNumber        String?
+    address          address?
 
     orders order[]
 
@@ -28,6 +28,28 @@ model customer {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+}
+
+model wallet {
+    id           Int           @id @default(autoincrement())
+    customerId   Int           @unique
+    balance      Float         @default(0)
+    transactions transaction[]
+    customer     customer      @relation(fields: [customerId], references: [id])
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
+}
+
+model transaction {
+    id           Int              @id @default(autoincrement())
+    walletId     Int
+    transationId String
+    amount       Float
+    type         TRANSACTION_TYPE
+    description  String
+    wallet       wallet           @relation(fields: [walletId], references: [id])
+    createdAt    DateTime         @default(now())
+    updatedAt    DateTime         @updatedAt
 }
 
 model address {
@@ -101,7 +123,7 @@ model product {
     sku          String        @unique
     minQty       Int
     ogPrice      Int
-    minPrice    Int
+    minPrice     Int
     avgPrice     Int
     maxPrice     Int
     productItems productItem[]
@@ -221,6 +243,11 @@ enum CUSTOMER_CATEGORY {
     LOW
     MEDIUM
     HIGH
+}
+
+enum TRANSACTION_TYPE {
+    DEBIT
+    CREDIT
 }
 
 enum STATUS {

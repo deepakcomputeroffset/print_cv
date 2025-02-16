@@ -147,6 +147,9 @@ export async function POST(req: Request) {
                         cityId: Number(safeData?.city),
                     },
                 },
+                wallet: {
+                    create: {},
+                },
             },
         });
 

@@ -33,6 +33,14 @@ export const authConfig: AuthOptions = {
                             where: {
                                 phone: credentials?.phone,
                             },
+                            include: {
+                                wallet: {
+                                    select: {
+                                        balance: true,
+                                        id: true,
+                                    },
+                                },
+                            },
                         });
 
                         if (!customer) {
@@ -58,6 +66,7 @@ export const authConfig: AuthOptions = {
                                 isBanned: customer?.isBanned,
                                 id: customer?.id,
                                 customerCategory: customer?.customerCategory,
+                                wallet: customer?.wallet,
                             },
                         };
                     } else if (userType === "staff") {

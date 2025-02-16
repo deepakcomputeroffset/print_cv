@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { LogOut, Printer } from "lucide-react";
+import { LogOut, Printer, RotateCw } from "lucide-react";
 import { signOut } from "next-auth/react";
 import {
     DropdownMenu,
@@ -15,9 +15,23 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Session } from "next-auth";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 export default function NavLinks({ session }: { session: Session | null }) {
     const pathname = usePathname();
+    const {
+        data: wallet,
+        refetch,
+        isLoading,
+    } = useQuery({
+        queryKey: ["wallet"],
+        queryFn: async () => {
+            const { data } = await axios("/api/customer/wallet");
+            return data;
+        },
+        initialData: session?.user?.customer?.wallet,
+    });
 
     return (
         <div className="container flex h-14 items-center mx-auto">
@@ -152,6 +166,28 @@ export default function NavLinks({ session }: { session: Session | null }) {
                                                 : session?.user?.staff?.email}
                                         </span>
                                     </div>
+                                </div>
+                            </DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuLabel>
+                                <div className="flex gap-2 items-center">
+                                    <span>Wallet : </span>
+                                    <span className="align-middle text-center">
+                                        {wallet?.balance}
+                                    </span>
+                                    <Button
+                                        variant={"secondary"}
+                                        size={"sm"}
+                                        className="ml-auto"
+                                        disabled={isLoading}
+                                        onClick={() => refetch()}
+                                    >
+                                        <RotateCw
+                                            className={
+                                                isLoading ? "animate-spin" : ""
+                                            }
+                                        />
+                                    </Button>
                                 </div>
                             </DropdownMenuLabel>
                             <DropdownMenuSeparator />
