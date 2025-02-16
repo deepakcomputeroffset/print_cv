@@ -21,7 +21,7 @@ export async function POST(
 
         const updatedCustomer = await prisma.customer.update({
             where: { id: parseInt(id) },
-            data: { is_Banned: !customer.is_Banned },
+            data: { isBanned: !customer.isBanned },
         });
 
         return NextResponse.json(

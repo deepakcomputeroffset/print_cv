@@ -3,24 +3,24 @@ import { customer, staff } from "@prisma/client";
 
 declare module "next-auth" {
     interface User {
-        userType: "staff" | "customer";
-        customer: customer;
-        staff: staff;
+        userType: "staff" | "customer" | undefined;
+        customer: customer | undefined;
+        staff: staff | undefined;
     }
 
     interface Session {
         user: {
-            userType: "staff" | "customer";
-            customer: customer;
-            staff: staff;
+            userType: "staff" | "customer" | undefined;
+            customer: customer | undefined;
+            staff: staff | undefined;
         };
     }
 }
 
 declare module "next-auth/jwt" {
     interface JWT {
-        userType?: "staff" | "customer";
-        customer?: customer;
-        staff?: staff;
+        userType?: "staff" | "customer" | undefined;
+        customer?: customer | undefined;
+        staff?: staff | undefined;
     }
 }

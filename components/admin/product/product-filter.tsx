@@ -29,11 +29,11 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
         filters?.sortorder,
     );
     const [priceRange, setPriceRange] = useState({
-        min: filters?.min_price,
-        max: filters?.max_price,
+        min: filters?.minPrice,
+        max: filters?.maxPrice,
     });
     const { setParam } = useUrlFilters();
-    const [minQty, setMinQty] = useState(filters?.min_qty);
+    const [minQty, setMinQty] = useState(filters?.minQty);
 
     const debouncedSearch = useDebounce(search, 300);
     const debouncedSortOrder = useDebounce(sortOrder, 300);
@@ -43,9 +43,9 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
     useEffect(() => {
         setParam("search", debouncedSearch);
         setParam("sortorder", debouncedSortOrder);
-        if (!!minQty) setParam("min_qty", minQty);
-        if (!!priceRange?.min) setParam("min_price", priceRange?.min);
-        if (!!priceRange?.max) setParam("max_price", priceRange?.max);
+        if (!!minQty) setParam("minQty", minQty);
+        if (!!priceRange?.min) setParam("minPrice", priceRange?.min);
+        if (!!priceRange?.max) setParam("maxPrice", priceRange?.max);
     }, [
         debouncedSearch,
         debouncedSortOrder,
@@ -71,9 +71,9 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
                     </div>
 
                     <Select
-                        value={filters?.category_id ?? "all"}
+                        value={filters?.categoryId ?? "all"}
                         onValueChange={(v) => {
-                            setParam("category_id", v);
+                            setParam("categoryId", v);
                         }}
                     >
                         <SelectTrigger>
@@ -86,10 +86,10 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
                     </Select>
 
                     <Select
-                        value={filters?.is_avialable ?? "all"}
+                        value={filters?.isAvailable ?? "all"}
                         onValueChange={(value) =>
                             setParam(
-                                "is_avialable",
+                                "isAvailable",
                                 value as "all" | "false" | "true",
                             )
                         }
@@ -177,7 +177,7 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
                                         <SelectItem value="name">
                                             Name
                                         </SelectItem>
-                                        <SelectItem value="min_price">
+                                        <SelectItem value="minPrice">
                                             Min Price
                                         </SelectItem>
                                     </SelectGroup>

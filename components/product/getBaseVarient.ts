@@ -5,8 +5,8 @@ export const getBaseVarient = (
 ) => {
     const baseVariant: Record<number, number> = {};
     distinctAttributeWithOptions.forEach((attr) => {
-        if (attr.product_attribute_options.length > 0) {
-            baseVariant[attr.id] = attr.product_attribute_options?.[0]?.id;
+        if (attr.productAttributeOptions.length > 0) {
+            baseVariant[attr.id] = attr.productAttributeOptions?.[0]?.id;
         }
     });
 

@@ -28,12 +28,12 @@ export const StaffTableRow = ({
                 <span
                     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                             ${
-                                staff.is_Banned
+                                staff.isBanned
                                     ? "bg-red-100 text-red-800"
                                     : "bg-green-100 text-green-800"
                             }`}
                 >
-                    {staff.is_Banned ? "Banned" : "Active"}
+                    {staff.isBanned ? "Banned" : "Active"}
                 </span>
             </TableCell>
             <TableCell>
@@ -43,7 +43,7 @@ export const StaffTableRow = ({
                         size="icon"
                         onClick={() => toggleBanStatus(staff.id)}
                     >
-                        {staff.is_Banned ? (
+                        {staff.isBanned ? (
                             <UserCheck className="h-4 w-4 text-green-600" />
                         ) : (
                             <UserX className="h-4 w-4 text-red-600" />

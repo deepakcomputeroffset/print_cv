@@ -26,7 +26,7 @@ export async function POST(request: Request) {
         const session = await auth();
         if (
             session?.user?.userType != "customer" ||
-            session?.user?.customer?.is_Banned
+            session?.user?.customer?.isBanned
         ) {
             return NextResponse.json(
                 { message: "Unauthorised" },
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
             return Response.json({ error: parseError }, { status: 400 });
         }
 
-        const productItem = await prisma?.product_item.findUnique({
+        const productItem = await prisma?.productItem.findUnique({
             where: {
                 id: data?.productItemId,
             },
@@ -63,12 +63,12 @@ export async function POST(request: Request) {
             data: {
                 customerId: session?.user?.customer?.id,
                 productItemId: productItem?.id,
-                qty: Math.max(data?.productItemId, productItem?.min_qty),
+                qty: Math.max(data?.productItemId, productItem?.minQty),
                 amount:
                     getPriceAccordingToCategoryOfCustomer(
                         session,
                         productItem,
-                    ) * Math.max(data?.productItemId, productItem?.min_qty),
+                    ) * Math.max(data?.productItemId, productItem?.minQty),
             },
         });
 

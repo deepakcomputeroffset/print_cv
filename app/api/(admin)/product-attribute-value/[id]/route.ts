@@ -10,7 +10,7 @@ export async function GET(
         const { id } = await params;
 
         const productAttributeValue =
-            await prisma.product_attribute_value.findUnique({
+            await prisma.productAttributeValue.findUnique({
                 where: { id: parseInt(id) },
             });
 
@@ -42,10 +42,11 @@ export async function DELETE(
         // TODO: AUTHENTICATION
         const { id } = await params;
 
-        const productAttributeValue =
-            await prisma.product_attribute_value.delete({
+        const productAttributeValue = await prisma.productAttributeValue.delete(
+            {
                 where: { id: parseInt(id) },
-            });
+            },
+        );
 
         if (!productAttributeValue) {
             return NextResponse.json(

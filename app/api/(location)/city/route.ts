@@ -31,7 +31,7 @@ export async function POST(req: Request) {
         }
 
         const newCity = await prisma.city.create({
-            data: { name, state_id: stateId },
+            data: { name, stateId: stateId },
         });
 
         return NextResponse.json(newCity, { status: 201 });

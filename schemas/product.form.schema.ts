@@ -4,29 +4,29 @@ import { z } from "zod";
 const productItemSchema = z
     .object({
         sku: z.string(),
-        min_qty: z.number().min(1),
-        og_price: z.number().min(0),
-        min_price: z.number().min(0),
-        avg_price: z.number().min(0),
-        max_price: z.number().min(0),
-        image_url: z.array(z.string()),
-        is_avialable: z.boolean().default(true),
-        product_attribute_options: z.array(
+        minQty: z.number().min(1),
+        ogPrice: z.number().min(0),
+        minPrice: z.number().min(0),
+        avgPrice: z.number().min(0),
+        maxPrice: z.number().min(0),
+        imageUrl: z.array(z.string()),
+        isAvailable: z.boolean().default(true),
+        productAttributeOptions: z.array(
             z.object({
                 id: z.number(),
             }),
         ),
     })
-    .refine((item) => item.avg_price > item.min_price, {
+    .refine((item) => item.avgPrice > item.minPrice, {
         message: "Average price must be greater than minimum price.",
-        path: ["avg_price"],
+        path: ["avgPrice"],
     })
     .refine(
         (item) =>
-            item.max_price > item.min_price && item.max_price > item.avg_price,
+            item.maxPrice > item.minPrice && item.maxPrice > item.avgPrice,
         {
             message: "Max price must be greater than both min and avg price.",
-            path: ["max_price"],
+            path: ["maxPrice"],
         },
     );
 
@@ -38,16 +38,16 @@ export const baseProductFormSchema = z.object({
     description: z.string().min(10, {
         message: "Product description must be at least 10 characters.",
     }),
-    is_avialable: z.boolean().default(false),
-    category_id: z.string().refine((v) => v !== "0", "Select Category"),
-    image_url: z.array(z.string()),
+    isAvailable: z.boolean().default(false),
+    categoryId: z.string().refine((v) => v !== "0", "Select Category"),
+    imageUrl: z.array(z.string()),
     sku: z.string(),
-    min_qty: z.number().min(1),
-    og_price: z.number().min(0),
-    min_price: z.number().min(0),
-    avg_price: z.number().min(0),
-    max_price: z.number().min(0),
-    product_items: z.array(productItemSchema), // Nested product items
+    minQty: z.number().min(1),
+    ogPrice: z.number().min(0),
+    minPrice: z.number().min(0),
+    avgPrice: z.number().min(0),
+    maxPrice: z.number().min(0),
+    productItems: z.array(productItemSchema), // Nested product items
 });
 
 // Apply `.partial()` on the base schema
@@ -55,36 +55,35 @@ export const partialProductFormSchema = baseProductFormSchema.partial();
 
 // Apply refinements separately
 export const productFormSchema = baseProductFormSchema
-    .refine((data) => data.avg_price > data.min_price, {
+    .refine((data) => data.avgPrice > data.minPrice, {
         message: "Average price must be greater than minimum price.",
-        path: ["avg_price"],
+        path: ["avgPrice"],
     })
     .refine(
         (data) =>
-            data.max_price > data.min_price && data.max_price > data.avg_price,
+            data.maxPrice > data.minPrice && data.maxPrice > data.avgPrice,
         {
             message: "Max price must be greater than both min and avg price.",
-            path: ["max_price"],
+            path: ["maxPrice"],
         },
     );
 
 // Partial support also needs refinements applied separately
 export const partialProductFormSchemaWithValidation = partialProductFormSchema
     .refine(
-        (data) =>
-            data.avg_price == null || data.avg_price > (data.min_price ?? 0),
+        (data) => data.avgPrice == null || data.avgPrice > (data.minPrice ?? 0),
         {
             message: "Average price must be greater than minimum price.",
-            path: ["avg_price"],
+            path: ["avgPrice"],
         },
     )
     .refine(
         (data) =>
-            data.max_price == null ||
-            (data.max_price > (data.min_price ?? 0) &&
-                data.max_price > (data.avg_price ?? 0)),
+            data.maxPrice == null ||
+            (data.maxPrice > (data.minPrice ?? 0) &&
+                data.maxPrice > (data.avgPrice ?? 0)),
         {
             message: "Max price must be greater than both min and avg price.",
-            path: ["max_price"],
+            path: ["maxPrice"],
         },
     );

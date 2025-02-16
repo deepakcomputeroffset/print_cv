@@ -6,11 +6,6 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
-export function stringToNumber(value: string): { isNum: boolean; num: number } {
-    const num = parseInt(value);
-    return isNaN(num) ? { isNum: false, num } : { isNum: true, num };
-}
-
 export const getDirtyFieldsWithValues = <T extends ZodSchema>(
     dirtyFields: Partial<
         Record<keyof z.infer<T>, boolean | object | boolean[]>

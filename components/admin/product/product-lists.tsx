@@ -56,7 +56,7 @@ export const ProductLists = ({ filters }: { filters: QueryParams }) => {
                                 <TableCell>
                                     <div className="relative h-10 w-10">
                                         <Image
-                                            src={product?.image_url[0]}
+                                            src={product?.imageUrl[0]}
                                             alt={product?.name}
                                             fill
                                             className="object-cover rounded"
@@ -74,18 +74,17 @@ export const ProductLists = ({ filters }: { filters: QueryParams }) => {
                                     </div>
                                 </TableCell>
                                 <TableCell className="text-nowrap">
-                                    ₹{product?.min_price} - ₹
-                                    {product?.max_price}
+                                    ₹{product?.minPrice} - ₹{product?.maxPrice}
                                 </TableCell>
                                 <TableCell>
                                     <Badge
                                         variant={
-                                            product?.is_avialable
+                                            product?.isAvailable
                                                 ? "default"
                                                 : "secondary"
                                         }
                                     >
-                                        {product?.is_avialable
+                                        {product?.isAvailable
                                             ? "Available"
                                             : "Unavailable"}
                                     </Badge>
@@ -101,7 +100,7 @@ export const ProductLists = ({ filters }: { filters: QueryParams }) => {
                                                 )
                                             }
                                         >
-                                            {product?.is_avialable ? (
+                                            {product?.isAvailable ? (
                                                 <X className="h-4 w-4 text-red-600" />
                                             ) : (
                                                 <Check className="h-4 w-4 text-green-600" />

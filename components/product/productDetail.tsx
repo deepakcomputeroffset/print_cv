@@ -34,7 +34,7 @@ export default function ProductDetails({
     product,
 }: {
     product: ProductTypeOnlyWithPrice & {
-        product_items: ProductItemTypeOnlyWithPrice[];
+        productItems: ProductItemTypeOnlyWithPrice[];
     };
 }) {
     const distinctAttributeWithOptions = getDistinctOptionsWithDetails(product);
@@ -45,14 +45,14 @@ export default function ProductDetails({
     const [selectedVariant, setSelectedVariant] =
         useState<ProductItemTypeOnlyWithPrice | null>(null);
     const router = useRouter();
-    const [qty, setQty] = useState<number>(product.min_qty);
+    const [qty, setQty] = useState<number>(product.minQty);
 
     const findVariant = useCallback(() => {
-        return product.product_items.find((item) =>
+        return product.productItems.find((item) =>
             Object.entries(selectedAttributes).every(([typeId, valueId]) =>
-                item.product_attribute_options.some(
+                item.productAttributeOptions.some(
                     (opt) =>
-                        opt.product_attribute_type.id === parseInt(typeId) &&
+                        opt.productAttributeType.id === parseInt(typeId) &&
                         opt.id === valueId,
                 ),
             ),
@@ -64,7 +64,7 @@ export default function ProductDetails({
         setSelectedVariant(variant || null);
 
         if (variant) {
-            setQty(Math.max(qty, variant.min_qty));
+            setQty(Math.max(qty, variant.minQty));
         }
     }, [selectedAttributes, findVariant, qty]);
 
@@ -75,7 +75,7 @@ export default function ProductDetails({
     const handleBuy = async () => {
         if (!selectedVariant) return;
         router.push(
-            `/customer/order/place?productId=${selectedVariant?.id}&qty=${Math.max(qty, selectedVariant?.min_qty)}`,
+            `/customer/order/place?productId=${selectedVariant?.id}&qty=${Math.max(qty, selectedVariant?.minQty)}`,
         );
     };
 
@@ -84,7 +84,7 @@ export default function ProductDetails({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Product Images Carousel */}
                 <div className="space-y-4">
-                    <EmblaCarousel slides={product.image_url} />
+                    <EmblaCarousel slides={product.imageUrl} />
                 </div>
 
                 {/* Product Details */}
@@ -102,7 +102,7 @@ export default function ProductDetails({
                                 ₹
                                 {selectedVariant
                                     ? selectedVariant.price *
-                                      (qty / selectedVariant?.min_qty)
+                                      (qty / selectedVariant?.minQty)
                                     : product.price}
                             </span>
                             <span className="text-xl text-muted-foreground line-through">
@@ -147,15 +147,13 @@ export default function ProductDetails({
                                         />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {type?.product_attribute_options?.map(
+                                        {type?.productAttributeOptions?.map(
                                             (opt) => (
                                                 <SelectItem
                                                     key={opt.id}
                                                     value={opt?.id?.toString()}
                                                 >
-                                                    {
-                                                        opt?.product_attribute_value
-                                                    }
+                                                    {opt?.productAttributeValue}
                                                 </SelectItem>
                                             ),
                                         )}
@@ -170,20 +168,16 @@ export default function ProductDetails({
                             </label>
                             <Input
                                 type="number"
-                                min={
-                                    selectedVariant?.min_qty || product.min_qty
-                                }
+                                min={selectedVariant?.minQty || product.minQty}
                                 value={qty}
-                                step={
-                                    selectedVariant?.min_qty || product.min_qty
-                                }
+                                step={selectedVariant?.minQty || product.minQty}
                                 onChange={(e) =>
                                     setQty(
                                         Math.max(
                                             parseInt(e.target.value) ||
-                                                product.min_qty,
-                                            selectedVariant?.min_qty ||
-                                                product.min_qty,
+                                                product.minQty,
+                                            selectedVariant?.minQty ||
+                                                product.minQty,
                                         ),
                                     )
                                 }
@@ -191,7 +185,7 @@ export default function ProductDetails({
                             />
                             <p className="text-sm text-muted-foreground mt-1">
                                 Minimum qty:{" "}
-                                {selectedVariant?.min_qty || product.min_qty}
+                                {selectedVariant?.minQty || product.minQty}
                             </p>
                         </div>
 
@@ -224,21 +218,17 @@ export default function ProductDetails({
                                 Selected Configuration
                             </h3>
                             <div className="space-y-1">
-                                {selectedVariant.product_attribute_options.map(
+                                {selectedVariant.productAttributeOptions.map(
                                     (opt) => (
                                         <div
                                             key={opt.id}
                                             className="flex justify-between text-sm"
                                         >
                                             <span className="text-muted-foreground capitalize">
-                                                {
-                                                    opt.product_attribute_type
-                                                        .name
-                                                }
-                                                :
+                                                {opt.productAttributeType.name}:
                                             </span>
                                             <span className="font-medium">
-                                                {opt.product_attribute_value}
+                                                {opt.productAttributeValue}
                                             </span>
                                         </div>
                                     ),

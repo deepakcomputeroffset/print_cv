@@ -2,18 +2,15 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateHash } from "@/lib/hash";
 import { customerFormSchema } from "@/schemas/customer.form.schema";
-
 import { Prisma } from "@prisma/client";
-import { stringToNumber } from "@/lib/utils";
 import { QuerySchema } from "@/schemas/query.param.schema";
-import { default_customer_per_page } from "@/lib/constants";
+import { defaultCustomerPerPage } from "@/lib/constants";
 
 export async function GET(request: Request) {
     try {
         // TODO: AUTHENTICATION
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
-        const { isNum, num } = stringToNumber(query?.search || "");
 
         const where: Prisma.customerWhereInput = {
             AND: [
@@ -27,7 +24,7 @@ export async function GET(request: Request) {
                                   },
                               },
                               {
-                                  business_name: {
+                                  businessName: {
                                       contains: query?.search,
                                       mode: "insensitive",
                                   },
@@ -39,10 +36,10 @@ export async function GET(request: Request) {
                                   },
                               },
                               { phone: { contains: query?.search } },
-                              isNum
+                              !isNaN(parseInt(query?.search))
                                   ? {
                                         id: {
-                                            gte: num,
+                                            gte: parseInt(query?.search),
                                         },
                                     }
                                   : {},
@@ -51,12 +48,12 @@ export async function GET(request: Request) {
                     : {},
                 query?.category && query?.category !== "all"
                     ? {
-                          customer_category: query?.category,
+                          customerCategory: query?.category,
                       }
                     : {},
                 query?.status && query?.status !== "all"
                     ? {
-                          is_Banned: query?.status === "true",
+                          isBanned: query?.status === "true",
                       }
                     : {},
             ],
@@ -83,9 +80,9 @@ export async function GET(request: Request) {
                 },
                 skip: query.page
                     ? (query.page - 1) *
-                      (query.perpage || default_customer_per_page)
+                      (query.perpage || defaultCustomerPerPage)
                     : 0,
-                take: query.perpage || default_customer_per_page,
+                take: query.perpage || defaultCustomerPerPage,
             }),
         ]);
 
@@ -93,9 +90,9 @@ export async function GET(request: Request) {
             customers,
             total,
             page: query.page || 1,
-            perpage: query.perpage || default_customer_per_page,
+            perpage: query.perpage || defaultCustomerPerPage,
             totalPages: Math.ceil(
-                total / (query.perpage || default_customer_per_page),
+                total / (query.perpage || defaultCustomerPerPage),
             ),
         });
     } catch (error) {
@@ -139,15 +136,15 @@ export async function POST(req: Request) {
         const customer = await prisma.customer.create({
             data: {
                 name: safeData?.name,
-                business_name: safeData?.business_name,
+                businessName: safeData?.businessName,
                 phone: safeData?.phone,
                 email: safeData?.email,
                 password: await generateHash(safeData?.password),
                 address: {
                     create: {
                         line: safeData?.line,
-                        pin_code: safeData?.pin_code,
-                        city_id: Number(safeData?.city),
+                        pinCode: safeData?.pinCode,
+                        cityId: Number(safeData?.city),
                     },
                 },
             },

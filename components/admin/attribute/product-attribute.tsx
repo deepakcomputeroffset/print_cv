@@ -7,23 +7,20 @@ import { AddProductAttributeModal } from "./modal/add-product-attribute-modal";
 import { useModal } from "@/hooks/use-modal";
 import { AddProductAttributeValueModal } from "./modal/add-product-attribute-value-modal";
 import { AttributeCard } from "./attribute-card";
-import {
-    product_attribute_type,
-    product_attribute_value,
-} from "@prisma/client";
+import { productAttributeType, productAttributeValue } from "@prisma/client";
 
 interface ProductAttributesProps {
-    product_category_id: number;
+    productCategoryId: number;
     isLoading: boolean;
-    selectedAttributes: product_attribute_type[];
-    setSelectedAttributes: Dispatch<SetStateAction<product_attribute_type[]>>;
-    selectedOptions: product_attribute_value[];
-    setSelectedOptions: Dispatch<SetStateAction<product_attribute_value[]>>;
+    selectedAttributes: productAttributeType[];
+    setSelectedAttributes: Dispatch<SetStateAction<productAttributeType[]>>;
+    selectedOptions: productAttributeValue[];
+    setSelectedOptions: Dispatch<SetStateAction<productAttributeValue[]>>;
 }
 
 export function ProductAttributes({
     isLoading,
-    product_category_id,
+    productCategoryId,
     selectedAttributes,
     selectedOptions,
     setSelectedAttributes,
@@ -36,18 +33,16 @@ export function ProductAttributes({
             prev.filter((a) => a.id !== attributeId),
         );
         setSelectedOptions((prev) => {
-            return prev.filter(
-                (v) => v.product_attribute_type_id !== attributeId,
-            );
+            return prev.filter((v) => v.productAttributeTypeId !== attributeId);
         });
     }, []);
 
-    const handleAttributeValueSelect = (v: product_attribute_value) => {
+    const handleAttributeValueSelect = (v: productAttributeValue) => {
         if (selectedOptions.includes(v)) return;
         setSelectedOptions((prev) => [...prev, v]);
     };
 
-    const handleRemoveValue = useCallback((value: product_attribute_value) => {
+    const handleRemoveValue = useCallback((value: productAttributeValue) => {
         setSelectedOptions((prev) => {
             return prev.filter((v) => v.id != value?.id);
         });
@@ -61,7 +56,7 @@ export function ProductAttributes({
                     variant="outline"
                     size="sm"
                     type="button"
-                    disabled={isLoading || !product_category_id}
+                    disabled={isLoading || !productCategoryId}
                     onClick={() => onOpen("addAttribute", {})}
                 >
                     <PlusCircle className="h-4 w-4" />
@@ -73,7 +68,7 @@ export function ProductAttributes({
                     <AttributeCard
                         selectedValue={selectedOptions?.filter(
                             (atr) =>
-                                atr.product_attribute_type_id == attribute?.id,
+                                atr.productAttributeTypeId == attribute?.id,
                         )}
                         key={attribute.id}
                         attribute={attribute}
@@ -84,7 +79,7 @@ export function ProductAttributes({
             </div>
 
             <AddProductAttributeModal
-                product_category_id={product_category_id}
+                productCategoryId={productCategoryId}
                 selectedAttributes={selectedAttributes}
                 setSelectedAttributes={setSelectedAttributes}
             />

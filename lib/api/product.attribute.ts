@@ -3,18 +3,18 @@ import { z } from "zod";
 import { ProductAttributeTypeSchema } from "@/schemas/product.attribute.type.form.schema";
 import { productAttributeTypeBaseUrl } from "../urls";
 import queryString from "query-string";
-import { product_attribute_type } from "@prisma/client";
+import { productAttributeType } from "@prisma/client";
 
 export async function fetchProductAttributes(
-    product_category_id?: number,
+    productCategoryId?: number,
 ): Promise<{
-    data: product_attribute_type[];
+    data: productAttributeType[];
 }> {
     const url = queryString.stringifyUrl({
         url: productAttributeTypeBaseUrl,
-        query: { product_category_id },
+        query: { productCategoryId },
     });
-    if (!product_category_id) return { data: [] };
+    if (!productCategoryId) return { data: [] };
     const { data } = await axios(url);
     return data;
 }

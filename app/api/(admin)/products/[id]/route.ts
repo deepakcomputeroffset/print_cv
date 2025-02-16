@@ -13,7 +13,7 @@ export async function GET(
         const { isNum, num: pid } = stringToNumber(id);
         if (!isNum) {
             return NextResponse.json(
-                { message: "Invalid product_Id" },
+                { message: "Invalid productId" },
                 { status: 400 },
             );
         }
@@ -49,7 +49,7 @@ export async function PATCH(
         const { isNum, num: pid } = stringToNumber(id);
         if (!isNum || !pid) {
             return NextResponse.json(
-                { message: "Invalid product_Id" },
+                { message: "Invalid productId" },
                 { status: 400 },
             );
         }
@@ -63,7 +63,7 @@ export async function PATCH(
         const existingProduct = await prisma?.product?.findUnique({
             where: { id: pid },
             include: {
-                product_items: true,
+                productItems: true,
             },
         });
 
@@ -83,46 +83,43 @@ export async function PATCH(
         if (validatedData?.name) updateData.name = validatedData.name;
         if (validatedData?.description)
             updateData.description = validatedData.description;
-        if (validatedData?.image_url)
-            updateData.image_url = validatedData.image_url;
-        if (validatedData?.is_avialable)
-            updateData.is_avialable = validatedData.is_avialable;
+        if (validatedData?.imageUrl)
+            updateData.imageUrl = validatedData.imageUrl;
+        if (validatedData?.isAvailable)
+            updateData.isAvailable = validatedData.isAvailable;
         if (validatedData?.sku) updateData.sku = validatedData.sku;
-        if (validatedData.min_qty) updateData.min_qty = validatedData.min_qty;
-        if (validatedData.avg_price)
-            updateData.avg_pric3 = validatedData.avg_price;
-        if (validatedData.max_price)
-            updateData.max_price = validatedData.max_price;
-        if (validatedData.og_price)
-            updateData.og_price = validatedData.og_price;
-        if (validatedData.category_id)
-            updateData.category_id = parseInt(validatedData.category_id);
-        if (validatedData?.product_items)
-            updateData.product_items = {
-                create: validatedData.product_items.map((item) => ({
+        if (validatedData.minQty) updateData.minQty = validatedData.minQty;
+        if (validatedData.avgPrice)
+            updateData.avgPrice = validatedData.avgPrice;
+        if (validatedData.maxPrice)
+            updateData.maxPrice = validatedData.maxPrice;
+        if (validatedData.ogPrice) updateData.ogPrice = validatedData.ogPrice;
+        if (validatedData.categoryId)
+            updateData.categoryId = parseInt(validatedData.categoryId);
+        if (validatedData?.productItems)
+            updateData.productItems = {
+                create: validatedData.productItems.map((item) => ({
                     sku: item.sku,
-                    min_qty: item.min_qty,
-                    og_price: item.og_price,
-                    min_price: item.min_price,
-                    avg_price: item.avg_price,
-                    max_price: item.max_price,
-                    image_url: item.image_url,
-                    is_avialable: item.is_avialable,
-                    product_attribute_options: {
-                        connect: item.product_attribute_options.map(
-                            (option) => ({
-                                id: option.id, // Connect using the existing ID
-                            }),
-                        ),
+                    minQty: item.minQty,
+                    ogPrice: item.ogPrice,
+                    minPrice: item.minPrice,
+                    avgPrice: item.avgPrice,
+                    maxPrice: item.maxPrice,
+                    imageUrl: item.imageUrl,
+                    isAvailable: item.isAvailable,
+                    productAttributeOptions: {
+                        connect: item.productAttributeOptions.map((option) => ({
+                            id: option.id, // Connect using the existing ID
+                        })),
                     },
                 })),
             };
 
         // deleting all existing varients of product if variants changed
-        if (!!validatedData?.product_items) {
-            await prisma?.product_item.deleteMany({
+        if (!!validatedData?.productItems) {
+            await prisma?.productItem.deleteMany({
                 where: {
-                    product_id: existingProduct?.id,
+                    productId: existingProduct?.id,
                 },
             });
         }
@@ -179,7 +176,7 @@ export async function DELETE(
         const { isNum, num: pid } = stringToNumber(id);
         if (!isNum) {
             return NextResponse.json(
-                { message: "Invalid product_Id" },
+                { message: "Invalid productId" },
                 { status: 400 },
             );
         }

@@ -6,29 +6,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search, ChevronRight, ArrowLeft } from "lucide-react";
 import { useUrlFilters } from "@/hooks/useUrlFilter";
-import { product_category } from "@prisma/client";
+import { productCategory } from "@prisma/client";
 
-type productCategory = product_category & {
+type productCategoryType = productCategory & {
     _count: {
-        sub_categories: number;
+        subCategories: number;
     };
-    parent_category: product_category | null;
+    parentCategory: productCategory | null;
 };
 
 export const ProductCategoryList = ({
     categories,
 }: {
-    categories: productCategory[];
+    categories: productCategoryType[];
 }) => {
     const router = useRouter();
     const { setParam } = useUrlFilters();
     const [searchTerm, setSearchTerm] = useState("");
 
-    const handleCategoryClick = async (category: productCategory) => {
-        if (category?._count?.sub_categories > 0) {
-            setParam("parent_category_id", category?.id.toString());
+    const handleCategoryClick = async (category: productCategoryType) => {
+        if (category?._count?.subCategories > 0) {
+            setParam("parentCategoryId", category?.id.toString());
         } else {
-            router.push(`/customer/products?category_id=${category.id}`);
+            router.push(`/customer/products?categoryId=${category.id}`);
         }
     };
 
@@ -41,8 +41,8 @@ export const ProductCategoryList = ({
             <div className="flex flex-col space-y-6">
                 <div className="flex justify-between items-center">
                     <h1 className="text-3xl font-bold">
-                        {!!categories?.[0]?.parent_category
-                            ? `${categories?.[0]?.parent_category?.name} Service`
+                        {!!categories?.[0]?.parentCategory
+                            ? `${categories?.[0]?.parentCategory?.name} Service`
                             : "Printing Services"}
                     </h1>
                     <div className="relative w-64">
@@ -56,7 +56,7 @@ export const ProductCategoryList = ({
                     </div>
                 </div>
 
-                {categories[0]?.parent_category !== null && (
+                {categories[0]?.parentCategory !== null && (
                     <ArrowLeft
                         onClick={() => router?.push("/customer/categories")}
                         className="cursor-pointer"
@@ -73,7 +73,7 @@ export const ProductCategoryList = ({
                             <div
                                 className="h-48 w-full bg-cover bg-center rounded-t-lg"
                                 style={{
-                                    backgroundImage: `url(${category.image_url})`,
+                                    backgroundImage: `url(${category.imageUrl})`,
                                 }}
                             />
                             <CardHeader>

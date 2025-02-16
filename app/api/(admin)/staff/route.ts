@@ -3,16 +3,14 @@ import { prisma } from "@/lib/prisma";
 import { generateHash } from "@/lib/hash";
 import { staffFormSchema } from "@/schemas/staff.form.schema";
 import { Prisma } from "@prisma/client";
-import { stringToNumber } from "@/lib/utils";
 import { QuerySchema } from "@/schemas/query.param.schema";
-import { default_staff_per_page } from "@/lib/constants";
+import { defaultStaffPerPage } from "@/lib/constants";
 
 export async function GET(request: Request) {
     try {
         // TODO: AUTHENTICATION
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
-        const { isNum, num } = stringToNumber(query?.search || "");
 
         const where: Prisma.staffWhereInput = {
             AND: [
@@ -32,10 +30,10 @@ export async function GET(request: Request) {
                                   },
                               },
                               { phone: { contains: query?.search } },
-                              isNum
+                              !isNaN(parseInt(query?.search))
                                   ? {
                                         id: {
-                                            gte: num,
+                                            gte: parseInt(query?.search),
                                         },
                                     }
                                   : {},
@@ -45,7 +43,7 @@ export async function GET(request: Request) {
 
                 query?.status && query?.status !== "all"
                     ? {
-                          is_Banned: query?.status === "true",
+                          isBanned: query?.status === "true",
                       }
                     : {},
             ],
@@ -71,10 +69,9 @@ export async function GET(request: Request) {
                     [query?.sortby ?? "id"]: query?.sortorder || "asc",
                 },
                 skip: query.page
-                    ? (query.page - 1) *
-                      (query.perpage || default_staff_per_page)
+                    ? (query.page - 1) * (query.perpage || defaultStaffPerPage)
                     : 0,
-                take: query.perpage || default_staff_per_page,
+                take: query.perpage || defaultStaffPerPage,
             }),
         ]);
 
@@ -82,9 +79,9 @@ export async function GET(request: Request) {
             staff,
             total,
             page: query.page || 1,
-            perpage: query.perpage || default_staff_per_page,
+            perpage: query.perpage || defaultStaffPerPage,
             totalPages: Math.ceil(
-                total / (query.perpage || default_staff_per_page),
+                total / (query.perpage || defaultStaffPerPage),
             ),
         });
     } catch (error) {

@@ -72,7 +72,7 @@ export const StaffFilter = ({ filters }: { filters: QueryParams }) => {
                         <SelectGroup>
                             <SelectLabel>Sort By</SelectLabel>
                             <SelectItem value="id">Id</SelectItem>
-                            <SelectItem value="is_Banned">Status</SelectItem>
+                            <SelectItem value="isBanned">Status</SelectItem>
                             <SelectItem value="name">Name</SelectItem>
                             <SelectItem value="email">Email</SelectItem>
                             <SelectItem value="phone">Phone</SelectItem>

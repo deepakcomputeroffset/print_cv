@@ -4,19 +4,27 @@ import { prisma } from "@/lib/prisma";
 export default async function CategoriesPage({
     searchParams,
 }: {
-    searchParams: Promise<{ parent_category_id: string }>;
+    searchParams: Promise<{ parentCategoryId: string }>;
 }) {
     const params = await searchParams;
 
-    const categories = await prisma?.product_category.findMany({
+    const categories = await prisma?.productCategory.findMany({
         where: {
-            parent_category_id: Number(params?.parent_category_id) ?? null,
+            parentCategoryId: Number(params?.parentCategoryId) ?? null,
         },
         include: {
-            _count: { select: { sub_categories: true } },
-            parent_category: true,
+            _count: { select: { subCategories: true } },
+            parentCategory: true,
         },
     });
+
+    if (categories.length === 0) {
+        return (
+            <div>
+                <p>No Product Category found!!</p>
+            </div>
+        );
+    }
 
     return (
         <Suspense fallback={"loading...."}>

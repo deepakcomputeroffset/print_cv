@@ -7,7 +7,7 @@ export const useStates = () => {
         {
             id: number;
             cities: [];
-            country_id: 1;
+            countryId: 1;
             name: string;
         }[]
     >({

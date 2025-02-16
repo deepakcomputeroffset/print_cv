@@ -7,7 +7,7 @@ import Pagination from "@/components/pagination";
 import { CustomerEditModal } from "@/components/admin/customer/modal/customer-edit-modal";
 import { CustomerViewModal } from "@/components/admin/customer/modal/customer-view-modal";
 import { CustomerDeleteModal } from "@/components/admin/customer/modal/customer-delete-modal";
-import { default_customer_per_page } from "@/lib/constants";
+import { defaultCustomerPerPage } from "@/lib/constants";
 import { CustomerFilter } from "@/components/admin/customer/customer-filter";
 import { CustomerListTable } from "@/components/admin/customer/customer-list-table";
 import { QueryParams } from "@/types/types";
@@ -25,7 +25,7 @@ export default function CustomersPage({
             ...filters,
             sortorder:
                 filters?.sortorder !== undefined ? filters?.sortorder : "asc",
-            perpage: filters?.perpage || default_customer_per_page,
+            perpage: filters?.perpage || defaultCustomerPerPage,
         });
 
     if (error) {

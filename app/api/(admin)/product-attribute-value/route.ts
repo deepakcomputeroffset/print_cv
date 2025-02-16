@@ -22,9 +22,9 @@ export async function GET(request: Request) {
             );
         }
         const productAttributeTypeValues =
-            await prisma.product_attribute_value.findMany({
+            await prisma.productAttributeValue.findMany({
                 where: {
-                    product_attribute_type_id: id,
+                    productAttributeTypeId: id,
                 },
             });
 
@@ -62,10 +62,11 @@ export async function POST(req: Request) {
             );
         }
 
-        const productAttributeValue =
-            await prisma.product_attribute_value.create({
+        const productAttributeValue = await prisma.productAttributeValue.create(
+            {
                 data: safeData,
-            });
+            },
+        );
         return NextResponse.json(
             {
                 success: true,

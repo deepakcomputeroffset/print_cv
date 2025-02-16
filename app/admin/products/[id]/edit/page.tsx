@@ -14,11 +14,11 @@ export default async function EditProductPage({
                 id: parseInt(id),
             },
             include: {
-                product_items: {
+                productItems: {
                     include: {
-                        product_attribute_options: {
+                        productAttributeOptions: {
                             include: {
-                                product_attribute_type: true,
+                                productAttributeType: true,
                             },
                         },
                     },

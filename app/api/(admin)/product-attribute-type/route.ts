@@ -9,7 +9,7 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url);
 
         const { isNum, num: id } = stringToNumber(
-            searchParams?.get("product_category_id") || "",
+            searchParams?.get("productCategoryId") || "",
         );
 
         if (!isNum) {
@@ -21,16 +21,16 @@ export async function GET(request: Request) {
                 { status: 400 },
             );
         }
-        const product_attribute_types =
-            await prisma.product_attribute_type.findMany({
+        const productAttributeTypes =
+            await prisma.productAttributeType.findMany({
                 where: {
-                    product_category_id: id,
+                    productCategoryId: id,
                 },
             });
 
         return NextResponse.json(
             {
-                data: product_attribute_types,
+                data: productAttributeTypes,
             },
             { status: 200 },
         );
@@ -63,15 +63,15 @@ export async function POST(req: Request) {
             );
         }
 
-        const created_product_attribute =
-            await prisma.product_attribute_type.create({
+        const createdProduct_attribute =
+            await prisma.productAttributeType.create({
                 data: safeData,
             });
         return NextResponse.json(
             {
                 success: true,
                 message: "product attribute type created successfully",
-                data: created_product_attribute,
+                data: createdProduct_attribute,
             },
             { status: 201 },
         );

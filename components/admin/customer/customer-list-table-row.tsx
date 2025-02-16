@@ -29,14 +29,14 @@ export const CustomerTableRow = ({
                     </div>
                 </div>
             </TableCell>
-            <TableCell>{customer?.business_name}</TableCell>
+            <TableCell>{customer?.businessName}</TableCell>
             <TableCell>
                 <span
                     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getCategoryBadgeClass(
-                        customer?.customer_category,
+                        customer?.customerCategory,
                     )}`}
                 >
-                    {customer?.customer_category}
+                    {customer?.customerCategory}
                 </span>
             </TableCell>
             <TableCell>
@@ -57,12 +57,12 @@ export const CustomerTableRow = ({
                 <span
                     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                             ${
-                                customer.is_Banned
+                                customer.isBanned
                                     ? "bg-red-100 text-red-800"
                                     : "bg-green-100 text-green-800"
                             }`}
                 >
-                    {customer.is_Banned ? "Banned" : "Active"}
+                    {customer.isBanned ? "Banned" : "Active"}
                 </span>
             </TableCell>
             <TableCell>
@@ -72,7 +72,7 @@ export const CustomerTableRow = ({
                         size="icon"
                         onClick={() => toggleBanStatus(customer.id)}
                     >
-                        {customer.is_Banned ? (
+                        {customer.isBanned ? (
                             <UserCheck className="h-4 w-4 text-green-600" />
                         ) : (
                             <UserX className="h-4 w-4 text-red-600" />

@@ -2,15 +2,13 @@ import { NextResponse } from "next/server";
 import { productFormSchema } from "@/schemas/product.form.schema";
 import { prisma } from "@/lib/prisma";
 import { QuerySchema } from "@/schemas/query.param.schema";
-import { stringToNumber } from "@/lib/utils";
 import { Prisma } from "@prisma/client";
-import { default_product_per_page } from "@/lib/constants";
+import { defaultProductPerPage } from "@/lib/constants";
 
 export async function GET(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
-        const { isNum, num } = stringToNumber(query?.search || "");
 
         const where: Prisma.productWhereInput = {
             AND: [
@@ -29,37 +27,37 @@ export async function GET(request: Request) {
                                       mode: "insensitive",
                                   },
                               },
-                              isNum
+                              !isNaN(parseInt(query?.search))
                                   ? {
                                         id: {
-                                            gte: num,
+                                            gte: parseInt(query.search),
                                         },
                                     }
                                   : {},
                           ],
                       }
                     : {},
-                query?.category_id && query?.category_id !== "all"
+                query?.categoryId && query?.categoryId !== "all"
                     ? {
-                          category_id: parseInt(query?.category_id),
+                          categoryId: parseInt(query?.categoryId),
                       }
                     : {},
-                query?.is_avialable && query?.is_avialable !== "all"
+                query?.isAvailable && query?.isAvailable !== "all"
                     ? {
-                          is_avialable: query?.status === "true",
+                          isAvailable: query?.status === "true",
                       }
                     : {},
-                query?.min_price && query?.min_price != 0
+                query?.minPrice && query?.minPrice != 0
                     ? {
-                          min_price: {
-                              gte: Number(query?.min_price),
+                          minPrice: {
+                              gte: Number(query?.minPrice),
                           },
                       }
                     : {},
-                query?.max_price && query?.max_price != 0
+                query?.maxPrice && query?.maxPrice != 0
                     ? {
-                          max_price: {
-                              gte: Number(query?.max_price),
+                          maxPrice: {
+                              gte: Number(query?.maxPrice),
                           },
                       }
                     : {},
@@ -71,7 +69,7 @@ export async function GET(request: Request) {
             prisma.product.findMany({
                 where,
                 include: {
-                    product_items: true,
+                    productItems: true,
                     category: true,
                 },
                 orderBy: {
@@ -79,9 +77,9 @@ export async function GET(request: Request) {
                 },
                 skip: query.page
                     ? (query.page - 1) *
-                      (query.perpage || default_product_per_page)
+                      (query.perpage || defaultProductPerPage)
                     : 0,
-                take: query.perpage || default_product_per_page,
+                take: query.perpage || defaultProductPerPage,
             }),
         ]);
 
@@ -90,9 +88,9 @@ export async function GET(request: Request) {
                 data: products,
                 total,
                 page: query.page || 1,
-                perpage: query.perpage || default_product_per_page,
+                perpage: query.perpage || defaultProductPerPage,
                 totalPages: Math.ceil(
-                    total / (query.perpage || default_product_per_page),
+                    total / (query.perpage || defaultProductPerPage),
                 ),
             },
             { status: 200 },
@@ -124,27 +122,27 @@ export async function POST(req: Request) {
             data: {
                 name: safeData.name,
                 description: safeData.description,
-                image_url: safeData.image_url,
-                category_id: parseInt(safeData.category_id, 10), // Convert to integer
-                is_avialable: safeData.is_avialable,
+                imageUrl: safeData.imageUrl,
+                categoryId: parseInt(safeData.categoryId, 10), // Convert to integer
+                isAvailable: safeData.isAvailable,
                 sku: safeData.sku,
-                min_qty: safeData.min_qty,
-                og_price: safeData.og_price,
-                min_price: safeData.min_price,
-                avg_price: safeData.avg_price,
-                max_price: safeData.max_price,
-                product_items: {
-                    create: safeData.product_items.map((item) => ({
+                minQty: safeData.minQty,
+                ogPrice: safeData.ogPrice,
+                minPrice: safeData.minPrice,
+                avgPrice: safeData.avgPrice,
+                maxPrice: safeData.maxPrice,
+                productItems: {
+                    create: safeData.productItems.map((item) => ({
                         sku: item.sku,
-                        min_qty: item.min_qty,
-                        og_price: item.og_price,
-                        min_price: item.min_price,
-                        avg_price: item.avg_price,
-                        max_price: item.max_price,
-                        image_url: item.image_url,
-                        is_avialable: item.is_avialable,
-                        product_attribute_options: {
-                            connect: item.product_attribute_options.map(
+                        minQty: item.minQty,
+                        ogPrice: item.ogPrice,
+                        minPrice: item.minPrice,
+                        avgPrice: item.avgPrice,
+                        maxPrice: item.maxPrice,
+                        imageUrl: item.imageUrl,
+                        isAvailable: item.isAvailable,
+                        productAttributeOptions: {
+                            connect: item.productAttributeOptions.map(
                                 (option) => ({
                                     id: option.id, // Connect using the existing ID
                                 }),

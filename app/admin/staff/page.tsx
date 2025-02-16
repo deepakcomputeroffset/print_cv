@@ -3,7 +3,7 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Pagination from "@/components/pagination";
-import { default_staff_per_page } from "@/lib/constants";
+import { defaultStaffPerPage } from "@/lib/constants";
 import { QueryParams } from "@/types/types";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useStaff } from "@/hooks/use-staff";
@@ -27,7 +27,7 @@ export default function StaffsPage({
         ...filters,
         sortorder:
             filters?.sortorder !== undefined ? filters?.sortorder : "asc",
-        perpage: filters?.perpage || default_staff_per_page,
+        perpage: filters?.perpage || defaultStaffPerPage,
     });
 
     const { onOpen } = useModal();

@@ -49,19 +49,19 @@ export const CustomerViewModal = () => {
                                     <span className="text-muted-foreground">
                                         Business Name:
                                     </span>
-                                    {data?.customer?.business_name}
+                                    {data?.customer?.businessName}
                                 </p>
                                 <p>
                                     <span className="text-muted-foreground">
                                         Category:
                                     </span>
-                                    {data?.customer?.customer_category}
+                                    {data?.customer?.customerCategory}
                                 </p>
                                 <p>
                                     <span className="text-muted-foreground">
                                         Status:
                                     </span>
-                                    {data?.customer?.is_Banned
+                                    {data?.customer?.isBanned
                                         ? "Banned"
                                         : "Active"}
                                 </p>
@@ -85,7 +85,7 @@ export const CustomerViewModal = () => {
                                     <span className="text-muted-foreground">
                                         PIN Code:
                                     </span>
-                                    {data?.customer?.address.pin_code}
+                                    {data?.customer?.address.pinCode}
                                 </p>
                                 <p>
                                     <span className="text-muted-foreground">

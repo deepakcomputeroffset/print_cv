@@ -1,20 +1,20 @@
 import axios from "axios";
 import { z } from "zod";
 import { productAttributeValueBaseUrl } from "../urls";
-import { product_attribute_value } from "@prisma/client";
+import { productAttributeValue } from "@prisma/client";
 import queryString from "query-string";
 import { ProductAttributeValueSchema } from "@/schemas/product.attribute.value.form.schema";
 
 export async function fetchProductAttributeValues(
-    product_attribute_type_id?: number,
+    productAttributeTypeId?: number,
 ): Promise<{
-    data: product_attribute_value[];
+    data: productAttributeValue[];
 }> {
     const url = queryString.stringifyUrl({
         url: productAttributeValueBaseUrl,
-        query: { productAttributeId: product_attribute_type_id },
+        query: { productAttributeId: productAttributeTypeId },
     });
-    if (!product_attribute_type_id) return { data: [] };
+    if (!productAttributeTypeId) return { data: [] };
     const { data } = await axios(url);
     return data;
 }

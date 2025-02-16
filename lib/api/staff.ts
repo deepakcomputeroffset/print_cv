@@ -5,12 +5,12 @@ import { staffFormSchema } from "@/schemas/staff.form.schema";
 import { QueryParams } from "@/types/types";
 import { staffBaseUrl } from "../urls";
 import { staff } from "@prisma/client";
-import { default_staff_per_page } from "../constants";
+import { defaultStaffPerPage } from "../constants";
 
 export async function fetchStaffs(
     params: QueryParams = {
         page: 1,
-        perpage: default_staff_per_page,
+        perpage: defaultStaffPerPage,
         search: "",
         sortorder: "asc",
     },

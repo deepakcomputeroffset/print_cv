@@ -76,18 +76,18 @@ export async function PATCH(
         const updateData: NestedObject = {};
 
         if (validatedData?.name) updateData.name = validatedData.name;
-        if (validatedData?.business_name)
-            updateData.business_name = validatedData.business_name;
+        if (validatedData?.businessName)
+            updateData.businessName = validatedData.businessName;
         if (validatedData.email) updateData.email = validatedData.email;
         if (validatedData.phone) updateData.phone = validatedData.phone;
         if (validatedData.password)
             updateData.password = validatedData.password;
-        if (validatedData.gst_number)
-            updateData.gst_number = validatedData.gst_number;
+        if (validatedData.gstNumber)
+            updateData.gstNumber = validatedData.gstNumber;
 
         if (
             validatedData.line ||
-            validatedData.pin_code ||
+            validatedData.pinCode ||
             validatedData.city ||
             validatedData.state ||
             validatedData.country
@@ -98,8 +98,8 @@ export async function PATCH(
 
             if (validatedData.line)
                 updateData.address.update.line = validatedData.line;
-            if (validatedData.pin_code)
-                updateData.address.update.pin_code = validatedData.pin_code;
+            if (validatedData.pinCode)
+                updateData.address.update.pinCode = validatedData.pinCode;
 
             if (validatedData?.city) {
                 updateData.address.update.city = {

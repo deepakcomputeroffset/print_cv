@@ -5,10 +5,10 @@ import {
     country,
     customer,
     product,
-    product_attribute_type,
-    product_attribute_value,
-    product_category,
-    product_item,
+    productAttributeType,
+    productAttributeValue,
+    productCategory,
+    productItem,
     state,
 } from "@prisma/client";
 import { z } from "zod";
@@ -23,41 +23,38 @@ export type customerWithAddress = customer & {
     };
 };
 
-export interface productCategoryWithSubCategory extends product_category {
-    sub_categories: product_category[];
+export interface productCategoryWithSubCategory extends productCategory {
+    subCategories: productCategory[];
 }
 
-export interface productAttributeWithOptions extends product_attribute_type {
-    product_attribute_options: product_attribute_value[];
+export interface productAttributeWithOptions extends productAttributeType {
+    productAttributeOptions: productAttributeValue[];
 }
 
 export interface ProductVariantType
-    extends Omit<
-        product_item,
-        "createdAt" | "updatedAt" | "product_id" | "id"
-    > {
-    product_attribute_options: product_attribute_value[];
+    extends Omit<productItem, "createdAt" | "updatedAt" | "productId" | "id"> {
+    productAttributeOptions: productAttributeValue[];
 }
 
 export interface QueryParams extends z.infer<typeof QuerySchema> {
     totalPages?: number;
-    parent_category_id?: string;
+    parentCategoryId?: string;
 }
 
 export type ProductTypeOnlyWithPrice = Omit<
     product,
-    "min_price" | "price" | "mid_price" | "og_price"
+    "minPrice" | "price" | "midPrice" | "ogPrice"
 > & {
     price: number;
 };
 
 export type ProductItemTypeOnlyWithPrice = Omit<
-    product_item,
-    "min_price" | "price" | "mid_price" | "og_price"
+    productItem,
+    "minPrice" | "price" | "midPrice" | "ogPrice"
 > & {
     price: number;
-    product_attribute_options: (product_attribute_value & {
-        product_attribute_type: product_attribute_type;
+    productAttributeOptions: (productAttributeValue & {
+        productAttributeType: productAttributeType;
     })[];
 };
 

@@ -42,19 +42,18 @@ export function ProductVariants({
                             </h3>
                             <div className="flex items-center gap-4">
                                 <div className="flex flex-wrap gap-2">
-                                    {variant?.product_attribute_options.map(
+                                    {variant?.productAttributeOptions.map(
                                         (combo) => (
                                             <Badge
                                                 key={
-                                                    combo.product_attribute_type_id
+                                                    combo.productAttributeTypeId
                                                 }
                                                 variant="outline"
                                             >
                                                 {getAttributeNameById(
-                                                    combo?.product_attribute_type_id,
+                                                    combo?.productAttributeTypeId,
                                                 )}{" "}
-                                                :{" "}
-                                                {combo?.product_attribute_value}
+                                                : {combo?.productAttributeValue}
                                             </Badge>
                                         ),
                                     )}

@@ -97,11 +97,11 @@ model product {
     description  String
     imageUrl     String[]
     categoryId   Int
-    isAvialable  Boolean       @default(false)
+    isAvailable  Boolean       @default(false)
     sku          String        @unique
     minQty       Int
     ogPrice      Int
-    min_price    Int
+    minPrice    Int
     avgPrice     Int
     maxPrice     Int
     productItems productItem[]
@@ -121,7 +121,7 @@ model productItem {
     avgPrice                Int
     maxPrice                Int
     imageUrl                String[]
-    isAvialable             Boolean                 @default(false)
+    isAvailable             Boolean                 @default(false)
     productAttributeOptions productAttributeValue[]
     orders                  order[]
 

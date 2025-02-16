@@ -1,5 +1,6 @@
 import { AppSidebar } from "@/components/admin/sidebar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import CheckSession from "@/components/checkSession";
 
 export default async function AdminLayout({
     children,
@@ -11,7 +12,6 @@ export default async function AdminLayout({
     // if (session?.user?.role !== "ADMIN") {
     //   redirect("/login");
     // }
-
     return (
         <div className="flex h-screen">
             <SidebarProvider>
@@ -20,6 +20,7 @@ export default async function AdminLayout({
                     {children}
                 </main>
             </SidebarProvider>
+            <CheckSession />
         </div>
     );
 }

@@ -18,7 +18,7 @@ export const CustomerDeleteModal = () => {
                     Are you sure you want to do this? <br />
                     <span className="font-semibold text-indigo-500">
                         {data?.customer?.name} {" -- "}
-                        {data?.customer?.business_name}
+                        {data?.customer?.businessName}
                     </span>
                 </>
             }

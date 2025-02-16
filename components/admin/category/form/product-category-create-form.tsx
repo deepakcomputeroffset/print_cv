@@ -29,8 +29,8 @@ export const ProductCategoryCreateForm = () => {
         defaultValues: {
             name: "",
             description: "",
-            image_url: undefined,
-            parent_category_id: data?.product_category?.id || null,
+            imageUrl: undefined,
+            parentCategoryId: data?.productCategory?.id || null,
         },
     });
     const {
@@ -42,15 +42,15 @@ export const ProductCategoryCreateForm = () => {
             const fileReader = new FileReader();
             fileReader.readAsDataURL(files[0]);
             fileReader.onload = () => {
-                form.setValue("image_url", fileReader.result as string);
+                form.setValue("imageUrl", fileReader.result as string);
             };
         } else {
             toast.error("Image size must be less 5mb");
         }
     }, []);
     const handleDelete = useCallback(() => {
-        if (!!form.getValues("image_url")) {
-            form.setValue("image_url", "");
+        if (!!form.getValues("imageUrl")) {
+            form.setValue("imageUrl", "");
         }
     }, []);
 
@@ -98,13 +98,13 @@ export const ProductCategoryCreateForm = () => {
 
                 <FormField
                     control={form.control}
-                    name="image_url"
+                    name="imageUrl"
                     render={() => (
                         <FormItem>
                             <FormLabel>Image</FormLabel>
                             <FormControl>
                                 <div>
-                                    {!!form?.getValues("image_url") ? (
+                                    {!!form?.getValues("imageUrl") ? (
                                         <div className="relative">
                                             <Badge
                                                 variant={"destructive"}
@@ -114,9 +114,7 @@ export const ProductCategoryCreateForm = () => {
                                                 <Trash className="w-4 h-4" />
                                             </Badge>
                                             <Image
-                                                src={form.getValues(
-                                                    "image_url",
-                                                )}
+                                                src={form.getValues("imageUrl")}
                                                 alt="Category Image"
                                                 width={1000}
                                                 height={1000}

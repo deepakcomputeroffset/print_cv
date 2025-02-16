@@ -21,7 +21,7 @@ export async function POST(
 
         const updatedStaff = await prisma.staff.update({
             where: { id: parseInt(id) },
-            data: { is_Banned: !staff.is_Banned },
+            data: { isBanned: !staff.isBanned },
         });
 
         return NextResponse.json(

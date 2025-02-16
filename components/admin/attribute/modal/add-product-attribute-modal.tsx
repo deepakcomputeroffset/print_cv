@@ -4,18 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useModal } from "@/hooks/use-modal";
 import { useProductAttributeType } from "@/hooks/use-product-attribute";
-import { product_attribute_type } from "@prisma/client";
+import { productAttributeType } from "@prisma/client";
 import { Check, Loader2, Trash } from "lucide-react";
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
 
 interface propsType {
-    product_category_id: number;
-    selectedAttributes: product_attribute_type[];
-    setSelectedAttributes: Dispatch<SetStateAction<product_attribute_type[]>>;
+    productCategoryId: number;
+    selectedAttributes: productAttributeType[];
+    setSelectedAttributes: Dispatch<SetStateAction<productAttributeType[]>>;
 }
 
 export const AddProductAttributeModal = ({
-    product_category_id,
+    productCategoryId,
     selectedAttributes,
     setSelectedAttributes,
 }: propsType) => {
@@ -24,19 +24,19 @@ export const AddProductAttributeModal = ({
     const [newAttribute, setNewAttribute] = useState("");
 
     const { ProductAttributeTypes, createProductAttributeType, isLoading } =
-        useProductAttributeType(product_category_id);
+        useProductAttributeType(productCategoryId);
 
     const getAvailableAttributes = useCallback(() => {
         return ProductAttributeTypes?.filter(
             (attr) =>
                 !selectedAttributes.some((selected) => selected.id === attr.id),
         );
-    }, [selectedAttributes, ProductAttributeTypes, product_category_id]);
+    }, [selectedAttributes, ProductAttributeTypes, productCategoryId]);
 
     const handleCreateAttribute = async () => {
         if (newAttribute.trim()) {
             await createProductAttributeType.mutateAsync({
-                product_category_id: product_category_id,
+                productCategoryId: productCategoryId,
                 name: newAttribute.trim(),
             });
             setNewAttribute("");
@@ -44,7 +44,7 @@ export const AddProductAttributeModal = ({
     };
 
     const selectAttributeHandler = useCallback(
-        (attribute: product_attribute_type) => {
+        (attribute: productAttributeType) => {
             setSelectedAttributes((prev) => [...prev, attribute]);
         },
         [],
@@ -83,7 +83,7 @@ export const AddProductAttributeModal = ({
                             <ProductAttribute
                                 key={attribute.id}
                                 productAttribute={attribute}
-                                product_category_id={product_category_id}
+                                productCategoryId={productCategoryId}
                                 selectHandler={selectAttributeHandler}
                             />
                         ))
@@ -96,15 +96,15 @@ export const AddProductAttributeModal = ({
 
 const ProductAttribute = ({
     productAttribute,
-    product_category_id,
+    productCategoryId,
     selectHandler,
 }: {
-    productAttribute: product_attribute_type;
-    product_category_id: number;
-    selectHandler: (value: product_attribute_type) => void;
+    productAttribute: productAttributeType;
+    productCategoryId: number;
+    selectHandler: (value: productAttributeType) => void;
 }) => {
     const { deleteProductAttributeType } =
-        useProductAttributeType(product_category_id);
+        useProductAttributeType(productCategoryId);
     return (
         <div
             key={productAttribute.id}

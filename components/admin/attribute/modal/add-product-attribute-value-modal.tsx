@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useModal } from "@/hooks/use-modal";
 import { useProductAttributeValue } from "@/hooks/use-product-attribute-value";
-import { product_attribute_value } from "@prisma/client";
+import { productAttributeValue } from "@prisma/client";
 import { Check, Loader2, Trash } from "lucide-react";
 import { useCallback, useState } from "react";
 
@@ -12,8 +12,8 @@ export const AddProductAttributeValueModal = ({
     onSelect,
     selectedOptions,
 }: {
-    selectedOptions: product_attribute_value[];
-    onSelect: (value: product_attribute_value) => void;
+    selectedOptions: productAttributeValue[];
+    onSelect: (value: productAttributeValue) => void;
 }) => {
     const { modal, isOpen, onClose, data } = useModal();
     const isModalOpen = modal === "addAttributeValue" && isOpen;
@@ -34,8 +34,8 @@ export const AddProductAttributeValueModal = ({
 
     const handleCreateValue = () => {
         createProductAttributeValue.mutate({
-            product_attribute_type_id: data?.productAttribute?.id as number,
-            product_attribute_value: newAttributeValue,
+            productAttributeTypeId: data?.productAttribute?.id as number,
+            productAttributeValue: newAttributeValue,
         });
 
         setNewAttributeValue("");
@@ -73,7 +73,7 @@ export const AddProductAttributeValueModal = ({
                                 key={value?.id}
                                 className="flex items-center justify-between p-2 border rounded"
                             >
-                                <span>{value?.product_attribute_value}</span>
+                                <span>{value?.productAttributeValue}</span>
                                 <div className="flex items-center gap-2 justify-center">
                                     <Button
                                         variant="outline"

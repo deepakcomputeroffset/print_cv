@@ -25,7 +25,7 @@ export default function ProductLists({
     //     (product) =>
     //         product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
     //         (categoryFilter === "ALL" ||
-    //             product.category_id === Number(categoryFilter)),
+    //             product.categoryId === Number(categoryFilter)),
     // );
 
     // if (priceSort !== "NO") {
@@ -90,13 +90,13 @@ export default function ProductLists({
                         <div
                             className="h-48 w-full bg-cover bg-center rounded-t-lg"
                             style={{
-                                backgroundImage: `url(${product.image_url[0]})`,
+                                backgroundImage: `url(${product.imageUrl[0]})`,
                             }}
                         />
                         <CardHeader>
                             <CardTitle>{product.name}</CardTitle>
                             <p className="text-sm text-muted-foreground">
-                                {product.category_id}
+                                {product.categoryId}
                             </p>
                         </CardHeader>
                         <CardContent className="flex-grow">

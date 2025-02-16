@@ -8,8 +8,8 @@ export const productCategorySchema = z.object({
         .string()
         .min(1, { message: "Description must be at least 1 character long." })
         .optional(),
-    image_url: z.string({ message: "Image are required." }),
-    parent_category_id: z
+    imageUrl: z.string({ message: "Image are required." }),
+    parentCategoryId: z
         .number()
         .int({ message: "Parent category ID must be an integer." })
         .nullable(),

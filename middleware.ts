@@ -3,7 +3,6 @@ import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
     const token = await getToken({ req: request });
-
     const { pathname } = request.nextUrl;
 
     if (token) {
@@ -17,7 +16,7 @@ export async function middleware(request: NextRequest) {
         if (
             (pathname.startsWith("/login") ||
                 pathname.startsWith("/register")) &&
-            token?.userType !== "customer"
+            token?.userType === "customer"
         )
             return NextResponse.redirect(new URL("/customer", request.url));
 
@@ -43,6 +42,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
     matcher: [
         "/admin/:path*",
+        "/customer",
         "/customer/:path*",
         "/alogin",
         "/aregister",

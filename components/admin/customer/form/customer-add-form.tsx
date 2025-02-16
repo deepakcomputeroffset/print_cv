@@ -39,16 +39,16 @@ export const CustomerRegisterForm = () => {
         resolver: zodResolver(customerFormSchema),
         defaultValues: {
             name: "Aditya Kumar",
-            business_name: "Web Dev",
+            businessName: "Web Dev",
             email: "aaditya@gmail.com",
             country: "india",
             state: "115",
             city: "4",
-            pin_code: "123456",
-            gst_number: "",
+            pinCode: "123456",
+            gstNumber: "",
             line: "example ",
             phone: "1234567890",
-            reference_id: "",
+            referenceId: "",
             password: "Abc1234@@",
         },
     });
@@ -75,7 +75,7 @@ export const CustomerRegisterForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
                     control={form.control}
-                    name="business_name"
+                    name="businessName"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Business Name</FormLabel>
@@ -193,7 +193,7 @@ export const CustomerRegisterForm = () => {
 
                 <FormField
                     control={form.control}
-                    name="pin_code"
+                    name="pinCode"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Pin code</FormLabel>
@@ -241,7 +241,7 @@ export const CustomerRegisterForm = () => {
 
                 <FormField
                     control={form.control}
-                    name="gst_number"
+                    name="gstNumber"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>GST Number</FormLabel>

@@ -13,7 +13,7 @@ export const getAllProductCategory = (
             {category.name}
         </SelectItem>,
         ...getAllProductCategory(
-            (category.sub_categories as productCategoryWithSubCategory[]) ?? [],
+            (category.subCategories as productCategoryWithSubCategory[]) ?? [],
             level + 1,
         ),
     ]);

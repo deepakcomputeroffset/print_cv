@@ -21,7 +21,7 @@ export async function GET(
 
         const updatedProduct = await prisma.product.update({
             where: { id: parseInt(id) },
-            data: { is_avialable: !product.is_avialable },
+            data: { isAvailable: !product.isAvailable },
         });
 
         return NextResponse.json(

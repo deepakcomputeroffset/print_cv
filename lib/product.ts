@@ -7,40 +7,39 @@ export function compareVariants(
     // Compare basic properties
     if (
         oldVariant.sku !== newVariant.sku ||
-        oldVariant.min_qty !== newVariant.min_qty ||
-        oldVariant.min_price !== newVariant.min_price ||
-        oldVariant.avg_price !== newVariant.avg_price ||
-        oldVariant.max_price !== newVariant.max_price ||
-        oldVariant.og_price !== newVariant.og_price ||
-        oldVariant.is_avialable !== newVariant.is_avialable ||
-        oldVariant.image_url !== newVariant.image_url
+        oldVariant.minQty !== newVariant.minQty ||
+        oldVariant.minPrice !== newVariant.minPrice ||
+        oldVariant.avgPrice !== newVariant.avgPrice ||
+        oldVariant.maxPrice !== newVariant.maxPrice ||
+        oldVariant.ogPrice !== newVariant.ogPrice ||
+        oldVariant.isAvailable !== newVariant.isAvailable ||
+        oldVariant.imageUrl !== newVariant.imageUrl
     ) {
         return false;
     }
 
     // Compare product options
     if (
-        oldVariant.product_attribute_options.length !==
-        newVariant.product_attribute_options.length
+        oldVariant.productAttributeOptions.length !==
+        newVariant.productAttributeOptions.length
     ) {
         return false;
     }
 
     // Sort options by attribute ID for consistent comparison
-    const sortedOldOptions = [...oldVariant.product_attribute_options].sort(
-        (a, b) => a.product_attribute_type_id - b.product_attribute_type_id,
+    const sortedOldOptions = [...oldVariant.productAttributeOptions].sort(
+        (a, b) => a.productAttributeTypeId - b.productAttributeTypeId,
     );
-    const sortedNewOptions = [...newVariant.product_attribute_options].sort(
-        (a, b) => a.product_attribute_type_id - b.product_attribute_type_id,
+    const sortedNewOptions = [...newVariant.productAttributeOptions].sort(
+        (a, b) => a.productAttributeTypeId - b.productAttributeTypeId,
     );
 
     return sortedOldOptions.every((oldOption, index) => {
         const newOption = sortedNewOptions[index];
         return (
-            oldOption.product_attribute_type_id ===
-                newOption.product_attribute_type_id &&
-            oldOption.product_attribute_value ===
-                newOption.product_attribute_value
+            oldOption.productAttributeTypeId ===
+                newOption.productAttributeTypeId &&
+            oldOption.productAttributeValue === newOption.productAttributeValue
         );
     });
 }
@@ -85,16 +84,16 @@ export function extractAttributes(variants: ProductVariantType[]) {
     const uniqueAttributes = new Map();
 
     variants.forEach((variant) => {
-        variant.product_attribute_options.forEach((option) => {
-            if (!uniqueAttributes.has(option.product_attribute_type_id)) {
-                uniqueAttributes.set(option.product_attribute_type_id, {
-                    id: option.product_attribute_type_id,
+        variant.productAttributeOptions.forEach((option) => {
+            if (!uniqueAttributes.has(option.productAttributeTypeId)) {
+                uniqueAttributes.set(option.productAttributeTypeId, {
+                    id: option.productAttributeTypeId,
                     values: new Set(),
                 });
             }
             uniqueAttributes
-                .get(option.product_attribute_type_id)
-                .values.add(option.product_attribute_value);
+                .get(option.productAttributeTypeId)
+                .values.add(option.productAttributeValue);
         });
     });
 

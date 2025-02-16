@@ -29,7 +29,7 @@ export function VariantForm({ form, index }: VariantFormProps) {
         <div className="grid grid-cols-2 gap-4 mt-4">
             <FormField
                 control={form.control}
-                name={`product_items.${index}.sku`}
+                name={`productItems.${index}.sku`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Product Code</FormLabel>
@@ -43,7 +43,7 @@ export function VariantForm({ form, index }: VariantFormProps) {
 
             <FormField
                 control={form.control}
-                name={`product_items.${index}.min_qty`}
+                name={`productItems.${index}.minQty`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Minimum Quantity</FormLabel>
@@ -63,7 +63,7 @@ export function VariantForm({ form, index }: VariantFormProps) {
 
             <FormField
                 control={form.control}
-                name={`product_items.${index}.min_price`}
+                name={`productItems.${index}.minPrice`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Minimum Price</FormLabel>
@@ -83,7 +83,7 @@ export function VariantForm({ form, index }: VariantFormProps) {
 
             <FormField
                 control={form.control}
-                name={`product_items.${index}.avg_price`}
+                name={`productItems.${index}.avgPrice`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Average Price</FormLabel>
@@ -103,7 +103,7 @@ export function VariantForm({ form, index }: VariantFormProps) {
 
             <FormField
                 control={form.control}
-                name={`product_items.${index}.max_price`}
+                name={`productItems.${index}.maxPrice`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Maximum Price</FormLabel>
@@ -122,7 +122,7 @@ export function VariantForm({ form, index }: VariantFormProps) {
             />
             <FormField
                 control={form.control}
-                name={`product_items.${index}.og_price`}
+                name={`productItems.${index}.ogPrice`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Original Price</FormLabel>
@@ -142,7 +142,7 @@ export function VariantForm({ form, index }: VariantFormProps) {
 
             <FormField
                 control={form.control}
-                name={`product_items.${index}.is_avialable`}
+                name={`productItems.${index}.isAvailable`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Available</FormLabel>

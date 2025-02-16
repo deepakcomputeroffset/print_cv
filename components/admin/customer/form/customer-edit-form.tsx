@@ -37,17 +37,16 @@ export const CustomerEditForm = () => {
         resolver: zodResolver(customerFormSchemaUpdated),
         defaultValues: {
             name: data?.customer?.name,
-            business_name: data?.customer?.business_name,
+            businessName: data?.customer?.businessName,
             email: data?.customer?.email,
-            country:
-                data?.customer?.address?.city?.state?.country_id.toString(),
-            state: data?.customer?.address?.city?.state_id?.toString(),
-            city: data?.customer?.address?.city_id?.toString(),
-            pin_code: data?.customer?.address?.pin_code,
-            gst_number: data?.customer?.gst_number || undefined,
+            country: data?.customer?.address?.city?.state?.countryId.toString(),
+            state: data?.customer?.address?.city?.stateId?.toString(),
+            city: data?.customer?.address?.cityId?.toString(),
+            pinCode: data?.customer?.address?.pinCode,
+            gstNumber: data?.customer?.gstNumber || undefined,
             line: data?.customer?.address?.line,
             phone: data?.customer?.phone,
-            reference_id: data?.customer?.reference_id?.toString(),
+            referenceId: data?.customer?.referenceId?.toString(),
         },
     });
 
@@ -74,7 +73,7 @@ export const CustomerEditForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
                     control={form.control}
-                    name="business_name"
+                    name="businessName"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Business Name</FormLabel>
@@ -196,7 +195,7 @@ export const CustomerEditForm = () => {
                     />
                     <FormField
                         control={form.control}
-                        name="pin_code"
+                        name="pinCode"
                         render={({ field }) => (
                             <FormItem className="flex-1">
                                 <FormLabel>Pin code</FormLabel>
@@ -228,7 +227,7 @@ export const CustomerEditForm = () => {
 
                 <FormField
                     control={form.control}
-                    name="gst_number"
+                    name="gstNumber"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>GST Number</FormLabel>

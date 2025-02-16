@@ -1,43 +1,64 @@
-import { stringToNumber } from "@/lib/utils";
 import ProductLists from "../../../../components/product/productLists";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProductTypeOnlyWithPrice } from "@/types/types";
+import { redirect } from "next/navigation";
 
 export default async function ProductPage({
     searchParams,
 }: {
-    searchParams: Promise<{ category_id: string }>;
+    searchParams: Promise<{ categoryId: string }>;
 }) {
     const params = await searchParams;
     const session = await auth();
-    const customerCategory = session?.user?.customer?.customer_category; // LOW, MEDIUM, HIGH
+    const customerCategory = session?.user?.customer?.customerCategory; // LOW, MEDIUM, HIGH
 
-    let query = `
-    SELECT
-        id,
-        name,
-        description,
-        image_url,
-        CASE
-            WHEN $1 = 'LOW' THEN max_price
-            WHEN $1 = 'MEDIUM' THEN avg_price
-            WHEN $1 = 'HIGH' THEN min_price
-            ELSE og_price
-        END AS price
-    FROM
-        product
-`;
-
-    const { isNum, num } = stringToNumber(params?.category_id);
-    if (isNum) {
-        query += ` WHERE category_id = $2`;
+    if (isNaN(parseInt(params?.categoryId))) {
+        redirect("/customer/categories");
     }
 
-    const products = await prisma.$queryRawUnsafe(
-        query,
-        customerCategory,
-        isNum && num,
+    const products = await prisma.product.findMany({
+        where: params?.categoryId
+            ? {
+                  categoryId: parseInt(params?.categoryId),
+              }
+            : {},
+        select: {
+            id: true,
+            name: true,
+            description: true,
+            imageUrl: true,
+            maxPrice: true,
+            avgPrice: true,
+            minPrice: true,
+        },
+    });
+
+    const processedProduct = products.map(
+        ({ id, name, description, imageUrl, maxPrice, avgPrice, minPrice }) => {
+            let price;
+            switch (customerCategory) {
+                case "LOW":
+                    price = maxPrice;
+                    break;
+                case "MEDIUM":
+                    price = avgPrice;
+                    break;
+                case "HIGH":
+                    price = minPrice;
+                    break;
+                default:
+                    price = maxPrice; // Default to maxPrice if category is missing
+            }
+
+            return {
+                id,
+                name,
+                description,
+                imageUrl,
+                price, // Only showing relevant price
+            };
+        },
     );
 
     if (!products) {
@@ -50,7 +71,9 @@ export default async function ProductPage({
 
     return (
         <div>
-            <ProductLists products={products as ProductTypeOnlyWithPrice[]} />
+            <ProductLists
+                products={processedProduct as ProductTypeOnlyWithPrice[]}
+            />
         </div>
     );
 }

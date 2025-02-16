@@ -1,8 +1,8 @@
 import { customerWithAddress } from "@/types/types";
 import {
     product,
-    product_attribute_type,
-    product_category,
+    productAttributeType,
+    productCategory,
     staff,
 } from "@prisma/client";
 import { create } from "zustand";
@@ -28,10 +28,10 @@ type DataType = {
     customer?: customerWithAddress;
     page?: string;
     searchParameter?: string;
-    product_category?: product_category;
+    productCategory?: productCategory;
     product?: product;
-    product_category_id?: number;
-    productAttribute?: product_attribute_type;
+    productCategoryId?: number;
+    productAttribute?: productAttributeType;
 };
 
 interface modalStore {

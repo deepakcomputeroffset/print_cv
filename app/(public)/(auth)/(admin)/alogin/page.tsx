@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -30,7 +29,7 @@ export default function LoginPage() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             phone: "7479796212",
-            password: "Abc@@123",
+            password: "Abc1234@@",
         },
     });
 
@@ -44,7 +43,6 @@ export default function LoginPage() {
                 callbackUrl: "/admin",
                 redirect: true,
             });
-            console.log(result);
             if (result?.error) {
                 toast.error("Invalid credentials");
                 return;
@@ -113,17 +111,6 @@ export default function LoginPage() {
                         </Button>
                     </form>
                 </Form>
-                <div className="text-center text-sm">
-                    <p className="text-muted-foreground">
-                        Don&apos;t have an account?
-                        <Link
-                            href="/admin-register"
-                            className="text-primary hover:underline"
-                        >
-                            Sign up
-                        </Link>
-                    </p>
-                </div>
             </div>
         </div>
     );

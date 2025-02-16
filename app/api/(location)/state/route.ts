@@ -1,21 +1,20 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { stringToNumber } from "@/lib/utils";
 
 export async function GET(req: Request) {
     try {
         const { searchParams } = new URL(req.url);
-        const { isNum, num } = stringToNumber(searchParams.get("c_id") || "");
-        const c_id = isNum ? num : 1;
 
         const states = await prisma.state.findMany({
             where: {
-                country_id: c_id || 1,
+                countryId: isNaN(parseInt(searchParams.get("countryId") || ""))
+                    ? 1
+                    : parseInt(searchParams.get("countryId") || ""),
             },
             select: {
                 id: true,
                 cities: true,
-                country_id: true,
+                countryId: true,
                 name: true,
             },
         });
@@ -52,7 +51,7 @@ export async function POST(req: Request) {
         }
 
         const newState = await prisma.state.create({
-            data: { name, country_id: Number(countryId) },
+            data: { name, countryId: Number(countryId) },
         });
 
         return NextResponse.json(

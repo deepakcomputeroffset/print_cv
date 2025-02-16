@@ -1,4 +1,3 @@
-import { CategoryList } from "@/components/category-list";
 import { HeroSection } from "@/components/hero-section";
 
 export default async function Home() {
@@ -9,7 +8,6 @@ export default async function Home() {
                 <h2 className="text-3xl font-bold text-center mb-12">
                     Our Printing Services
                 </h2>
-                <CategoryList />
             </section>
 
             <section className="bg-muted py-16">

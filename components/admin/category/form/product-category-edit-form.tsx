@@ -28,10 +28,10 @@ export const ProductCategoryEditForm = () => {
     const form = useForm<z.infer<typeof productCategorySchema>>({
         resolver: zodResolver(productCategorySchema),
         defaultValues: {
-            name: data?.product_category?.name,
-            description: data?.product_category?.description || "",
-            image_url: data?.product_category?.image_url,
-            parent_category_id: data?.product_category?.id || null,
+            name: data?.productCategory?.name,
+            description: data?.productCategory?.description || "",
+            imageUrl: data?.productCategory?.imageUrl,
+            parentCategoryId: data?.productCategory?.id || null,
         },
     });
     const {
@@ -52,7 +52,7 @@ export const ProductCategoryEditForm = () => {
                 fileReader.onload = () => {
                     toast.success("Image loaded");
                     res(fileReader.result);
-                    form.setValue("image_url", fileReader.result as string, {
+                    form.setValue("imageUrl", fileReader.result as string, {
                         shouldDirty: true,
                     });
                 };
@@ -63,15 +63,15 @@ export const ProductCategoryEditForm = () => {
     }, []);
 
     const handleDelete = useCallback(() => {
-        if (!!form.getValues("image_url")) {
-            form.setValue("image_url", "", { shouldDirty: false });
+        if (!!form.getValues("imageUrl")) {
+            form.setValue("imageUrl", "", { shouldDirty: false });
         }
     }, []);
 
     const handleSubmit = async () => {
-        if (data?.product_category?.id) {
+        if (data?.productCategory?.id) {
             await mutateAsync({
-                id: data?.product_category?.id,
+                id: data?.productCategory?.id,
                 data: dirtyFieldsWithValues,
             });
             onClose();
@@ -113,13 +113,13 @@ export const ProductCategoryEditForm = () => {
 
                 <FormField
                     control={form.control}
-                    name="image_url"
+                    name="imageUrl"
                     render={() => (
                         <FormItem>
                             <FormLabel>Image</FormLabel>
                             <FormControl>
                                 <div>
-                                    {!!form?.getValues("image_url") ? (
+                                    {!!form?.getValues("imageUrl") ? (
                                         <div className="relative">
                                             <Badge
                                                 variant={"destructive"}
@@ -129,9 +129,7 @@ export const ProductCategoryEditForm = () => {
                                                 <Trash className="w-4 h-4" />
                                             </Badge>
                                             <Image
-                                                src={form.getValues(
-                                                    "image_url",
-                                                )}
+                                                src={form.getValues("imageUrl")}
                                                 alt="Category Image"
                                                 width={1000}
                                                 height={1000}

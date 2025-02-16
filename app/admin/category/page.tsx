@@ -15,7 +15,7 @@ import { Plus, Pencil, Trash2, ChevronRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { useModal } from "@/hooks/use-modal";
 import { useProductCategory } from "@/hooks/useProductCategory";
-import { product_category } from "@prisma/client";
+import { productCategory } from "@prisma/client";
 import { LoadingRow } from "@/components/loading-row";
 import { MessageRow } from "@/components/message-row";
 import { ProductCategoryCreateModal } from "@/components/admin/category/modal/product-category-create-modal";
@@ -117,7 +117,7 @@ const RenderCategoryRow = ({
     };
 
     const isExpanded = expandedCategories.includes(category.id);
-    const hasSubcategories = category?.sub_categories?.length > 0;
+    const hasSubcategories = category?.subCategories?.length > 0;
     const { onOpen } = useModal();
     return (
         <>
@@ -146,7 +146,7 @@ const RenderCategoryRow = ({
                 <TableCell>
                     <div className="relative h-10 w-10">
                         <Image
-                            src={category?.image_url}
+                            src={category?.imageUrl}
                             alt={category?.name}
                             fill
                             className="object-cover rounded"
@@ -160,7 +160,7 @@ const RenderCategoryRow = ({
                             size="icon"
                             onClick={() =>
                                 onOpen("editProductCategory", {
-                                    product_category: category,
+                                    productCategory: category,
                                 })
                             }
                         >
@@ -173,7 +173,7 @@ const RenderCategoryRow = ({
                             disabled={level >= 2}
                             onClick={() =>
                                 onOpen("createProductCategory", {
-                                    product_category: category,
+                                    productCategory: category,
                                 })
                             }
                         >
@@ -185,7 +185,7 @@ const RenderCategoryRow = ({
                             size="icon"
                             onClick={() => {
                                 onOpen("deleteProductCategory", {
-                                    product_category: category,
+                                    productCategory: category,
                                 });
                             }}
                         >
@@ -196,11 +196,11 @@ const RenderCategoryRow = ({
             </TableRow>
 
             {isExpanded &&
-                category.sub_categories.map((subCategory) => (
+                category.subCategories.map((subCategory) => (
                     <RenderCategoryRow
                         category={
-                            subCategory as product_category & {
-                                sub_categories: product_category[];
+                            subCategory as productCategory & {
+                                subCategories: productCategory[];
                             }
                         }
                         level={level + 1}

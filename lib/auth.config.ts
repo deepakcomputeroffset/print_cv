@@ -7,6 +7,7 @@ export const authConfig: AuthOptions = {
     pages: {
         signIn: "/login",
         signOut: "/",
+        error: "/error",
     },
     providers: [
         Credentials({
@@ -35,7 +36,7 @@ export const authConfig: AuthOptions = {
                         });
 
                         if (!customer) {
-                            throw new Error("User not found!!");
+                            throw new Error("customer not found!!");
                         }
 
                         const isPasswordValid = await bcrypt.compare(
@@ -52,11 +53,11 @@ export const authConfig: AuthOptions = {
                             customer: {
                                 email: customer?.email,
                                 name: customer?.name,
-                                business_name: customer?.business_name,
+                                businessName: customer?.businessName,
                                 phone: customer?.phone,
-                                isBanned: customer?.is_Banned,
+                                isBanned: customer?.isBanned,
                                 id: customer?.id,
-                                customer_category: customer?.customer_category,
+                                customerCategory: customer?.customerCategory,
                             },
                         };
                     } else if (userType === "staff") {
@@ -120,6 +121,13 @@ export const authConfig: AuthOptions = {
         },
 
         async session({ session, token }) {
+            if (!token) {
+                session.user.customer = undefined;
+                session.user.staff = undefined;
+                session.user.userType = undefined;
+                return session;
+            }
+
             if (token.userType === "customer" && token.customer) {
                 session.user = { ...session.user, customer: token.customer };
                 session.user.userType = token.userType;
@@ -127,19 +135,8 @@ export const authConfig: AuthOptions = {
                 session.user = { ...session.user, staff: token.staff };
                 session.user.userType = token.userType;
             }
+
             return session;
         },
-
-        // authorized({ auth, request: { nextUrl } }) {
-        //     const isLoggedIn = !!auth?.user;
-        //     const isAdmin = auth?.user?.role === "ADMIN";
-        //     const isAdminPanel = nextUrl.pathname.startsWith("/admin");
-
-        //     if (isAdminPanel && !isAdmin) {
-        //         return false;
-        //     }
-
-        //     return true;
-        // },
     },
 };

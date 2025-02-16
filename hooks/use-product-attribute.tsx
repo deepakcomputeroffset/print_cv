@@ -5,14 +5,14 @@ import { z } from "zod";
 import { AxiosError } from "axios";
 import { ProductAttributeTypeSchema } from "@/schemas/product.attribute.type.form.schema";
 
-export function useProductAttributeType(product_category_id?: number) {
+export function useProductAttributeType(productCategoryId?: number) {
     const queryClient = useQueryClient();
-    const queryKey = ["ProductAttributeType", product_category_id];
+    const queryKey = ["ProductAttributeType", productCategoryId];
 
     // Fetch ProductAttributeType query
     const { data, isLoading, error, refetch } = useQuery({
         queryKey,
-        queryFn: () => api.fetchProductAttributes(product_category_id),
+        queryFn: () => api.fetchProductAttributes(productCategoryId),
     });
 
     const createMutation = useMutation({

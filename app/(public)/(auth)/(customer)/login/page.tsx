@@ -49,13 +49,12 @@ export default function LoginPage() {
                 callbackUrl: "/customer",
                 redirect: false,
             });
-            console.log(result);
             if (result?.error) {
                 toast.error("Invalid credentials");
                 return;
             }
 
-            router.push("/");
+            router.push("/customer");
             router.refresh();
         } catch (error) {
             console.log(error);

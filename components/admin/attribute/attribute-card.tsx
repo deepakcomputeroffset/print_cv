@@ -5,16 +5,13 @@ import { PlusCircle, X } from "lucide-react";
 import { useModal } from "@/hooks/use-modal";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-    product_attribute_type,
-    product_attribute_value,
-} from "@prisma/client";
+import { productAttributeType, productAttributeValue } from "@prisma/client";
 
 interface AttributeCardProps {
-    attribute: product_attribute_type;
+    attribute: productAttributeType;
     onRemoveAttribute: () => void;
-    selectedValue: product_attribute_value[];
-    onRemoveValue: (v: product_attribute_value) => void;
+    selectedValue: productAttributeValue[];
+    onRemoveValue: (v: productAttributeValue) => void;
 }
 
 export function AttributeCard({
@@ -49,7 +46,7 @@ export function AttributeCard({
                                 className="flex items-center gap-1"
                                 onClick={() => onRemoveValue(value)}
                             >
-                                {value?.product_attribute_value}
+                                {value?.productAttributeValue}
                                 <X className="h-3 w-3 cursor-pointer" />
                             </Badge>
                         ))}

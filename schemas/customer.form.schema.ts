@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const customerFormSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters."),
-    business_name: z
+    businessName: z
         .string()
         .min(2, "Business name must be atleast 2 characters"),
 
@@ -15,12 +15,12 @@ export const customerFormSchema = z.object({
     city: z.string({
         required_error: "Select city",
     }),
-    pin_code: z
+    pinCode: z
         .string({ required_error: "Enter pin code." })
         .min(6, "Enter valid pin code.")
         .max(6, "Enter valid pin code."),
 
-    gst_number: z.string().optional(),
+    gstNumber: z.string().optional(),
 
     line: z
         .string({ required_error: "Enter address" })
@@ -31,7 +31,7 @@ export const customerFormSchema = z.object({
         .min(10, "Enter valid phone number")
         .regex(/^\d{1,10}$/, "Invalid phone number format. e.g., 1234567890."),
     email: z.string().email("Enter valid email address."),
-    reference_id: z.string().optional(),
+    referenceId: z.string().optional(),
 
     password: z.string().min(8, "Password must be at least 8 characters long."),
 });

@@ -3,7 +3,7 @@ import {
     DELETE_FILE,
     UPLOAD_TO_CLOUDINARY,
 } from "@/lib/cloudinary";
-import { max_image_size } from "@/lib/constants";
+import { maxImageSize } from "@/lib/constants";
 
 export async function POST(res: Request): Promise<Response> {
     try {
@@ -22,7 +22,7 @@ export async function POST(res: Request): Promise<Response> {
         }
 
         const validFiles = files.filter(
-            (file) => calculateBase64Size(file) <= max_image_size,
+            (file) => calculateBase64Size(file) <= maxImageSize,
         );
 
         if (validFiles.length !== files.length) {

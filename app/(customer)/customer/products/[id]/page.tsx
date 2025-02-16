@@ -14,22 +14,21 @@ export default async function ProductPage({
         return redirect("/customer/product");
     }
     const session = await auth();
-    const customerCategory =
-        session?.user?.customer?.customer_category || "LOW";
+    const customerCategory = session?.user?.customer?.customerCategory || "LOW";
 
     const query = `
     SELECT 
       p.*,
       CASE
-        WHEN $1 = 'LOW' THEN p.max_price
-        WHEN $1 = 'MEDIUM' THEN p.avg_price
-        WHEN $1 = 'HIGH' THEN p.min_price
-        ELSE p.og_price
+        WHEN $1 = 'LOW' THEN p.maxPrice
+        WHEN $1 = 'MEDIUM' THEN p.avgPrice
+        WHEN $1 = 'HIGH' THEN p.minPrice
+        ELSE p.ogPrice
       END AS price,
       c.name as category_name,
-      c.id as category_id
+      c.id as categoryId
     FROM product p
-    LEFT JOIN product_category c ON p.category_id = c.id
+    LEFT JOIN productCategory c ON p.categoryId = c.id
     WHERE p.id = $2
   `;
 
@@ -50,14 +49,14 @@ export default async function ProductPage({
     }
 
     // Fetch product items with their attribute options
-    const productItems = await prisma.product_item.findMany({
+    const productItems = await prisma.productItem.findMany({
         where: {
-            product_id: parseInt(id),
+            productId: parseInt(id),
         },
         include: {
-            product_attribute_options: {
+            productAttributeOptions: {
                 include: {
-                    product_attribute_type: true,
+                    productAttributeType: true,
                 },
             },
         },
@@ -66,16 +65,16 @@ export default async function ProductPage({
     // Transform the data for the client component
     const transformedProduct = {
         ...product,
-        product_items: productItems.map((item) => ({
+        productItems: productItems.map((item) => ({
             ...item,
             price:
                 customerCategory === "LOW"
-                    ? item.max_price
+                    ? item.maxPrice
                     : customerCategory === "MEDIUM"
-                      ? item.avg_price
+                      ? item.avgPrice
                       : customerCategory === "HIGH"
-                        ? item.min_price
-                        : item.og_price,
+                        ? item.minPrice
+                        : item.ogPrice,
         })),
     };
 

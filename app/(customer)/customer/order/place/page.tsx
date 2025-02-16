@@ -16,7 +16,7 @@ export default async function PlaceOrderPage({
             return redirect("/customer/products");
         }
 
-        const productItem = await prisma?.product_item.findUnique({
+        const productItem = await prisma?.productItem.findUnique({
             where: {
                 id: parseInt(params?.productId),
             },

@@ -19,11 +19,11 @@ export async function GET(
             where: { id: productId },
             include: {
                 category: true,
-                product_items: {
+                productItems: {
                     include: {
-                        product_attribute_options: {
+                        productAttributeOptions: {
                             include: {
-                                product_attribute_type: true,
+                                productAttributeType: true,
                             },
                         },
                     },

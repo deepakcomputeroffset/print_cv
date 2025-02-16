@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { productCategorySchema } from "@/schemas/product.category.form.schema";
-import { max_image_size } from "@/lib/constants";
+import { maxImageSize } from "@/lib/constants";
 import {
     calculateBase64Size,
     DELETE_FILE,
@@ -15,14 +15,14 @@ export async function GET(
     try {
         // TODO: AUTHENTICATION
         const { id } = await params;
-        const product_category = await prisma.product_category.findUnique({
+        const productCategory = await prisma.productCategory.findUnique({
             where: { id: parseInt(id) },
             include: {
-                sub_categories: true,
+                subCategories: true,
             },
         });
 
-        if (!product_category) {
+        if (!productCategory) {
             return NextResponse.json(
                 { success: false, error: "category not found" },
                 { status: 404 },
@@ -30,13 +30,13 @@ export async function GET(
         }
 
         return NextResponse.json(
-            { success: true, data: product_category },
+            { success: true, data: productCategory },
             { status: 200 },
         );
     } catch (error) {
-        console.error("Error fetching product_category:", error);
+        console.error("Error fetching productCategory:", error);
         return NextResponse.json(
-            { error: "Failed to fetch product_category" },
+            { error: "Failed to fetch productCategory" },
             { status: 500 },
         );
     }
@@ -50,15 +50,15 @@ export async function PATCH(
         // TODO: AUTHENTICATION
         const { id } = await params;
 
-        const product_category = await prisma.product_category.findUnique({
+        const productCategory = await prisma.productCategory.findUnique({
             where: { id: parseInt(id) },
         });
 
-        if (!product_category) {
+        if (!productCategory) {
             return NextResponse.json(
                 {
                     success: false,
-                    message: "product_category not found",
+                    message: "productCategory not found",
                 },
                 { status: 404 },
             );
@@ -67,9 +67,9 @@ export async function PATCH(
         const data = await request.json();
         const validatedData = productCategorySchema.partial().parse(data);
 
-        if (validatedData?.image_url) {
+        if (validatedData?.imageUrl) {
             // const img = await req.formData();
-            if (calculateBase64Size(validatedData.image_url) > max_image_size) {
+            if (calculateBase64Size(validatedData.imageUrl) > maxImageSize) {
                 return Response.json(
                     {
                         message: "Image is too large.",
@@ -81,13 +81,13 @@ export async function PATCH(
                 );
             }
             const uploadResult = await UPLOAD_TO_CLOUDINARY(
-                validatedData.image_url,
+                validatedData.imageUrl,
                 "category",
             );
             if (uploadResult?.secure_url) {
-                validatedData.image_url = uploadResult.secure_url;
-                if (product_category.image_url) {
-                    await DELETE_FILE(product_category.image_url);
+                validatedData.imageUrl = uploadResult.secure_url;
+                if (productCategory.imageUrl) {
+                    await DELETE_FILE(productCategory.imageUrl);
                 }
             } else {
                 return NextResponse.json(
@@ -99,28 +99,28 @@ export async function PATCH(
                 );
             }
 
-            await DELETE_FILE(product_category?.image_url);
+            await DELETE_FILE(productCategory?.imageUrl);
         }
-        const updatedCustomer = await prisma.product_category.update({
+        const updatedCustomer = await prisma.productCategory.update({
             where: { id: parseInt(id) },
             data: validatedData,
             include: {
-                sub_categories: true,
+                subCategories: true,
             },
         });
 
         return NextResponse.json(
             {
                 success: true,
-                message: "product_category updated successfully",
+                message: "productCategory updated successfully",
                 data: updatedCustomer,
             },
             { status: 200 },
         );
     } catch (error) {
-        console.error("Error updating product_category:", error);
+        console.error("Error updating productCategory:", error);
         return NextResponse.json(
-            { error: "Failed to update product_category" },
+            { error: "Failed to update productCategory" },
             { status: 500 },
         );
     }
@@ -134,25 +134,25 @@ export async function DELETE(
         // TODO: AUTHENTICATION
         const { id } = await params;
 
-        const product_category = await prisma.product_category.delete({
+        const productCategory = await prisma.productCategory.delete({
             where: { id: parseInt(id) },
         });
 
-        if (!product_category) {
+        if (!productCategory) {
             return NextResponse.json(
                 {
                     success: false,
-                    message: "product_category not found",
+                    message: "productCategory not found",
                 },
                 { status: 404 },
             );
         }
-        DELETE_FILE(product_category?.image_url);
+        DELETE_FILE(productCategory?.imageUrl);
         return new NextResponse(null, { status: 204 });
     } catch (error) {
-        console.error("Error deleting product_category:", `${error}`);
+        console.error("Error deleting productCategory:", `${error}`);
         return NextResponse.json(
-            { error: "Failed to delete product_category" },
+            { error: "Failed to delete productCategory" },
             { status: 500 },
         );
     }

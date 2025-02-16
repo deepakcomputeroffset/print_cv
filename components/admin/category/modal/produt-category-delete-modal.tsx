@@ -17,7 +17,7 @@ export const ProductCategoryDeleteModal = () => {
                 <>
                     Are you sure you want to do this? <br />
                     <span className="font-semibold text-indigo-500">
-                        {data?.product_category?.name}
+                        {data?.productCategory?.name}
                     </span>
                 </>
             }
@@ -35,7 +35,7 @@ export const ProductCategoryDeleteModal = () => {
                     disabled={isLoading}
                     onClick={() => {
                         deleteProductCategory(
-                            data?.product_category?.id as number,
+                            data?.productCategory?.id as number,
                         );
                         onClose();
                     }}

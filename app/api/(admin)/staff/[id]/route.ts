@@ -72,7 +72,7 @@ export async function PATCH(
 
         // if (
         //     validatedData.line ||
-        //     validatedData.pin_code ||
+        //     validatedData.pinCode ||
         //     validatedData.city ||
         //     validatedData.state ||
         //     validatedData.country
@@ -83,8 +83,8 @@ export async function PATCH(
 
         //     if (validatedData.line)
         //         updateData.address.update.line = validatedData.line;
-        //     if (validatedData.pin_code)
-        //         updateData.address.update.pin_code = validatedData.pin_code;
+        //     if (validatedData.pinCode)
+        //         updateData.address.update.pinCode = validatedData.pinCode;
 
         //     if (validatedData?.city) {
         //         updateData.address.update.city = {

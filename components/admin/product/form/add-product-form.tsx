@@ -28,15 +28,12 @@ import { useProductCategory } from "@/hooks/useProductCategory";
 import { productFormSchema } from "@/schemas/product.form.schema";
 import { ProductVariantType } from "@/types/types";
 import { toast } from "sonner";
-import { max_image_size } from "@/lib/constants";
+import { maxImageSize } from "@/lib/constants";
 import Image from "next/image";
 import { Loader2, X } from "lucide-react";
 import { Dropzone } from "@/components/ui/dropzone";
 import { useProducts } from "@/hooks/use-product";
-import {
-    product_attribute_type,
-    product_attribute_value,
-} from "@prisma/client";
+import { productAttributeType, productAttributeValue } from "@prisma/client";
 import { getAllProductCategory } from "@/lib/get.categories";
 import axios from "axios";
 import { UploadApiResponse } from "cloudinary";
@@ -45,10 +42,10 @@ export function ProductForm() {
     const [uploading, setUploading] = useState(false);
     const [variants, setVariants] = useState<ProductVariantType[]>([]);
     const [selectedAttributes, setSelectedAttributes] = useState<
-        product_attribute_type[]
+        productAttributeType[]
     >([]);
     const [selectedOptions, setSelectedOptions] = useState<
-        product_attribute_value[]
+        productAttributeValue[]
     >([]);
 
     const form = useForm<z.infer<typeof productFormSchema>>({
@@ -56,15 +53,15 @@ export function ProductForm() {
         defaultValues: {
             name: "",
             description: "",
-            image_url: [],
-            category_id: "0",
-            product_items: [],
-            avg_price: 0,
-            is_avialable: false,
-            max_price: 0,
-            min_price: 0,
-            min_qty: 0,
-            og_price: 0,
+            imageUrl: [],
+            categoryId: "0",
+            productItems: [],
+            avgPrice: 0,
+            isAvailable: false,
+            maxPrice: 0,
+            minPrice: 0,
+            minQty: 0,
+            ogPrice: 0,
             sku: "",
         },
     });
@@ -83,7 +80,7 @@ export function ProductForm() {
                 }
 
                 const validFiles = files.filter(
-                    (file) => file.size <= max_image_size,
+                    (file) => file.size <= maxImageSize,
                 );
 
                 if (validFiles.length !== files.length) {
@@ -108,9 +105,9 @@ export function ProductForm() {
                 );
 
                 form.setValue(
-                    "image_url",
+                    "imageUrl",
                     [
-                        ...form.getValues("image_url"),
+                        ...form.getValues("imageUrl"),
                         ...data?.map((url) => url?.secure_url),
                     ],
                     {
@@ -129,11 +126,11 @@ export function ProductForm() {
 
     const handleImageRemove = useCallback((idx: number) => {
         if (idx == undefined || idx == null) return;
-        if (!!form.getValues("image_url")) {
-            axios.delete(`/api/upload?url=${form.getValues("image_url")[idx]}`);
+        if (!!form.getValues("imageUrl")) {
+            axios.delete(`/api/upload?url=${form.getValues("imageUrl")[idx]}`);
             form.setValue(
-                "image_url",
-                form.getValues("image_url").filter((v, i) => i != idx),
+                "imageUrl",
+                form.getValues("imageUrl").filter((v, i) => i != idx),
                 { shouldDirty: true },
             );
         }
@@ -168,11 +165,11 @@ export function ProductForm() {
 
     const generateVariants = useCallback(() => {
         const generateCombinations = (
-            selectedAttributes: product_attribute_type[],
-            selectedOptions: product_attribute_value[],
-            current: product_attribute_value[] = [],
+            selectedAttributes: productAttributeType[],
+            selectedOptions: productAttributeValue[],
+            current: productAttributeValue[] = [],
             index = 0,
-        ): product_attribute_value[][] => {
+        ): productAttributeValue[][] => {
             if (index === selectedAttributes.length) {
                 return [current];
             }
@@ -180,10 +177,10 @@ export function ProductForm() {
             const attribute = selectedAttributes[index];
             const attributeValues =
                 selectedOptions?.filter(
-                    (v) => v.product_attribute_type_id === attribute?.id,
+                    (v) => v.productAttributeTypeId === attribute?.id,
                 ) || [];
 
-            const combinations: product_attribute_value[][] = [];
+            const combinations: productAttributeValue[][] = [];
 
             for (const value of attributeValues) {
                 combinations.push(
@@ -205,19 +202,19 @@ export function ProductForm() {
         );
 
         const newVariants = combinations.map((combination, index) => ({
-            product_attribute_options: combination,
+            productAttributeOptions: combination,
             sku: `${form.getValues("sku")}-${index + 1}`,
-            min_qty: form?.getValues("min_qty"),
-            og_price: form?.getValues("og_price"),
-            min_price: form?.getValues("min_price"),
-            avg_price: form?.getValues("avg_price"),
-            max_price: form?.getValues("max_price"),
-            image_url: [],
-            is_avialable: false,
+            minQty: form?.getValues("minQty"),
+            ogPrice: form?.getValues("ogPrice"),
+            minPrice: form?.getValues("minPrice"),
+            avgPrice: form?.getValues("avgPrice"),
+            maxPrice: form?.getValues("maxPrice"),
+            imageUrl: [],
+            isAvailable: false,
         }));
 
         setVariants(newVariants);
-        form.setValue("product_items", newVariants);
+        form.setValue("productItems", newVariants);
     }, [selectedAttributes, selectedOptions]);
 
     useEffect(() => {
@@ -249,7 +246,7 @@ export function ProductForm() {
 
                     <FormField
                         control={form.control}
-                        name="category_id"
+                        name="categoryId"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Category</FormLabel>
@@ -301,7 +298,7 @@ export function ProductForm() {
 
                 <FormField
                     control={form.control}
-                    name="image_url"
+                    name="imageUrl"
                     render={() => (
                         <FormItem>
                             <FormLabel>Images</FormLabel>
@@ -314,10 +311,9 @@ export function ProductForm() {
                                         </div>
                                     )}
                                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4">
-                                        {!!form?.getValues("image_url")
-                                            .length &&
+                                        {!!form?.getValues("imageUrl").length &&
                                             form
-                                                ?.getValues("image_url")
+                                                ?.getValues("imageUrl")
                                                 .map((url, idx) => (
                                                     <div
                                                         className="relative group"
@@ -364,7 +360,7 @@ export function ProductForm() {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     <FormField
                         control={form.control}
-                        name="is_avialable"
+                        name="isAvailable"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Available</FormLabel>
@@ -416,7 +412,7 @@ export function ProductForm() {
 
                     <FormField
                         control={form.control}
-                        name="min_qty"
+                        name="minQty"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Minimum Quantity</FormLabel>
@@ -439,7 +435,7 @@ export function ProductForm() {
 
                     <FormField
                         control={form.control}
-                        name="min_price"
+                        name="minPrice"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Minimum Price</FormLabel>
@@ -462,7 +458,7 @@ export function ProductForm() {
 
                     <FormField
                         control={form.control}
-                        name="avg_price"
+                        name="avgPrice"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Average Price</FormLabel>
@@ -484,7 +480,7 @@ export function ProductForm() {
                     />
                     <FormField
                         control={form.control}
-                        name="max_price"
+                        name="maxPrice"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Maximum Price</FormLabel>
@@ -507,7 +503,7 @@ export function ProductForm() {
 
                     <FormField
                         control={form.control}
-                        name="og_price"
+                        name="ogPrice"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Original Price</FormLabel>
@@ -531,7 +527,7 @@ export function ProductForm() {
 
                 <ProductAttributes
                     isLoading={isLoading}
-                    product_category_id={Number(form?.watch().category_id)}
+                    productCategoryId={Number(form?.watch().categoryId)}
                     selectedAttributes={selectedAttributes}
                     setSelectedAttributes={setSelectedAttributes}
                     selectedOptions={selectedOptions}
