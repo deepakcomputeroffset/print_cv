@@ -62,6 +62,8 @@ export default {
                     border: "hsl(var(--sidebar-border))",
                     ring: "hsl(var(--sidebar-ring))",
                 },
+                "dominant-color": "#720026",
+                "dominant-color-2": "#ce4257",
             },
             borderRadius: {
                 lg: "var(--radius)",
