@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Source_Serif_4 } from "next/font/google";
 import Image from "next/image";
 import { useAnimate } from "motion/react-mini";
+import { motion } from "motion/react";
 
 const sourceSerif4 = Source_Serif_4({
     weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
@@ -35,7 +36,19 @@ export default function Navbar() {
             className={`${sourceSerif4.className} bg-dominant-color text-white w-full font-medium`}
         >
             <div className="w-full px-[16px] max-w-[1320px]  mx-auto p-4 flex items-center justify-between">
-                <div className="flex items-center space-x-10">
+                <motion.div
+                    initial={{ opacity: 0, transform: "translateY(-20px)" }} // Initial position above
+                    animate={{
+                        opacity: 1,
+                        transform: "translateY(0px)",
+                        transition: {
+                            duration: 0.8,
+                            delay: 0.2,
+                            ease: "easeInOut",
+                        },
+                    }}
+                    className="flex items-center space-x-10"
+                >
                     <Link
                         href="/"
                         className="p-1 min-h-[70px] flex-shrink-0 px-0 py-2 flex items-center space-x-3"
@@ -53,27 +66,56 @@ export default function Navbar() {
                         </span>
                     </Link>
                     <div className="hidden lg:flex items-center space-x-8">
-                        {NAV_LINKS.map((text) => (
-                            <Link
+                        {NAV_LINKS.map((text, index) => (
+                            <motion.div
                                 key={text}
-                                href={`/${text.toLowerCase().replace(/\s+/g, "-")}`}
-                                className="relative group text-lg tracking-wide"
+                                initial={{
+                                    opacity: 0,
+                                    transform: "translateY(-20px)",
+                                }}
+                                animate={{
+                                    opacity: 1,
+                                    transform: "translateY(0px)",
+                                    transition: {
+                                        duration: 0.8,
+                                        delay: 0.4 + index * 0.2,
+                                        ease: "easeInOut",
+                                    },
+                                }} // Delay based on index
                             >
-                                {text}
-                                <span className="absolute left-0 bottom-0 w-0 h-[1px] bg-white origin-left transition-all duration-500 group-hover:w-full" />
-                            </Link>
+                                <Link
+                                    key={text}
+                                    href={`/${text.toLowerCase().replace(/\s+/g, "-")}`}
+                                    className="relative group text-lg tracking-wide"
+                                >
+                                    {text}
+                                    <span className="absolute left-0 bottom-0 w-0 h-[1px] bg-white origin-left transition-all duration-500 group-hover:w-full" />
+                                </Link>
+                            </motion.div>
                         ))}
                     </div>
-                </div>
+                </motion.div>
 
-                <div className="hidden lg:flex box-border justify-end">
+                <motion.div
+                    initial={{ opacity: 0, transform: "translateY(-20px)" }} // Initial position above
+                    animate={{
+                        opacity: 1,
+                        transform: "translateY(0px)",
+                        transition: {
+                            duration: 0.8,
+                            delay: 0.6,
+                            ease: "easeInOut",
+                        },
+                    }}
+                    className="hidden lg:flex box-border justify-end"
+                >
                     <Link
                         href="#"
-                        className="box-border text-white text-[20px] font-semibold leading-[30px] inline-flex text-center align-middle cursor-pointer bg-dominant-color-2 border-solid border-transparent px-6 py-3 m-2 rounded-[4px] border-dominant-color-2 break-words border items-center justify-center mt-0 min-w-[120px] whitespace-nowrap tracking-[-0.2px] hover:scale-105 transition-transform duration-500"
+                        className="box-border text-white text-[20px] font-semibold leading-[30px] inline-flex text-center align-middle cursor-pointer bg-dominant-color-2 border-solid border-transparent px-6 py-3 m-2 rounded-lg border-dominant-color-2 break-words border items-center justify-center mt-0 min-w-[120px] whitespace-nowrap tracking-[-0.2px] hover:scale-105 transition-transform duration-500"
                     >
                         Get Started
                     </Link>
-                </div>
+                </motion.div>
                 <div className="lg:hidden">
                     <button
                         className="p-2 flex items-center"

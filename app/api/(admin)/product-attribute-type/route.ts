@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { stringToNumber } from "@/lib/utils";
 import { ProductAttributeTypeSchema } from "@/schemas/product.attribute.type.form.schema";
 
 export async function GET(request: Request) {
@@ -8,11 +7,7 @@ export async function GET(request: Request) {
         // TODO: AUTHENTICATION
         const { searchParams } = new URL(request.url);
 
-        const { isNum, num: id } = stringToNumber(
-            searchParams?.get("productCategoryId") || "",
-        );
-
-        if (!isNum) {
+        if (isNaN(parseInt(searchParams?.get("productCategoryId") || ""))) {
             return NextResponse.json(
                 {
                     message: "invalid product category id",
@@ -24,7 +19,9 @@ export async function GET(request: Request) {
         const productAttributeTypes =
             await prisma.productAttributeType.findMany({
                 where: {
-                    productCategoryId: id,
+                    productCategoryId: parseInt(
+                        searchParams?.get("productCategoryId") || "",
+                    ),
                 },
             });
 

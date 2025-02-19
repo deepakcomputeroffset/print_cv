@@ -1,8 +1,16 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 export default function AuthErrorPage() {
+    return (
+        <Suspense>
+            <AuthError />
+        </Suspense>
+    );
+}
+function AuthError() {
     const searchParams = useSearchParams();
     const error = searchParams.get("error");
     const router = useRouter();
