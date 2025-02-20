@@ -3,15 +3,10 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { Source_Serif_4 } from "next/font/google";
 import Image from "next/image";
 import { useAnimate } from "motion/react-mini";
 import { motion } from "motion/react";
-
-const sourceSerif4 = Source_Serif_4({
-    weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
-    subsets: ["cyrillic", "latin"],
-});
+import { sourceSerif4 } from "@/lib/font";
 
 const NAV_LINKS = ["Our Services", "Pricing Plans", "Contact Us"];
 

@@ -1,13 +1,8 @@
 "use client";
 
-import { Source_Serif_4 } from "next/font/google";
 import Link from "next/link";
 import { motion } from "motion/react";
-
-const sourceSerif4 = Source_Serif_4({
-    weight: ["400", "600", "700"],
-    subsets: ["latin"],
-});
+import { sourceSerif4 } from "@/lib/font";
 
 const HeroSection = () => {
     return (
