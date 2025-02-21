@@ -20,15 +20,13 @@ export default function SectionThree() {
                     <div className="w-3/4 px-4 mt-8 max-w-[1320px]">
                         <motion.h2
                             initial={{
-                                translateY: 150,
                                 opacity: 0,
                             }}
                             whileInView={{
-                                translateY: 0,
                                 opacity: 1,
                                 transition: {
                                     duration: 0.8,
-                                    delay: 0.6,
+                                    delay: 0.4,
                                     ease: "easeInOut",
                                 },
                             }}
@@ -45,15 +43,13 @@ export default function SectionThree() {
                     <div className="w-3/4 max-w-[1320px] px-4 mt-8">
                         <motion.h2
                             initial={{
-                                translateY: 150,
                                 opacity: 0,
                             }}
                             whileInView={{
-                                translateY: 0,
                                 opacity: 1,
                                 transition: {
                                     duration: 0.8,
-                                    delay: 0.7,
+                                    delay: 0.4,
                                     ease: "easeInOut",
                                 },
                             }}

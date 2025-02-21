@@ -3,6 +3,7 @@ import Navbar from "./nav";
 import SectionTwo from "./section-2";
 import SectionThree from "./sectionThree";
 import ServicesSection from "./serviceSection";
+import WhySection from "./whySection";
 
 export default function TestPage() {
     return (
@@ -12,6 +13,7 @@ export default function TestPage() {
             <SectionTwo />
             <ServicesSection />
             <SectionThree />
+            <WhySection />
         </>
     );
 }
