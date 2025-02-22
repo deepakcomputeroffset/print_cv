@@ -70,7 +70,7 @@ const ServicesSection: React.FC = () => {
         <section
             className={`px-4 py-32 bg-dominant-color ${sourceSerif4.className}`}
         >
-            <div className="max-w-[1320px] mx-auto">
+            <div className="max-w-customHaf lg:max-w-custom mx-auto">
                 <motion.h2
                     initial={{
                         opacity: 0,

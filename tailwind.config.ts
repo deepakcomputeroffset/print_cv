@@ -64,6 +64,7 @@ export default {
                 },
                 "dominant-color": "#720026",
                 "dominant-color-2": "#ce4257",
+                "charcoal-black": "#232323",
             },
             borderRadius: {
                 lg: "var(--radius)",
@@ -91,6 +92,10 @@ export default {
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
+            },
+            maxWidth: {
+                custom: "1320px",
+                customHaf: "680px",
             },
         },
     },

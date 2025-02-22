@@ -7,9 +7,9 @@ import { sourceSerif4 } from "@/lib/font";
 const HeroSection = () => {
     return (
         <section
-            className={`w-full box-border relative break-words bg-[50%_50%] bg-no-repeat bg-cover pt-16 pb-16 md:pt-20 md:pb-20 lg:pt-[80px] lg:pb-[80px] text-[rgb(35,35,35)] text-[16px] m-0 leading-[24px] font-normal bg-dominant-color flex items-center justify-center ${sourceSerif4.className}`}
+            className={`w-full box-border relative break-words bg-[50%_50%] bg-no-repeat bg-cover pt-16 pb-16 md:pt-20 md:pb-20 lg:pt-[80px] lg:pb-[80px] text-charcoal-black text-[16px] m-0 leading-[24px] font-normal bg-dominant-color flex items-center justify-center ${sourceSerif4.className}`}
         >
-            <div className="box-border w-full px-4 md:px-6 lg:px-[16px] max-w-[1320px] relative break-words flex items-center justify-center">
+            <div className="box-border w-full px-4 md:px-6 lg:px-[16px] max-w-customHaf lg:max-w-custom relative break-words flex items-center justify-center">
                 <div className="box-border flex flex-col lg:flex-row gap-10 md:gap-20 lg:gap-0 items-center justify-center -mx-4 md:-mx-6 lg:-mx-[16px]">
                     {/* Left */}
                     <div className="box-border w-full lg:w-7/12 max-w-full px-3 md:px-6 lg:px-[16px] relative flex flex-col break-words bg-transparent bg-clip-border rounded-[4px] justify-center">

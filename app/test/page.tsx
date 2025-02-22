@@ -1,3 +1,4 @@
+import GetStartedSection from "./getStartedSection";
 import HeroSection from "./hero";
 import Navbar from "./nav";
 import SectionTwo from "./section-2";
@@ -14,6 +15,7 @@ export default function TestPage() {
             <ServicesSection />
             <SectionThree />
             <WhySection />
+            <GetStartedSection />
         </>
     );
 }

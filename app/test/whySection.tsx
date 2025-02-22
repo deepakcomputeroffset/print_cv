@@ -47,15 +47,13 @@ export default function WhySection() {
     return (
         <section
             className={cn(
-                "pt-[80px] pb-[80px] bg-white text-[rgb(35,_35,_35)] text-[16px] leading-[24px] font-normal w-full",
+                "pt-[80px] pb-[80px] bg-white text-charcoal-black text-[16px] leading-[24px] font-normal w-full",
                 sourceSerif4.className,
             )}
         >
-            <div className="bg-white text-[#232323] text-[16px] w-full max-w-[1320px] mx-auto leading-[24px] font-normal ">
-                <div className="relative bg-white text-[#232323] text-[16px] mx-[16px] leading-[24px] font-normal ">
-                    {/* ONE SECTION */}
-
-                    <div className="bg-white text-[#232323] text-[16px] leading-[24px] font-normal">
+            <div className="bg-white text-charcoal-black text-[16px] w-full max-w-customHaf lg:max-w-custom mx-auto leading-[24px] font-normal ">
+                <div className="relative bg-white text-charcoal-black text-[16px] mx-[16px] leading-[24px] font-normal ">
+                    <div className="bg-white text-charcoal-black text-[16px] leading-[24px] font-normal">
                         <motion.h3
                             initial={{
                                 opacity: 0,
@@ -69,7 +67,7 @@ export default function WhySection() {
                                 },
                             }}
                             viewport={{ once: true }}
-                            className="inline-flex mb-[56px] px-[24px] py-[18px] [box-shadow:rgb(0,_0,_0)_6px_8px_0px_0px] rounded-2xl rotate-[4deg] text-4xl sm:text-7xl mt-0 mx-0 leading-[64.8px] font-normal tracking-[-0.52px] bg-dominant-color text-white"
+                            className="inline-flex mb-[56px] px-[24px] py-[18px] shadow-[6px_8px_0px_0px_#000] rounded-2xl rotate-[4deg] text-4xl sm:text-7xl mt-0 mx-0 leading-[64.8px] font-normal tracking-[-0.52px] bg-dominant-color text-white"
                         >
                             Why Choose Us?
                         </motion.h3>
@@ -120,7 +118,7 @@ export default function WhySection() {
                                 <TabsTrigger
                                     value={tab?.title}
                                     key={idx}
-                                    className="data-[state=active]:bg-dominant-color data-[state=active]:text-white bg-white text-[#232323] data-[state=active]:shadow-[6px_8px_0px_0px_rgb(0,0,0)] text-base text-left leading-[24px] font-normal px-[40px] py-[24px] rounded-2xl text-[20px] tracking-[-0.2px] select-none"
+                                    className="data-[state=active]:bg-dominant-color data-[state=active]:text-white bg-white text-charcoal-black data-[state=active]:shadow-[6px_8px_0px_0px_#000] text-base text-left leading-[24px] font-normal px-[40px] py-[24px] rounded-2xl text-[20px] tracking-[-0.2px] select-none"
                                 >
                                     {tab?.title}
                                 </TabsTrigger>
@@ -131,7 +129,7 @@ export default function WhySection() {
                             <TabsContent
                                 key={idx}
                                 value={tab?.title}
-                                className="flex-auto bg-[#E8CCD2] text-[#232323] pl-[32px] sm:pl-[142px] pr-[32px] py-[52px] rounded-3xl"
+                                className="flex-auto bg-[#E8CCD2] text-charcoal-black pl-[32px] sm:pl-[142px] pr-[32px] py-[52px] rounded-3xl"
                             >
                                 <motion.div
                                     initial={{
@@ -145,11 +143,11 @@ export default function WhySection() {
                                         },
                                     }}
                                     viewport={{ once: true }}
-                                    className="mb-[48px] bg-[#e8ccd2] rounded-2xl"
+                                    className="mb-12 bg-[#e8ccd2] rounded-2xl"
                                 >
                                     <img
                                         src={tab.imgSrc}
-                                        className="h-[390px] w-full object-cover bg-[rgb(232,204,210)] rounded-2xl shadow-[6px_8px_0px_0px_rgb(0,0,0)]"
+                                        className="h-[390px] w-full object-cover bg-[#e8ccd2] rounded-2xl shadow-[6px_8px_0px_0px_rgb(0,0,0)]"
                                     />
                                 </motion.div>
                                 <motion.p

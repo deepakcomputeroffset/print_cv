@@ -9,57 +9,53 @@ export default function SectionThree() {
     return (
         <section
             className={cn(
-                "box-border relative overflow-hidden pt-8 pb-8 bg-cover bg-no-repeat bg-[50%_50%] text-[#232323] font-normal leading-[24px] m-0",
+                "box-border relative overflow-hidden pt-8 pb-8 bg-cover bg-no-repeat bg-[50%_50%] text-[#232323] font-normal leading-[24px] m-0 flex flex-wrap justify-center w-full",
                 sourceSerif4.className,
             )}
         >
-            <div className="box-border w-full  relative">
-                <div className="flex flex-wrap justify-center -mx-4">
-                    {/* Client Love */}
+            {/* Client Love */}
 
-                    <div className="w-3/4 px-4 mt-8 max-w-[1320px]">
-                        <motion.h2
-                            initial={{
-                                opacity: 0,
-                            }}
-                            whileInView={{
-                                opacity: 1,
-                                transition: {
-                                    duration: 0.8,
-                                    delay: 0.4,
-                                    ease: "easeInOut",
-                                },
-                            }}
-                            viewport={{ once: true }}
-                            className="text-8xl lg:text-[121.6px] leading-[1.0336] tracking-[-0.6px] font-medium lg:font-normal mt-0 -mb-4 text-black origin-top-left"
-                        >
-                            Client Love
-                        </motion.h2>
-                    </div>
-                    <TestimonialsCarousel />
+            <div className="w-3/4 px-4 mt-8 max-w-customHaf lg:max-w-custom">
+                <motion.h2
+                    initial={{
+                        opacity: 0,
+                    }}
+                    whileInView={{
+                        opacity: 1,
+                        transition: {
+                            duration: 0.8,
+                            delay: 0.4,
+                            ease: "easeInOut",
+                        },
+                    }}
+                    viewport={{ once: true }}
+                    className="text-8xl lg:text-[121.6px] leading-[1.0336] tracking-[-0.6px] font-medium lg:font-normal mt-0 -mb-4 text-black origin-top-left"
+                >
+                    Client Love
+                </motion.h2>
+            </div>
+            <TestimonialsCarousel />
 
-                    {/* What They Say */}
+            {/* What They Say */}
 
-                    <div className="w-3/4 max-w-[1320px] px-4 mt-8">
-                        <motion.h2
-                            initial={{
-                                opacity: 0,
-                            }}
-                            whileInView={{
-                                opacity: 1,
-                                transition: {
-                                    duration: 0.8,
-                                    delay: 0.4,
-                                    ease: "easeInOut",
-                                },
-                            }}
-                            viewport={{ once: true }}
-                            className="text-8xl lg:text-[121.6px] leading-[1.0336] tracking-[-0.6px] font-medium lg:font-normal -mt-4 mb-0 text-right text-black"
-                        >
-                            What They Say
-                        </motion.h2>
-                    </div>
-                </div>
+            <div className="w-3/4 max-w-customHaf lg:max-w-custom px-4 mt-8">
+                <motion.h2
+                    initial={{
+                        opacity: 0,
+                    }}
+                    whileInView={{
+                        opacity: 1,
+                        transition: {
+                            duration: 0.8,
+                            delay: 0.4,
+                            ease: "easeInOut",
+                        },
+                    }}
+                    viewport={{ once: true }}
+                    className="text-8xl lg:text-[121.6px] leading-[1.0336] tracking-[-0.6px] font-medium lg:font-normal -mt-4 mb-0 text-right text-black"
+                >
+                    What They Say
+                </motion.h2>
             </div>
         </section>
     );

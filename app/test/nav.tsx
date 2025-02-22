@@ -30,7 +30,7 @@ export default function Navbar() {
         <nav
             className={`${sourceSerif4.className} bg-dominant-color text-white w-full font-medium`}
         >
-            <div className="w-full px-[16px] max-w-[1320px]  mx-auto p-4 flex items-center justify-between">
+            <div className="w-full px-[16px] max-w-customHaf lg:max-w-custom  mx-auto p-4 flex items-center justify-between">
                 <motion.div
                     initial={{ opacity: 0, transform: "translateY(-20px)" }} // Initial position above
                     animate={{
