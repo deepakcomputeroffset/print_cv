@@ -8,7 +8,7 @@ export default function GetStartedSection() {
     return (
         <section
             className={cn(
-                "lg:pt-[80px] lg:pb-[80px] bg-white text-charcoal-black text-[16px] m-0 leading-[24px] font-normal",
+                "lg:pt-[80px] lg:pb-[80px] bg-white text-charcoal-black text-[16px] m-0 leading-[24px] font-normal px-4",
                 sourceSerif4.className,
             )}
         >
@@ -174,7 +174,7 @@ export default function GetStartedSection() {
                             </div>
                         </div>
                         <div className='lg:pt-[104px] relative text-white text-[16px] leading-[24px] font-normal lg:before:content-[""] lg:before:absolute lg:before:w-1/2 lg:before:h-[140px] lg:before:top-0 lg:before:right-0 lg:before:rounded-tr-xl lg:before:bg-dominant-color-2 lg:after:content-[""] lg:after:absolute lg:after:top-0 lg:after:right-[15%] lg:after:w-[43%] lg:after:h-[110px] lg:after:bg-dominant-color-2 lg:after:-skew-x-[45deg]'>
-                            <div className="flex flex-col lg:flex-row relative !rounded-[24px] bg-dominant-color-2">
+                            <div className="flex flex-col lg:flex-row relative rounded-[24px] bg-dominant-color-2">
                                 <div className="w-full lg:w-1/2 p-10 md:p-[96px]">
                                     <motion.img
                                         initial={{
