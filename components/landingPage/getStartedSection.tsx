@@ -8,7 +8,7 @@ export default function GetStartedSection() {
     return (
         <section
             className={cn(
-                "lg:pt-[80px] lg:pb-[80px] bg-white text-charcoal-black text-[16px] m-0 leading-[24px] font-normal px-4",
+                "lg:pb-[80px] bg-white text-charcoal-black text-[16px] m-0 leading-[24px] font-normal px-4",
                 sourceSerif4.className,
             )}
         >
@@ -95,7 +95,7 @@ export default function GetStartedSection() {
                         </motion.div>
                     </div>
 
-                    <div className="max-w-2xl lg:max-w-full text-[16px] m-0 leading-[24px] font-normal flex gap-6 lg:gap-20 flex-col">
+                    <div className="max-w-2xl lg:max-w-full text-[16px] m-0 leading-[24px] font-normal flex gap-6 lg:gap-10 flex-col">
                         <div className='mt-11 lg:-mt-[96px] lg:pt-[104px] relative  text-white text-[16px] leading-[24px] font-normal lg:before:content-[""] lg:before:absolute lg:before:w-1/2 lg:before:h-[140px] lg:before:top-0 lg:before:right-0 lg:before:rounded-tr-xl lg:before:bg-dominant-color lg:after:content-[""] lg:after:absolute lg:after:top-0 lg:after:right-[15%] lg:after:w-[43%] lg:after:h-[110px] lg:after:bg-dominant-color lg:after:-skew-x-[45deg]'>
                             <div className="flex flex-col lg:flex-row relative !rounded-[24px] bg-dominant-color">
                                 <div className="w-full lg:w-1/2 p-10 md:p-[96px]">
@@ -116,7 +116,7 @@ export default function GetStartedSection() {
                                         className="h-[300px] w-full shadow-[6px_8px_0px_0px_#000] object-cover rounded-xl"
                                     />
                                 </div>
-                                <div className="w-full lg:w-1/2 px-10 md:px-[96px] lg:pl-0 pb-[96px] text-charcoal-black text-[16px] m-0 leading-[24px] font-normal">
+                                <div className="w-full lg:w-1/2 px-10 md:px-[96px] lg:pl-0 pb-[96px] text-charcoal-black text-[16px] m-0 leading-[24px] font-normal flex flex-col justify-center gap-5">
                                     <motion.h4
                                         initial={{
                                             opacity: 0,
@@ -130,27 +130,11 @@ export default function GetStartedSection() {
                                             },
                                         }}
                                         viewport={{ once: true }}
-                                        className="text-white text-right text-6xl md:text-[88px] mt-0 mx-0 mb-[8px] leading-[79.2px] font-normal tracking-[-0.52px]"
+                                        className="text-white  text-6xl md:text-[88px] leading-[79.2px] font-normal tracking-[-0.52px] text-start"
                                     >
                                         Prints
                                     </motion.h4>
-                                    <motion.p
-                                        initial={{
-                                            opacity: 0,
-                                        }}
-                                        whileInView={{
-                                            opacity: 1,
-                                            transition: {
-                                                duration: 0.8,
-                                                delay: 0.7,
-                                                ease: "easeInOut",
-                                            },
-                                        }}
-                                        viewport={{ once: true }}
-                                        className="text-white text-right lg:text-left text-[20px] mt-0 mx-0 mb-[16px] leading-[30px] font-normal tracking-[-0.2px]"
-                                    >
-                                        01
-                                    </motion.p>
+
                                     <motion.p
                                         initial={{
                                             opacity: 0,
@@ -166,9 +150,10 @@ export default function GetStartedSection() {
                                         viewport={{ once: true }}
                                         className="text-white text-right lg:text-left text-[20px] mt-0 mx-0 mb-[16px] leading-[30px] font-normal tracking-[-0.2px]"
                                     >
-                                        From business cards to banners, we
-                                        handle it all with precision and
-                                        creativity. Your vision is our command!
+                                        From business cards to banners, we make
+                                        your ideas stand out with vibrant colors
+                                        and sharp details. Quality prints, just
+                                        the way you imagined!
                                     </motion.p>
                                 </div>
                             </div>
@@ -193,7 +178,7 @@ export default function GetStartedSection() {
                                         className="h-[300px] w-full shadow-[6px_8px_0px_0px_#000] object-cover rounded-xl"
                                     />
                                 </div>
-                                <div className="w-full lg:w-1/2 px-10 md:px-[96px] lg:pl-0 pb-[96px] text-charcoal-black text-[16px] m-0 leading-[24px] font-normal">
+                                <div className="w-full lg:w-1/2 px-10 md:px-[96px] lg:pl-0 pb-[96px] text-charcoal-black text-[16px] m-0 leading-[24px] font-normal flex justify-center flex-col gap-5">
                                     <motion.h4
                                         initial={{
                                             opacity: 0,
@@ -207,27 +192,11 @@ export default function GetStartedSection() {
                                             },
                                         }}
                                         viewport={{ once: true }}
-                                        className="text-white text-right text-6xl md:text-[88px] mt-0 mx-0 mb-[8px] leading-[79.2px] font-normal tracking-[-0.52px]"
+                                        className="text-white text-start text-6xl md:text-[88px] mt-0 mx-0 mb-[8px] leading-[79.2px] font-normal tracking-[-0.52px]"
                                     >
                                         Support
                                     </motion.h4>
-                                    <motion.p
-                                        initial={{
-                                            opacity: 0,
-                                        }}
-                                        whileInView={{
-                                            opacity: 1,
-                                            transition: {
-                                                duration: 0.8,
-                                                delay: 0.7,
-                                                ease: "easeInOut",
-                                            },
-                                        }}
-                                        viewport={{ once: true }}
-                                        className="text-white text-right lg:text-left text-[20px] mt-0 mx-0 mb-[16px] leading-[30px] font-normal tracking-[-0.2px]"
-                                    >
-                                        02
-                                    </motion.p>
+
                                     <motion.p
                                         initial={{
                                             opacity: 0,
@@ -243,9 +212,11 @@ export default function GetStartedSection() {
                                         viewport={{ once: true }}
                                         className="text-white text-right lg:text-left text-[20px] mt-0 mx-0 mb-[16px] leading-[30px] font-normal tracking-[-0.2px]"
                                     >
-                                        Our team is here to assist you every
-                                        step of the way. No question is too
-                                        silly, we promise!
+                                        Our friendly team is here to guide you
+                                        every step of the way, ensuring a smooth
+                                        and stress-free experience. No question
+                                        is too small or too silly—we’re always
+                                        happy to help!
                                     </motion.p>
                                 </div>
                             </div>

@@ -41,7 +41,7 @@ export function FrequntQuestionsSection() {
     };
 
     return (
-        <section className={cn("pt-20 pb-10 lg:pb-20", sourceSerif4.className)}>
+        <section className={cn("pt-10 pb-10 lg:pb-20", sourceSerif4.className)}>
             <div className="w-full mx-auto px-4 max-w-6xl">
                 <div className="mb-10">
                     <h3 className="inline-block px-6 py-3 bg-[#EDA371] rounded-lg rotate-[-4deg] text-2xl font-semibold shadow-[4px_4px_0px_0px_#000]">

@@ -49,10 +49,12 @@ const HeroSection = () => {
                                     },
                                 }}
                                 viewport={{ once: true }}
-                                className="text-white bg-[#720026] mt-0 mb-4 md:mb-8 leading-7 md:leading-[42px] break-words font-normal w-full text-xl sm:text-2xl lg:text-[28px] tracking-[-0.8px]"
+                                className="text-white bg-[#720026] mt-0 mb-4 md:mb-8 leading-7 md:leading-[35px] break-words font-normal w-full text-xl sm:text-2xl lg:text-[25px] tracking-[0.1px]"
                             >
-                                Transforming ideas into vibrant prints with
-                                flair!
+                                Turn ideas into stunning, high-quality prints
+                                with rich colors and sharp details. From
+                                business materials to custom designs, we make
+                                every print stand out!
                             </motion.p>
 
                             <motion.div

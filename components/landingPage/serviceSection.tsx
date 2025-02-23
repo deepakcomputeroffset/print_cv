@@ -116,7 +116,7 @@ export const ServicesSectionTwo = () => {
         <section className={cn("py-20", sourceSerif4.className)}>
             <div
                 className={cn(
-                    "text-charcoal-black text-[16px] leading-[24px] max-w-customHaf lg:max-w-custom mx-auto px-4 py-20",
+                    "text-charcoal-black text-[16px] leading-[24px] max-w-customHaf lg:max-w-custom mx-auto px-4",
                     sourceSerif4.className,
                 )}
             >
@@ -126,7 +126,7 @@ export const ServicesSectionTwo = () => {
                         className="h-60 lg:h-[410px] w-full object-cover rounded-xl"
                     />
 
-                    <div className="justify-between text-charcoal-black text-[16px] m-0 leading-[24px] h-full flex flex-col">
+                    <div className="justify-start text-charcoal-black text-[16px] m-0 leading-[24px] h-full flex flex-col">
                         <div className="text-charcoal-black text-[16px] m-0 leading-[24px] ">
                             <h3 className="inline-flex mb-[56px] px-[12px] py-[4px] [box-shadow:rgb(0,_0,_0)_3px_4px_0px_0px] !rounded-[8px] text-[rgb(255,_255,_255)] text-[20px] mt-0 mx-0 leading-[30px]  tracking-[-0.2px] bg-dominant-color">
                                 Our Services
@@ -135,9 +135,13 @@ export const ServicesSectionTwo = () => {
                                 Print Perfection
                             </h2>
                         </div>
-                        <p className="mb-0 mt-auto text-black bg-white text-[20px] m-0 leading-[30px]  tracking-[-0.2px]">
+                        <p className="mb-0 mt-7 text-black bg-white text-[20px] m-0 leading-[30px]  tracking-[-0.2px]">
                             Vibrant prints that capture attention and
-                            imagination.
+                            imagination, bringing your ideas to life with
+                            stunning clarity and rich colors. Whether it’s
+                            business materials, personal projects, or
+                            large-scale prints, we ensure every detail stands
+                            out beautifully.
                         </p>
                     </div>
                 </div>
@@ -178,10 +182,10 @@ export function OurServices() {
         },
     ];
     return (
-        <section className={cn("py-5 lg:py-20", sourceSerif4.className)}>
+        <section className={cn("py-5 lg:py-14", sourceSerif4.className)}>
             <div className="max-w-customHaf lg:max-w-custom mx-auto">
                 <div className="relative px-4">
-                    <motion.h3
+                    {/* <motion.h3
                         initial={{
                             opacity: 0,
                         }}
@@ -197,7 +201,7 @@ export function OurServices() {
                         className="inline-flex mb-[56px] px-[24px] py-[18px] shadow-[6px_8px_0px_0px_#000] rounded-2xl rotate-[4deg] text-2xl md:text-4xl sm:text-7xl mt-0 mx-0 leading-[64.8px] font-normal tracking-[-0.52px] bg-dominant-color text-white"
                     >
                         Why Choose Us?
-                    </motion.h3>
+                    </motion.h3> */}
                     <h2 className="mb-10 md:mb-12 text-black bg-white text-5xl md:text-[121.6px] mt-0 mx-0 leading-[103.36px] font-normal tracking-[-0.6px]">
                         Our Features
                     </h2>

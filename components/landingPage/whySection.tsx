@@ -54,7 +54,7 @@ export default function WhySection() {
             <div className="bg-white text-charcoal-black text-[16px] w-full max-w-customHaf lg:max-w-custom mx-auto leading-[24px] ">
                 <div className="relative bg-white text-charcoal-black text-[16px] mx-[16px] leading-[24px] ">
                     <div className="bg-white text-charcoal-black text-[16px] leading-[24px]">
-                        <motion.h3
+                        {/* <motion.h3
                             initial={{
                                 opacity: 0,
                             }}
@@ -73,7 +73,7 @@ export default function WhySection() {
                             )}
                         >
                             Why Choose Us?
-                        </motion.h3>
+                        </motion.h3> */}
                         <motion.h2
                             initial={{
                                 opacity: 0,
