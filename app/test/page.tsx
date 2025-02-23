@@ -2,6 +2,7 @@ import GetStartedSection from "./getStartedSection";
 import HeroSection from "./hero";
 import Navbar from "./nav";
 import PrintLikeProSection from "./printLikeProSection";
+import PrintMagicSection from "./printMagicSection";
 import SectionTwo from "./section-2";
 import SectionThree from "./sectionThree";
 import ServicesSection, { ServicesSectionTwo } from "./serviceSection";
@@ -19,6 +20,7 @@ export default function TestPage() {
             <GetStartedSection />
             <PrintLikeProSection />
             <ServicesSectionTwo />
+            <PrintMagicSection />
         </>
     );
 }

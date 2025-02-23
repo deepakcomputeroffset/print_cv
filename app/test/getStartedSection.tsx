@@ -95,7 +95,7 @@ export default function GetStartedSection() {
                         </motion.div>
                     </div>
 
-                    <div className="max-w-2xl lg:max-w-full text-[16px] m-0 leading-[24px] font-normal flex gap-6 lg:gap-32 flex-col">
+                    <div className="max-w-2xl lg:max-w-full text-[16px] m-0 leading-[24px] font-normal flex gap-6 lg:gap-20 flex-col">
                         <div className='mt-11 lg:-mt-[96px] lg:pt-[104px] relative  text-white text-[16px] leading-[24px] font-normal lg:before:content-[""] lg:before:absolute lg:before:w-1/2 lg:before:h-[140px] lg:before:top-0 lg:before:right-0 lg:before:rounded-tr-xl lg:before:bg-dominant-color lg:after:content-[""] lg:after:absolute lg:after:top-0 lg:after:right-[15%] lg:after:w-[43%] lg:after:h-[110px] lg:after:bg-dominant-color lg:after:-skew-x-[45deg]'>
                             <div className="flex flex-col lg:flex-row relative !rounded-[24px] bg-dominant-color">
                                 <div className="w-full lg:w-1/2 p-10 md:p-[96px]">
