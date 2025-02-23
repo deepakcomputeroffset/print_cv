@@ -9,7 +9,7 @@ export default function FeedBackSection() {
     return (
         <section
             className={cn(
-                "box-border relative overflow-hidden py-5 bg-cover bg-no-repeat bg-[50%_50%] text-[#232323] font-normal leading-[24px] m-0 flex flex-wrap justify-center w-full gap-12",
+                "box-border relative overflow-hidden py-5 bg-cover bg-no-repeat bg-[50%_50%] text-[#232323] font-normal leading-[24px] m-0 hidden sm:flex flex-wrap justify-center w-full gap-12",
                 sourceSerif4.className,
             )}
         >
