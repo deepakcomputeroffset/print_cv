@@ -24,7 +24,6 @@ export default function FeedBackSection() {
                         opacity: 1,
                         transition: {
                             duration: 0.8,
-                            delay: 0.4,
                             ease: "easeInOut",
                         },
                     }}
@@ -47,7 +46,6 @@ export default function FeedBackSection() {
                         opacity: 1,
                         transition: {
                             duration: 0.8,
-                            delay: 0.4,
                             ease: "easeInOut",
                         },
                     }}

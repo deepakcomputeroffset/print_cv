@@ -82,7 +82,7 @@ const ServicesSection: React.FC = () => {
                                 opacity: 1,
                                 transition: {
                                     duration: 0.4,
-                                    delay: 0.2 * index + 1,
+                                    delay: 0.1 * index + 1,
                                     ease: "linear",
                                 },
                             }}

@@ -22,7 +22,6 @@ export default function GetStartedSection() {
                             opacity: 1,
                             transition: {
                                 duration: 0.8,
-                                delay: 0.4,
                                 ease: "easeInOut",
                             },
                         }}
@@ -59,7 +58,6 @@ export default function GetStartedSection() {
                                 transform: "translateY(0px)",
                                 transition: {
                                     duration: 0.8,
-                                    delay: 0.6,
                                     ease: "easeInOut",
                                 },
                             }}
@@ -81,7 +79,6 @@ export default function GetStartedSection() {
                                 transform: "translateY(0px)",
                                 transition: {
                                     duration: 0.8,
-                                    delay: 0.6,
                                     ease: "easeInOut",
                                 },
                             }}
@@ -107,7 +104,6 @@ export default function GetStartedSection() {
                                             opacity: 1,
                                             transition: {
                                                 duration: 0.8,
-                                                delay: 0.4,
                                                 ease: "easeInOut",
                                             },
                                         }}
@@ -125,7 +121,6 @@ export default function GetStartedSection() {
                                             opacity: 1,
                                             transition: {
                                                 duration: 0.8,
-                                                delay: 0.6,
                                                 ease: "easeInOut",
                                             },
                                         }}
@@ -143,7 +138,6 @@ export default function GetStartedSection() {
                                             opacity: 1,
                                             transition: {
                                                 duration: 0.8,
-                                                delay: 0.8,
                                                 ease: "easeInOut",
                                             },
                                         }}
@@ -169,7 +163,6 @@ export default function GetStartedSection() {
                                             opacity: 1,
                                             transition: {
                                                 duration: 0.8,
-                                                delay: 0.4,
                                                 ease: "easeInOut",
                                             },
                                         }}
@@ -187,7 +180,6 @@ export default function GetStartedSection() {
                                             opacity: 1,
                                             transition: {
                                                 duration: 0.8,
-                                                delay: 0.6,
                                                 ease: "easeInOut",
                                             },
                                         }}
@@ -205,7 +197,6 @@ export default function GetStartedSection() {
                                             opacity: 1,
                                             transition: {
                                                 duration: 0.8,
-                                                delay: 0.8,
                                                 ease: "easeInOut",
                                             },
                                         }}

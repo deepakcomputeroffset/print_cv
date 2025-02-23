@@ -50,7 +50,6 @@ export function ConnectSection() {
                             opacity: 1,
                             transition: {
                                 duration: 0.8,
-                                delay: 0.2,
                                 ease: "easeInOut",
                             },
                         }}

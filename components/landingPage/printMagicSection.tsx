@@ -35,7 +35,6 @@ export default function PrintMagicSection() {
                             opacity: 1,
                             transition: {
                                 duration: 0.8,
-                                delay: 0.2,
                                 ease: "easeInOut",
                             },
                         }}
@@ -52,7 +51,6 @@ export default function PrintMagicSection() {
                             opacity: 1,
                             transition: {
                                 duration: 0.8,
-                                delay: 0.4,
                                 ease: "easeInOut",
                             },
                         }}
@@ -79,7 +77,6 @@ export default function PrintMagicSection() {
                             opacity: 1,
                             transition: {
                                 duration: 0.8,
-                                delay: 0.6,
                                 ease: "easeInOut",
                             },
                         }}
@@ -96,7 +93,6 @@ export default function PrintMagicSection() {
                             opacity: 1,
                             transition: {
                                 duration: 0.8,
-                                delay: 0.8,
                                 ease: "easeInOut",
                             },
                         }}

@@ -42,7 +42,6 @@ export default function Navbar() {
                         transform: "translateY(0px)",
                         transition: {
                             duration: 0.8,
-                            delay: 0.2,
                             ease: "easeInOut",
                         },
                     }}
@@ -77,7 +76,7 @@ export default function Navbar() {
                                     transform: "translateY(0px)",
                                     transition: {
                                         duration: 0.8,
-                                        delay: 0.4 + index * 0.2,
+                                        delay: 0.1 + index * 0.1,
                                         ease: "easeInOut",
                                     },
                                 }}
@@ -101,7 +100,6 @@ export default function Navbar() {
                         transform: "translateY(0px)",
                         transition: {
                             duration: 0.8,
-                            delay: 0.6,
                             ease: "easeInOut",
                         },
                     }}

@@ -24,7 +24,6 @@ const HeroSection = () => {
                                     transform: "translateY(0px)",
                                     transition: {
                                         duration: 0.8,
-                                        delay: 1.0,
                                         ease: "easeInOut",
                                     },
                                 }}
@@ -44,7 +43,6 @@ const HeroSection = () => {
                                     transform: "translateY(0px)",
                                     transition: {
                                         duration: 0.8,
-                                        delay: 1.2,
                                         ease: "easeInOut",
                                     },
                                 }}
@@ -67,7 +65,6 @@ const HeroSection = () => {
                                     transform: "translateY(0px)",
                                     transition: {
                                         duration: 0.8,
-                                        delay: 1.4,
                                         ease: "easeInOut",
                                     },
                                 }}
@@ -96,7 +93,6 @@ const HeroSection = () => {
                                 transform: "translateY(0px)",
                                 transition: {
                                     duration: 1,
-                                    delay: 1.6,
                                     ease: "easeInOut",
                                 },
                             }}

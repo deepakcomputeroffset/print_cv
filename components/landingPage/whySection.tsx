@@ -76,7 +76,6 @@ export default function WhySection() {
                                 opacity: 1,
                                 transition: {
                                     duration: 0.8,
-                                    delay: 0.4,
                                     ease: "easeInOut",
                                 },
                             }}
@@ -93,7 +92,6 @@ export default function WhySection() {
                                 opacity: 1,
                                 transition: {
                                     duration: 0.8,
-                                    delay: 0.6,
                                     ease: "easeInOut",
                                 },
                             }}
@@ -161,7 +159,6 @@ export default function WhySection() {
                                         opacity: 1,
                                         transition: {
                                             duration: 0.6,
-                                            delay: 0.2,
                                             ease: "easeInOut",
                                         },
                                     }}
