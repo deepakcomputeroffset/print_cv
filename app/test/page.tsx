@@ -1,11 +1,16 @@
+import { FrequntQuestionsSection } from "./frequentQuestions";
 import GetStartedSection from "./getStartedSection";
 import HeroSection from "./hero";
+import { MarqueeSection } from "./Marquee";
 import Navbar from "./nav";
 import PrintLikeProSection from "./printLikeProSection";
 import PrintMagicSection from "./printMagicSection";
 import SectionTwo from "./section-2";
 import SectionThree from "./sectionThree";
-import ServicesSection, { ServicesSectionTwo } from "./serviceSection";
+import ServicesSection, {
+    OurServices,
+    ServicesSectionTwo,
+} from "./serviceSection";
 import WhySection from "./whySection";
 
 export default function TestPage() {
@@ -21,6 +26,9 @@ export default function TestPage() {
             <PrintLikeProSection />
             <ServicesSectionTwo />
             <PrintMagicSection />
+            <FrequntQuestionsSection />
+            <OurServices />
+            <MarqueeSection />
         </>
     );
 }

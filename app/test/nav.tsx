@@ -76,7 +76,7 @@ export default function Navbar() {
                                         delay: 0.4 + index * 0.2,
                                         ease: "easeInOut",
                                     },
-                                }} // Delay based on index
+                                }}
                             >
                                 <Link
                                     key={text}
@@ -92,7 +92,7 @@ export default function Navbar() {
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, transform: "translateY(-20px)" }} // Initial position above
+                    initial={{ opacity: 0, transform: "translateY(-20px)" }}
                     animate={{
                         opacity: 1,
                         transform: "translateY(0px)",
@@ -115,8 +115,6 @@ export default function Navbar() {
                     <button
                         className="p-2 flex items-center"
                         onClick={toggleMobileMenu}
-                        aria-expanded={isMobileMenuOpen}
-                        aria-label="Toggle menu"
                     >
                         <div className="relative w-6 h-5 flex flex-col justify-between">
                             {[0, 1, 2].map((i) => (

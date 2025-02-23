@@ -11,6 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 import { motion } from "motion/react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface Service {
     title: string;
@@ -162,4 +163,109 @@ export const ServicesSectionTwo = () => {
     );
 };
 
+export function OurServices() {
+    const tabs = [
+        {
+            title: "Quality Prints",
+            description:
+                "Our prints are vibrant and made to last. Quality is our middle name!",
+            iamgeUrl:
+                "https://images.unsplash.com/photo-1591241880174-e55ec62eedf3?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Mjl8fHByaW50c3xlbnwwfDB8fHwxNzM5ODEwMjE4fDA&ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80&e=1739875378&s=Bn0Ct07ELATED9ZW_MIZ-l5VBA5x6HfJHkKRbDdokyA",
+        },
+        {
+            title: "Fast Turnaround",
+            description:
+                "Need it fast? We’ve got your back with speedy service!",
+            iamgeUrl:
+                "https://images.unsplash.com/photo-1581345837712-414b9b6fb450?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MXx8cHJpbnRzfGVufDB8MHx8fDE3Mzk4MTAyMTh8MA&ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80&e=1739875378&s=T_hTIGh5U1e-M0gO5mtUoinqa7xwJLfUm3HnoytrHI8",
+        },
+        {
+            title: "Custom Designs",
+            description:
+                "Our design team is ready to create something unique just for you!",
+            iamgeUrl:
+                "https://images.unsplash.com/photo-1505744768106-34d8c47a1327?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTV8fHByaW50c3xlbnwwfDB8fHwxNzM5ODEwMjE4fDA&ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80&e=1739875378&s=WF22hep3DtG6VUMODp8RyI3WeJ4x8WdvrPEjVqDFelo",
+        },
+        {
+            title: "Eco-Friendly",
+            description:
+                "We care about the planet. Our materials are eco-friendly and sustainable!",
+            iamgeUrl:
+                "https://images.unsplash.com/photo-1532152865523-267662aa4483?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTB8fHByaW50c3xlbnwwfDB8fHwxNzM5ODEwMjE4fDA&ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80&e=1739875378&s=xp9vg-gjcdSOd885_n_a5ePUpYlNlS3gkw74CKQPYbk",
+        },
+    ];
+    return (
+        <section className={cn("py-5 lg:py-20", sourceSerif4.className)}>
+            <div className="max-w-customHaf lg:max-w-custom mx-auto">
+                <div className="relative px-4">
+                    <motion.h3
+                        initial={{
+                            opacity: 0,
+                        }}
+                        whileInView={{
+                            opacity: 1,
+                            transition: {
+                                duration: 0.8,
+                                delay: 0.2,
+                                ease: "easeInOut",
+                            },
+                        }}
+                        viewport={{ once: true }}
+                        className="inline-flex mb-[56px] px-[24px] py-[18px] shadow-[6px_8px_0px_0px_#000] rounded-2xl rotate-[4deg] text-2xl md:text-4xl sm:text-7xl mt-0 mx-0 leading-[64.8px] font-normal tracking-[-0.52px] bg-dominant-color text-white"
+                    >
+                        Why Choose Us?
+                    </motion.h3>
+                    <h2 className="mb-10 md:mb-12 text-black bg-white text-5xl md:text-[121.6px] mt-0 mx-0 leading-[103.36px] font-normal tracking-[-0.6px]">
+                        Our Features
+                    </h2>
+                    <p className="inline-flex sm:w-1/2 mb-[32px] text-black bg-white text-[28px] mt-0 mx-0 leading-[42px] font-normal tracking-[-0.8px] ">
+                        We offer top-notch printing services with a twist of
+                        creativity and fun!
+                    </p>
+                    <Tabs
+                        className="grid lg:flex flex-col gap-5 h-full w-full"
+                        defaultValue={tabs?.[0].title}
+                    >
+                        <TabsList className="text-base leading-[24px] font-normal flex flex-wrap space-y-3 w-fit self-end h-full  p-2 bg-[#E8CCD2] shadow-[4px_6px_0px_0px_#000] rounded-2xl">
+                            {tabs?.map((tab, idx) => (
+                                <TabsTrigger
+                                    value={tab?.title}
+                                    key={idx}
+                                    className="data-[state=active]:bg-dominant-color data-[state=active]:text-white text-charcoal-black text-base text-left leading-[24px] font-normal px-4 py-3 rounded-xl text-[20px] tracking-[-0.2px] select-none"
+                                >
+                                    {tab?.title}
+                                </TabsTrigger>
+                            ))}
+                        </TabsList>
+
+                        {tabs?.map((tab, idx) => (
+                            <TabsContent
+                                key={idx}
+                                value={tab?.title}
+                                className="bg-[#E8CCD2] text-charcoal-black rounded-3xl"
+                            >
+                                <div className="flex-auto flex flex-col lg:flex-row py-10 lg:py-[88px] px-5 md:px-10 lg:px-[112px]">
+                                    <div className="self-end lg:w-1/2 lg:pr-[88px] m-0 leading-[24px] font-normal">
+                                        <h4 className="mb-[20px] text-4xl md:text-[72px] mt-0 mx-0 leading-10 md:leading-[64.8px] font-normal tracking-[-0.52px]">
+                                            {tab.title}
+                                        </h4>
+                                        <p className="mb-0 text-[20px] m-0 leading-[30px] font-normal tracking-[-0.2px]">
+                                            {tab.description}
+                                        </p>
+                                    </div>
+                                    <div className="lg:w-1/2 text-[16px] m-0 leading-[24px] font-normal">
+                                        <img
+                                            src={tab?.iamgeUrl}
+                                            className="h-[430px] w-full object-cover shadow-[4px_6px_0px_0px_#000] rounded-2xl"
+                                        />
+                                    </div>
+                                </div>
+                            </TabsContent>
+                        ))}
+                    </Tabs>
+                </div>
+            </div>
+        </section>
+    );
+}
 export default ServicesSection;

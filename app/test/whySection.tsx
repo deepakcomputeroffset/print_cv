@@ -47,13 +47,13 @@ export default function WhySection() {
     return (
         <section
             className={cn(
-                "pt-[80px] pb-[80px] bg-white text-charcoal-black text-[16px] leading-[24px] font-normal w-full",
+                "pt-[80px] pb-[80px] bg-white text-charcoal-black text-[16px] leading-[24px] w-full",
                 sourceSerif4.className,
             )}
         >
-            <div className="bg-white text-charcoal-black text-[16px] w-full max-w-customHaf lg:max-w-custom mx-auto leading-[24px] font-normal ">
-                <div className="relative bg-white text-charcoal-black text-[16px] mx-[16px] leading-[24px] font-normal ">
-                    <div className="bg-white text-charcoal-black text-[16px] leading-[24px] font-normal">
+            <div className="bg-white text-charcoal-black text-[16px] w-full max-w-customHaf lg:max-w-custom mx-auto leading-[24px] ">
+                <div className="relative bg-white text-charcoal-black text-[16px] mx-[16px] leading-[24px] ">
+                    <div className="bg-white text-charcoal-black text-[16px] leading-[24px]">
                         <motion.h3
                             initial={{
                                 opacity: 0,
@@ -67,7 +67,10 @@ export default function WhySection() {
                                 },
                             }}
                             viewport={{ once: true }}
-                            className="inline-flex mb-[56px] px-[24px] py-[18px] shadow-[6px_8px_0px_0px_#000] rounded-2xl rotate-[4deg] text-4xl sm:text-7xl mt-0 mx-0 leading-[64.8px] font-normal tracking-[-0.52px] bg-dominant-color text-white"
+                            className={cn(
+                                "inline-flex mb-[56px] px-[24px] py-[18px] shadow-[6px_8px_0px_0px_#000] rounded-2xl rotate-[4deg] text-4xl sm:text-7xl mt-0 mx-0 leading-[64.8px] tracking-[-0.52px] bg-dominant-color text-white",
+                                sourceSerif4.className,
+                            )}
                         >
                             Why Choose Us?
                         </motion.h3>
@@ -84,7 +87,7 @@ export default function WhySection() {
                                 },
                             }}
                             viewport={{ once: true }}
-                            className="mb-12 sm:mb-[96px] text-black bg-white text-6xl sm:text-[121.6px] mt-0 mx-0 leading-[70px] sm:leading-[103.36px] font-normal tracking-[-0.6px]"
+                            className="mb-12 sm:mb-[96px] text-black bg-white text-6xl sm:text-[121.6px] mt-0 mx-0 leading-[70px] sm:leading-[103.36px] tracking-[-0.6px]"
                         >
                             Prints That Impress
                         </motion.h2>
@@ -101,7 +104,7 @@ export default function WhySection() {
                                 },
                             }}
                             viewport={{ once: true }}
-                            className="inline-flex w-full sm:w-1/2 mb-[64px] text-black bg-white text-3xl leading-[42px] font-normal tracking-[-0.8px]"
+                            className="inline-flex w-full sm:w-1/2 mb-[64px] text-black bg-white text-3xl leading-[42px] tracking-[-0.8px]"
                         >
                             We bring your ideas to life with stunning prints
                             that demand attention and leave a lasting
@@ -110,15 +113,18 @@ export default function WhySection() {
                     </div>
 
                     <Tabs
-                        className="flex justify-between flex-col lg:flex-row gap-14 h-full w-full"
+                        className={cn(
+                            "flex justify-between flex-col lg:flex-row gap-14 h-full w-full",
+                            sourceSerif4.className,
+                        )}
                         defaultValue={tabs?.[0].title}
                     >
-                        <TabsList className="bg-transparent text-base leading-[24px] font-normal grid grid-rows-6 grid-cols-1 gap-6 w-full lg:w-1/3 h-full  px-0 pr-3">
+                        <TabsList className="bg-transparent text-base leading-[24px] grid grid-rows-6 grid-cols-1 gap-6 w-full lg:w-1/3 h-full  px-0 pr-3">
                             {tabs?.map((tab, idx) => (
                                 <TabsTrigger
                                     value={tab?.title}
                                     key={idx}
-                                    className="data-[state=active]:bg-dominant-color data-[state=active]:text-white bg-white text-charcoal-black data-[state=active]:shadow-[6px_8px_0px_0px_#000] text-base text-left leading-[24px] font-normal px-[40px] py-[24px] rounded-2xl text-[20px] tracking-[-0.2px] select-none"
+                                    className="data-[state=active]:bg-dominant-color data-[state=active]:text-white bg-white text-charcoal-black data-[state=active]:shadow-[6px_8px_0px_0px_#000] text-base text-left leading-[24px] px-[40px] py-[24px] rounded-2xl text-[20px] tracking-[-0.2px] select-none"
                                 >
                                     {tab?.title}
                                 </TabsTrigger>
@@ -129,7 +135,10 @@ export default function WhySection() {
                             <TabsContent
                                 key={idx}
                                 value={tab?.title}
-                                className="flex-auto bg-[#E8CCD2] text-charcoal-black pl-[32px] sm:pl-[142px] pr-[32px] py-[52px] rounded-3xl"
+                                className={cn(
+                                    "flex-auto bg-[#E8CCD2] text-charcoal-black pl-[32px] sm:pl-[142px] pr-[32px] py-[52px] rounded-3xl",
+                                    sourceSerif4.className,
+                                )}
                             >
                                 <motion.div
                                     initial={{
