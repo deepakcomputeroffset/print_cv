@@ -72,23 +72,6 @@ const ServicesSection: React.FC = () => {
             className={`px-4 py-32 bg-dominant-color ${sourceSerif4.className}`}
         >
             <div className="max-w-customHaf lg:max-w-custom mx-auto">
-                <motion.h2
-                    initial={{
-                        opacity: 0,
-                    }}
-                    whileInView={{
-                        opacity: 1,
-                        transition: {
-                            duration: 1,
-                            delay: 0.6,
-                            ease: "easeInOut",
-                        },
-                    }}
-                    viewport={{ once: true }}
-                    className="text-7xl lg:text-8xl font-bold mb-16 text-pretty sm:text-center text-white"
-                >
-                    Our Services
-                </motion.h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {services.map((service, index) => (
                         <motion.div
@@ -226,12 +209,12 @@ export function OurServices() {
                         className="grid lg:flex flex-col gap-5 h-full w-full"
                         defaultValue={tabs?.[0].title}
                     >
-                        <TabsList className="text-base leading-[24px] font-normal flex flex-wrap space-y-3 w-fit self-end h-full  p-2 bg-[#E8CCD2] shadow-[4px_6px_0px_0px_#000] rounded-2xl">
+                        <TabsList className="text-base leading-[24px] font-normal flex flex-wrap space-y-3 md:space-y-0 w-fit self-end h-full  p-2 bg-[#E8CCD2] shadow-[4px_6px_0px_0px_#000] rounded-2xl">
                             {tabs?.map((tab, idx) => (
                                 <TabsTrigger
                                     value={tab?.title}
                                     key={idx}
-                                    className="data-[state=active]:bg-dominant-color data-[state=active]:text-white text-charcoal-black text-base text-left leading-[24px] font-normal px-4 py-3 rounded-xl text-[20px] tracking-[-0.2px] select-none"
+                                    className="data-[state=active]:bg-dominant-color data-[state=active]:text-white text-charcoal-black text-base leading-[24px] font-normal px-4 py-3 rounded-xl text-[20px] tracking-[-0.2px] select-none text-center"
                                 >
                                     {tab?.title}
                                 </TabsTrigger>

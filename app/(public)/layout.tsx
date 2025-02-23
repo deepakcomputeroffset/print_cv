@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar/navbar";
+// import Navbar from "@/components/navbar/navbar";
 
 export default function RootLayout({
     children,
@@ -7,7 +7,7 @@ export default function RootLayout({
 }>) {
     return (
         <div className="min-h-screen bg-background">
-            <Navbar />
+            {/* <Navbar /> */}
             {children}
         </div>
     );

@@ -1,50 +1,39 @@
-import { HeroSection } from "@/components/hero-section";
+import { ConnectSection } from "@/components/landingPage/connect";
+import { Footer } from "@/components/landingPage/footer";
+import { FrequntQuestionsSection } from "@/components/landingPage/frequentQuestions";
+import GetStartedSection from "@/components/landingPage/getStartedSection";
+import HeroSection from "@/components/landingPage/hero";
+import { MarqueeSection } from "@/components/landingPage/Marquee";
+import Navbar from "@/components/landingPage/nav";
+import PrintLikeProSection from "@/components/landingPage/printLikeProSection";
+import PrintMagicSection from "@/components/landingPage/printMagicSection";
+import SectionTwo from "@/components/landingPage/section-2";
+// import SectionTwo from "./section-2";
+import SectionThree from "@/components/landingPage/sectionThree";
+import {
+    OurServices,
+    ServicesSectionTwo,
+} from "@/components/landingPage/serviceSection";
+import WhySection from "@/components/landingPage/whySection";
 
-export default async function Home() {
+export default function TestPage() {
     return (
-        <div className="flex flex-col min-h-screen">
+        <>
+            <Navbar />
             <HeroSection />
-            <section className="container mx-auto py-16">
-                <h2 className="text-3xl font-bold text-center mb-12">
-                    Our Printing Services
-                </h2>
-            </section>
-
-            <section className="bg-muted py-16">
-                <div className="container mx-auto">
-                    <h2 className="text-3xl font-bold text-center mb-8">
-                        Why Choose Us?
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="p-6 bg-background rounded-lg shadow-lg">
-                            <h3 className="text-xl font-semibold mb-4">
-                                Professional Quality
-                            </h3>
-                            <p className="text-muted-foreground">
-                                State-of-the-art printing technology for
-                                exceptional results.
-                            </p>
-                        </div>
-                        <div className="p-6 bg-background rounded-lg shadow-lg">
-                            <h3 className="text-xl font-semibold mb-4">
-                                Fast Turnaround
-                            </h3>
-                            <p className="text-muted-foreground">
-                                Quick delivery without compromising on quality.
-                            </p>
-                        </div>
-                        <div className="p-6 bg-background rounded-lg shadow-lg">
-                            <h3 className="text-xl font-semibold mb-4">
-                                Custom Solutions
-                            </h3>
-                            <p className="text-muted-foreground">
-                                Tailored printing services to meet your specific
-                                needs.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+            <SectionTwo />
+            <SectionThree />
+            {/* <ServicesSection /> */}
+            <WhySection />
+            <GetStartedSection />
+            <PrintLikeProSection />
+            <ServicesSectionTwo />
+            <PrintMagicSection />
+            <FrequntQuestionsSection />
+            <OurServices />
+            <MarqueeSection />
+            <ConnectSection />
+            <Footer />
+        </>
     );
 }

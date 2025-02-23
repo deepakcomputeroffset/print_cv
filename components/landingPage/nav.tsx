@@ -8,7 +8,11 @@ import { useAnimate } from "motion/react-mini";
 import { motion } from "motion/react";
 import { sourceSerif4 } from "@/lib/font";
 
-const NAV_LINKS = ["Our Services", "Pricing Plans", "Contact Us"];
+const NAV_LINKS = [
+    { name: "Our Service", url: "/customer/categories" },
+    { name: "Contact Us", url: "/contact" },
+    { name: "Login", url: "/login" },
+];
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -61,9 +65,9 @@ export default function Navbar() {
                         </span>
                     </Link>
                     <div className="hidden lg:flex items-center space-x-8">
-                        {NAV_LINKS.map((text, index) => (
+                        {NAV_LINKS.map((link, index) => (
                             <motion.div
-                                key={text}
+                                key={link.name}
                                 initial={{
                                     opacity: 0,
                                     transform: "translateY(-20px)",
@@ -79,11 +83,10 @@ export default function Navbar() {
                                 }}
                             >
                                 <Link
-                                    key={text}
-                                    href={`/${text.toLowerCase().replace(/\s+/g, "-")}`}
+                                    href={link.url}
                                     className="relative group text-lg tracking-wide"
                                 >
-                                    {text}
+                                    {link.name}
                                     <span className="absolute left-0 bottom-0 w-0 h-[1px] bg-white origin-left transition-all duration-500 group-hover:w-full" />
                                 </Link>
                             </motion.div>
@@ -102,10 +105,10 @@ export default function Navbar() {
                             ease: "easeInOut",
                         },
                     }}
-                    className="hidden lg:flex box-border justify-end"
+                    className="hidden lg:flex box-border justify-end items-center"
                 >
                     <Link
-                        href="#"
+                        href="/register"
                         className="box-border text-white text-[20px] font-semibold leading-[30px] inline-flex text-center align-middle cursor-pointer bg-dominant-color-2 border-solid border-transparent px-6 py-3 m-2 rounded-lg border-dominant-color-2 break-words border items-center justify-center mt-0 min-w-[120px] whitespace-nowrap tracking-[-0.2px] hover:scale-105 transition-transform duration-500"
                     >
                         Get Started
@@ -143,13 +146,13 @@ export default function Navbar() {
                 className="z-50 lg:hidden absolute top-20 left-0 w-full bg-dominant-color p-4 shadow-md opacity-0"
             >
                 <ul className="flex flex-col space-y-4">
-                    {NAV_LINKS.map((text) => (
-                        <li key={text}>
+                    {NAV_LINKS.map((link) => (
+                        <li key={link.name}>
                             <Link
-                                href={`/${text.toLowerCase().replace(/\s+/g, "-")}`}
+                                href={link.url}
                                 className="relative group text-lg tracking-wide"
                             >
-                                {text}
+                                {link.name}
                             </Link>
                         </li>
                     ))}
