@@ -7,37 +7,31 @@ import { motion } from "motion/react";
 export default function WhySection() {
     const tabs = [
         {
-            id: "features-6-tab0",
             title: "Business Cards",
-            imgSrc: "https://images.unsplash.com/photo-1515169974372-0a322886d279?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MjN8fHByaW50c3xlbnwwfDB8fHwxNzM5ODEwMjE4fDA&ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+            imgSrc: "https://images.unsplash.com/photo-1495846414472-6696652d955f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             text: "Professional business cards that make networking a breeze!",
         },
         {
-            id: "features-6-tab1",
             title: "Posters",
             imgSrc: "https://images.unsplash.com/photo-1480936600919-bffa6b7ecf1e?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTF8fHByaW50c3xlbnwwfDB8fHwxNzM5ODEwMjE4fDA&ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
             text: "Eye-catching posters that turn heads and spark conversations!",
         },
         {
-            id: "features-6-tab2",
             title: "Brochures",
             imgSrc: "https://images.unsplash.com/photo-1479009956747-647858cb2b07?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Mnx8cHJpbnRzfGVufDB8MHx8fDE3Mzk4MTAyMTh8MA&ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
             text: "Brochures that tell your story in style and flair!",
         },
         {
-            id: "features-6-tab3",
             title: "Banners",
             imgSrc: "https://images.unsplash.com/photo-1532152734721-b08cb57943aa?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8OXx8cHJpbnRzfGVufDB8MHx8fDE3Mzk4MTAyMTh8MA&ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
             text: "Banners that shout your message loud and clear!",
         },
         {
-            id: "features-6-tab4",
             title: "Stickers",
             imgSrc: "https://images.unsplash.com/photo-1581084353124-8fed61a24bbc?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MzB8fHByaW50c3xlbnwwfDB8fHwxNzM5ODEwMjE4fDA&ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
             text: "Stickers that stick around and spread your brand!",
         },
         {
-            id: "features-6-tab5",
             title: "Custom Orders",
             imgSrc: "https://images.unsplash.com/photo-1498451552612-fe70e45f9804?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Mjd8fHByaW50c3xlbnwwfDB8fHwxNzM5ODEwMjE4fDA&ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
             text: "Custom orders tailored to your unique vision and needs!",
@@ -104,7 +98,7 @@ export default function WhySection() {
                                 },
                             }}
                             viewport={{ once: true }}
-                            className="inline-flex w-full sm:w-1/2 mb-[64px] text-black bg-white text-3xl leading-[42px] tracking-[-0.8px]"
+                            className="inline-flex w-full lg:w-1/2 mb-[64px] text-black bg-white text-3xl leading-[42px] tracking-[-0.8px]"
                         >
                             We bring your ideas to life with stunning prints
                             that demand attention and leave a lasting
@@ -114,12 +108,12 @@ export default function WhySection() {
 
                     <Tabs
                         className={cn(
-                            "flex justify-between flex-col lg:flex-row gap-14 h-full w-full",
+                            "flex justify-between flex-col lg:flex-row gap-5 h-full w-full",
                             sourceSerif4.className,
                         )}
                         defaultValue={tabs?.[0].title}
                     >
-                        <TabsList className="bg-transparent text-base leading-[24px] grid grid-rows-6 grid-cols-1 gap-6 w-full lg:w-1/3 h-full  px-0 pr-3">
+                        <TabsList className="bg-transparent text-base leading-[24px] hidden sm:grid grid-rows-6 grid-cols-1 gap-6 w-full lg:w-1/3 h-full  px-0 pr-3">
                             {tabs?.map((tab, idx) => (
                                 <TabsTrigger
                                     value={tab?.title}

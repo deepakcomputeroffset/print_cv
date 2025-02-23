@@ -9,7 +9,7 @@ export default function PrintMagicSection() {
     return (
         <section
             className={cn(
-                "relative overflow-hidden min-h-screen h-full bg-[#eda371] flex justify-center items-center py-24",
+                "relative overflow-hidden h-full bg-[#eda371] flex justify-center items-center py-20",
                 sourceSerif4.className,
             )}
         >

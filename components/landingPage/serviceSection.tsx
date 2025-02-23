@@ -202,7 +202,7 @@ export function OurServices() {
                     >
                         Why Choose Us?
                     </motion.h3> */}
-                    <h2 className="mb-10 md:mb-12 text-black bg-white text-5xl md:text-[121.6px] mt-0 mx-0 leading-[103.36px] font-normal tracking-[-0.6px]">
+                    <h2 className="mb-10 md:mb-7 text-black bg-white text-5xl md:text-8xl mt-0 mx-0 leading-[103.36px] font-normal tracking-[-0.6px]">
                         Our Features
                     </h2>
                     <p className="inline-flex sm:w-1/2 mb-[32px] text-black bg-white text-[28px] mt-0 mx-0 leading-[42px] font-normal tracking-[-0.8px] ">
@@ -213,7 +213,7 @@ export function OurServices() {
                         className="grid lg:flex flex-col gap-5 h-full w-full"
                         defaultValue={tabs?.[0].title}
                     >
-                        <TabsList className="text-base leading-[24px] font-normal flex flex-wrap space-y-3 md:space-y-0 w-fit self-end h-full  p-2 bg-[#E8CCD2] shadow-[4px_6px_0px_0px_#000] rounded-2xl">
+                        <TabsList className="text-base leading-[24px] font-normal hidden sm:flex flex-wrap space-y-3 md:space-y-0 w-fit self-end h-full  p-2 bg-[#E8CCD2] shadow-[4px_6px_0px_0px_#000] rounded-2xl">
                             {tabs?.map((tab, idx) => (
                                 <TabsTrigger
                                     value={tab?.title}

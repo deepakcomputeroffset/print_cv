@@ -9,7 +9,7 @@ export default function FeedBackSection() {
     return (
         <section
             className={cn(
-                "box-border relative overflow-hidden pt-8 pb-8 bg-cover bg-no-repeat bg-[50%_50%] text-[#232323] font-normal leading-[24px] m-0 flex flex-wrap justify-center w-full gap-12",
+                "box-border relative overflow-hidden py-5 bg-cover bg-no-repeat bg-[50%_50%] text-[#232323] font-normal leading-[24px] m-0 flex flex-wrap justify-center w-full gap-12",
                 sourceSerif4.className,
             )}
         >
@@ -29,7 +29,7 @@ export default function FeedBackSection() {
                         },
                     }}
                     viewport={{ once: true }}
-                    className="text-8xl lg:text-[121.6px] leading-[1.0336] tracking-[-0.6px] font-medium lg:font-normal mt-0 -mb-4 text-black origin-top-left"
+                    className="text-8xl lg:text-8xl leading-[1.0336] tracking-[-0.6px] font-medium lg:font-normal mt-0 -mb-4 text-black origin-top-left"
                 >
                     Client Love
                 </motion.h2>
@@ -52,7 +52,7 @@ export default function FeedBackSection() {
                         },
                     }}
                     viewport={{ once: true }}
-                    className="text-8xl lg:text-[121.6px] leading-[1.0336] tracking-[-0.6px] font-medium lg:font-normal -mt-4 mb-0 text-right text-black"
+                    className="text-8xl lg:text-8xl leading-[1.0336] tracking-[-0.6px] font-medium lg:font-normal -mt-4 mb-0 text-right text-black"
                 >
                     What They Say
                 </motion.h2>

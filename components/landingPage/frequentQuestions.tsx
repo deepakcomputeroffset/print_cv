@@ -41,10 +41,10 @@ export function FrequntQuestionsSection() {
     };
 
     return (
-        <section className={cn("pt-10 pb-10 lg:pb-20", sourceSerif4.className)}>
-            <div className="w-full mx-auto px-4 max-w-6xl">
+        <section className={cn("pt-10", sourceSerif4.className)}>
+            <div className="w-full mx-auto px-4 max-w-customHaf lg:max-w-custom">
                 <div className="mb-10">
-                    <h3 className="inline-block px-6 py-3 bg-[#EDA371] rounded-lg rotate-[-4deg] text-2xl font-semibold shadow-[4px_4px_0px_0px_#000]">
+                    <h3 className="inline-block px-6 py-3 bg-[#EDA371] rounded-lg text-5xl font-semibold shadow-[5px_6px_0px_0px_#000]">
                         Frequently Asked Questions
                     </h3>
                 </div>

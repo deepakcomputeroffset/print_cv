@@ -8,7 +8,7 @@ export default function GetStartedSection() {
     return (
         <section
             className={cn(
-                "lg:pb-[80px] bg-white text-charcoal-black text-[16px] m-0 leading-[24px] font-normal px-4",
+                "lg:pb-10 bg-white text-charcoal-black text-[16px] m-0 leading-[24px] font-normal px-4",
                 sourceSerif4.className,
             )}
         >
@@ -27,11 +27,11 @@ export default function GetStartedSection() {
                             },
                         }}
                         viewport={{ once: true }}
-                        className="text-7xl lg:text-[121.6px] leading-[1.0336] tracking-[-0.6px] font-medium lg:font-normal mb-[56px] text-black origin-top-left"
+                        className="text-8xl leading-[1.0336] tracking-[-0.6px] font-medium lg:font-normal mb-[56px] text-black origin-top-left"
                     >
                         Get Started
                     </motion.h2>
-                    <motion.h3
+                    {/* <motion.h3
                         initial={{
                             opacity: 0,
                         }}
@@ -47,7 +47,7 @@ export default function GetStartedSection() {
                         className="inline-flex mb-[56px] px-[24px] py-[18px] shadow-[6px_8px_0px_0px_#000] rounded-2xl rotate-[-4deg] text-4xl sm:text-7xl leading-[64.8px] font-normal tracking-[-0.52px] bg-[#EDA371] text-black"
                     >
                         Today!
-                    </motion.h3>
+                    </motion.h3> */}
                     <div className="relative z-10 flex lg:w-2/5 text-black text-center">
                         <motion.div
                             initial={{
