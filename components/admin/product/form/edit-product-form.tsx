@@ -39,7 +39,7 @@ import {
     productAttributeValue,
     productItem,
 } from "@prisma/client";
-import { getAllProductCategory } from "@/lib/get.categories";
+import { getAllProductCategory } from "@/lib/getCategories";
 import { getDirtyFieldsWithValues } from "@/lib/utils";
 import { useMount } from "@/hooks/use-mount";
 import { useRouter } from "next/navigation";

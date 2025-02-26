@@ -1,7 +1,11 @@
 import ProductDetails from "@/components/product/productDetail";
 import { auth } from "@/lib/auth";
+import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
 import { prisma } from "@/lib/prisma";
-import { ProductTypeOnlyWithPrice } from "@/types/types";
+import {
+    ProductItemTypeOnlyWithPrice,
+    ProductTypeOnlyWithPrice,
+} from "@/types/types";
 import { redirect } from "next/navigation";
 
 export default async function ProductPage({
@@ -16,29 +20,23 @@ export default async function ProductPage({
     const session = await auth();
     const customerCategory = session?.user?.customer?.customerCategory || "LOW";
 
-    const query = `
-    SELECT 
-      p.*,
-      CASE
-        WHEN $1 = 'LOW' THEN p.maxPrice
-        WHEN $1 = 'MEDIUM' THEN p.avgPrice
-        WHEN $1 = 'HIGH' THEN p.minPrice
-        ELSE p.ogPrice
-      END AS price,
-      c.name as category_name,
-      c.id as categoryId
-    FROM product p
-    LEFT JOIN productCategory c ON p.categoryId = c.id
-    WHERE p.id = $2
-  `;
-
-    const products: ProductTypeOnlyWithPrice[] = await prisma.$queryRawUnsafe(
-        query,
-        customerCategory,
-        parseInt(id),
-    );
-
-    const product = products[0];
+    const product = await prisma.product.findUnique({
+        where: {
+            id: parseInt(id),
+        },
+        include: {
+            category: true,
+            productItems: {
+                include: {
+                    productAttributeOptions: {
+                        include: {
+                            productAttributeType: true,
+                        },
+                    },
+                },
+            },
+        },
+    });
 
     if (!product) {
         return (
@@ -47,34 +45,39 @@ export default async function ProductPage({
             </div>
         );
     }
-
-    // Fetch product items with their attribute options
-    const productItems = await prisma.productItem.findMany({
-        where: {
-            productId: parseInt(id),
-        },
-        include: {
-            productAttributeOptions: {
-                include: {
-                    productAttributeType: true,
-                },
-            },
-        },
-    });
-
-    // Transform the data for the client component
-    const transformedProduct = {
-        ...product,
-        productItems: productItems.map((item) => ({
-            ...item,
-            price:
-                customerCategory === "LOW"
-                    ? item.maxPrice
-                    : customerCategory === "MEDIUM"
-                      ? item.avgPrice
-                      : customerCategory === "HIGH"
-                        ? item.minPrice
-                        : item.ogPrice,
+    const transformedProduct: ProductTypeOnlyWithPrice & {
+        productItems: ProductItemTypeOnlyWithPrice[];
+    } = {
+        id: product.id,
+        name: product.name,
+        categoryId: product.categoryId,
+        description: product.description,
+        imageUrl: product.imageUrl,
+        isAvailable: product.isAvailable,
+        sku: product.sku,
+        minQty: product.minQty,
+        price: getPriceAccordingToCategoryOfCustomer(customerCategory, {
+            avgPrice: product.avgPrice,
+            maxPrice: product.maxPrice,
+            minPrice: product.minPrice,
+        }),
+        createdAt: product.createdAt,
+        updatedAt: product.updatedAt,
+        productItems: product.productItems.map((item) => ({
+            id: item.id,
+            productId: item.productId,
+            imageUrl: item.imageUrl,
+            isAvailable: item.isAvailable,
+            minQty: item.minQty,
+            productAttributeOptions: item.productAttributeOptions,
+            sku: item.sku,
+            createdAt: item.createdAt,
+            updatedAt: item.updatedAt,
+            price: getPriceAccordingToCategoryOfCustomer(customerCategory, {
+                avgPrice: item.avgPrice,
+                maxPrice: item.maxPrice,
+                minPrice: item.minPrice,
+            }),
         })),
     };
 

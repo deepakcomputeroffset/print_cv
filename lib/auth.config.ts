@@ -97,6 +97,7 @@ export const authConfig: AuthOptions = {
                                 phone: staff?.phone,
                                 email: staff?.email,
                                 role: staff?.role,
+                                isBanned: staff?.isBanned,
                             },
                         };
                     } else {
@@ -109,24 +110,21 @@ export const authConfig: AuthOptions = {
             },
         }),
     ],
+
+    session: {
+        strategy: "jwt",
+        maxAge: 3600, // 1 hr
+    },
+    jwt: { maxAge: 3600 },
+
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
                 token.userType = user.userType;
-                if (user.customer) {
-                    token.customer = user.customer;
-                }
-                if (user.staff) {
-                    token.staff = user.staff;
-                }
+                if (user.customer) token.customer = user.customer;
+                if (user.staff) token.staff = user.staff;
             }
-
             return token;
-        },
-
-        async redirect({ url, baseUrl }) {
-            if (url.match(baseUrl)) return url;
-            return baseUrl + url;
         },
 
         async session({ session, token }) {
@@ -137,15 +135,72 @@ export const authConfig: AuthOptions = {
                 return session;
             }
 
-            if (token.userType === "customer" && token.customer) {
-                session.user = { ...session.user, customer: token.customer };
-                session.user.userType = token.userType;
-            } else if (token.userType === "staff" && token.staff) {
-                session.user = { ...session.user, staff: token.staff };
-                session.user.userType = token.userType;
-            }
+            if (token.userType === "customer") {
+                const customer = await prisma?.customer?.findUnique({
+                    where: {
+                        phone: token?.customer?.phone,
+                        isBanned: false,
+                    },
+                    include: {
+                        wallet: {
+                            select: {
+                                balance: true,
+                                id: true,
+                            },
+                        },
+                    },
+                });
+                if (!customer) {
+                    session.user.customer = undefined;
+                    session.user.staff = undefined;
+                    session.user.userType = undefined;
+                    return session;
+                }
 
+                session.user = {
+                    customer: {
+                        email: customer?.email,
+                        name: customer?.name,
+                        businessName: customer?.businessName,
+                        phone: customer?.phone,
+                        isBanned: customer?.isBanned,
+                        id: customer?.id,
+                        customerCategory: customer?.customerCategory,
+                        wallet: customer?.wallet
+                            ? customer?.wallet
+                            : { id: customer.id, balance: 0 },
+                    },
+                    userType: "customer",
+                    staff: undefined,
+                };
+            } else if (token.userType === "staff") {
+                const staff = await prisma.staff.findUnique({
+                    where: { id: token?.staff?.id },
+                });
+                if (!staff || staff?.isBanned) {
+                    session.user.customer = undefined;
+                    session.user.staff = undefined;
+                    session.user.userType = undefined;
+                    return session;
+                }
+                session.user = {
+                    staff: {
+                        email: staff?.email,
+                        id: staff.id,
+                        isBanned: staff.isBanned,
+                        name: staff.name,
+                        phone: staff.phone,
+                        role: staff.role,
+                    },
+                    customer: undefined,
+                    userType: "staff",
+                };
+            }
             return session;
+        },
+
+        async redirect({ url, baseUrl }) {
+            return url.startsWith(baseUrl) ? url : baseUrl;
         },
     },
 };

@@ -38,18 +38,22 @@ export const CustomerRegisterForm = () => {
     const form = useForm<z.infer<typeof customerFormSchema>>({
         resolver: zodResolver(customerFormSchema),
         defaultValues: {
-            name: "Aditya Kumar",
-            businessName: "Web Dev",
-            email: "aaditya@gmail.com",
-            country: "india",
-            state: "115",
-            city: "4",
-            pinCode: "123456",
-            gstNumber: "",
-            line: "example ",
-            phone: "1234567890",
-            referenceId: "",
-            password: "Abc1234@@",
+            name: process.env.NODE_ENV === "development" ? "Aditya Kumar" : "",
+            businessName:
+                process.env.NODE_ENV === "development" ? "Web Dev" : "",
+            email:
+                process.env.NODE_ENV === "development"
+                    ? "aaditya@gmail.com"
+                    : "",
+            country: process.env.NODE_ENV === "development" ? "india" : "",
+            state: process.env.NODE_ENV === "development" ? "115" : "",
+            city: process.env.NODE_ENV === "development" ? "4" : "",
+            pinCode: process.env.NODE_ENV === "development" ? "123456" : "",
+            gstNumber: process.env.NODE_ENV === "development" ? "" : "",
+            line: process.env.NODE_ENV === "development" ? "example " : "",
+            phone: process.env.NODE_ENV === "development" ? "1234567890" : "",
+            referenceId: process.env.NODE_ENV === "development" ? "" : "",
+            password: process.env.NODE_ENV === "development" ? "Abc1234@@" : "",
         },
     });
 
@@ -80,7 +84,11 @@ export const CustomerRegisterForm = () => {
                         <FormItem>
                             <FormLabel>Business Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="Abc" {...field} />
+                                <Input
+                                    placeholder="Abc"
+                                    {...field}
+                                    className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -94,7 +102,11 @@ export const CustomerRegisterForm = () => {
                         <FormItem>
                             <FormLabel>Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="Radhe Radhe" {...field} />
+                                <Input
+                                    placeholder="Radhe Radhe"
+                                    {...field}
+                                    className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -198,7 +210,11 @@ export const CustomerRegisterForm = () => {
                         <FormItem>
                             <FormLabel>Pin code</FormLabel>
                             <FormControl>
-                                <Input placeholder="123456" {...field} />
+                                <Input
+                                    placeholder="123456"
+                                    {...field}
+                                    className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -215,6 +231,7 @@ export const CustomerRegisterForm = () => {
                                 <Input
                                     placeholder="Sector-8, Noida"
                                     {...field}
+                                    className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -232,6 +249,7 @@ export const CustomerRegisterForm = () => {
                                 <Input
                                     placeholder="john@example.com"
                                     {...field}
+                                    className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -246,7 +264,11 @@ export const CustomerRegisterForm = () => {
                         <FormItem>
                             <FormLabel>GST Number</FormLabel>
                             <FormControl>
-                                <Input placeholder="Optional" {...field} />
+                                <Input
+                                    placeholder="Optional"
+                                    {...field}
+                                    className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -260,7 +282,11 @@ export const CustomerRegisterForm = () => {
                         <FormItem>
                             <FormLabel>Phone</FormLabel>
                             <FormControl>
-                                <Input placeholder="+911234567890" {...field} />
+                                <Input
+                                    placeholder="+911234567890"
+                                    {...field}
+                                    className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -285,8 +311,12 @@ export const CustomerRegisterForm = () => {
                     )}
                 />
 
-                <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? "Creating account..." : "Create account"}
+                <Button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-[#A6192E] text-white p-3 py-5 rounded-md text-lg font-semibold hover:bg-[#870F20] transition"
+                >
+                    {loading ? "Creating" : "Sign Up"}
                 </Button>
             </form>
         </Form>

@@ -1,6 +1,8 @@
+import serverResponse from "@/lib/serverResponse";
 import { NextResponse } from "next/server";
-// import { prisma } from "@/lib/prisma";
-// import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
+import { deleteFile } from "@/lib/storage";
 
 export async function GET(
     req: Request,
@@ -87,5 +89,65 @@ export async function PATCH(
             { message: "Error updating order" },
             { status: 500 },
         );
+    }
+}
+
+export async function DELETE(
+    req: Request,
+    { params }: { params: Promise<{ id: string }> },
+) {
+    try {
+        const session = await auth();
+
+        if (
+            session?.user?.userType != "customer" ||
+            session?.user?.customer?.isBanned ||
+            !session?.user?.customer
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
+        const { id } = await params;
+        if (!id || isNaN(parseInt(id))) {
+            return serverResponse({
+                status: 400,
+                success: false,
+                error: "Order ID is required.",
+            });
+        }
+
+        const order = await prisma.order.delete({
+            where: { id: parseInt(id), customerId: session.user.customer.id },
+            select: { fileUrl: true, id: true },
+        });
+
+        if (!order) {
+            return serverResponse({
+                status: 404,
+                success: false,
+                error: "Order not found!",
+            });
+        }
+
+        if (order.fileUrl) {
+            const deleted = await deleteFile(order.fileUrl);
+            console.log(deleted ? "File deleted" : "File not deleted");
+        }
+
+        return serverResponse({
+            status: 200,
+            success: true,
+            message: "Order deleted successfully.",
+        });
+    } catch (error) {
+        console.error(error);
+        return serverResponse({
+            status: 500,
+            success: false,
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }

@@ -1,16 +1,27 @@
+import CheckoutPage from "@/components/order/placeOrder";
+import { auth } from "@/lib/auth";
+import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
+import { ProductItemType } from "@/types/types";
+import { productAttributeValue } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 export default async function PlaceOrderPage({
     searchParams,
 }: {
-    searchParams: Promise<{ productId: string; qty: string }>;
+    searchParams: Promise<{ productItemId: string; qty: string }>;
 }) {
     try {
         const params = await searchParams;
+        const session = await auth();
+        const customerCategory =
+            session?.user?.customer?.customerCategory || "LOW";
+
+        if (!session) return redirect("/");
+
         if (
-            !params?.productId ||
+            !params?.productItemId ||
             !params?.qty ||
-            isNaN(parseInt(params?.productId)) ||
+            isNaN(parseInt(params?.productItemId)) ||
             isNaN(parseInt(params?.qty))
         ) {
             return redirect("/customer/products");
@@ -18,7 +29,18 @@ export default async function PlaceOrderPage({
 
         const productItem = await prisma?.productItem.findUnique({
             where: {
-                id: parseInt(params?.productId),
+                id: parseInt(params?.productItemId),
+            },
+            include: {
+                productAttributeOptions: true,
+                product: {
+                    select: {
+                        name: true,
+                        categoryId: true,
+                        description: true,
+                        imageUrl: true,
+                    },
+                },
             },
         });
 
@@ -30,11 +52,36 @@ export default async function PlaceOrderPage({
             );
         }
 
-        return (
-            <div>
-                <p>{productItem?.id}</p>
-            </div>
-        );
+        const transformedProductItem: ProductItemType & {
+            productAttributeOptions: productAttributeValue[];
+            product: {
+                name: string;
+                categoryId: number;
+                description: string;
+                imageUrl: string[];
+            };
+            price: number;
+            qty: number;
+        } = {
+            id: productItem.id,
+            productId: productItem.productId,
+            imageUrl: productItem.imageUrl,
+            isAvailable: productItem.isAvailable,
+            minQty: productItem.minQty,
+            productAttributeOptions: productItem.productAttributeOptions,
+            sku: productItem.sku,
+            createdAt: productItem.createdAt,
+            updatedAt: productItem.updatedAt,
+            price: getPriceAccordingToCategoryOfCustomer(customerCategory, {
+                avgPrice: productItem.avgPrice,
+                maxPrice: productItem.maxPrice,
+                minPrice: productItem.minPrice,
+            }),
+            product: productItem.product,
+            qty: parseInt(params.qty),
+        };
+
+        return <CheckoutPage product={transformedProductItem} />;
     } catch (error) {
         return (
             <div className="p-6">

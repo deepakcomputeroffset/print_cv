@@ -34,7 +34,7 @@ import { Loader2, X } from "lucide-react";
 import { Dropzone } from "@/components/ui/dropzone";
 import { useProducts } from "@/hooks/use-product";
 import { productAttributeType, productAttributeValue } from "@prisma/client";
-import { getAllProductCategory } from "@/lib/get.categories";
+import { getAllProductCategory } from "@/lib/getCategories";
 import axios from "axios";
 import { UploadApiResponse } from "cloudinary";
 

@@ -176,14 +176,14 @@ model productAttributeType {
 }
 
 model order {
-    id             Int    @id @default(autoincrement())
-    customerId     Int
-    productItemId  Int
-    qty            Int
-    amount         Int
-    deliveryCharge Int?
-    status         STATUS @default(PENDING)
-    process        task[]
+    id            Int    @id @default(autoincrement())
+    customerId    Int
+    productItemId Int
+    qty           Int
+    amount        Int
+    status        STATUS @default(PENDING)
+    process       task[]
+    fileUrl       String
 
     productItem productItem @relation(fields: [productItemId], references: [id])
     customer    customer    @relation(fields: [customerId], references: [id])

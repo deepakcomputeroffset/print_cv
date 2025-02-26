@@ -1,9 +1,7 @@
 import queryString from "query-string";
 import axios from "axios";
-import { z } from "zod";
-import { QueryParams } from "@/types/types";
+import { QueryParams, ServerResponseType } from "@/types/types";
 import { orderBaseUrl } from "../urls";
-import { orderFormSchema } from "@/schemas/order.form.schema";
 import { order, productItem } from "@prisma/client";
 
 export async function fetchOrders(params: QueryParams = {}): Promise<
@@ -20,8 +18,8 @@ export async function fetchOrders(params: QueryParams = {}): Promise<
     return await axios(url);
 }
 
-export async function createOrder(data: z.infer<typeof orderFormSchema>) {
-    return await axios.post(orderBaseUrl, data);
+export async function createOrder(data: FormData) {
+    return await axios.post<ServerResponseType<order>>(orderBaseUrl, data);
 }
 
 export async function deleteOrder(id: number) {

@@ -11,7 +11,7 @@ import {
     productItem,
     state,
 } from "@prisma/client";
-import { z } from "zod";
+import { z, ZodIssue } from "zod";
 
 export type customerWithAddress = customer & {
     address?: address & {
@@ -41,17 +41,19 @@ export interface QueryParams extends z.infer<typeof QuerySchema> {
     parentCategoryId?: string;
 }
 
-export type ProductTypeOnlyWithPrice = Omit<
+export type ProductType = Omit<
     product,
-    "minPrice" | "price" | "midPrice" | "ogPrice"
-> & {
+    "minPrice" | "avgPrice" | "maxPrice" | "ogPrice"
+>;
+export type ProductTypeOnlyWithPrice = ProductType & {
     price: number;
 };
 
-export type ProductItemTypeOnlyWithPrice = Omit<
+export type ProductItemType = Omit<
     productItem,
-    "minPrice" | "price" | "midPrice" | "ogPrice"
-> & {
+    "minPrice" | "avgPrice" | "maxPrice" | "ogPrice"
+>;
+export type ProductItemTypeOnlyWithPrice = ProductItemType & {
     price: number;
     productAttributeOptions: (productAttributeValue & {
         productAttributeType: productAttributeType;
@@ -60,3 +62,16 @@ export type ProductItemTypeOnlyWithPrice = Omit<
 
 export type banStatus = "true" | "false";
 export type sortType = "asc" | "desc";
+
+export type ValidationError = {
+    field: string;
+    message: string;
+};
+
+export interface ServerResponseType<T> {
+    success: boolean;
+    message?: string | undefined;
+    error?: string | undefined | ZodIssue[] | ValidationError[] | any;
+    data?: T | undefined;
+    status: number;
+}

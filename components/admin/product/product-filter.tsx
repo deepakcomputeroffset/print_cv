@@ -15,7 +15,7 @@ import { QueryParams, sortType } from "@/types/types";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useUrlFilters } from "@/hooks/useUrlFilter";
 import { useEffect, useState } from "react";
-import { getAllProductCategory } from "@/lib/get.categories";
+import { getAllProductCategory } from "@/lib/getCategories";
 import { useProductCategory } from "@/hooks/useProductCategory";
 import { Card } from "@/components/ui/card";
 

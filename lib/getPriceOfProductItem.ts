@@ -1,18 +1,17 @@
-import { productItem } from "@prisma/client";
-import { Session } from "next-auth";
+import { CUSTOMER_CATEGORY } from "@prisma/client";
 
 export function getPriceAccordingToCategoryOfCustomer(
-    session: Session,
-    productItem: productItem,
+    customerCategory: CUSTOMER_CATEGORY,
+    prices: { maxPrice: number; avgPrice: number; minPrice: number },
 ): number {
-    switch (session?.user?.customer?.customerCategory) {
+    switch (customerCategory) {
         case "LOW":
-            return productItem?.maxPrice;
+            return prices?.maxPrice;
         case "MEDIUM":
-            return productItem?.avgPrice;
+            return prices?.avgPrice;
         case "HIGH":
-            return productItem?.minPrice;
+            return prices?.minPrice;
         default:
-            return productItem?.maxPrice;
+            return prices?.maxPrice;
     }
 }

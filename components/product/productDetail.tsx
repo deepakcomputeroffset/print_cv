@@ -75,7 +75,7 @@ export default function ProductDetails({
     const handleBuy = async () => {
         if (!selectedVariant) return;
         router.push(
-            `/customer/order/place?productId=${selectedVariant?.id}&qty=${Math.max(qty, selectedVariant?.minQty)}`,
+            `/customer/order/place?productItemId=${selectedVariant?.id}&qty=${Math.max(qty, selectedVariant?.minQty)}`,
         );
     };
 

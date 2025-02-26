@@ -39,6 +39,7 @@ export function ConnectSection() {
                 "py-10 max-w-customHaf lg:max-w-custom mx-auto",
                 sourceSerif4.className,
             )}
+            id="connect"
         >
             <div className="relative px-4">
                 <div>

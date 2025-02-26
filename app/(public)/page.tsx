@@ -4,7 +4,7 @@ import { FrequntQuestionsSection } from "@/components/landingPage/frequentQuesti
 import GetStartedSection from "@/components/landingPage/getStartedSection";
 import HeroSection from "@/components/landingPage/hero";
 // import { MarqueeSection } from "@/components/landingPage/Marquee";
-import Navbar from "@/components/landingPage/nav";
+// import Navbar from "@/components/navbar/nav";
 import PrintLikeProSection from "@/components/landingPage/printLikeProSection";
 import PrintMagicSection from "@/components/landingPage/printMagicSection";
 // import ImageSection from "@/components/landingPage/imageSection";
@@ -19,7 +19,7 @@ import WhySection from "@/components/landingPage/whySection";
 export default function TestPage() {
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <HeroSection />
             {/* <MarqueeSection /> */}
             {/* <ImageSection /> */}
