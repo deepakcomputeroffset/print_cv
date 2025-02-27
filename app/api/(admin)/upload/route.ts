@@ -1,54 +1,65 @@
-import {
-    calculateBase64Size,
-    DELETE_FILE,
-    UPLOAD_TO_CLOUDINARY,
-} from "@/lib/cloudinary";
+import { auth } from "@/lib/auth";
 import { maxImageSize } from "@/lib/constants";
+import serverResponse from "@/lib/serverResponse";
+import { deleteFile, uploadMultipleFiles } from "@/lib/storage";
 
 export async function POST(res: Request): Promise<Response> {
     try {
-        const data = await res.json();
-        const files = data?.files as string[];
+        const session = await auth();
+        if (
+            !session ||
+            session.user.userType !== "staff" ||
+            !session.user?.staff
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                message: "Unauthorized",
+            });
+        }
+        const data = await res.formData();
+        const files = data?.getAll("files") as File[];
+
         if (!files) {
-            return Response.json(
-                {
-                    message: "Image not found",
-                    success: false,
-                },
-                {
-                    status: 400,
-                },
-            );
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "File not found",
+            });
         }
 
-        const validFiles = files.filter(
-            (file) => calculateBase64Size(file) <= maxImageSize,
-        );
+        const validFiles = files.filter((file) => file.size <= maxImageSize);
 
         if (validFiles.length !== files.length) {
-            return Response.json(
-                {
-                    message: "Some image are too large.",
-                    success: false,
-                },
-                {
-                    status: 400,
-                },
-            );
+            return serverResponse({
+                message: "Some files are too large.",
+                success: false,
+                status: 400,
+            });
         }
 
-        const folder = "products";
-        const promises = validFiles.map(
-            async (file) => await UPLOAD_TO_CLOUDINARY(file, folder),
+        const folder: "images" | "files" =
+            data.get("folder") === "images" ? "images" : "files";
+
+        const urls = await uploadMultipleFiles(
+            folder,
+            files,
+            session.user.staff?.id.toString(),
         );
-        const results = await Promise.all(promises);
-        return Response.json(results, { status: 201 });
+        return serverResponse({
+            status: 201,
+            success: true,
+            message: "All files are uploaded.",
+            data: urls,
+        });
     } catch (error) {
         console.log(error);
-        return Response.json(
-            { message: "some error occured while uploading", error },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Internal error",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }
 
@@ -57,16 +68,27 @@ export async function DELETE(res: Request) {
         const { searchParams } = new URL(res.url);
         const urlToDelete = searchParams?.get("url") as string;
 
-        const result = await DELETE_FILE(urlToDelete);
-        return Response.json(result, { status: 200 });
+        const result = await deleteFile(urlToDelete);
+        if (!result) {
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "File not deleted",
+                error: "Url can be invalid",
+            });
+        }
+        return serverResponse({
+            status: 200,
+            success: true,
+            message: "File deleted successfully",
+        });
     } catch (error) {
         console.log("ERROR WHILE DELETE FILE", error);
-        return Response.json(
-            {
-                message: "Internal Error",
-                error,
-            },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Internal error",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }

@@ -183,6 +183,7 @@ const RenderCategoryRow = ({
                         <Button
                             variant="ghost"
                             size="icon"
+                            disabled={hasSubcategories}
                             onClick={() => {
                                 onOpen("deleteProductCategory", {
                                     productCategory: category,

@@ -1,14 +1,28 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateHash } from "@/lib/hash";
 import { customerFormSchema } from "@/schemas/customer.form.schema";
 import { Prisma } from "@prisma/client";
 import { QuerySchema } from "@/schemas/query.param.schema";
 import { defaultCustomerPerPage } from "@/lib/constants";
+import { auth } from "@/lib/auth";
+import serverResponse from "@/lib/serverResponse";
 
 export async function GET(request: Request) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session?.user?.userType != "staff" ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session?.user?.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
+
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
@@ -86,50 +100,60 @@ export async function GET(request: Request) {
             }),
         ]);
 
-        return NextResponse.json({
-            customers,
-            total,
-            page: query.page || 1,
-            perpage: query.perpage || defaultCustomerPerPage,
-            totalPages: Math.ceil(
-                total / (query.perpage || defaultCustomerPerPage),
-            ),
+        return serverResponse({
+            data: {
+                customers,
+                total,
+                page: query.page || 1,
+                perpage: query.perpage || defaultCustomerPerPage,
+                totalPages: Math.ceil(
+                    total / (query.perpage || defaultCustomerPerPage),
+                ),
+            },
+            status: 200,
+            success: true,
+            message: "Customers data fetched successfully",
         });
     } catch (error) {
-        console.error("Error fetching customers:", error);
-        return NextResponse.json(
-            { error: "Failed to fetch customers" },
-            { status: 500 },
-        );
+        console.error("Error fetching customers:", `${error}`);
+        return serverResponse({
+            error: error instanceof Error ? error.message : error,
+            status: 500,
+            success: false,
+            message: "Internal Error",
+        });
     }
 }
 
 export async function POST(req: Request) {
     try {
-        // TODO: AUTHENTICATION
         const data = await req.json();
-        const { success, data: safeData } = customerFormSchema?.safeParse(data);
+        const {
+            success,
+            data: safeData,
+            error,
+        } = customerFormSchema?.safeParse(data);
 
         if (!success) {
-            return NextResponse.json(
-                { success: false, message: "Missing required fields" },
-                { status: 400 },
-            );
+            return serverResponse({
+                status: 400,
+                success: false,
+                error: error.issues,
+                message: "Required all fields",
+            });
         }
 
         // Check if customer already exists
-        const exit_customer = await prisma.customer.findUnique({
+        const isExist = await prisma.customer.findUnique({
             where: { phone: safeData?.phone },
         });
 
-        if (exit_customer) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "customer already exist with this phone number",
-                },
-                { status: 400 },
-            );
+        if (isExist) {
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "Customer already exist with this phone number",
+            });
         }
 
         // Create customer
@@ -153,19 +177,19 @@ export async function POST(req: Request) {
             },
         });
 
-        return NextResponse.json(
-            {
-                success: true,
-                message: "customer created successfully",
-                customer,
-            },
-            { status: 201 },
-        );
+        return serverResponse({
+            status: 201,
+            success: true,
+            message: "Customer created successfully",
+            data: customer,
+        });
     } catch (error) {
         console.error("Registration error:", `${error}`);
-        return NextResponse.json(
-            { message: "Something went wrong" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            error: error instanceof Error ? error.message : error,
+            message: "Internal error",
+        });
     }
 }

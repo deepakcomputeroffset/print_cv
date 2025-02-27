@@ -1,40 +1,42 @@
 import queryString from "query-string";
 import axios from "axios";
-import { z } from "zod";
-import { productCategoryWithSubCategory, QueryParams } from "@/types/types";
-import { productCategoryBaseUrl } from "../urls";
-import { productCategorySchema } from "@/schemas/product.category.form.schema";
+import {
+    productCategoryWithSubCategory,
+    QueryParams,
+    ServerResponseType,
+} from "@/types/types";
+import { productCategoryBaseUrl } from "@/lib/urls";
+import { productCategory } from "@prisma/client";
 
-export async function fetchProductCategories(
-    params: QueryParams = {},
-): Promise<QueryParams & { data: productCategoryWithSubCategory[] }> {
+type ResponseType = QueryParams & { data: productCategoryWithSubCategory[] };
+
+export async function fetchProductCategories(params: QueryParams = {}) {
     const url = queryString.stringifyUrl({
         url: productCategoryBaseUrl,
         query: { ...params },
     });
 
-    const { data } = await axios.get(url);
+    const { data } = await axios.get<ServerResponseType<ResponseType>>(url);
     return data;
 }
 
-export async function createProductCategory(
-    data: z.infer<typeof productCategorySchema>,
-) {
-    const { data: response } = await axios.post(productCategoryBaseUrl, data);
+export async function createProductCategory(data: FormData) {
+    const { data: response } = await axios.post<
+        ServerResponseType<productCategory>
+    >(productCategoryBaseUrl, data);
     return response;
 }
 
-export async function updateProductCategory(
-    id: number,
-    data: Partial<z.infer<typeof productCategorySchema>>,
-) {
+export async function updateProductCategory(id: number, data: FormData) {
     const url = `${productCategoryBaseUrl}/${id}`;
-    const { data: response } = await axios.patch(url, data);
+    const { data: response } = await axios.patch<
+        ServerResponseType<productCategory>
+    >(url, data);
     return response;
 }
 
 export async function deleteProductCategory(id: number) {
     const url = `${productCategoryBaseUrl}/${id}`;
-    const { data } = await axios.delete(url);
+    const { data } = await axios.delete<ServerResponseType<null>>(url);
     return data;
 }

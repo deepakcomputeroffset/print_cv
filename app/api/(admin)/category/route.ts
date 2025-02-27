@@ -1,14 +1,35 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma, ROLE } from "@prisma/client";
 import { QuerySchema } from "@/schemas/query.param.schema";
-import { defaultProductCategoryPerPage, maxImageSize } from "@/lib/constants";
+import {
+    allowedRoleForCategoryAndProductManagement,
+    defaultProductCategoryPerPage,
+    maxImageSize,
+} from "@/lib/constants";
 import { productCategorySchema } from "@/schemas/product.category.form.schema";
-import { calculateBase64Size, UPLOAD_TO_CLOUDINARY } from "@/lib/cloudinary";
+import { auth } from "@/lib/auth";
+import serverResponse from "@/lib/serverResponse";
+import { parseFormData } from "@/lib/formData";
+import { uploadFile } from "@/lib/storage";
 
 export async function GET(request: Request) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session.user.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session.user.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session.user.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                message: "Unauthorized",
+            });
+        }
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
@@ -59,80 +80,114 @@ export async function GET(request: Request) {
             }),
         ]);
 
-        return NextResponse.json({
-            data: product_categories,
-            total,
-            page: query.page || 1,
-            perpage: query.perpage || defaultProductCategoryPerPage,
-            totalPages: Math.ceil(
-                total / (query.perpage || defaultProductCategoryPerPage),
-            ),
+        return serverResponse({
+            status: 200,
+            success: true,
+            message: "Product Category fetched successfully",
+            data: {
+                data: product_categories,
+                total,
+                page: query.page || 1,
+                perpage: query.perpage || defaultProductCategoryPerPage,
+                totalPages: Math.ceil(
+                    total / (query.perpage || defaultProductCategoryPerPage),
+                ),
+            },
         });
     } catch (error) {
         console.error("Error fetching customers:", error);
-        return NextResponse.json(
-            { error: "Failed to fetch customers" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            error: error instanceof Error ? error?.message : error,
+            message: "Internal Error",
+        });
     }
 }
 
 export async function POST(req: Request) {
     try {
-        // TODO: AUTHENTICATION
-        const data = await req.json();
-        const safeData = productCategorySchema?.parse(data);
+        const session = await auth();
+        if (
+            !session ||
+            session.user.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session.user.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session.user.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                message: "Unauthorized",
+            });
+        }
 
+        const data = await req.formData();
+        const safeData = parseFormData(data, productCategorySchema);
+
+        if (!safeData.success) {
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "Invalid Data",
+                error: safeData.error.issues,
+            });
+        }
         // Check if productCategory already exists
         const existingProductCategory = await prisma.productCategory.findFirst({
-            where: { name: safeData?.name },
+            where: { name: safeData?.data?.name },
         });
 
         if (existingProductCategory) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message:
-                        "productCategory already exist with this phone number",
-                },
-                { status: 400 },
-            );
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "Product category already exist with this name",
+            });
         }
 
-        if (calculateBase64Size(safeData.imageUrl) > maxImageSize) {
-            return Response.json(
-                {
-                    message: "Image is too large.",
-                    success: false,
-                },
-                {
-                    status: 400,
-                },
-            );
+        const image = data.get("image") as File;
+
+        if (image.size > maxImageSize) {
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "Image is too large.",
+            });
         }
-        const results = await UPLOAD_TO_CLOUDINARY(
-            safeData.imageUrl,
-            "category",
-        );
+        const imageName = `${session.user.staff?.id}_${Date.now()}`;
+        const imageUrl = await uploadFile("images", image, imageName);
+
+        const parentCategoryId = safeData.data.parentCategoryId
+            ? Number(safeData.data.parentCategoryId)
+            : null;
 
         // Create productCategory
         const productCategory = await prisma.productCategory.create({
-            data: { ...safeData, imageUrl: results?.secure_url },
+            data: {
+                name: safeData.data.name,
+                description: safeData.data.description,
+                imageUrl,
+                parentCategoryId: parentCategoryId,
+            },
         });
 
-        return NextResponse.json(
-            {
-                success: true,
-                message: "product category created successfully",
-                data: productCategory,
-            },
-            { status: 201 },
-        );
+        return serverResponse({
+            status: 201,
+            success: true,
+            message: "Product category created successfully.",
+            data: productCategory,
+        });
     } catch (error) {
         console.error("Registration error:", `${error}`);
-        return NextResponse.json(
-            { message: "Something went wrong" },
-            { status: 500 },
-        );
+
+        return serverResponse({
+            status: 500,
+            success: false,
+            error: error instanceof Error ? error.message : error,
+            message: "Internal Error",
+        });
     }
 }

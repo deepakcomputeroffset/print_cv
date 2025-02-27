@@ -17,14 +17,14 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { useWallet } from "@/hooks/use-wallet";
 import { signOut } from "next-auth/react";
-import { LogOut, RotateCw } from "lucide-react";
+import { LogOut } from "lucide-react";
+import { Wallet } from "../wallet";
 
 const NAV_LINKS = [
-    { name: "Our Service", url: "/customer/categories" },
-    { name: "Contact Us", url: "/#connect" },
+    { name: "Services", url: "/customer/categories" },
+    { name: "Orders", url: "/customer/orders" },
+    { name: "Contact us", url: "/#connect" },
 ];
 
 export default function NavbarLinks({ session }: { session: Session | null }) {
@@ -43,11 +43,6 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
         );
     };
 
-    const {
-        data: wallet,
-        refetch,
-        isLoading,
-    } = useWallet(session?.user?.customer?.wallet);
     const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
@@ -71,7 +66,7 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
         >
             <div className="w-full relative px-[16px] max-w-customHaf lg:max-w-custom  mx-auto p-4 flex items-center justify-between">
                 <motion.div
-                    initial={{ opacity: 0, transform: "translateY(-20px)" }} // Initial position above
+                    initial={{ opacity: 0, transform: "translateY(-20px)" }}
                     animate={{
                         opacity: 1,
                         transform: "translateY(0px)",
@@ -103,7 +98,7 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                             Printify
                         </span>
                     </Link>
-                    <div className="hidden lg:flex items-center space-x-8">
+                    <div className="hidden lg:flex items-center space-x-4">
                         {NAV_LINKS.map((link, index) => (
                             <motion.div
                                 key={link.name}
@@ -166,7 +161,7 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                     </div>
                 </motion.div>
 
-                <div className="flex items-center justify-center gap-10">
+                <div className="hidden lg:flex items-center justify-center gap-10">
                     {/* Get Started */}
                     {!session && (
                         <motion.div
@@ -322,27 +317,11 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuLabel>
-                                    <div className="flex gap-2 items-center">
-                                        <span>Wallet : </span>
-                                        <span className="align-middle text-center">
-                                            {wallet?.balance}
-                                        </span>
-                                        <Button
-                                            variant={"secondary"}
-                                            size={"sm"}
-                                            className="ml-auto"
-                                            disabled={isLoading}
-                                            onClick={() => refetch()}
-                                        >
-                                            <RotateCw
-                                                className={
-                                                    isLoading
-                                                        ? "animate-spin"
-                                                        : ""
-                                                }
-                                            />
-                                        </Button>
-                                    </div>
+                                    {!!session &&
+                                        session.user.userType ===
+                                            "customer" && (
+                                            <Wallet session={session} />
+                                        )}
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
@@ -399,14 +378,150 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                             </Link>
                         </li>
                     ))}
-                </ul>
+                    {/* Login */}
+                    {!session && (
+                        <li>
+                            <Link
+                                href={"/login"}
+                                className="relative group text-lg tracking-wide"
+                            >
+                                Login
+                                <span className="absolute left-0 bottom-0 w-0 h-[1px] bg-white origin-left transition-all duration-500 group-hover:w-full" />
+                            </Link>
+                        </li>
+                    )}
+                    {/* Get Started */}
+                    {!session && (
+                        <li>
+                            <Link
+                                href="/register"
+                                className="block w-full mt-4 bg-dominant-color-2 hover:bg-crimson-700 text-white py-3 px-5 rounded-md transition duration-300 text-xl font-bold"
+                            >
+                                Get Started
+                            </Link>
+                        </li>
+                    )}
+                    {/* Customer Dashboard */}
+                    {!!session && session?.user?.userType === "customer" && (
+                        <li>
+                            <Link
+                                href={"/customer"}
+                                className="relative group text-lg tracking-wide"
+                            >
+                                Dashboard
+                            </Link>
+                        </li>
+                    )}
 
-                <Link
-                    href={"#"}
-                    className="block w-full mt-4 bg-dominant-color-2 hover:bg-crimson-700 text-white py-3 px-5 rounded-md transition duration-300 text-xl font-bold"
-                >
-                    Get Started
-                </Link>
+                    {/* Staff Dashboard */}
+                    {!!session && session?.user?.userType === "staff" && (
+                        <li>
+                            <Link
+                                href={"/admin"}
+                                className="relative group text-lg tracking-wide"
+                            >
+                                Dashboard
+                            </Link>
+                        </li>
+                    )}
+
+                    {/* Dropdown */}
+                    {!!session && (
+                        <li>
+                            <DropdownMenu modal={false}>
+                                <DropdownMenuTrigger asChild>
+                                    <Avatar className="h-8 w-8 rounded-full cursor-pointer">
+                                        <AvatarImage
+                                            alt={
+                                                session?.user.customer
+                                                    ? session?.user?.customer
+                                                          ?.name
+                                                    : session?.user?.staff?.name
+                                            }
+                                        />
+                                        <AvatarFallback className="rounded-lg text-black">
+                                            {session?.user.customer
+                                                ? session?.user?.customer?.name.substring(
+                                                      0,
+                                                      1,
+                                                  )
+                                                : session?.user?.staff?.name.substring(
+                                                      0,
+                                                      1,
+                                                  )}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent
+                                    className="min-w-56 rounded-lg"
+                                    side={"bottom"}
+                                    align="end"
+                                    sideOffset={4}
+                                >
+                                    <DropdownMenuLabel className="p-0 font-normal">
+                                        <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                                            <Avatar className="h-8 w-8 rounded-lg">
+                                                <AvatarImage
+                                                    alt={
+                                                        session?.user.customer
+                                                            ? session?.user
+                                                                  ?.customer
+                                                                  ?.name
+                                                            : session?.user
+                                                                  ?.staff?.name
+                                                    }
+                                                />
+                                                <AvatarFallback className="rounded-lg">
+                                                    {session?.user.customer
+                                                        ? session?.user?.customer?.name.substring(
+                                                              0,
+                                                              1,
+                                                          )
+                                                        : session?.user?.staff?.name.substring(
+                                                              0,
+                                                              1,
+                                                          )}
+                                                </AvatarFallback>
+                                            </Avatar>
+                                            <div className="grid flex-1 text-left text-sm leading-tight">
+                                                <span className="truncate font-semibold">
+                                                    {session?.user.customer
+                                                        ? session?.user
+                                                              ?.customer?.name
+                                                        : session?.user?.staff
+                                                              ?.name}
+                                                </span>
+                                                <span className="truncate text-xs">
+                                                    {session?.user.customer
+                                                        ? session?.user
+                                                              ?.customer?.email
+                                                        : session?.user?.staff
+                                                              ?.email}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuLabel>
+                                        {!!session &&
+                                            session.user.userType ===
+                                                "customer" && (
+                                                <Wallet session={session} />
+                                            )}
+                                    </DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem
+                                        onClick={() => signOut()}
+                                        className="cursor-pointer"
+                                    >
+                                        <LogOut />
+                                        Log out
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </li>
+                    )}
+                </ul>
             </div>
         </nav>
     );

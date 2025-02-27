@@ -81,7 +81,11 @@ export default async function PlaceOrderPage({
             qty: parseInt(params.qty),
         };
 
-        return <CheckoutPage product={transformedProductItem} />;
+        return (
+            <div className="px-4 pt-10 md:pt-20">
+                <CheckoutPage product={transformedProductItem} />
+            </div>
+        );
     } catch (error) {
         return (
             <div className="p-6">

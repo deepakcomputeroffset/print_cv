@@ -11,7 +11,6 @@ import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel,
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -56,56 +55,56 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="flex min-h-screen items-center justify-center">
-            <div className="mx-auto w-full max-w-md space-y-6 p-6 bg-card rounded-lg shadow-lg">
-                <div className="space-y-2 text-center">
-                    <h1 className="text-3xl font-bold">Admin Login</h1>
-                    <p className="text-muted-foreground">
-                        Enter your credentials to sign in
-                    </p>
-                </div>
+        <div className="flex justify-center items-center h-[80vh] px-4">
+            <div className="bg-white p-8 rounded-xl shadow-lg w-96 text-center">
+                <h2 className="text-[#660A27] font-playfair text-2xl font-semibold">
+                    Welcome Back
+                </h2>
+                <p className="text-gray-600">Login to Admin</p>
                 <Form {...form}>
                     <form
+                        className="mt-4"
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-4"
                     >
                         <FormField
                             control={form.control}
                             name="phone"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Phone</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="1234567890"
                                             {...field}
+                                            className="w-full p-3 py-5 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                         />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
+
                         <FormField
                             control={form.control}
                             name="password"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Password</FormLabel>
                                     <FormControl>
                                         <Input
-                                            type="password"
-                                            placeholder="••••••"
                                             {...field}
+                                            placeholder="••••••"
+                                            type="password"
+                                            className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                         />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
+
                         <Button
                             type="submit"
-                            className="w-full"
                             disabled={loading}
+                            className="w-full bg-[#A6192E] text-white p-3 py-5 rounded-md text-lg font-semibold hover:bg-[#870F20] transition"
                         >
                             {loading ? "Signing in..." : "Sign in"}
                         </Button>

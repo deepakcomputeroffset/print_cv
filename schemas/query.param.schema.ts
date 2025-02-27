@@ -14,4 +14,7 @@ export const QuerySchema = z.object({
     minPrice: z.number().optional(),
     maxPrice: z.number().optional(),
     minQty: z.number().optional(),
+    orderId: z.string().optional(),
+    from: z.string().optional(),
+    to: z.string().optional(),
 });

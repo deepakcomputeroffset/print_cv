@@ -1,13 +1,21 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { customerFormSchema } from "@/schemas/customer.form.schema";
+import { auth } from "@/lib/auth";
+import serverResponse from "@/lib/serverResponse";
 
 export async function GET(
     request: Request,
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (!session) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
         const { id } = await params;
         const customer = await prisma.customer.findUnique({
             where: { id: parseInt(id) },
@@ -25,22 +33,27 @@ export async function GET(
         });
 
         if (!customer) {
-            return NextResponse.json(
-                { success: false, error: "Customer not found" },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Customer not found.",
+            });
         }
 
-        return NextResponse.json(
-            { success: true, data: customer },
-            { status: 200 },
-        );
+        return serverResponse({
+            status: 200,
+            success: true,
+            data: customer,
+            message: "Customer fetech successfully.",
+        });
     } catch (error) {
         console.error("Error fetching customer:", error);
-        return NextResponse.json(
-            { error: "Failed to fetch customer" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Internal error.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }
 
@@ -49,7 +62,14 @@ export async function PATCH(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (!session) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
         const { id } = await params;
 
         const customer = await prisma.customer.findUnique({
@@ -57,13 +77,11 @@ export async function PATCH(
         });
 
         if (!customer) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "customer not found",
-                },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Customer not found.",
+            });
         }
 
         const body = await request.json();
@@ -150,20 +168,20 @@ export async function PATCH(
             },
         });
 
-        return NextResponse.json(
-            {
-                success: true,
-                message: "customer updated successfully",
-                data: updatedCustomer,
-            },
-            { status: 200 },
-        );
+        return serverResponse({
+            status: 200,
+            success: true,
+            message: "Customer updated successfully.",
+            data: updatedCustomer,
+        });
     } catch (error) {
         console.error("Error updating customer:", error);
-        return NextResponse.json(
-            { error: "Failed to update customer" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Failed to update customer.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }
 
@@ -172,7 +190,14 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (!session) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
         const { id } = await params;
 
         const customer = await prisma.customer.delete({
@@ -180,21 +205,25 @@ export async function DELETE(
         });
 
         if (!customer) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "customer not found",
-                },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Customer not found.",
+            });
         }
 
-        return new NextResponse(null, { status: 204 });
+        return serverResponse({
+            status: 204,
+            success: true,
+            message: "Customer deleted successfully.",
+        });
     } catch (error) {
         console.error("Error deleting customer:", `${error}`);
-        return NextResponse.json(
-            { error: "Failed to delete customer" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Failed to update customer.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }

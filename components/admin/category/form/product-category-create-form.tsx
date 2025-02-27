@@ -13,53 +13,60 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/hooks/use-modal";
 import { useProductCategory } from "@/hooks/useProductCategory";
+import { createFormData } from "@/lib/formData";
 import { productCategorySchema } from "@/schemas/product.category.form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Trash } from "lucide-react";
 import Image from "next/image";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
 export const ProductCategoryCreateForm = () => {
     const { onClose, data } = useModal();
+    const [imageUrl, setImageUrl] = useState<string>();
     const form = useForm<z.infer<typeof productCategorySchema>>({
         resolver: zodResolver(productCategorySchema),
         defaultValues: {
             name: "",
             description: "",
-            imageUrl: undefined,
-            parentCategoryId: data?.productCategory?.id || null,
+            parentCategoryId: data?.productCategory?.id.toString(),
         },
     });
+
     const {
         createProductCategory: { isPending, mutateAsync },
     } = useProductCategory();
 
     const handleDrop = useCallback(async (files: File[]) => {
         if (files[0]) {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(files[0]);
-            fileReader.onload = () => {
-                form.setValue("imageUrl", fileReader.result as string);
-            };
+            form.setValue("image", files[0], { shouldDirty: true });
+            if (imageUrl) URL.revokeObjectURL(imageUrl);
+            setImageUrl(URL.createObjectURL(files[0]));
         } else {
             toast.error("Image size must be less 5mb");
         }
     }, []);
     const handleDelete = useCallback(() => {
-        if (!!form.getValues("imageUrl")) {
-            form.setValue("imageUrl", "");
+        if (!!form.getValues("image") || imageUrl) {
+            form.resetField("image");
+            if (imageUrl) URL.revokeObjectURL(imageUrl);
+            setImageUrl(undefined);
         }
     }, []);
 
     const handleSubmit = async (
         values: z.infer<typeof productCategorySchema>,
     ) => {
-        await mutateAsync(values);
+        const formData = createFormData(values);
+        await mutateAsync(formData);
         onClose();
         form.reset();
+        if (imageUrl) {
+            URL.revokeObjectURL(imageUrl);
+            setImageUrl(undefined);
+        }
     };
 
     return (
@@ -98,13 +105,13 @@ export const ProductCategoryCreateForm = () => {
 
                 <FormField
                     control={form.control}
-                    name="imageUrl"
+                    name="image"
                     render={() => (
                         <FormItem>
                             <FormLabel>Image</FormLabel>
                             <FormControl>
                                 <div>
-                                    {!!form?.getValues("imageUrl") ? (
+                                    {!!imageUrl ? (
                                         <div className="relative">
                                             <Badge
                                                 variant={"destructive"}
@@ -114,7 +121,7 @@ export const ProductCategoryCreateForm = () => {
                                                 <Trash className="w-4 h-4" />
                                             </Badge>
                                             <Image
-                                                src={form.getValues("imageUrl")}
+                                                src={imageUrl}
                                                 alt="Category Image"
                                                 width={1000}
                                                 height={1000}

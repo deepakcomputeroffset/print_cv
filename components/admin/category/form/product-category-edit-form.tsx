@@ -13,12 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/hooks/use-modal";
 import { useProductCategory } from "@/hooks/useProductCategory";
+import { createFormData } from "@/lib/formData";
 import { getDirtyFieldsWithValues } from "@/lib/utils";
 import { productCategorySchema } from "@/schemas/product.category.form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Trash } from "lucide-react";
 import Image from "next/image";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -26,14 +27,17 @@ import { z } from "zod";
 export const ProductCategoryEditForm = () => {
     const { onClose, data } = useModal();
     const form = useForm<z.infer<typeof productCategorySchema>>({
-        resolver: zodResolver(productCategorySchema),
+        resolver: zodResolver(productCategorySchema.partial()),
         defaultValues: {
             name: data?.productCategory?.name,
             description: data?.productCategory?.description || "",
-            imageUrl: data?.productCategory?.imageUrl,
-            parentCategoryId: data?.productCategory?.id || null,
+            parentCategoryId: data?.productCategory?.id.toString(),
         },
     });
+    const [imageUrl, setImageUrl] = useState<string | undefined>(
+        data?.productCategory?.imageUrl,
+    );
+
     const {
         updateProductCategory: { mutateAsync, isPending },
     } = useProductCategory();
@@ -46,33 +50,28 @@ export const ProductCategoryEditForm = () => {
     );
     const handleDrop = useCallback(async (files: File[]) => {
         if (files[0]) {
-            const base64 = new Promise((res) => {
-                const fileReader = new FileReader();
-                fileReader.readAsDataURL(files[0]);
-                fileReader.onload = () => {
-                    toast.success("Image loaded");
-                    res(fileReader.result);
-                    form.setValue("imageUrl", fileReader.result as string, {
-                        shouldDirty: true,
-                    });
-                };
-            });
-
-            return await base64;
+            form.setValue("image", files[0], { shouldDirty: true });
+            if (imageUrl) URL.revokeObjectURL(imageUrl);
+            setImageUrl(URL.createObjectURL(files[0]));
+        } else {
+            toast.error("Image size must be less 5mb");
         }
     }, []);
 
     const handleDelete = useCallback(() => {
-        if (!!form.getValues("imageUrl")) {
-            form.setValue("imageUrl", "", { shouldDirty: false });
+        if (!!form.getValues("image") || imageUrl) {
+            form.resetField("image");
+            if (imageUrl) URL.revokeObjectURL(imageUrl);
+            setImageUrl(undefined);
         }
     }, []);
 
     const handleSubmit = async () => {
         if (data?.productCategory?.id) {
+            const formData = createFormData(dirtyFieldsWithValues);
             await mutateAsync({
                 id: data?.productCategory?.id,
-                data: dirtyFieldsWithValues,
+                data: formData,
             });
             onClose();
             form.reset();
@@ -113,13 +112,13 @@ export const ProductCategoryEditForm = () => {
 
                 <FormField
                     control={form.control}
-                    name="imageUrl"
+                    name="image"
                     render={() => (
                         <FormItem>
                             <FormLabel>Image</FormLabel>
                             <FormControl>
                                 <div>
-                                    {!!form?.getValues("imageUrl") ? (
+                                    {!!imageUrl ? (
                                         <div className="relative">
                                             <Badge
                                                 variant={"destructive"}
@@ -129,7 +128,7 @@ export const ProductCategoryEditForm = () => {
                                                 <Trash className="w-4 h-4" />
                                             </Badge>
                                             <Image
-                                                src={form.getValues("imageUrl")}
+                                                src={imageUrl}
                                                 alt="Category Image"
                                                 width={1000}
                                                 height={1000}

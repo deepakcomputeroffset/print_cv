@@ -8,9 +8,8 @@ export const productCategorySchema = z.object({
         .string()
         .min(1, { message: "Description must be at least 1 character long." })
         .optional(),
-    imageUrl: z.string({ message: "Image are required." }),
+    image: z.instanceof(File, { message: "Invalid file type" }),
     parentCategoryId: z
-        .number()
-        .int({ message: "Parent category ID must be an integer." })
-        .nullable(),
+        .string({ message: "Parent category ID must be an integer." })
+        .optional(),
 });

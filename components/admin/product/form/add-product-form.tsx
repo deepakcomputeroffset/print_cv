@@ -36,7 +36,6 @@ import { useProducts } from "@/hooks/use-product";
 import { productAttributeType, productAttributeValue } from "@prisma/client";
 import { getAllProductCategory } from "@/lib/getCategories";
 import axios from "axios";
-import { UploadApiResponse } from "cloudinary";
 
 export function ProductForm() {
     const [uploading, setUploading] = useState(false);
@@ -86,30 +85,19 @@ export function ProductForm() {
                 if (validFiles.length !== files.length) {
                     toast.error("Some files exceed the 5MB size limit.");
                 }
-                const fileReaders = validFiles.map((file) => {
-                    return new Promise<string>((resolve, reject) => {
-                        const fileReader = new FileReader();
-                        fileReader.readAsDataURL(file);
-                        fileReader.onload = () =>
-                            resolve(fileReader.result as string);
-                        fileReader.onerror = () =>
-                            reject("Error reading file.");
-                    });
-                });
-                const images = await Promise.all(fileReaders);
-                const { data } = await axios.post<UploadApiResponse[]>(
+
+                const formData = new FormData();
+                validFiles.forEach((file) => formData.append("files", file));
+                formData.append("folder", "images");
+
+                const { data } = await axios.post<string[]>(
                     "/api/upload",
-                    {
-                        files: images,
-                    },
+                    formData,
                 );
 
                 form.setValue(
                     "imageUrl",
-                    [
-                        ...form.getValues("imageUrl"),
-                        ...data?.map((url) => url?.secure_url),
-                    ],
+                    [...form.getValues("imageUrl"), ...data?.map((url) => url)],
                     {
                         shouldDirty: true,
                     },

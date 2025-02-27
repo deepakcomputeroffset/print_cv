@@ -34,7 +34,7 @@ export const ProductCategoryDeleteModal = () => {
                     variant={"destructive"}
                     disabled={isLoading}
                     onClick={() => {
-                        deleteProductCategory(
+                        deleteProductCategory.mutate(
                             data?.productCategory?.id as number,
                         );
                         onClose();

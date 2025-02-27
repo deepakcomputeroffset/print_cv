@@ -5,6 +5,7 @@ export const defaultCustomerPerPage = 1;
 export const defaultStaffPerPage = 5;
 export const defaultProductCategoryPerPage = 5;
 export const defaultProductPerPage = 1;
+export const defaultOrderPerPage = 2;
 
 export const maxImageSize = 5242880; // 5mb
 export const maxFileSize = 50 * 1024 * 1024; // 50MB
@@ -17,4 +18,8 @@ export const allowedImageMimeType = [
     "image/webp",
 ];
 
-export const allowedRoleForOrderDelete: ROLE[] = ["ADMIN", "ORDER_MANAGER"];
+export const allowedRoleForOrderManagement: ROLE[] = ["ADMIN", "ORDER_MANAGER"];
+export const allowedRoleForCategoryAndProductManagement: ROLE[] = [
+    "ADMIN",
+    "PRODUCT_MANAGER",
+];

@@ -1,19 +1,37 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { productCategorySchema } from "@/schemas/product.category.form.schema";
-import { maxImageSize } from "@/lib/constants";
 import {
-    calculateBase64Size,
-    DELETE_FILE,
-    UPLOAD_TO_CLOUDINARY,
-} from "@/lib/cloudinary";
+    allowedRoleForCategoryAndProductManagement,
+    maxImageSize,
+} from "@/lib/constants";
+import { auth } from "@/lib/auth";
+import serverResponse from "@/lib/serverResponse";
+import { ROLE } from "@prisma/client";
+import { parsePartialFormData } from "@/lib/formData";
+import { deleteFile, uploadFile } from "@/lib/storage";
 
 export async function GET(
     request: Request,
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session.user.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session.user.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session.user.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                message: "Unauthorized",
+            });
+        }
+
         const { id } = await params;
         const productCategory = await prisma.productCategory.findUnique({
             where: { id: parseInt(id) },
@@ -23,22 +41,26 @@ export async function GET(
         });
 
         if (!productCategory) {
-            return NextResponse.json(
-                { success: false, error: "category not found" },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Category not found",
+            });
         }
-
-        return NextResponse.json(
-            { success: true, data: productCategory },
-            { status: 200 },
-        );
+        return serverResponse({
+            status: 200,
+            success: true,
+            message: "Category fetched successfully",
+            data: productCategory,
+        });
     } catch (error) {
         console.error("Error fetching productCategory:", error);
-        return NextResponse.json(
-            { error: "Failed to fetch productCategory" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Internal Error",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }
 
@@ -47,82 +69,94 @@ export async function PATCH(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // TODO: AUTHENTICATION
-        const { id } = await params;
+        const session = await auth();
+        if (
+            !session ||
+            session.user.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session.user.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session.user.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                message: "Unauthorized",
+            });
+        }
 
+        const { id } = await params;
         const productCategory = await prisma.productCategory.findUnique({
             where: { id: parseInt(id) },
         });
 
         if (!productCategory) {
-            return NextResponse.json(
-                {
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Product category not found",
+            });
+        }
+
+        const data = await request.formData();
+        const validatedData = parsePartialFormData(data, productCategorySchema);
+        console.log(validatedData.data);
+        if (!validatedData.success) {
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "Invalid Data",
+                error: validatedData.error.issues,
+            });
+        }
+        let imageUrl = undefined;
+        if (validatedData?.data.image) {
+            const image = data.get("image") as File;
+
+            if (image.size > maxImageSize)
+                return serverResponse({
+                    status: 400,
                     success: false,
-                    message: "productCategory not found",
-                },
-                { status: 404 },
-            );
-        }
+                    message: "Image is too large.",
+                });
 
-        const data = await request.json();
-        const validatedData = productCategorySchema.partial().parse(data);
+            const imageName = `${session.user.staff?.id}_${Date.now()}`;
+            imageUrl = await uploadFile("images", image, imageName);
 
-        if (validatedData?.imageUrl) {
-            // const img = await req.formData();
-            if (calculateBase64Size(validatedData.imageUrl) > maxImageSize) {
-                return Response.json(
-                    {
-                        message: "Image is too large.",
-                        success: false,
-                    },
-                    {
-                        status: 400,
-                    },
-                );
+            if (productCategory.imageUrl) {
+                await deleteFile(productCategory.imageUrl);
             }
-            const uploadResult = await UPLOAD_TO_CLOUDINARY(
-                validatedData.imageUrl,
-                "category",
-            );
-            if (uploadResult?.secure_url) {
-                validatedData.imageUrl = uploadResult.secure_url;
-                if (productCategory.imageUrl) {
-                    await DELETE_FILE(productCategory.imageUrl);
-                }
-            } else {
-                return NextResponse.json(
-                    {
-                        success: false,
-                        message: "Failed to upload image.",
-                    },
-                    { status: 500 },
-                );
-            }
-
-            await DELETE_FILE(productCategory?.imageUrl);
         }
-        const updatedCustomer = await prisma.productCategory.update({
+        const { image, parentCategoryId, ...dataWithoutImage } =
+            validatedData.data;
+        console.log(image, parentCategoryId);
+
+        const updatedCategory = await prisma.productCategory.update({
             where: { id: parseInt(id) },
-            data: validatedData,
+            data: {
+                ...dataWithoutImage,
+                imageUrl: imageUrl || productCategory.imageUrl,
+            },
             include: {
                 subCategories: true,
             },
         });
 
-        return NextResponse.json(
-            {
-                success: true,
-                message: "productCategory updated successfully",
-                data: updatedCustomer,
-            },
-            { status: 200 },
-        );
+        return serverResponse({
+            status: 200,
+            success: true,
+            data: updatedCategory,
+            message: "Product Category updated successfully",
+        });
     } catch (error) {
-        console.error("Error updating productCategory:", error);
-        return NextResponse.json(
-            { error: "Failed to update productCategory" },
-            { status: 500 },
-        );
+        console.error("Error updating productCategory:", `${error}`);
+        return serverResponse({
+            status: 500,
+            message: "Internal Error",
+            success: false,
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }
 
@@ -131,29 +165,48 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // TODO: AUTHENTICATION
-        const { id } = await params;
+        const session = await auth();
+        if (
+            !session ||
+            session.user.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session.user.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session.user.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                message: "Unauthorized",
+            });
+        }
 
+        const { id } = await params;
         const productCategory = await prisma.productCategory.delete({
             where: { id: parseInt(id) },
         });
 
         if (!productCategory) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "productCategory not found",
-                },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Product Category not found.",
+            });
         }
-        DELETE_FILE(productCategory?.imageUrl);
-        return new NextResponse(null, { status: 204 });
+        await deleteFile(productCategory.imageUrl);
+        return serverResponse({
+            status: 204,
+            success: true,
+            data: null,
+            message: "Product Category deleted successfully",
+        });
     } catch (error) {
         console.error("Error deleting productCategory:", `${error}`);
-        return NextResponse.json(
-            { error: "Failed to delete productCategory" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Failed to delete product category",
+        });
     }
 }

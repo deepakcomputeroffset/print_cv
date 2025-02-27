@@ -1,9 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import * as api from "@/lib/api/product.category";
-import { z } from "zod";
 import { QueryParams } from "@/types/types";
 import { productCategorySchema } from "@/schemas/product.category.form.schema";
+import { parseFormData, parsePartialFormData } from "@/lib/formData";
 
 export function useProductCategory(props: QueryParams = {}) {
     const queryClient = useQueryClient();
@@ -17,8 +17,11 @@ export function useProductCategory(props: QueryParams = {}) {
 
     // Update product category mutation
     const createMutation = useMutation({
-        mutationFn: (data: z.infer<typeof productCategorySchema>) =>
-            api.createProductCategory(data),
+        mutationFn: (data: FormData) => {
+            const result = parseFormData(data, productCategorySchema);
+            if (result.success) return api.createProductCategory(data);
+            throw result.error;
+        },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });
             toast.success("Product Category created successfully");
@@ -30,13 +33,11 @@ export function useProductCategory(props: QueryParams = {}) {
 
     // Update product category mutation
     const updateMutation = useMutation({
-        mutationFn: ({
-            id,
-            data,
-        }: {
-            id: number;
-            data: Partial<z.infer<typeof productCategorySchema>>;
-        }) => api.updateProductCategory(id, data),
+        mutationFn: ({ id, data }: { id: number; data: FormData }) => {
+            const result = parsePartialFormData(data, productCategorySchema);
+            if (result.success) return api.updateProductCategory(id, data);
+            throw result.error;
+        },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });
             toast.success("Product Category updated successfully");
@@ -59,19 +60,14 @@ export function useProductCategory(props: QueryParams = {}) {
     });
 
     return {
-        productCategories: data?.data ?? [],
-        totalPages: data?.totalPages ?? 0,
-        currentPage: data?.page ?? 1,
+        productCategories: data?.data?.data ?? [],
+        totalPages: data?.data?.totalPages ?? 0,
+        currentPage: data?.data?.page ?? 1,
         error,
         isLoading,
         refetch,
         createProductCategory: createMutation,
-        // updateProductCategory: async (
-        //     id: number,
-        //     data: Partial<z.infer<typeof productCategorySchema>>,
-        // ) => updateMutation.mutateAsync({ id, data }),
         updateProductCategory: updateMutation,
-        deleteProductCategory: async (id: number) =>
-            await deleteMutation.mutateAsync(id),
+        deleteProductCategory: deleteMutation,
     };
 }

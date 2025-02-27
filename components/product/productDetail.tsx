@@ -21,14 +21,15 @@ import {
     Truck,
     Shield,
 } from "lucide-react";
-import EmblaCarousel from "../ui/embla-carousel/js/EmblaCarousel";
+import EmblaCarousel from "@/components/ui/embla-carousel/js/EmblaCarousel";
 import {
     ProductItemTypeOnlyWithPrice,
     ProductTypeOnlyWithPrice,
 } from "@/types/types";
-import getDistinctOptionsWithDetails from "./getAttributeWithOptions";
+import getDistinctOptionsWithDetails from "@/components/product/getAttributeWithOptions";
 import { useRouter } from "next/navigation";
-import { getBaseVarient } from "./getBaseVarient";
+import { getBaseVarient } from "@/components/product/getBaseVarient";
+import Markdown from "react-markdown";
 
 export default function ProductDetails({
     product,
@@ -63,9 +64,7 @@ export default function ProductDetails({
         const variant = findVariant();
         setSelectedVariant(variant || null);
 
-        if (variant) {
-            setQty(Math.max(qty, variant.minQty));
-        }
+        if (variant) setQty(Math.max(qty, variant.minQty));
     }, [selectedAttributes, findVariant, qty]);
 
     const handleAttributeChange = (typeId: number, valueId: number) => {
@@ -75,7 +74,7 @@ export default function ProductDetails({
     const handleBuy = async () => {
         if (!selectedVariant) return;
         router.push(
-            `/customer/order/place?productItemId=${selectedVariant?.id}&qty=${Math.max(qty, selectedVariant?.minQty)}`,
+            `/customer/orders/place?productItemId=${selectedVariant?.id}&qty=${Math.max(qty, selectedVariant?.minQty)}`,
         );
     };
 
@@ -89,12 +88,7 @@ export default function ProductDetails({
 
                 {/* Product Details */}
                 <div className="space-y-6">
-                    <div>
-                        <h1 className="text-3xl font-bold">{product.name}</h1>
-                        <p className="text-muted-foreground mt-2">
-                            {product.description}
-                        </p>
-                    </div>
+                    <h1 className="text-3xl font-bold">{product.name}</h1>
 
                     <div className="space-y-4">
                         <div className="flex items-baseline gap-4">
@@ -195,6 +189,7 @@ export default function ProductDetails({
                                 className="flex-1"
                                 onClick={handleBuy}
                                 disabled={!selectedVariant}
+                                variant={"redish"}
                             >
                                 <ShoppingCart className="w-4 h-4 mr-2" />
                                 Buy Now
@@ -289,6 +284,8 @@ export default function ProductDetails({
                             </div>
                         </div>
                     </Card>
+
+                    <Markdown>{product.description}</Markdown>
                 </div>
             </div>
         </div>
