@@ -4,6 +4,7 @@ import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductIt
 import { ProductItemType } from "@/types/types";
 import { productAttributeValue } from "@prisma/client";
 import { redirect } from "next/navigation";
+import { prisma } from "@/lib/prisma";
 
 export default async function PlaceOrderPage({
     searchParams,
