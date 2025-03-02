@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { ProductTypeOnlyWithPrice } from "@/types/types";
 import { redirect } from "next/navigation";
 import { CUSTOMER_CATEGORY } from "@prisma/client";
+import Link from "next/link";
+import { Package } from "lucide-react";
 
 export default async function ProductPage({
     searchParams,
@@ -55,10 +57,27 @@ export default async function ProductPage({
         },
     );
 
-    if (!products) {
+    if (products.length <= 0) {
         return (
-            <div>
-                <p>No products found</p>
+            <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-6">
+                <div className="bg-white p-6 rounded-full shadow-lg">
+                    <Package className="w-16 h-16 text-gray-400" />
+                </div>
+
+                <h2 className="text-2xl font-semibold text-gray-800 mt-6">
+                    No Products Available
+                </h2>
+                <p className="text-gray-600 mt-2 max-w-md">
+                    It seems like we don’t have any products listed right now.
+                    Please check back later or browse other categories.
+                </p>
+
+                <Link
+                    href="/customer/products"
+                    className="mt-6 bg-dominant-color-2 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-all"
+                >
+                    Back to Home
+                </Link>
             </div>
         );
     }

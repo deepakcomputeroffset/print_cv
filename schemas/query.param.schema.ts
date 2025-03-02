@@ -17,4 +17,7 @@ export const QuerySchema = z.object({
     orderId: z.string().optional(),
     from: z.string().optional(),
     to: z.string().optional(),
+    totalPages: z.number().optional(),
+    parentCategoryId: z.string().optional(),
+    walletId: z.string().optional(),
 });

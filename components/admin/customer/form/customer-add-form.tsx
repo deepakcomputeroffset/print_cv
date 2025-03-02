@@ -87,6 +87,7 @@ export const CustomerRegisterForm = () => {
                                 <Input
                                     placeholder="Abc"
                                     {...field}
+                                    disabled={loading}
                                     className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                 />
                             </FormControl>
@@ -105,6 +106,7 @@ export const CustomerRegisterForm = () => {
                                 <Input
                                     placeholder="Radhe Radhe"
                                     {...field}
+                                    disabled={loading}
                                     className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                 />
                             </FormControl>
@@ -126,6 +128,7 @@ export const CustomerRegisterForm = () => {
                                         form.setValue("city", "");
                                         field.onChange(e);
                                     }}
+                                    disabled={loading}
                                     defaultValue={field.value}
                                 >
                                     <SelectTrigger>
@@ -163,6 +166,7 @@ export const CustomerRegisterForm = () => {
                                 <Select
                                     value={field.value}
                                     onValueChange={field.onChange}
+                                    disabled={loading}
                                     defaultValue={field.value}
                                 >
                                     <SelectTrigger>
@@ -213,6 +217,7 @@ export const CustomerRegisterForm = () => {
                                 <Input
                                     placeholder="123456"
                                     {...field}
+                                    disabled={loading}
                                     className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                 />
                             </FormControl>
@@ -231,6 +236,7 @@ export const CustomerRegisterForm = () => {
                                 <Input
                                     placeholder="Sector-8, Noida"
                                     {...field}
+                                    disabled={loading}
                                     className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                 />
                             </FormControl>
@@ -249,6 +255,7 @@ export const CustomerRegisterForm = () => {
                                 <Input
                                     placeholder="john@example.com"
                                     {...field}
+                                    disabled={loading}
                                     className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                 />
                             </FormControl>
@@ -267,6 +274,7 @@ export const CustomerRegisterForm = () => {
                                 <Input
                                     placeholder="Optional"
                                     {...field}
+                                    disabled={loading}
                                     className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                 />
                             </FormControl>
@@ -285,6 +293,7 @@ export const CustomerRegisterForm = () => {
                                 <Input
                                     placeholder="+911234567890"
                                     {...field}
+                                    disabled={loading}
                                     className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                 />
                             </FormControl>
@@ -302,6 +311,7 @@ export const CustomerRegisterForm = () => {
                             <FormControl>
                                 <Input
                                     type="password"
+                                    disabled={loading}
                                     placeholder="••••••"
                                     {...field}
                                 />

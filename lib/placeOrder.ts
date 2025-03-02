@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { TRANSACTION_TYPE, STATUS } from "@prisma/client";
+import { TRANSACTION_TYPE, STATUS, UPLOADVIA } from "@prisma/client";
 
 export async function placeOrder(
     customerId: number,
@@ -7,7 +7,8 @@ export async function placeOrder(
     sku: string,
     qty: number,
     amount: number,
-    fileUrl: string,
+    uploadType: UPLOADVIA,
+    fileUrls?: string[],
 ) {
     return await prisma.$transaction(async (tx) => {
         // Get customer wallet
@@ -36,10 +37,10 @@ export async function placeOrder(
         const transaction = await tx.transaction.create({
             data: {
                 walletId: wallet.id,
-                transationId: `TXN_${Date.now()}`,
                 amount,
                 type: TRANSACTION_TYPE.DEBIT,
                 description: `Order Payment for Product Item ${sku}`,
+                createBy: customerId,
             },
         });
 
@@ -50,11 +51,18 @@ export async function placeOrder(
                 productItemId,
                 qty,
                 amount,
-                fileUrl,
                 status: STATUS.PENDING, // Default status
             },
         });
 
-        return { updatedWallet, transaction, order };
+        const file = await tx.file.create({
+            data: {
+                uploadVia: uploadType,
+                orderId: order.id,
+                urls: fileUrls,
+            },
+        });
+
+        return { updatedWallet, transaction, order, file };
     });
 }

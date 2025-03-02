@@ -4,6 +4,7 @@ import {
     Home,
     LayoutDashboard,
     Package,
+    PiggyBank,
     ShoppingBag,
     ShoppingCart,
     Users,
@@ -52,6 +53,12 @@ const routes = [
         icon: Users,
         url: "/admin/customer?search=&sortorder=asc&perpage=100",
         pattern: /^\/admin\/customer(?:\/.*)?$/,
+    },
+    {
+        title: "Wallet",
+        icon: PiggyBank,
+        url: "/admin/wallet",
+        pattern: /^\/admin\/wallet(?:\/.*)?$/,
     },
     {
         title: "Category",

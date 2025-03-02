@@ -1,4 +1,4 @@
-import { customerWithAddress } from "@/types/types";
+import { customerType } from "@/types/types";
 import {
     Table,
     TableBody,
@@ -15,7 +15,7 @@ export const CustomerListTable = ({
     toggleBanStatus,
     isLoading,
 }: {
-    customers: customerWithAddress[];
+    customers: customerType[];
     toggleBanStatus: (id: number) => void;
     isLoading: boolean;
 }) => {
@@ -38,7 +38,7 @@ export const CustomerListTable = ({
                 ) : customers.length === 0 ? (
                     <MessageRow colSpan={7} text="No customers found" />
                 ) : (
-                    customers?.map((customer: customerWithAddress) => (
+                    customers?.map((customer: customerType) => (
                         <CustomerTableRow
                             customer={customer}
                             key={customer?.id}

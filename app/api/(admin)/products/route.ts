@@ -1,12 +1,33 @@
-import { NextResponse } from "next/server";
 import { productFormSchema } from "@/schemas/product.form.schema";
 import { prisma } from "@/lib/prisma";
 import { QuerySchema } from "@/schemas/query.param.schema";
-import { Prisma } from "@prisma/client";
-import { defaultProductPerPage } from "@/lib/constants";
+import { Prisma, ROLE } from "@prisma/client";
+import {
+    allowedRoleForCategoryAndProductManagement,
+    defaultProductPerPage,
+} from "@/lib/constants";
+import serverResponse from "@/lib/serverResponse";
+import { auth } from "@/lib/auth";
 
 export async function GET(request: Request) {
     try {
+        const session = await auth();
+        if (
+            !session ||
+            session?.user?.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session?.user?.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session?.user?.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
+
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
@@ -83,8 +104,10 @@ export async function GET(request: Request) {
             }),
         ]);
 
-        return NextResponse.json(
-            {
+        return serverResponse({
+            status: 200,
+            success: false,
+            data: {
                 data: products,
                 total,
                 page: query.page || 1,
@@ -93,19 +116,37 @@ export async function GET(request: Request) {
                     total / (query.perpage || defaultProductPerPage),
                 ),
             },
-            { status: 200 },
-        );
+            message: "Products fetched successfully.",
+        });
     } catch (error) {
-        return NextResponse.json(
-            { message: "Error fetching products", error },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Error while fetching products.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }
 
 export async function POST(req: Request) {
     try {
-        // TODO: Authentication
+        const session = await auth();
+        if (
+            !session ||
+            session?.user?.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session?.user?.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session?.user?.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
+
         const data = await req.json();
 
         const {
@@ -115,7 +156,12 @@ export async function POST(req: Request) {
         } = productFormSchema.safeParse(data);
 
         if (!success) {
-            return NextResponse.json(error, { status: 400 });
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "Invalid data",
+                error: error.issues,
+            });
         }
 
         const newProduct = await prisma?.product.create({
@@ -152,15 +198,19 @@ export async function POST(req: Request) {
                 },
             },
         });
-        return NextResponse.json(
-            { data: newProduct, success: true },
-            { status: 201 },
-        );
+
+        return serverResponse({
+            status: 201,
+            success: true,
+            message: "Product created successfully",
+            data: newProduct,
+        });
     } catch (error) {
-        console.log(error);
-        return NextResponse.json(
-            { message: "Error creating product", error },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Error while creating products.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }

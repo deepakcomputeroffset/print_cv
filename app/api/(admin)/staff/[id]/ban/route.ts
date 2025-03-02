@@ -1,22 +1,35 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import serverResponse from "@/lib/serverResponse";
+import { auth } from "@/lib/auth";
 
 export async function POST(
     request: Request,
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session?.user?.userType != "staff" ||
+            session.user.staff?.role !== "ADMIN"
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
         const { id } = await params;
         const staff = await prisma.staff.findUnique({
             where: { id: parseInt(id) },
         });
 
         if (!staff) {
-            return NextResponse.json(
-                { success: false, error: "Customer not found" },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Staff not found",
+            });
         }
 
         const updatedStaff = await prisma.staff.update({
@@ -24,19 +37,18 @@ export async function POST(
             data: { isBanned: !staff.isBanned },
         });
 
-        return NextResponse.json(
-            {
-                success: true,
-                message: "staff ban status updated successfully.",
-                data: updatedStaff,
-            },
-            { status: 200 },
-        );
+        return serverResponse({
+            status: 200,
+            success: true,
+            message: "Staff ban status updated successfully.",
+            data: updatedStaff,
+        });
     } catch (error) {
-        console.error("Error toggling staff ban status:", error);
-        return NextResponse.json(
-            { error: "Failed to update staff ban status" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Error toggling staff ban status.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }

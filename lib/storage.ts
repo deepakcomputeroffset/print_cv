@@ -107,3 +107,21 @@ export const deleteFile = async (fileUrl: string): Promise<boolean> => {
         return false;
     }
 };
+
+export const deleteFiles = async (fileUrls: string[]): Promise<boolean[]> => {
+    try {
+        const deletePromises = fileUrls.map(async (fileUrl) => {
+            try {
+                return await deleteFile(fileUrl);
+            } catch (error) {
+                console.error(`Error deleting file (${fileUrl}):`, error);
+                return false;
+            }
+        });
+
+        return await Promise.all(deletePromises);
+    } catch (error) {
+        console.error("Error deleting multiple files:", error);
+        return fileUrls.map(() => false); // Return false for all files in case of a major failure
+    }
+};

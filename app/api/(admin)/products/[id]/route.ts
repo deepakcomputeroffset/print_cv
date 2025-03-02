@@ -1,14 +1,32 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { partialProductFormSchema } from "@/schemas/product.form.schema";
-import { ZodError } from "zod";
 import { auth } from "@/lib/auth";
+import serverResponse from "@/lib/serverResponse";
+import { allowedRoleForCategoryAndProductManagement } from "@/lib/constants";
+import { ROLE } from "@prisma/client";
 
 export async function GET(
     req: Request,
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
+        const session = await auth();
+        if (
+            !session ||
+            session?.user?.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session?.user?.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session?.user?.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
         const { id } = await params;
         if (isNaN(parseInt(id))) {
             return NextResponse.json(
@@ -24,18 +42,26 @@ export async function GET(
         });
 
         if (!product) {
-            return NextResponse.json(
-                { message: "Product not found" },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Product not found",
+            });
         }
 
-        return NextResponse.json(product);
+        return serverResponse({
+            status: 200,
+            success: true,
+            data: product,
+            message: "Product fetched successfully",
+        });
     } catch (error) {
-        return NextResponse.json(
-            { message: "Error fetching product", error },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Error While fetching product",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }
 
@@ -44,12 +70,30 @@ export async function PATCH(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
+        const session = await auth();
+        if (
+            !session ||
+            session?.user?.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session?.user?.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session?.user?.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
+
         const { id } = await params;
         if (isNaN(parseInt(id))) {
-            return NextResponse.json(
-                { message: "Invalid productId" },
-                { status: 400 },
-            );
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "Invaid productId",
+            });
         }
 
         const body = await request.json();
@@ -66,10 +110,11 @@ export async function PATCH(
         });
 
         if (!existingProduct) {
-            return NextResponse.json(
-                { error: "Product not found" },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Product not found",
+            });
         }
 
         // eslint-disable-next-line
@@ -127,31 +172,19 @@ export async function PATCH(
             data: { ...updateData },
         });
 
-        return NextResponse.json(
-            {
-                message: "Product updated successfully",
-                success: true,
-                data: updatedData,
-            },
-            { status: 200 },
-        );
+        return serverResponse({
+            status: 200,
+            success: true,
+            data: updatedData,
+            message: "Product updated successfully",
+        });
     } catch (error) {
-        console.error("Error updating product:", error);
-
-        if (error instanceof ZodError) {
-            return NextResponse.json(
-                {
-                    error: "Validation failed",
-                    details: error.errors,
-                },
-                { status: 400 },
-            );
-        }
-
-        return NextResponse.json(
-            { error: "Failed to update product" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Failed to update product",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }
 
@@ -161,33 +194,44 @@ export async function DELETE(
 ) {
     try {
         const session = await auth();
-
-        if (session?.user?.staff?.role !== "PRODUCT_MANAGER") {
-            return NextResponse.json(
-                { message: "Unauthorized" },
-                { status: 401 },
-            );
+        if (
+            !session ||
+            session?.user?.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session?.user?.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session?.user?.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
         }
         const { id } = await params;
         if (isNaN(parseInt(id))) {
-            return NextResponse.json(
-                { message: "Invalid productId" },
-                { status: 400 },
-            );
+            return serverResponse({
+                status: 200,
+                success: false,
+                message: "Invalid ProductIc",
+            });
         }
         await prisma.product.delete({
             where: { id: parseInt(id) },
         });
 
-        return NextResponse.json(
-            { message: "Product deleted successfully" },
-            { status: 200 },
-        );
+        return serverResponse({
+            status: 200,
+            success: true,
+            message: "Product deleted successfully",
+        });
     } catch (error) {
-        console.log(error);
-        return NextResponse.json(
-            { message: "Error deleting product", error },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Error while deleting products.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }

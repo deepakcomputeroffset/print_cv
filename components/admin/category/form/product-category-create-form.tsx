@@ -60,6 +60,7 @@ export const ProductCategoryCreateForm = () => {
         values: z.infer<typeof productCategorySchema>,
     ) => {
         const formData = createFormData(values);
+
         await mutateAsync(formData);
         onClose();
         form.reset();

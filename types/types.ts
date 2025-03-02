@@ -13,7 +13,7 @@ import {
 } from "@prisma/client";
 import { z, ZodIssue } from "zod";
 
-export type customerWithAddress = customer & {
+export type customerType = Omit<customer, "password"> & {
     address?: address & {
         city?: city & {
             state?: state & {
@@ -21,6 +21,7 @@ export type customerWithAddress = customer & {
             };
         };
     };
+    wallet?: { id: number; balance: number };
 };
 
 export interface productCategoryWithSubCategory extends productCategory {
@@ -36,10 +37,7 @@ export interface ProductVariantType
     productAttributeOptions: productAttributeValue[];
 }
 
-export interface QueryParams extends z.infer<typeof QuerySchema> {
-    totalPages?: number;
-    parentCategoryId?: string;
-}
+export interface QueryParams extends z.infer<typeof QuerySchema> {}
 
 export type ProductType = Omit<
     product,

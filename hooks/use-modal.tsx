@@ -1,4 +1,4 @@
-import { customerWithAddress } from "@/types/types";
+import { customerType } from "@/types/types";
 import {
     product,
     productAttributeType,
@@ -21,11 +21,12 @@ type ModalType =
     | "editProduct"
     | "deleteProduct"
     | "addAttribute"
-    | "addAttributeValue";
+    | "addAttributeValue"
+    | "transaction";
 
 type DataType = {
     staff?: staff;
-    customer?: customerWithAddress;
+    customer?: customerType;
     page?: string;
     searchParameter?: string;
     productCategory?: productCategory;

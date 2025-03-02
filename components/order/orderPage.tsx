@@ -15,7 +15,15 @@ import {
     XCircle,
     // AlertCircle,
 } from "lucide-react";
-import { order, STATUS, task } from "@prisma/client";
+import {
+    department,
+    file,
+    job,
+    order,
+    staff,
+    STATUS,
+    task,
+} from "@prisma/client";
 import { getStatusColor } from "@/lib/getStatusColor";
 import { cn } from "@/lib/utils";
 
@@ -28,7 +36,6 @@ interface TimelineEvent {
 }
 
 interface Order extends order {
-    process: task[];
     productItem: {
         productId: number;
         sku: string;
@@ -60,6 +67,17 @@ interface Order extends order {
         name: string;
         phone: string;
     };
+    job:
+        | (job & {
+              staff: Pick<staff, "id" | "name"> | null;
+              tasks: (task & {
+                  department: department | null;
+                  staff: Pick<staff, "id" | "name"> | null;
+              })[];
+          })
+        | null;
+
+    file: file | null;
 }
 
 export default function OrderDetailsPage({ order }: { order: Order }) {
@@ -135,7 +153,7 @@ export default function OrderDetailsPage({ order }: { order: Order }) {
     return (
         <div className="max-w-customHaf lg:max-w-custom mx-auto py-8">
             <Link
-                href="/orders"
+                href="/customer/orders"
                 className="flex items-center text-primary hover:underline mb-6"
             >
                 <ArrowLeft className="h-4 w-4 mr-2" />
@@ -196,18 +214,22 @@ export default function OrderDetailsPage({ order }: { order: Order }) {
                                     <span className="font-medium">Amount:</span>{" "}
                                     ${order?.amount.toFixed(2)}
                                 </p>
-                                {order?.fileUrl && (
-                                    <div className="flex items-center">
-                                        <FileText className="h-4 w-4 mr-2" />
-                                        <Link
-                                            href={order?.fileUrl}
-                                            className="text-primary hover:underline"
-                                            target="_blank"
+                                {order?.file &&
+                                    order?.file?.urls.map((u, idx) => (
+                                        <div
+                                            key={idx}
+                                            className="flex items-center"
                                         >
-                                            View Template
-                                        </Link>
-                                    </div>
-                                )}
+                                            <FileText className="h-4 w-4 mr-2" />
+                                            <Link
+                                                href={u}
+                                                className="text-primary hover:underline"
+                                                target="_blank"
+                                            >
+                                                View File {idx}
+                                            </Link>
+                                        </div>
+                                    ))}
                             </div>
                         </div>
 

@@ -161,7 +161,7 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                     </div>
                 </motion.div>
 
-                <div className="hidden lg:flex items-center justify-center gap-10">
+                <div className="hidden lg:flex items-center justify-center gap-4">
                     {/* Get Started */}
                     {!session && (
                         <motion.div

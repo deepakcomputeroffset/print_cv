@@ -26,7 +26,7 @@ import { ProductAttributes } from "../../attribute/product-attribute";
 import { ProductVariants } from "../product-variants";
 import { useProductCategory } from "@/hooks/useProductCategory";
 import { productFormSchema } from "@/schemas/product.form.schema";
-import { ProductVariantType } from "@/types/types";
+import { ProductVariantType, ServerResponseType } from "@/types/types";
 import { toast } from "sonner";
 import { maxImageSize } from "@/lib/constants";
 import Image from "next/image";
@@ -78,11 +78,11 @@ export function ProductForm() {
                     return;
                 }
 
-                const validFiles = files.filter(
+                const validFiles = files?.filter(
                     (file) => file.size <= maxImageSize,
                 );
 
-                if (validFiles.length !== files.length) {
+                if (validFiles?.length !== files?.length) {
                     toast.error("Some files exceed the 5MB size limit.");
                 }
 
@@ -90,18 +90,20 @@ export function ProductForm() {
                 validFiles.forEach((file) => formData.append("files", file));
                 formData.append("folder", "images");
 
-                const { data } = await axios.post<string[]>(
+                const { data } = await axios.post<ServerResponseType<string[]>>(
                     "/api/upload",
                     formData,
                 );
 
-                form.setValue(
-                    "imageUrl",
-                    [...form.getValues("imageUrl"), ...data?.map((url) => url)],
-                    {
-                        shouldDirty: true,
-                    },
-                );
+                if (data?.data) {
+                    form.setValue(
+                        "imageUrl",
+                        [...form.getValues("imageUrl"), ...data?.data],
+                        {
+                            shouldDirty: true,
+                        },
+                    );
+                }
             } catch (error) {
                 console.log(error);
                 toast.error("Error processing files.");
@@ -223,7 +225,7 @@ export function ProductForm() {
                                 <FormLabel>Product Name</FormLabel>
                                 <FormControl>
                                     <Input
-                                        placeholder="Enter product name"
+                                        placeholder="product name"
                                         {...field}
                                     />
                                 </FormControl>
@@ -274,7 +276,7 @@ export function ProductForm() {
                             <FormLabel>Description</FormLabel>
                             <FormControl>
                                 <Textarea
-                                    placeholder="Enter product description"
+                                    placeholder="Product description"
                                     {...field}
                                     rows={4}
                                 />
@@ -388,10 +390,7 @@ export function ProductForm() {
                             <FormItem>
                                 <FormLabel>Product Code</FormLabel>
                                 <FormControl>
-                                    <Input
-                                        placeholder="Enter Product Code"
-                                        {...field}
-                                    />
+                                    <Input placeholder="sku" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

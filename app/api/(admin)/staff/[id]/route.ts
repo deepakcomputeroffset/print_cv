@@ -1,35 +1,51 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { staffFormSchema } from "@/schemas/staff.form.schema";
+import serverResponse from "@/lib/serverResponse";
+import { auth } from "@/lib/auth";
 
 export async function GET(
     request: Request,
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session?.user?.userType != "staff" ||
+            session.user.staff?.role !== "ADMIN"
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
         const { id } = await params;
         const staff = await prisma.staff.findUnique({
             where: { id: parseInt(id) },
         });
 
         if (!staff) {
-            return NextResponse.json(
-                { success: false, error: "Staff not found" },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Staff not found",
+            });
         }
 
-        return NextResponse.json(
-            { success: true, data: staff },
-            { status: 200 },
-        );
+        return serverResponse({
+            status: 200,
+            success: true,
+            data: staff,
+            message: "staff fetched successfully.",
+        });
     } catch (error) {
-        console.error("Error fetching staff:", error);
-        return NextResponse.json(
-            { error: "Failed to fetch staff" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Error while fetching staff.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }
 
@@ -38,7 +54,18 @@ export async function PATCH(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session?.user?.userType != "staff" ||
+            session.user.staff?.role !== "ADMIN"
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
         const { id } = await params;
 
         const staff = await prisma.staff.findUnique({
@@ -46,13 +73,11 @@ export async function PATCH(
         });
 
         if (!staff) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "staff not found",
-                },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Staff not found.",
+            });
         }
 
         const body = await request.json();
@@ -124,20 +149,19 @@ export async function PATCH(
             data: updateData,
         });
 
-        return NextResponse.json(
-            {
-                success: true,
-                message: "staff updated successfully",
-                data: upadatedStaff,
-            },
-            { status: 200 },
-        );
+        return serverResponse({
+            status: 200,
+            success: true,
+            message: "staff updated successfully",
+            data: upadatedStaff,
+        });
     } catch (error) {
-        console.error("Error updating staff:", error);
-        return NextResponse.json(
-            { error: "Failed to update staff" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Error while updating staff.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }
 
@@ -146,7 +170,19 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session?.user?.userType != "staff" ||
+            session.user.staff?.role !== "ADMIN"
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
+
         const { id } = await params;
 
         const staff = await prisma.staff.delete({
@@ -154,21 +190,25 @@ export async function DELETE(
         });
 
         if (!staff) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "staff not found",
-                },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Staff not found",
+            });
         }
 
-        return new NextResponse(null, { status: 204 });
+        return serverResponse({
+            status: 204,
+            success: true,
+            message: "Staff deleted successfully.",
+            data: null,
+        });
     } catch (error) {
-        console.error("Error deleting staff:", `${error}`);
-        return NextResponse.json(
-            { error: "Failed to delete staff" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Error while deleting staff.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }

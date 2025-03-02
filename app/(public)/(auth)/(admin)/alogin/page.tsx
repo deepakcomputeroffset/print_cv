@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
     phone: z.string({ required_error: "Enter phone number" }).trim().min(9),
@@ -23,7 +24,7 @@ const formSchema = z.object({
 
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
-
+    const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -46,6 +47,8 @@ export default function LoginPage() {
                 toast.error("Invalid credentials");
                 return;
             }
+            router.push("/admin");
+            router.refresh();
         } catch (error) {
             console.log(error);
             toast.error("Something went wrong");
@@ -75,6 +78,7 @@ export default function LoginPage() {
                                         <Input
                                             placeholder="1234567890"
                                             {...field}
+                                            disabled={loading}
                                             className="w-full p-3 py-5 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                         />
                                     </FormControl>
@@ -93,6 +97,7 @@ export default function LoginPage() {
                                             {...field}
                                             placeholder="••••••"
                                             type="password"
+                                            disabled={loading}
                                             className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                         />
                                     </FormControl>

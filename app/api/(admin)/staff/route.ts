@@ -1,14 +1,26 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateHash } from "@/lib/hash";
 import { staffFormSchema } from "@/schemas/staff.form.schema";
 import { Prisma } from "@prisma/client";
 import { QuerySchema } from "@/schemas/query.param.schema";
 import { defaultStaffPerPage } from "@/lib/constants";
+import serverResponse from "@/lib/serverResponse";
+import { auth } from "@/lib/auth";
 
 export async function GET(request: Request) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session?.user?.userType != "staff" ||
+            session.user.staff?.role !== "ADMIN"
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
@@ -47,6 +59,9 @@ export async function GET(request: Request) {
                       }
                     : {},
             ],
+            id: {
+                not: session.user.staff.id,
+            },
         };
 
         const [total, staff] = await prisma.$transaction([
@@ -75,41 +90,60 @@ export async function GET(request: Request) {
             }),
         ]);
 
-        return NextResponse.json({
-            staff,
-            total,
-            page: query.page || 1,
-            perpage: query.perpage || defaultStaffPerPage,
-            totalPages: Math.ceil(
-                total / (query.perpage || defaultStaffPerPage),
-            ),
+        return serverResponse({
+            status: 200,
+            success: true,
+            data: {
+                staff,
+                total,
+                page: query.page || 1,
+                perpage: query.perpage || defaultStaffPerPage,
+                totalPages: Math.ceil(
+                    total / (query.perpage || defaultStaffPerPage),
+                ),
+            },
+            message: "Staffs fetched successfully.",
         });
     } catch (error) {
-        console.error("Error fetching staff:", error);
-        return NextResponse.json(
-            { error: "Failed to fetch staff" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Error while fetching staff.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }
 
 export async function POST(req: Request) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session?.user?.userType != "staff" ||
+            session.user.staff?.role !== "ADMIN"
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                error: "Unauthorized",
+            });
+        }
+
         const data = await req.json();
 
-        const { success, data: safeData } = staffFormSchema.safeParse(data);
+        const {
+            success,
+            data: safeData,
+            error,
+        } = staffFormSchema.safeParse(data);
 
         if (!success) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "Invalid staff data",
-                },
-                {
-                    status: 400,
-                },
-            );
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "Invalid staff data",
+                error: error.issues,
+            });
         }
 
         const isExit = await prisma.staff.findUnique({
@@ -119,13 +153,11 @@ export async function POST(req: Request) {
         });
 
         if (isExit) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "staff already added with this phone number.",
-                },
-                { status: 401 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Staff already added with this phone number",
+            });
         }
 
         const createdStaff = await prisma.staff.create({
@@ -134,19 +166,19 @@ export async function POST(req: Request) {
                 password: await generateHash(safeData.password),
             },
         });
-        return NextResponse.json(
-            {
-                success: true,
-                message: "staff created successfully",
-                data: createdStaff,
-            },
-            { status: 201 },
-        );
+
+        return serverResponse({
+            status: 201,
+            success: true,
+            data: createdStaff,
+            message: "staff created successfully",
+        });
     } catch (error) {
-        console.error("Registration error:", `${error}`);
-        return NextResponse.json(
-            { message: "Something went wrong" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Error while creating staff.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }

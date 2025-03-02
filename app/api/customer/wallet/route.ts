@@ -1,6 +1,8 @@
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
     try {
         const session = await auth();

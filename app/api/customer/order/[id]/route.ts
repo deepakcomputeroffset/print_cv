@@ -2,7 +2,7 @@ import serverResponse from "@/lib/serverResponse";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
-import { deleteFile } from "@/lib/storage";
+import { deleteFiles } from "@/lib/storage";
 
 export async function GET(
     req: Request,
@@ -121,7 +121,7 @@ export async function DELETE(
 
         const order = await prisma.order.delete({
             where: { id: parseInt(id), customerId: session.user.customer.id },
-            select: { fileUrl: true, id: true },
+            select: { file: true, id: true },
         });
 
         if (!order) {
@@ -132,9 +132,13 @@ export async function DELETE(
             });
         }
 
-        if (order.fileUrl) {
-            const deleted = await deleteFile(order.fileUrl);
-            console.log(deleted ? "File deleted" : "File not deleted");
+        if (order?.file) {
+            const deleted = await deleteFiles(order?.file?.urls);
+            console.log(
+                deleted.length === order.file.urls.length
+                    ? "File deleted"
+                    : "Some file not deleted",
+            );
         }
 
         return serverResponse({

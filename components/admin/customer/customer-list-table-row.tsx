@@ -1,17 +1,16 @@
 import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
-
 import { Button } from "@/components/ui/button";
 import { UserX, UserCheck, Eye, Pencil, Trash } from "lucide-react";
 import { CUSTOMER_CATEGORY } from "@prisma/client";
 import { useModal } from "@/hooks/use-modal";
-import { customerWithAddress } from "@/types/types";
+import { customerType } from "@/types/types";
 
 export const CustomerTableRow = ({
     customer,
     toggleBanStatus,
 }: {
-    customer: customerWithAddress;
+    customer: customerType;
     toggleBanStatus: (id: number) => void;
 }) => {
     const { onOpen } = useModal();
@@ -118,7 +117,7 @@ export const CustomerTableRow = ({
     );
 };
 
-const getCategoryBadgeClass = (category: CUSTOMER_CATEGORY) => {
+export const getCategoryBadgeClass = (category: CUSTOMER_CATEGORY) => {
     switch (category) {
         case "HIGH":
             return "bg-green-100 text-green-800";

@@ -6,12 +6,15 @@ import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ProductItemType } from "@/types/types";
-import { productAttributeValue } from "@prisma/client";
+import { productAttributeValue, UPLOADVIA } from "@prisma/client";
 import { useWallet } from "@/hooks/use-wallet";
 import { toast } from "sonner";
 import { createOrder } from "@/lib/api/order";
-import { IndianRupee } from "lucide-react";
+import { IndianRupee, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
+import { Label } from "../ui/label";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 export default function PlaceOrder({
     product,
@@ -28,9 +31,11 @@ export default function PlaceOrder({
         qty: number;
     };
 }) {
+    const [uploadType, setUploadType] = useState<UPLOADVIA>("UPLOAD");
     const [qty, setQty] = useState(product.qty);
     const [file, setFile] = useState<File | null>(null);
-    const { data: wallet, refetch } = useWallet();
+    const [isLoading, setIsLoading] = useState(false);
+    const { refetch } = useWallet();
     const router = useRouter();
 
     const totalPrice = product.price * (qty / product?.minQty);
@@ -47,33 +52,57 @@ export default function PlaceOrder({
     };
 
     const handleCheckout = async () => {
-        if (!file) {
-            toast.warning("Please upload a required file");
-            return;
-        }
+        try {
+            setIsLoading(true);
+            const formData = new FormData();
+            if (uploadType === "UPLOAD") {
+                if (!file) {
+                    toast.warning("Please upload a required file");
+                    return;
+                }
+                formData.append("file", file);
+                formData.delete("uploadType");
+                formData.append("uploadType", "file");
+            }
 
-        if (!wallet?.balance || wallet?.balance < totalPrice) {
-            toast.warning("You don't have sufficient balance.");
-            return;
-        }
+            // if (!wallet?.balance || wallet?.balance < totalPrice) {
+            //     toast.warning("You don't have sufficient balance.");
+            //     return;
+            // }
 
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("productItemId", product.id.toString());
-        formData.append("qty", qty.toString());
+            formData.delete("uploadType");
+            formData.append("uploadType", "email");
+            formData.append("productItemId", product.id.toString());
+            formData.append("qty", qty.toString());
 
-        const { data: res } = await createOrder(formData);
-        if (res?.success) {
-            toast.success("Order successfully created.");
-            router.back();
-            refetch();
+            const { data: res } = await createOrder(formData);
+            if (res?.success) {
+                toast.success(res?.message);
+                router.back();
+                refetch();
+            } else {
+                toast.warning(res.message);
+            }
+        } catch (error) {
+            toast.warning(
+                error instanceof AxiosError
+                    ? error.response?.data?.error
+                    : "Order not place.",
+            );
+            console.log(
+                error instanceof AxiosError
+                    ? error.response?.data?.error
+                    : "Order not place.",
+            );
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <Card className="max-w-3xl mx-auto p-6 md:p-8 shadow-xl rounded-2xl bg-white border border-gray-200">
             <CardHeader>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 text-center">
+                <h2 className="text-2xl md:text-3xl font-extrabold text-dominant-color text-center">
                     Checkout
                 </h2>
             </CardHeader>
@@ -112,6 +141,7 @@ export default function PlaceOrder({
                         onClick={handleDecrease}
                         className="px-4 py-2 text-lg bg-gray-100"
                         variant="ghost"
+                        disabled={isLoading}
                     >
                         -
                     </Button>
@@ -120,31 +150,59 @@ export default function PlaceOrder({
                         onClick={handleIncrease}
                         className="px-4 py-2 text-lg bg-gray-100"
                         variant="ghost"
+                        disabled={isLoading}
                     >
                         +
                     </Button>
                 </div>
-
-                {/* File Upload */}
-                <div className="mt-6">
-                    <label className="block text-sm font-medium text-gray-700">
-                        Upload File (Required)
-                    </label>
-                    <Input
-                        type="file"
-                        onChange={handleFileChange}
-                        accept=".pdf"
-                        className="mt-2 border border-gray-300 rounded-lg px-4 py-2"
-                    />
+                <div className="mt-4">
+                    <h4 className="text-lg font-semibold text-gray-800 space-y-4">
+                        File Upload
+                    </h4>
+                    <RadioGroup
+                        defaultValue="UPLOAD"
+                        className="ml-2"
+                        value={uploadType}
+                        onValueChange={(v) => setUploadType(v as UPLOADVIA)}
+                    >
+                        <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="UPLOAD" id="upload" />
+                            <Label htmlFor="upload">Upload</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="EMAIL" id="email" />
+                            <Label htmlFor="EMAIL">Email</Label>
+                        </div>
+                    </RadioGroup>
                 </div>
+                {/* File Upload */}
+                {uploadType === "UPLOAD" && (
+                    <div className="mt-6">
+                        <label className="block text-sm font-medium text-gray-700">
+                            Upload File (Required)
+                        </label>
+                        <Input
+                            type="file"
+                            onChange={handleFileChange}
+                            accept=".pdf"
+                            className="mt-2 border border-gray-300 rounded-lg px-4 py-2"
+                            disabled={isLoading}
+                        />
+                    </div>
+                )}
 
                 {/* Checkout Button */}
                 <Button
                     onClick={handleCheckout}
                     className="mt-6 w-full py-4 text-lg"
                     variant="redish"
+                    disabled={isLoading}
                 >
-                    Checkout
+                    {isLoading ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                        "Checkout"
+                    )}
                 </Button>
             </CardContent>
         </Card>

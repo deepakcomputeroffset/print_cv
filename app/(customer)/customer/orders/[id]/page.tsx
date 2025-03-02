@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import OrderDetailsPage from "./orderPage";
+import OrderDetailsPage from "@/components/order/orderPage";
 import { prisma } from "@/lib/prisma";
 
 export default async function OrderPage({
@@ -66,7 +66,31 @@ export default async function OrderPage({
                         },
                     },
                 },
-                process: true,
+                job: {
+                    include: {
+                        staff: {
+                            select: {
+                                id: true,
+                                name: true,
+                            },
+                        },
+                        tasks: {
+                            include: {
+                                department: true,
+                                staff: {
+                                    select: {
+                                        id: true,
+                                        name: true,
+                                    },
+                                },
+                            },
+                            orderBy: {
+                                completedAt: "asc",
+                            },
+                        },
+                    },
+                },
+                file: true,
             },
         });
 
@@ -77,7 +101,6 @@ export default async function OrderPage({
                 </div>
             );
         }
-
         return <OrderDetailsPage order={order} />;
     } catch (error) {
         return (

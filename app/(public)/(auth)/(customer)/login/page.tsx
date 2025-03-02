@@ -47,7 +47,7 @@ export default function LoginPage() {
                 phone: values.phone,
                 password: values.password,
                 userType: "customer",
-                callbackUrl: "/customer",
+                callbackUrl: "/customer/categories",
                 redirect: false,
             });
             if (result?.error) {
@@ -55,7 +55,7 @@ export default function LoginPage() {
                 return;
             }
 
-            router.push("/customer");
+            router.push("/customer/categories");
             router.refresh();
         } catch (error) {
             console.log(error);
@@ -86,6 +86,7 @@ export default function LoginPage() {
                                         <Input
                                             placeholder="1234567890"
                                             {...field}
+                                            disabled={loading}
                                             className="w-full p-3 py-5 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                         />
                                     </FormControl>
@@ -104,6 +105,7 @@ export default function LoginPage() {
                                             {...field}
                                             placeholder="••••••"
                                             type="password"
+                                            disabled={loading}
                                             className="w-full p-3 py-5 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A6192E]"
                                         />
                                     </FormControl>
