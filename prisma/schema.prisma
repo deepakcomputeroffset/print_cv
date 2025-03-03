@@ -226,16 +226,16 @@ model staff {
 }
 
 model job {
-    id         Int      @id @default(autoincrement())
-    name       String   @unique
+    id         Int       @id @default(autoincrement())
+    name       String    @unique
     orders     order[]
-    isVerified Boolean  @default(false)
+    isVerified Boolean   @default(false)
     verifiedBy Int?
-    staff      staff?   @relation(fields: [verifiedBy], references: [id], onDelete: Restrict)
+    staff      staff?    @relation(fields: [verifiedBy], references: [id], onDelete: Restrict)
     tasks      task[]
-    verifiedAt DateTime
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
+    verifiedAt DateTime?
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
 
     @@index([name])
     @@index([id])

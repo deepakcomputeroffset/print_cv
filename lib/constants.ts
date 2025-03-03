@@ -8,6 +8,7 @@ export const defaultProductCategoryPerPage = 5;
 export const defaultProductPerPage = 1;
 export const defaultOrderPerPage = 2;
 export const defaultDepartmentsPerPage = 1;
+export const defaultJobsPerPage = 1;
 
 export const maxImageSize = 5242880; // 5mb
 export const maxFileSize = 50 * 1024 * 1024; // 50MB

@@ -80,6 +80,12 @@ const routes = [
         pattern: /^\/admin\/department(?:\/.*)?$/,
     },
     {
+        title: "Job",
+        icon: Blocks,
+        url: "/admin/job?search=&sortorder=asc&page=1&perpage=100",
+        pattern: /^\/admin\/job(?:\/.*)?$/,
+    },
+    {
         title: "Orders",
         icon: ShoppingCart,
         url: "/admin/orders",
