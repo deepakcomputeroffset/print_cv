@@ -213,7 +213,7 @@ export async function DELETE(
         }
 
         return serverResponse({
-            status: 204,
+            status: 200,
             success: true,
             message: "Customer deleted successfully.",
         });

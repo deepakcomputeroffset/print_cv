@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import serverResponse from "@/lib/serverResponse";
 
 export async function GET(
     request: Request,
@@ -9,10 +9,11 @@ export async function GET(
         const { id } = await params;
         const productId = parseInt(id);
         if (isNaN(productId)) {
-            return NextResponse.json(
-                { error: "Invalid product ID" },
-                { status: 400 },
-            );
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "Invalid productId",
+            });
         }
 
         const product = await prisma.product.findUnique({
@@ -32,18 +33,26 @@ export async function GET(
         });
 
         if (!product) {
-            return NextResponse.json(
-                { error: "Product not found" },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Product not found",
+            });
         }
 
-        return NextResponse.json(product);
+        return serverResponse({
+            status: 200,
+            success: true,
+            data: product,
+            message: "Product fetched successfully",
+        });
     } catch (error) {
         console.error("Error fetching product:", error);
-        return NextResponse.json(
-            { error: "Failed to fetch product" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            error: error instanceof Error ? error.message : error,
+            message: "Internal Error",
+        });
     }
 }

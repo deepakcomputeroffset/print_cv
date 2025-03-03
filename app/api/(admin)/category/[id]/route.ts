@@ -196,7 +196,7 @@ export async function DELETE(
         }
         await deleteFile(productCategory.imageUrl);
         return serverResponse({
-            status: 204,
+            status: 200,
             success: true,
             data: null,
             message: "Product Category deleted successfully",

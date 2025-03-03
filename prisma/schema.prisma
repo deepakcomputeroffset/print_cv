@@ -254,9 +254,10 @@ model task {
 }
 
 model department {
-    id    Int    @id @default(autoincrement())
-    name  String @unique
-    tasks task[]
+    id          Int    @id @default(autoincrement())
+    name        String @unique
+    description String
+    tasks       task[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

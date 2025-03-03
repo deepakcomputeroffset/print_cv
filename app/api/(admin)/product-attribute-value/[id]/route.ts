@@ -58,7 +58,7 @@ export async function DELETE(
             );
         }
 
-        return new NextResponse(null, { status: 204 });
+        return new NextResponse(null, { status: 200 });
     } catch (error) {
         console.error("Error deleting product attribute value:", `${error}`);
         return NextResponse.json(

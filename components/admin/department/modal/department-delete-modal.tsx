@@ -1,20 +1,19 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
 import { ConfirmationModal } from "@/components/modal";
-import { useStaff } from "@/hooks/use-staff";
+import { useDepartment } from "@/hooks/use-department";
 
-export const StaffDeleteModal = () => {
+export const DepartmentDeleteModal = () => {
     const { isOpen, onClose, data, modal } = useModal();
-    const open = isOpen && modal === "staffDelete";
+    const open = isOpen && modal === "deleteDepartment";
 
     const {
-        deletestaff: { mutateAsync, isPending },
-    } = useStaff();
+        deleteDepartment: { mutateAsync, isPending },
+    } = useDepartment();
 
     const handleDelete = async () => {
-        if (data?.staff?.id) {
-            await mutateAsync(data?.staff?.id);
+        if (data?.department?.id) {
+            await mutateAsync(data?.department?.id);
             onClose();
         }
     };
@@ -23,13 +22,14 @@ export const StaffDeleteModal = () => {
         <ConfirmationModal
             isOpen={open}
             onClose={onClose}
-            title="Delete Staff"
+            title="Delete Department"
             description={
                 <>
-                    Are you sure you want to do this? <br />
+                    Are you sure you want to delete?
+                    <br />
                     <span className="font-semibold text-indigo-500">
-                        {data?.staff?.name}
-                    </span>{" "}
+                        {data?.department?.name}
+                    </span>
                 </>
             }
         >

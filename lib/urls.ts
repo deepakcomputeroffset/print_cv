@@ -4,6 +4,7 @@ export const staffBaseUrl = "/api/staff";
 export const productBaseUrl = "/api/products";
 export const productAttributeTypeBaseUrl = "/api/product-attribute-type";
 export const productAttributeValueBaseUrl = "/api/product-attribute-value";
+export const departmentBaseUrl = "/api/department";
 // CUSTOMER
 export const orderBaseUrl = "/api/customer/order";
 

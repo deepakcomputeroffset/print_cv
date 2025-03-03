@@ -1,5 +1,6 @@
 "use client";
 import {
+    Blocks,
     GalleryVerticalEnd,
     Home,
     LayoutDashboard,
@@ -71,6 +72,12 @@ const routes = [
         icon: Package,
         url: "/admin/products?search=&sortorder=asc&perpage=100",
         pattern: /^\/admin\/products(?:\/.*)?$/,
+    },
+    {
+        title: "Department",
+        icon: Blocks,
+        url: "/admin/department?search=&sortorder=asc&page=1&perpage=100",
+        pattern: /^\/admin\/department(?:\/.*)?$/,
     },
     {
         title: "Orders",
