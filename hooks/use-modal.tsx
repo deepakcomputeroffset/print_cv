@@ -1,4 +1,4 @@
-import { customerType } from "@/types/types";
+import { customerType, orderType } from "@/types/types";
 import {
     department,
     job,
@@ -30,7 +30,8 @@ type ModalType =
     | "deleteDepartment"
     | "addJob"
     | "editJob"
-    | "deleteJob";
+    | "deleteJob"
+    | "selectJob";
 
 type DataType = {
     staff?: staff;
@@ -43,6 +44,7 @@ type DataType = {
     productAttribute?: productAttributeType;
     department?: department;
     job?: job;
+    orders?: orderType[];
 };
 
 interface modalStore {

@@ -127,7 +127,7 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
                                 onChange={(e) =>
                                     setPriceRange((prev) => ({
                                         ...prev,
-                                        min: Number(e.target.value),
+                                        min: e.target.value,
                                     }))
                                 }
                                 className="w-full"
@@ -141,7 +141,7 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
                                 onChange={(e) =>
                                     setPriceRange((prev) => ({
                                         ...prev,
-                                        max: Number(e.target.value),
+                                        max: e.target.value,
                                     }))
                                 }
                                 className="w-full"
@@ -154,7 +154,7 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
                             placeholder="Minimum quantity"
                             min={0}
                             value={minQty}
-                            onChange={(e) => setMinQty(Number(e.target.value))}
+                            onChange={(e) => setMinQty(e.target.value)}
                         />
 
                         <div className="flex space-x-2 w-full">

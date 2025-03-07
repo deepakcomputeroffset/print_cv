@@ -68,14 +68,14 @@ export async function GET(request: Request) {
                           isAvailable: query?.status === "true",
                       }
                     : {},
-                query?.minPrice && query?.minPrice != 0
+                query?.minPrice && Number(query?.minPrice) != 0
                     ? {
                           minPrice: {
                               gte: Number(query?.minPrice),
                           },
                       }
                     : {},
-                query?.maxPrice && query?.maxPrice != 0
+                query?.maxPrice && Number(query?.maxPrice) != 0
                     ? {
                           maxPrice: {
                               gte: Number(query?.maxPrice),

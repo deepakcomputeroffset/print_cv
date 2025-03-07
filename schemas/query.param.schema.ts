@@ -1,3 +1,4 @@
+import { STATUS } from "@prisma/client";
 import { z } from "zod";
 
 // Schema for query parameters
@@ -11,13 +12,14 @@ export const QuerySchema = z.object({
     perpage: z.string().transform(Number).optional(),
     sortby: z.string().optional(),
     sortorder: z.enum(["asc", "desc"]).optional(),
-    minPrice: z.number().optional(),
-    maxPrice: z.number().optional(),
-    minQty: z.number().optional(),
+    minPrice: z.string().optional(),
+    maxPrice: z.string().optional(),
+    minQty: z.string().optional(),
     orderId: z.string().optional(),
     from: z.string().optional(),
     to: z.string().optional(),
     totalPages: z.number().optional(),
     parentCategoryId: z.string().optional(),
     walletId: z.string().optional(),
+    orderStatus: z.union([z.nativeEnum(STATUS), z.literal("ALL")]).optional(),
 });

@@ -4,12 +4,16 @@ import {
     city,
     country,
     customer,
+    file,
+    job,
+    order,
     product,
     productAttributeType,
     productAttributeValue,
     productCategory,
     productItem,
     state,
+    task,
 } from "@prisma/client";
 import { z, ZodIssue } from "zod";
 
@@ -72,4 +76,32 @@ export interface ServerResponseType<T> {
     error?: string | undefined | ZodIssue[] | ValidationError[] | any;
     data?: T | undefined;
     status: number;
+}
+
+export interface orderType extends order {
+    file: file;
+    job: job & { tasks: task[] };
+    productItem: productItem & {
+        product: product & {
+            category: productCategory;
+        };
+        productAttributeOptions: productAttributeValue[];
+    };
+    customer: Pick<
+        customer,
+        | "businessName"
+        | "customerCategory"
+        | "email"
+        | "gstNumber"
+        | "id"
+        | "name"
+        | "phone"
+        | "isBanned"
+    > & {
+        address: address & {
+            city: city & {
+                state: state & { country: country };
+            };
+        };
+    };
 }

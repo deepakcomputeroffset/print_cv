@@ -62,7 +62,10 @@ export default function PlaceOrder({
                 }
                 formData.append("file", file);
                 formData.delete("uploadType");
-                formData.append("uploadType", "file");
+                formData.append("uploadType", "UPLOAD");
+            } else {
+                formData.delete("uploadType");
+                formData.append("uploadType", "EMAIL");
             }
 
             // if (!wallet?.balance || wallet?.balance < totalPrice) {
@@ -70,8 +73,6 @@ export default function PlaceOrder({
             //     return;
             // }
 
-            formData.delete("uploadType");
-            formData.append("uploadType", "email");
             formData.append("productItemId", product.id.toString());
             formData.append("qty", qty.toString());
 

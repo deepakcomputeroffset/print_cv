@@ -70,25 +70,6 @@ export const ProductCategoryList = ({
                             </CardHeader>
                         </Card>
                     ))}
-                    {categories.map((category) => (
-                        <Card
-                            key={category.id}
-                            className="cursor-pointer bg-white border border-gray-200 hover:shadow-xl transition-shadow overflow-hidden"
-                            onClick={() => handleCategoryClick(category)}
-                        >
-                            <div
-                                className="h-32 md:h-40 w-full bg-cover bg-center"
-                                style={{
-                                    backgroundImage: `url(${category.imageUrl})`,
-                                }}
-                            />
-                            <CardHeader>
-                                <div className="flex items-center justify-center text-center text-[#660A27] font-semibold">
-                                    <CardTitle>{category.name}</CardTitle>
-                                </div>
-                            </CardHeader>
-                        </Card>
-                    ))}
                 </div>
             </div>
         </div>

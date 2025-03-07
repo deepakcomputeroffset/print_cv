@@ -150,7 +150,6 @@ export async function DELETE(
             data: null,
         });
     } catch (error) {
-        console.log(error);
         console.error("Error deleting job:", `${error}`);
         return serverResponse({
             status: 500,

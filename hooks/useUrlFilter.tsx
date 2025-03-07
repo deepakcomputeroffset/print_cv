@@ -8,7 +8,6 @@ export const useUrlFilters = () => {
     const searchParams = useSearchParams();
     const params = new URLSearchParams(searchParams!);
 
-    // params.set(data);
     const setParam = useCallback(
         <K extends keyof QueryParams, V extends QueryParams[K]>(
             key: K,

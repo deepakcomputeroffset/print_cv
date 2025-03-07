@@ -168,7 +168,6 @@ export async function POST(request: Request) {
             (Math.max(qty, productItem?.minQty) / productItem.minQty);
 
         let fileUrls: string[] | undefined = undefined;
-
         if (uploadType === "UPLOAD") {
             const files = orderDetail.getAll("file") as File[];
             if (!files.length) {

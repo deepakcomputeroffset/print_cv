@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
     ChevronLeft,
     ChevronRight,
@@ -7,14 +8,19 @@ import {
     ChevronsRight,
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { FC } from "react";
+import React, { FC, HTMLAttributes } from "react";
 
-interface prop {
+interface prop extends HTMLAttributes<HTMLDivElement> {
     totalPage: number;
     isLoading: boolean;
 }
 
-const Pagination: FC<prop> = ({ isLoading, totalPage }) => {
+const Pagination: FC<prop> = ({
+    isLoading,
+    totalPage,
+    className,
+    ...props
+}) => {
     const { replace } = useRouter();
     const path = usePathname();
     const searchParams = useSearchParams();
@@ -38,41 +44,51 @@ const Pagination: FC<prop> = ({ isLoading, totalPage }) => {
     };
 
     return (
-        <div className="flex items-center justify-between mt-4">
+        <div
+            className={cn(
+                "flex items-center justify-between mt-4 gap-4",
+                className,
+            )}
+            {...props}
+        >
             <div className="text-sm text-muted-foreground">
                 Page {page} of {totalPage}
             </div>
             <div className="flex items-center space-x-2">
                 <Button
                     variant="outline"
-                    size="icon"
                     onClick={() => pageHandler("first")}
                     disabled={page <= 1 || isLoading}
+                    className="hidden h-8 w-8 p-0 lg:flex"
                 >
+                    <span className="sr-only">Go to first page</span>
                     <ChevronsLeft className="h-4 w-4" />
                 </Button>
                 <Button
                     variant="outline"
-                    size="icon"
                     onClick={() => pageHandler("prev")}
                     disabled={!hasPrev || isLoading}
+                    className="hidden h-8 w-8 p-0 lg:flex"
                 >
+                    <span className="sr-only">Go to previous page</span>
                     <ChevronLeft className="h-4 w-4" />
                 </Button>
                 <Button
                     variant="outline"
-                    size="icon"
+                    className="hidden h-8 w-8 p-0 lg:flex"
                     onClick={() => pageHandler("next")}
                     disabled={!hasNext || isLoading}
                 >
+                    <span className="sr-only">Go to next page</span>
                     <ChevronRight className="h-4 w-4" />
                 </Button>
                 <Button
                     variant="outline"
-                    size="icon"
+                    className="hidden h-8 w-8 p-0 lg:flex"
                     onClick={() => pageHandler("last")}
                     disabled={page >= totalPage || isLoading}
                 >
+                    <span className="sr-only">Go to last page</span>
                     <ChevronsRight className="h-4 w-4" />
                 </Button>
             </div>
