@@ -12,7 +12,7 @@ export const columns: ColumnDef<orderType>[] = [
         header: ({ table }) => {
             // Get selectable rows (those with files and no job)
             const selectableRows = table.getRowModel().rows.filter((row) => {
-                const hasFileUrls = row.original.file?.urls?.length > 0;
+                const hasFileUrls = row.original.attachment?.urls?.length > 0;
                 const hasJobId = row.original.job?.id;
                 return hasFileUrls && !hasJobId;
             });
@@ -39,7 +39,7 @@ export const columns: ColumnDef<orderType>[] = [
             );
         },
         cell: ({ row }) => {
-            const hasFileUrls = row.original.file?.urls?.length > 0;
+            const hasFileUrls = row.original.attachment?.urls?.length > 0;
             const hasJobId = row.original.job?.id; // Assuming job has an `id` field
 
             return (
@@ -141,7 +141,7 @@ export const columns: ColumnDef<orderType>[] = [
             return (
                 <div className="flex flex-col">
                     <span className="text-xs">
-                        {format(row.getValue("createdAt"), "dd/mm/yyyy")}
+                        {format(row.getValue("createdAt"), "dd/MM/yyyy")}
                     </span>
                     <span className="text-xs text-muted-foreground">
                         {format(row.getValue("createdAt"), "hh:MMa")}
@@ -161,12 +161,12 @@ export const columns: ColumnDef<orderType>[] = [
     },
 
     {
-        accessorKey: "file",
+        accessorKey: "attachment",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="File" />
         ),
         cell: ({ row }) => {
-            const file = row.original.file;
+            const file = row.original.attachment;
             return (
                 <div className="flex flex-col justify-center">
                     <span className="text-xs">{file?.uploadVia}</span>

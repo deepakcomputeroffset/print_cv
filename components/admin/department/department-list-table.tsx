@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table";
 import { MessageRow } from "@/components/message-row";
 import { LoadingRow } from "@/components/loading-row";
-import { department } from "@prisma/client";
+import { taskType } from "@prisma/client";
 import { Pencil, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
@@ -18,7 +18,7 @@ export const DepartmentListTable = ({
     departments,
     isLoading,
 }: {
-    departments: department[];
+    departments: taskType[];
     isLoading: boolean;
 }) => {
     const { onOpen } = useModal();
@@ -39,7 +39,7 @@ export const DepartmentListTable = ({
                 ) : departments.length === 0 ? (
                     <MessageRow colSpan={8} text="No Departments found" />
                 ) : (
-                    departments?.map((department: department) => (
+                    departments?.map((department: taskType) => (
                         <TableRow key={department?.id}>
                             <TableCell className="text-center">
                                 {department?.id}
@@ -50,7 +50,7 @@ export const DepartmentListTable = ({
 
                             <TableCell>{department?.description}</TableCell>
                             <TableCell>
-                                {format(department?.createdAt, "dd/mm/yyyy")}
+                                {format(department?.createdAt, "dd/MM/yyyy")}
                             </TableCell>
 
                             <TableCell>

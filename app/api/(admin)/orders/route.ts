@@ -113,7 +113,7 @@ export async function GET(request: Request) {
                     : 0,
                 take: query.perpage || defaultOrderPerPage,
                 include: {
-                    file: true,
+                    attachment: true,
                     job: {
                         include: { tasks: true },
                     },

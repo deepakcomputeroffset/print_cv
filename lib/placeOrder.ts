@@ -55,7 +55,7 @@ export async function placeOrder(
             },
         });
 
-        const file = await tx.file.create({
+        const file = await tx.attachment.create({
             data: {
                 uploadVia: uploadType,
                 orderId: order.id,

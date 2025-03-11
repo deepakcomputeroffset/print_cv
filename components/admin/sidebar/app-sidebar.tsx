@@ -1,6 +1,7 @@
 "use client";
 import {
     Blocks,
+    Cuboid,
     GalleryVerticalEnd,
     Home,
     LayoutDashboard,
@@ -54,6 +55,12 @@ const routes = [
         icon: Users,
         url: "/admin/customer?search=&sortorder=asc&perpage=100",
         pattern: /^\/admin\/customer(?:\/.*)?$/,
+    },
+    {
+        title: "Tasks",
+        icon: Cuboid,
+        url: "/admin/tasks?search=&sortorder=asc&perpage=100",
+        pattern: /^\/admin\/tasks(?:\/.*)?$/,
     },
     {
         title: "Wallet",

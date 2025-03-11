@@ -30,7 +30,7 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
-        const where: Prisma.departmentWhereInput = {
+        const where: Prisma.taskTypeWhereInput = {
             AND: [
                 query.search
                     ? {
@@ -48,8 +48,8 @@ export async function GET(request: Request) {
         };
 
         const [total, departments] = await prisma.$transaction([
-            prisma.department.count({ where }),
-            prisma.department.findMany({
+            prisma.taskType.count({ where }),
+            prisma.taskType.findMany({
                 where,
                 orderBy: {
                     [query?.sortby ?? "id"]: query?.sortorder || "asc",
@@ -122,7 +122,7 @@ export async function POST(req: Request) {
             });
         }
 
-        const isExit = await prisma.department.findUnique({
+        const isExit = await prisma.taskType.findUnique({
             where: {
                 name: safeData.name,
             },
@@ -136,7 +136,7 @@ export async function POST(req: Request) {
             });
         }
 
-        const createdDepartment = await prisma.department.create({
+        const createdDepartment = await prisma.taskType.create({
             data: {
                 ...safeData,
             },

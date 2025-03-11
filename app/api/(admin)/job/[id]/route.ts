@@ -132,14 +132,14 @@ export async function DELETE(
         const { id } = await params;
 
         const job = await prisma.job.delete({
-            where: { id: parseInt(id) },
+            where: { id: parseInt(id), isVerified: false },
         });
 
         if (!job) {
             return serverResponse({
                 status: 404,
                 success: false,
-                message: "Job not found.",
+                message: "Invalid request.",
             });
         }
 

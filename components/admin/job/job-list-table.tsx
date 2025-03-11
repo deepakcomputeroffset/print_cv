@@ -9,10 +9,11 @@ import {
 import { MessageRow } from "@/components/message-row";
 import { LoadingRow } from "@/components/loading-row";
 import { job } from "@prisma/client";
-import { Pencil, Trash } from "lucide-react";
+import { Eye, Pencil, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import { useModal } from "@/hooks/use-modal";
+import Link from "next/link";
 
 export const JobListTable = ({
     jobs,
@@ -28,6 +29,7 @@ export const JobListTable = ({
                 <TableRow>
                     <TableHead className="text-center">Id</TableHead>
                     <TableHead>Name</TableHead>
+                    <TableHead>Verified</TableHead>
                     <TableHead>CreatedAt</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
@@ -46,13 +48,22 @@ export const JobListTable = ({
                             <TableCell className="font-medium">
                                 {job?.name}
                             </TableCell>
+                            <TableCell className="font-medium">
+                                {job?.isVerified ? "Yes" : "No"}
+                            </TableCell>
 
                             <TableCell>
-                                {format(job?.createdAt, "dd/mm/yyyy")}
+                                {format(job?.createdAt, "dd/MM/yyyy")}
                             </TableCell>
 
                             <TableCell>
                                 <div className="flex items-center justify-end gap-2">
+                                    <Link href={`/admin/job/${job?.id}`}>
+                                        <Button variant="ghost" size="icon">
+                                            <Eye className="h-4 w-4 max-h-4 max-w-4" />
+                                        </Button>
+                                    </Link>
+
                                     <Button
                                         variant="ghost"
                                         size="icon"

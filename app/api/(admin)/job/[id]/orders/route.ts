@@ -35,7 +35,7 @@ export async function POST(
                 id: {
                     in: result.data.orders,
                 },
-                file: {
+                attachment: {
                     urls: {
                         isEmpty: false,
                     },

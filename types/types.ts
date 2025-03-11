@@ -4,7 +4,7 @@ import {
     city,
     country,
     customer,
-    file,
+    attachment,
     job,
     order,
     product,
@@ -79,7 +79,7 @@ export interface ServerResponseType<T> {
 }
 
 export interface orderType extends order {
-    file: file;
+    attachment: attachment;
     job: job & { tasks: task[] };
     productItem: productItem & {
         product: product & {

@@ -26,8 +26,9 @@ model customer {
     references  customer[] @relation("reference")
     referedBy   customer?  @relation("reference", fields: [referenceId], references: [id])
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    createdAt   DateTime     @default(now())
+    updatedAt   DateTime     @updatedAt
+    attachments attachment[]
 }
 
 model wallet {
@@ -184,10 +185,10 @@ model order {
     amount        Int
     status        STATUS @default(PENDING)
 
-    file file?
+    attachment attachment?
 
     jobId Int?
-    job   job? @relation(fields: [jobId], references: [id], onDelete: Restrict)
+    job   job? @relation(fields: [jobId], references: [id], onDelete: SetNull)
 
     productItem productItem @relation(fields: [productItemId], references: [id], onDelete: Restrict)
     customer    customer    @relation(fields: [customerId], references: [id])
@@ -195,14 +196,18 @@ model order {
     updatedAt   DateTime    @updatedAt
 }
 
-model file {
-    id        Int       @id @default(autoincrement())
-    orderId   Int       @unique
-    uploadVia UPLOADVIA
-    urls      String[]
-    order     order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
+model attachment {
+    id           Int       @id @default(autoincrement())
+    orderId      Int       @unique
+    uploadVia    UPLOADVIA
+    urls         String[]
+    uploadedById Int?
+    uploadedBy   staff?    @relation(fields: [uploadedById], references: [id])
+    order        order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    createdAt    DateTime  @default(now())
+    updatedAt    DateTime  @updatedAt
+    customer     customer? @relation(fields: [customerId], references: [id])
+    customerId   Int?
 }
 
 enum UPLOADVIA {
@@ -211,49 +216,56 @@ enum UPLOADVIA {
 }
 
 model staff {
-    id           Int           @id @default(autoincrement())
-    name         String
-    email        String
-    phone        String        @unique
-    role         ROLE          @default(STAFF)
-    isBanned     Boolean       @default(false)
-    password     String
-    jobTasks     task[]
-    jobVerified  job[]
-    transactions transaction[]
-    createdAt    DateTime      @default(now())
-    updatedAt    DateTime      @updatedAt
+    id            Int           @id @default(autoincrement())
+    name          String
+    email         String
+    phone         String        @unique
+    role          ROLE          @default(STAFF)
+    isBanned      Boolean       @default(false)
+    password      String
+    assignedTasks task[]
+    jobVerified   job[]
+    transactions  transaction[]
+    attachments   attachment[]
+    createdAt     DateTime      @default(now())
+    updatedAt     DateTime      @updatedAt
 }
 
 model job {
-    id         Int       @id @default(autoincrement())
-    name       String    @unique
-    orders     order[]
-    isVerified Boolean   @default(false)
-    verifiedBy Int?
-    staff      staff?    @relation(fields: [verifiedBy], references: [id], onDelete: Restrict)
-    tasks      task[]
-    verifiedAt DateTime?
-    createdAt  DateTime  @default(now())
-    updatedAt  DateTime  @updatedAt
+    id          Int       @id @default(autoincrement())
+    name        String    @unique
+    orders      order[]
+    isVerified  Boolean   @default(false)
+    isCompleted Boolean   @default(false)
+    verifiedBy  Int?
+    staff       staff?    @relation(fields: [verifiedBy], references: [id], onDelete: Restrict)
+    tasks       task[]
+    verifiedAt  DateTime?
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
 
     @@index([name])
     @@index([id])
 }
 
 model task {
-    id             Int        @id @default(autoincrement())
-    jobId          Int
-    departmentType Int
-    completedBy    Int?
-    staff          staff?     @relation(fields: [completedBy], references: [id], onDelete: Restrict)
-    department     department @relation(fields: [departmentType], references: [id], onDelete: Restrict)
-    job            job        @relation(fields: [jobId], references: [id], onDelete: Cascade)
-    startedAt      DateTime
-    completedAt    DateTime
+    id              Int         @id @default(autoincrement())
+    jobId           Int
+    taskTypeId      Int
+    assignedStaffId Int?
+    status          TASK_STATUS @default(PENDING)
+
+    startedAt   DateTime?
+    completedAt DateTime?
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+
+    assignee staff?   @relation(fields: [assignedStaffId], references: [id], onDelete: Restrict)
+    taskType taskType @relation(fields: [taskTypeId], references: [id], onDelete: Restrict)
+    job      job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
 }
 
-model department {
+model taskType {
     id          Int    @id @default(autoincrement())
     name        String @unique
     description String
@@ -263,10 +275,17 @@ model department {
     updatedAt DateTime @updatedAt
 }
 
+enum TASK_STATUS {
+    PENDING
+    IN_PROGRESS
+    COMPLETED
+}
+
 enum ROLE {
     ADMIN
     PRODUCT_MANAGER
     ORDER_MANAGER
+    JOB_MANAGER
     ACCOUNTANT
     STAFF
 }

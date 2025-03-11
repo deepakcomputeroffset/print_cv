@@ -27,3 +27,4 @@ export const allowedRoleForCategoryAndProductManagement: ROLE[] = [
     "PRODUCT_MANAGER",
 ];
 export const allowedRoleForAccountManagement: ROLE[] = ["ADMIN", "ACCOUNTANT"];
+export const allowedRoleForJobManagement: ROLE[] = ["ADMIN", "JOB_MANAGER"];
