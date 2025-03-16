@@ -63,7 +63,10 @@ export const CustomerEditForm = () => {
             Object.keys(dirtyFieldsWithValues).length > 0 &&
             data?.customer?.id
         ) {
-            updateCustomer(data?.customer?.id, dirtyFieldsWithValues);
+            updateCustomer.mutateAsync({
+                id: data?.customer?.id,
+                data: dirtyFieldsWithValues,
+            });
         }
         onClose();
     };
