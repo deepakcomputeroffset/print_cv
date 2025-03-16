@@ -12,6 +12,9 @@ import {
 } from "@/components/ui/table";
 import { format } from "date-fns";
 import { IndianRupee } from "lucide-react";
+
+export const dynamic = "force-dynamic";
+
 export default async function CustomerDashboard() {
     const session = await auth();
 
@@ -26,15 +29,7 @@ export default async function CustomerDashboard() {
             },
             take: 10,
             orderBy: {
-                createBy: "desc",
-            },
-            include: {
-                staff: {
-                    select: {
-                        name: true,
-                        id: true,
-                    },
-                },
+                createdAt: "desc",
             },
         }),
         prisma.wallet.findUnique({
@@ -69,7 +64,7 @@ export default async function CustomerDashboard() {
                                 <TableHead>Date</TableHead>
                                 <TableHead>Amount</TableHead>
                                 <TableHead>Type</TableHead>
-                                <TableHead>By</TableHead>
+                                <TableHead>Description</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -87,9 +82,8 @@ export default async function CustomerDashboard() {
                                         {transaction.amount}
                                     </TableCell>
                                     <TableCell>{transaction.type}</TableCell>
-                                    <TableCell className="whitespace-nowrap">
-                                        {transaction.staff?.name} (
-                                        {transaction.staff?.id})
+                                    <TableCell>
+                                        {transaction.description}
                                     </TableCell>
                                 </TableRow>
                             ))}
