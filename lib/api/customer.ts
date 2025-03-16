@@ -1,7 +1,10 @@
 import queryString from "query-string";
 import axios from "axios";
 import { z } from "zod";
-import { customerFormSchema } from "@/schemas/customer.form.schema";
+import {
+    changePasswordFormSchema,
+    customerFormSchema,
+} from "@/schemas/customer.form.schema";
 import { customerType, QueryParams, ServerResponseType } from "@/types/types";
 import { customerBaseUrl } from "../urls";
 import { customer } from "@prisma/client";
@@ -46,4 +49,15 @@ export async function deleteCustomer(id: number) {
     const url = `${customerBaseUrl}/${id}`;
     const { data } = await axios.delete<ServerResponseType<null>>(url);
     return data;
+}
+
+export async function changePassword(
+    data: z.infer<typeof changePasswordFormSchema>,
+) {
+    const url = `${customerBaseUrl}/changePassword`;
+    const { data: response } = await axios.post<ServerResponseType<null>>(
+        url,
+        data,
+    );
+    return response;
 }

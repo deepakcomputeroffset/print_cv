@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { signOut } from "next-auth/react";
-import { LogOut, Pen } from "lucide-react";
+import { Lock, LogOut, Pen } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Button } from "../ui/button";
 
@@ -355,6 +355,33 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                         </>
                                     )}
 
+                                {/* Change Password */}
+                                {!!session &&
+                                    session.user.userType === "customer" && (
+                                        <>
+                                            <DropdownMenuLabel>
+                                                <div className="flex gap-2 items-center">
+                                                    <span>Change Password</span>
+
+                                                    <Link
+                                                        href="/customer/changePassword"
+                                                        className="ml-auto"
+                                                    >
+                                                        <Button
+                                                            variant={
+                                                                "secondary"
+                                                            }
+                                                            size={"sm"}
+                                                        >
+                                                            <Lock />
+                                                        </Button>
+                                                    </Link>
+                                                </div>
+                                            </DropdownMenuLabel>
+                                            <DropdownMenuSeparator />
+                                        </>
+                                    )}
+
                                 <DropdownMenuItem
                                     onClick={() => signOut()}
                                     className="cursor-pointer"
@@ -491,6 +518,7 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                 >
                                     <DropdownMenuLabel className="p-0 font-normal">
                                         <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                                            {/* Avatar */}
                                             <Avatar className="h-8 w-8 rounded-lg">
                                                 <AvatarImage
                                                     alt={
@@ -514,6 +542,7 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                                           )}
                                                 </AvatarFallback>
                                             </Avatar>
+                                            {/* Name and Email */}
                                             <div className="grid flex-1 text-left text-sm leading-tight">
                                                 <span className="truncate font-semibold">
                                                     {session?.user.customer
@@ -533,6 +562,8 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                         </div>
                                     </DropdownMenuLabel>
                                     <DropdownMenuSeparator />
+
+                                    {/* Wallet */}
                                     {!!session &&
                                         session.user.userType ===
                                             "customer" && (
@@ -544,6 +575,7 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                             </>
                                         )}
 
+                                    {/* Edit Profile */}
                                     {!!session &&
                                         session.user.userType ===
                                             "customer" && (
@@ -572,6 +604,37 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                                 <DropdownMenuSeparator />
                                             </>
                                         )}
+
+                                    {/* Change Password */}
+                                    {!!session &&
+                                        session.user.userType ===
+                                            "customer" && (
+                                            <>
+                                                <DropdownMenuLabel>
+                                                    <div className="flex gap-2 items-center">
+                                                        <span>
+                                                            Change Password
+                                                        </span>
+
+                                                        <Link
+                                                            href="/customer/changePassword"
+                                                            className="ml-auto"
+                                                        >
+                                                            <Button
+                                                                variant={
+                                                                    "secondary"
+                                                                }
+                                                                size={"sm"}
+                                                            >
+                                                                <Lock />
+                                                            </Button>
+                                                        </Link>
+                                                    </div>
+                                                </DropdownMenuLabel>
+                                                <DropdownMenuSeparator />
+                                            </>
+                                        )}
+
                                     <DropdownMenuItem
                                         onClick={() => signOut()}
                                         className="cursor-pointer"

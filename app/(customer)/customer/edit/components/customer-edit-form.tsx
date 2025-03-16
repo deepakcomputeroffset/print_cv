@@ -35,7 +35,6 @@ export const CustomerEditForm = ({ customer }: { customer?: customerType }) => {
         updateCustomer: { isPending, mutateAsync },
     } = useCustomers();
     const customerFormSchemaUpdated = customerFormSchema?.partial();
-    console.log(customer);
     const form = useForm<z.infer<typeof customerFormSchemaUpdated>>({
         resolver: zodResolver(customerFormSchemaUpdated),
         defaultValues: {

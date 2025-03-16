@@ -35,3 +35,24 @@ export const customerFormSchema = z.object({
 
     password: z.string().min(8, "Password must be at least 8 characters long."),
 });
+
+export const changePasswordFormSchema = z
+    .object({
+        oldPassword: z
+            .string()
+            .min(8, "Password must be at least 8 characters long."),
+        password: z
+            .string()
+            .min(8, "Password must be at least 8 characters long."),
+        confirmPassword: z
+            .string()
+            .min(8, "Password must be at least 8 characters long."),
+    })
+    .refine((data) => data.oldPassword !== data.password, {
+        path: ["password"],
+        message: "New password cannot be the same as the old password",
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        path: ["confirmPassword"],
+        message: "Passwords do not match",
+    });
