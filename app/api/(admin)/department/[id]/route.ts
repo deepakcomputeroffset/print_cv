@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { departmentFormSchema } from "@/schemas/department.form.schema";
+import { taskTypeFormSchema } from "@/schemas/taskType.form.schema";
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
 import { allowedRoleForOrderManagement } from "@/lib/constants";
@@ -84,7 +84,7 @@ export async function PATCH(
         }
 
         const body = await request.json();
-        const validatedData = departmentFormSchema.partial().parse(body);
+        const validatedData = taskTypeFormSchema.partial().parse(body);
 
         // eslint-disable-next-line
         type NestedObject<T = any> = {

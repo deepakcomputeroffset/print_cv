@@ -88,6 +88,9 @@ export const authConfig: AuthOptions = {
                         if (!isPasswordValid) {
                             throw new Error("Invalid Creadentials!!");
                         }
+                        if (staff?.isBanned) {
+                            throw new Error("Staff is banned!!");
+                        }
 
                         return {
                             userType,

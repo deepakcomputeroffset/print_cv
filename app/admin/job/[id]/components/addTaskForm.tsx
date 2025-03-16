@@ -22,21 +22,22 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { createTask } from "@/lib/api/job";
 import { useRouter } from "next/navigation";
+import { Session } from "next-auth";
 
 export function TaskForm({
     jobId,
     taskTypes,
     staffMembers,
     existingTasks,
+    session,
 }: {
     jobId: number;
     taskTypes: { id: number; name: string }[];
     staffMembers: { id: number; name: string }[];
-    existingTasks: { taskTypeId: number }[]; // New prop
-    onSuccess?: () => void;
+    existingTasks: { taskTypeId: number }[];
+    session: Session | null;
 }) {
     const router = useRouter();
-    // Filter out already used task types
     const usedTaskTypeIds = existingTasks.map((task) => task.taskTypeId);
     const availableTaskTypes = taskTypes.filter(
         (taskType) => !usedTaskTypeIds.includes(taskType.id),
@@ -56,7 +57,6 @@ export function TaskForm({
             const { data } = await createTask(jobId, values);
 
             if (!data.success) {
-                // Handle duplicate error specifically
                 if (data.status === 409) {
                     toast.error(
                         data.message ||
@@ -155,7 +155,10 @@ export function TaskForm({
                                                 key={staff.id}
                                                 value={staff.id.toString()}
                                             >
-                                                {staff.name}
+                                                {session?.user.staff?.id ==
+                                                staff.id
+                                                    ? `Me (${staff.name})`
+                                                    : staff.name}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>

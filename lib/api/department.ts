@@ -2,9 +2,9 @@ import queryString from "query-string";
 import axios from "axios";
 import { QueryParams, ServerResponseType } from "@/types/types";
 import { departmentBaseUrl } from "../urls";
-import { department } from "@prisma/client";
+import { taskType } from "@prisma/client";
 import { z } from "zod";
-import { departmentFormSchema } from "@/schemas/department.form.schema";
+import { taskTypeFormSchema } from "@/schemas/taskType.form.schema";
 
 export async function fetchDepartments(params: QueryParams = {}) {
     const url = queryString.stringifyUrl({
@@ -14,26 +14,26 @@ export async function fetchDepartments(params: QueryParams = {}) {
     return await axios<
         ServerResponseType<
             QueryParams & {
-                departments: department[];
+                departments: taskType[];
             }
         >
     >(url);
 }
 
 export async function createDepartment(
-    data: z.infer<typeof departmentFormSchema>,
+    data: z.infer<typeof taskTypeFormSchema>,
 ) {
-    return await axios.post<ServerResponseType<department>>(
+    return await axios.post<ServerResponseType<taskType>>(
         departmentBaseUrl,
         data,
     );
 }
 export async function updateDepartment(
     id: number,
-    data: Partial<z.infer<typeof departmentFormSchema>>,
+    data: Partial<z.infer<typeof taskTypeFormSchema>>,
 ) {
     const url = `${departmentBaseUrl}/${id}`;
-    return await axios.patch<ServerResponseType<department>>(url, data);
+    return await axios.patch<ServerResponseType<taskType>>(url, data);
 }
 
 export async function deleteDepartment(id: number) {

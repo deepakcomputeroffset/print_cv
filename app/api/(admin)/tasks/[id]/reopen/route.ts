@@ -7,7 +7,7 @@ import serverResponse from "@/lib/serverResponse";
 
 export async function POST(
     request: NextRequest,
-    { params }: { params: { id: string } },
+    { params }: { params: Promise<{ id: string }> },
 ) {
     try {
         const session = await auth();
@@ -27,7 +27,8 @@ export async function POST(
             });
         }
 
-        const taskId = parseInt(params.id);
+        const { id } = await params;
+        const taskId = parseInt(id);
         const staffId = session.user.staff?.id;
 
         const task = await prisma.task.findUnique({

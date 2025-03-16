@@ -17,12 +17,28 @@ import { Badge } from "@/components/ui/badge";
 import ReassignTask from "./components/reassign-task";
 import DeleteTask from "./components/delete-task";
 import CompleteJobButton from "./components/completeJobButton";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { allowedRoleForJobManagement } from "@/lib/constants";
+import { ROLE } from "@prisma/client";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default async function JobPage({
     params,
 }: {
     params: Promise<{ id: string }>;
 }) {
+    const session = await auth();
+    if (
+        !session ||
+        !allowedRoleForJobManagement.includes(
+            session.user?.staff?.role as ROLE,
+        ) ||
+        (session.user?.staff?.role !== "ADMIN" &&
+            session.user.staff?.isBanned === true)
+    ) {
+        redirect("/login");
+    }
     const { id } = await params;
     const job = await prisma.job.findUnique({
         where: { id: parseInt(id) },
@@ -62,7 +78,12 @@ export default async function JobPage({
         <div className="p-6 space-y-6">
             <div className="flex justify-between items-start">
                 <div>
-                    <h1 className="text-3xl font-bold">{job.name}</h1>
+                    <div className="flex items-center gap-2">
+                        <SidebarTrigger className="w-8 h-8" />
+                        <h1 className="text-2xl font-bold">
+                            Job: {job.name} ({job.id})
+                        </h1>
+                    </div>
                     <div className="mt-2 space-y-1 text-muted-foreground">
                         <div className="flex items-center gap-2">
                             Status:
@@ -104,6 +125,7 @@ export default async function JobPage({
                 taskTypes={taskTypes}
                 staffMembers={staffMembers}
                 existingTasks={job.tasks}
+                session={session}
             />
             <Card>
                 <CardHeader>
@@ -164,7 +186,7 @@ export default async function JobPage({
                                             {task.startedAt
                                                 ? format(
                                                       task.startedAt,
-                                                      "dd MMM yyyy HH:mm",
+                                                      "dd MM yyyy HH:mm",
                                                   )
                                                 : "-"}
                                         </TableCell>
@@ -172,7 +194,7 @@ export default async function JobPage({
                                             {task.completedAt
                                                 ? format(
                                                       task.completedAt,
-                                                      "dd MMM yyyy HH:mm",
+                                                      "dd MM yyyy HH:mm",
                                                   )
                                                 : "-"}
                                         </TableCell>
@@ -183,6 +205,7 @@ export default async function JobPage({
                                                     task.assignedStaffId
                                                 }
                                                 staffMembers={staffMembers}
+                                                session={session}
                                             />
                                             <DeleteTask taskId={task.id} />
                                         </TableCell>

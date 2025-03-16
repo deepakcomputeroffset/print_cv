@@ -23,7 +23,7 @@ export const StaffTableRow = ({
             <TableCell>{staff?.email}</TableCell>
             <TableCell>{staff?.phone}</TableCell>
             <TableCell>{staff?.role}</TableCell>
-            <TableCell>{format(staff?.createdAt, "dd/mm/yyyy")}</TableCell>
+            <TableCell>{format(staff?.createdAt, "dd/MM/yyyy")}</TableCell>
             <TableCell>
                 <span
                     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium

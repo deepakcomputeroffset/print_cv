@@ -13,7 +13,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { departmentFormSchema } from "@/schemas/department.form.schema";
+import { taskTypeFormSchema } from "@/schemas/taskType.form.schema";
 import { useModal } from "@/hooks/use-modal";
 import { useDepartment } from "@/hooks/use-department";
 import { Loader2 } from "lucide-react";
@@ -21,14 +21,14 @@ import { Loader2 } from "lucide-react";
 export const EditDepartmentForm = () => {
     const {
         onClose,
-        data: { department },
+        data: { taskType },
     } = useModal();
 
-    const form = useForm<z.infer<typeof departmentFormSchema>>({
-        resolver: zodResolver(departmentFormSchema),
+    const form = useForm<z.infer<typeof taskTypeFormSchema>>({
+        resolver: zodResolver(taskTypeFormSchema),
         defaultValues: {
-            name: department?.name || "",
-            description: department?.description || "",
+            name: taskType?.name || "",
+            description: taskType?.description || "",
         },
     });
 
@@ -36,10 +36,8 @@ export const EditDepartmentForm = () => {
         updateDepartment: { mutateAsync, isPending },
     } = useDepartment();
 
-    const handleSubmit = async (
-        values: z.infer<typeof departmentFormSchema>,
-    ) => {
-        await mutateAsync({ id: department?.id as number, data: values });
+    const handleSubmit = async (values: z.infer<typeof taskTypeFormSchema>) => {
+        await mutateAsync({ id: taskType?.id as number, data: values });
         onClose();
         form.reset();
     };

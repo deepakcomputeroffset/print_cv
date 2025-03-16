@@ -11,33 +11,32 @@ import {
 import { toast } from "sonner";
 import { staff } from "@prisma/client";
 import { Pencil } from "lucide-react";
-
+import { reassignTask } from "@/lib/api/tasks";
+import { useRouter } from "next/navigation";
+import { Session } from "next-auth";
 export default function ReassignTask({
     taskId,
     currentStaffId,
     staffMembers,
+    session,
 }: {
     taskId: number;
     currentStaffId?: number | null;
     staffMembers: staff[];
+    session: Session | null;
 }) {
     const [isLoading, setIsLoading] = useState(false);
-
+    const router = useRouter();
     const handleReassign = async (staffId: number) => {
         try {
             setIsLoading(true);
-            const response = await fetch(`/api/tasks/${taskId}/reassign`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ staffId }),
-            });
-
-            if (!response.ok) throw new Error("Failed to reassign task");
-
-            toast.success("Task reassigned successfully");
-            window.location.reload();
+            const { data } = await reassignTask(taskId, staffId);
+            if (data.success) {
+                toast.success(data.message);
+                router.refresh();
+            } else {
+                toast.error(data.error);
+            }
         } catch (error) {
             toast.error(
                 error instanceof Error
@@ -64,7 +63,9 @@ export default function ReassignTask({
                         onSelect={() => handleReassign(staff.id)}
                         disabled={staff.id === currentStaffId}
                     >
-                        {staff.name}
+                        {session?.user?.staff?.id == staff.id
+                            ? `Me (${staff.name})`
+                            : staff.name}
                         {staff.id === currentStaffId && " (current)"}
                     </DropdownMenuItem>
                 ))}

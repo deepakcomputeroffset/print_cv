@@ -13,3 +13,12 @@ export const fetchTasks = async () => {
         >
     >(tasksBaseUrl);
 };
+
+export const reassignTask = async (taskId: number, staffId: number) => {
+    return axios.patch<ServerResponseType<task>>(
+        `${tasksBaseUrl}/${taskId}/reassign`,
+        {
+            staffId,
+        },
+    );
+};

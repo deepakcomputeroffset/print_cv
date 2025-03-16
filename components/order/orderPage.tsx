@@ -16,13 +16,13 @@ import {
     // AlertCircle,
 } from "lucide-react";
 import {
-    department,
-    file,
+    attachment,
     job,
     order,
     staff,
     STATUS,
     task,
+    taskType,
 } from "@prisma/client";
 import { getStatusColor } from "@/lib/getStatusColor";
 import { cn } from "@/lib/utils";
@@ -71,13 +71,13 @@ interface Order extends order {
         | (job & {
               staff: Pick<staff, "id" | "name"> | null;
               tasks: (task & {
-                  department: department | null;
-                  staff: Pick<staff, "id" | "name"> | null;
+                  taskType: taskType | null;
+                  assignee: Pick<staff, "id" | "name"> | null;
               })[];
           })
         | null;
 
-    file: file | null;
+    attachment: attachment | null;
 }
 
 export default function OrderDetailsPage({ order }: { order: Order }) {
@@ -214,8 +214,8 @@ export default function OrderDetailsPage({ order }: { order: Order }) {
                                     <span className="font-medium">Amount:</span>{" "}
                                     ${order?.amount.toFixed(2)}
                                 </p>
-                                {order?.file &&
-                                    order?.file?.urls.map((u, idx) => (
+                                {order?.attachment &&
+                                    order?.attachment?.urls.map((u, idx) => (
                                         <div
                                             key={idx}
                                             className="flex items-center"

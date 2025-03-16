@@ -9,7 +9,7 @@ import PrintLikeProSection from "@/components/landingPage/printLikeProSection";
 import PrintMagicSection from "@/components/landingPage/printMagicSection";
 // import ImageSection from "@/components/landingPage/imageSection";
 // import SectionTwo from "./section-2";
-import FeedBackSection from "@/components/landingPage/feedBackSection";
+// import FeedBackSection from "@/components/landingPage/feedBackSection";
 import {
     OurServices,
     ServicesSectionTwo,
@@ -30,7 +30,7 @@ export default function TestPage() {
             <PrintMagicSection />
             <OurServices />
             <GetStartedSection />
-            <FeedBackSection />
+            {/* <FeedBackSection /> */}
             <FrequntQuestionsSection />
             {/* <MarqueeSection /> */}
             <ConnectSection />

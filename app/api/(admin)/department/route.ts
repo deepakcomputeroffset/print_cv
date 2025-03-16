@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { departmentFormSchema } from "@/schemas/department.form.schema";
+import { taskTypeFormSchema } from "@/schemas/taskType.form.schema";
 import { Prisma, ROLE } from "@prisma/client";
 import { QuerySchema } from "@/schemas/query.param.schema";
 import {
@@ -111,7 +111,7 @@ export async function POST(req: Request) {
             success,
             data: safeData,
             error,
-        } = departmentFormSchema.safeParse(data);
+        } = taskTypeFormSchema.safeParse(data);
 
         if (!success) {
             return serverResponse({

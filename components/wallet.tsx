@@ -5,7 +5,7 @@ import { Session } from "next-auth";
 import { Button } from "@/components/ui/button";
 import { RotateCw } from "lucide-react";
 
-export const Wallet = ({ session }: { session: Session }) => {
+export default function Wallet({ session }: { session: Session }) {
     const {
         data: wallet,
         refetch,
@@ -26,4 +26,4 @@ export const Wallet = ({ session }: { session: Session }) => {
             </Button>
         </div>
     );
-};
+}

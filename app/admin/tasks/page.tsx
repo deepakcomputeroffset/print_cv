@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { TASK_STATUS } from "@prisma/client";
 import ClientTaskTable from "./components/taskTable";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default async function StaffTasks() {
     const session = await auth();
@@ -45,19 +46,27 @@ export default async function StaffTasks() {
         ]);
 
     return (
-        <Card className="mt-6">
-            <CardHeader>
-                <CardTitle>Your Tasks</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-8">
-                <ClientTaskTable
-                    pendingTasks={JSON.parse(JSON.stringify(pendingTasks))}
-                    inProgressTasks={JSON.parse(
-                        JSON.stringify(inProgressTasks),
-                    )}
-                    completedTasks={JSON.parse(JSON.stringify(completedTasks))}
-                />
-            </CardContent>
-        </Card>
+        <div className="space-y-6 h-full min-h-full">
+            <div className="flex items-center gap-3">
+                <SidebarTrigger className="w-8 h-8" />
+                <h1 className="text-2xl font-semibold">Tasks</h1>
+            </div>
+            <Card className="mt-6">
+                <CardHeader>
+                    <CardTitle>Your Tasks</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-8">
+                    <ClientTaskTable
+                        pendingTasks={JSON.parse(JSON.stringify(pendingTasks))}
+                        inProgressTasks={JSON.parse(
+                            JSON.stringify(inProgressTasks),
+                        )}
+                        completedTasks={JSON.parse(
+                            JSON.stringify(completedTasks),
+                        )}
+                    />
+                </CardContent>
+            </Card>
+        </div>
     );
 }

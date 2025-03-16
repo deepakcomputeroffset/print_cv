@@ -13,7 +13,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { departmentFormSchema } from "@/schemas/department.form.schema";
+import { taskTypeFormSchema } from "@/schemas/taskType.form.schema";
 import { useModal } from "@/hooks/use-modal";
 import { useDepartment } from "@/hooks/use-department";
 import { Loader2 } from "lucide-react";
@@ -21,8 +21,8 @@ import { Loader2 } from "lucide-react";
 export const AddDepartmentForm = () => {
     const { onClose } = useModal();
 
-    const form = useForm<z.infer<typeof departmentFormSchema>>({
-        resolver: zodResolver(departmentFormSchema),
+    const form = useForm<z.infer<typeof taskTypeFormSchema>>({
+        resolver: zodResolver(taskTypeFormSchema),
         defaultValues: {
             name: "",
             description: "",
@@ -33,9 +33,7 @@ export const AddDepartmentForm = () => {
         createDepartment: { mutateAsync, isPending },
     } = useDepartment();
 
-    const handleSubmit = async (
-        values: z.infer<typeof departmentFormSchema>,
-    ) => {
+    const handleSubmit = async (values: z.infer<typeof taskTypeFormSchema>) => {
         await mutateAsync(values);
         onClose();
         form.reset();

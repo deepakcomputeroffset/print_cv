@@ -39,18 +39,18 @@ export const DepartmentListTable = ({
                 ) : departments.length === 0 ? (
                     <MessageRow colSpan={8} text="No Departments found" />
                 ) : (
-                    departments?.map((department: taskType) => (
-                        <TableRow key={department?.id}>
+                    departments?.map((taskType: taskType) => (
+                        <TableRow key={taskType?.id}>
                             <TableCell className="text-center">
-                                {department?.id}
+                                {taskType?.id}
                             </TableCell>
                             <TableCell className="font-medium">
-                                {department?.name}
+                                {taskType?.name}
                             </TableCell>
 
-                            <TableCell>{department?.description}</TableCell>
+                            <TableCell>{taskType?.description}</TableCell>
                             <TableCell>
-                                {format(department?.createdAt, "dd/MM/yyyy")}
+                                {format(taskType?.createdAt, "dd/MM/yyyy")}
                             </TableCell>
 
                             <TableCell>
@@ -59,8 +59,8 @@ export const DepartmentListTable = ({
                                         variant="ghost"
                                         size="icon"
                                         onClick={() =>
-                                            onOpen("editDepartment", {
-                                                department,
+                                            onOpen("editTaskType", {
+                                                taskType,
                                             })
                                         }
                                     >
@@ -71,8 +71,8 @@ export const DepartmentListTable = ({
                                         variant="ghost"
                                         size="icon"
                                         onClick={() => {
-                                            onOpen("deleteDepartment", {
-                                                department,
+                                            onOpen("deleteTaskType", {
+                                                taskType,
                                             });
                                         }}
                                     >

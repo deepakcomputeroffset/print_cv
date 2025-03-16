@@ -1,11 +1,11 @@
 import { customerType, orderType } from "@/types/types";
 import {
-    department,
     job,
     product,
     productAttributeType,
     productCategory,
     staff,
+    taskType,
 } from "@prisma/client";
 import { create } from "zustand";
 
@@ -25,9 +25,9 @@ type ModalType =
     | "addAttribute"
     | "addAttributeValue"
     | "transaction"
-    | "addDepartment"
-    | "editDepartment"
-    | "deleteDepartment"
+    | "addTaskType"
+    | "editTaskType"
+    | "deleteTaskType"
     | "addJob"
     | "editJob"
     | "deleteJob"
@@ -42,7 +42,7 @@ type DataType = {
     product?: product;
     productCategoryId?: number;
     productAttribute?: productAttributeType;
-    department?: department;
+    taskType?: taskType;
     job?: job;
     orders?: orderType[];
 };

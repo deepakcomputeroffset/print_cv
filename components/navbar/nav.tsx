@@ -19,14 +19,16 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
-import { Wallet } from "../wallet";
+import dynamic from "next/dynamic";
 
 const NAV_LINKS = [
     { name: "Services", url: "/customer/categories" },
     { name: "Orders", url: "/customer/orders" },
     { name: "Contact us", url: "/#connect" },
 ];
-
+const Wallet = dynamic(() => import("@/components/wallet"), {
+    ssr: false,
+});
 export default function NavbarLinks({ session }: { session: Session | null }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [scope, animate] = useAnimate();

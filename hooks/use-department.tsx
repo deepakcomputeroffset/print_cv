@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import * as api from "@/lib/api/department";
 import { z } from "zod";
-import { departmentFormSchema } from "@/schemas/department.form.schema";
+import { taskTypeFormSchema } from "@/schemas/taskType.form.schema";
 import { QueryParams, ServerResponseType } from "@/types/types";
 import { AxiosError } from "axios";
 
@@ -17,7 +17,7 @@ export function useDepartment(props: QueryParams = {}) {
     });
 
     const createMutation = useMutation({
-        mutationFn: (data: z.infer<typeof departmentFormSchema>) =>
+        mutationFn: (data: z.infer<typeof taskTypeFormSchema>) =>
             api.createDepartment(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });
@@ -40,7 +40,7 @@ export function useDepartment(props: QueryParams = {}) {
             data,
         }: {
             id: number;
-            data: Partial<z.infer<typeof departmentFormSchema>>;
+            data: Partial<z.infer<typeof taskTypeFormSchema>>;
         }) => api.updateDepartment(id, data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });

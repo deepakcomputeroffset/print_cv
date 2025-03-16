@@ -5,15 +5,15 @@ import { useDepartment } from "@/hooks/use-department";
 
 export const DepartmentDeleteModal = () => {
     const { isOpen, onClose, data, modal } = useModal();
-    const open = isOpen && modal === "deleteDepartment";
+    const open = isOpen && modal === "deleteTaskType";
 
     const {
         deleteDepartment: { mutateAsync, isPending },
     } = useDepartment();
 
     const handleDelete = async () => {
-        if (data?.department?.id) {
-            await mutateAsync(data?.department?.id);
+        if (data?.taskType?.id) {
+            await mutateAsync(data?.taskType?.id);
             onClose();
         }
     };
@@ -28,7 +28,7 @@ export const DepartmentDeleteModal = () => {
                     Are you sure you want to delete?
                     <br />
                     <span className="font-semibold text-indigo-500">
-                        {data?.department?.name}
+                        {data?.taskType?.name}
                     </span>
                 </>
             }

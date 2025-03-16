@@ -121,7 +121,7 @@ export async function DELETE(
 
         const order = await prisma.order.delete({
             where: { id: parseInt(id), customerId: session.user.customer.id },
-            select: { file: true, id: true },
+            select: { attachment: true, id: true },
         });
 
         if (!order) {
@@ -132,10 +132,10 @@ export async function DELETE(
             });
         }
 
-        if (order?.file) {
-            const deleted = await deleteFiles(order?.file?.urls);
+        if (order?.attachment) {
+            const deleted = await deleteFiles(order?.attachment?.urls);
             console.log(
-                deleted.length === order.file.urls.length
+                deleted.length === order.attachment.urls.length
                     ? "File deleted"
                     : "Some file not deleted",
             );

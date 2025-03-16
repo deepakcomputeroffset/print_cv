@@ -55,7 +55,7 @@ export default function DepartmentsPage({
                 <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => onOpen("addDepartment", {})}
+                    onClick={() => onOpen("addTaskType", {})}
                 >
                     <Plus />
                 </Button>

@@ -12,7 +12,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { format } from "date-fns";
-import { task, TASK_STATUS, taskType } from "@prisma/client";
+import { task, TASK_STATUS, taskType, job } from "@prisma/client";
 import { Badge } from "@/components/ui/badge";
 import { Loader2 } from "lucide-react";
 import axios from "axios";
@@ -23,9 +23,9 @@ export default function ClientTaskTable({
     inProgressTasks,
     completedTasks,
 }: {
-    pendingTasks: (task & { taskType: taskType })[];
-    inProgressTasks: (task & { taskType: taskType })[];
-    completedTasks: (task & { taskType: taskType })[];
+    pendingTasks: (task & { job: job; taskType: taskType })[];
+    inProgressTasks: (task & { job: job; taskType: taskType })[];
+    completedTasks: (task & { job: job; taskType: taskType })[];
 }) {
     const router = useRouter();
     const [loadingTasks, setLoadingTasks] = useState<Set<string>>(new Set());
@@ -61,7 +61,7 @@ export default function ClientTaskTable({
     };
 
     const renderTable = (
-        tasks: (task & { taskType: taskType })[],
+        tasks: (task & { job: job; taskType: taskType })[],
         status: TASK_STATUS,
         title: string,
     ) =>
@@ -92,7 +92,7 @@ export default function ClientTaskTable({
                                     <TableCell className="font-medium">
                                         {task.taskType.name}
                                     </TableCell>
-                                    <TableCell>{task.jobId}</TableCell>
+                                    <TableCell>{`${task?.jobId} (${task?.job?.name})`}</TableCell>
                                     <TableCell>
                                         <Badge
                                             variant={

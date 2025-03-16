@@ -76,8 +76,8 @@ export default async function OrderPage({
                         },
                         tasks: {
                             include: {
-                                department: true,
-                                staff: {
+                                taskType: true,
+                                assignee: {
                                     select: {
                                         id: true,
                                         name: true,
@@ -90,7 +90,7 @@ export default async function OrderPage({
                         },
                     },
                 },
-                file: true,
+                attachment: true,
             },
         });
 
