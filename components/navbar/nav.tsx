@@ -18,8 +18,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { signOut } from "next-auth/react";
-import { LogOut } from "lucide-react";
+import { LogOut, Pen } from "lucide-react";
 import dynamic from "next/dynamic";
+import { Button } from "../ui/button";
 
 const NAV_LINKS = [
     { name: "Services", url: "/customer/categories" },
@@ -29,6 +30,7 @@ const NAV_LINKS = [
 const Wallet = dynamic(() => import("@/components/wallet"), {
     ssr: false,
 });
+
 export default function NavbarLinks({ session }: { session: Session | null }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [scope, animate] = useAnimate();
@@ -318,14 +320,41 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                     </div>
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuLabel>
-                                    {!!session &&
-                                        session.user.userType ===
-                                            "customer" && (
-                                            <Wallet session={session} />
-                                        )}
-                                </DropdownMenuLabel>
-                                <DropdownMenuSeparator />
+                                {!!session &&
+                                    session.user.userType === "customer" && (
+                                        <>
+                                            <DropdownMenuLabel>
+                                                <Wallet session={session} />
+                                            </DropdownMenuLabel>
+                                            <DropdownMenuSeparator />
+                                        </>
+                                    )}
+                                {!!session &&
+                                    session.user.userType === "customer" && (
+                                        <>
+                                            <DropdownMenuLabel>
+                                                <div className="flex gap-2 items-center">
+                                                    <span>Edit Profile</span>
+
+                                                    <Link
+                                                        href="/customer/edit"
+                                                        className="ml-auto"
+                                                    >
+                                                        <Button
+                                                            variant={
+                                                                "secondary"
+                                                            }
+                                                            size={"sm"}
+                                                        >
+                                                            <Pen />
+                                                        </Button>
+                                                    </Link>
+                                                </div>
+                                            </DropdownMenuLabel>
+                                            <DropdownMenuSeparator />
+                                        </>
+                                    )}
+
                                 <DropdownMenuItem
                                     onClick={() => signOut()}
                                     className="cursor-pointer"
@@ -504,14 +533,45 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                         </div>
                                     </DropdownMenuLabel>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuLabel>
-                                        {!!session &&
-                                            session.user.userType ===
-                                                "customer" && (
-                                                <Wallet session={session} />
-                                            )}
-                                    </DropdownMenuLabel>
-                                    <DropdownMenuSeparator />
+                                    {!!session &&
+                                        session.user.userType ===
+                                            "customer" && (
+                                            <>
+                                                <DropdownMenuLabel>
+                                                    <Wallet session={session} />
+                                                </DropdownMenuLabel>
+                                                <DropdownMenuSeparator />
+                                            </>
+                                        )}
+
+                                    {!!session &&
+                                        session.user.userType ===
+                                            "customer" && (
+                                            <>
+                                                <DropdownMenuLabel>
+                                                    <div className="flex gap-2 items-center">
+                                                        <span>
+                                                            Edit Profile
+                                                        </span>
+
+                                                        <Link
+                                                            href="/customer/edit"
+                                                            className="ml-auto"
+                                                        >
+                                                            <Button
+                                                                variant={
+                                                                    "secondary"
+                                                                }
+                                                                size={"sm"}
+                                                            >
+                                                                <Pen />
+                                                            </Button>
+                                                        </Link>
+                                                    </div>
+                                                </DropdownMenuLabel>
+                                                <DropdownMenuSeparator />
+                                            </>
+                                        )}
                                     <DropdownMenuItem
                                         onClick={() => signOut()}
                                         className="cursor-pointer"

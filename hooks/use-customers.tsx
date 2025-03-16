@@ -64,10 +64,7 @@ export function useCustomers(props: QueryParams = {}) {
         error,
         isLoading,
         refetch,
-        updateCustomer: (
-            id: number,
-            data: Partial<z.infer<typeof customerFormSchema>>,
-        ) => updateMutation.mutate({ id, data }),
+        updateCustomer: updateMutation,
         toggleBanStatus: (id: number) => toggleBanMutation.mutate(id),
         deleteCustomer: (id: number) => deleteMutation.mutate(id),
     };
