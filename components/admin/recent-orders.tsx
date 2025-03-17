@@ -30,8 +30,8 @@ export function RecentOrders({
                         <TableCell className="font-medium">
                             #{order.id}
                         </TableCell>
-                        <TableCell>{order.customerId}</TableCell>
-                        <TableCell>{order.status}</TableCell>
+                        <TableCell>{order?.customer?.name}</TableCell>
+                        <TableCell>{order?.status}</TableCell>
                         <TableCell>
                             {formatDistanceToNow(new Date(order.createdAt), {
                                 addSuffix: true,

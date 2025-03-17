@@ -9,17 +9,24 @@ import {
     YAxis,
 } from "recharts";
 
-const data = [
-    { name: "Jan", total: 232 },
-    { name: "Feb", total: 421 },
-    { name: "Mar", total: 343 },
-    { name: "Apr", total: 543 },
-    { name: "May", total: 432 },
-    { name: "Jun", total: 765 },
-    { name: "Jul", total: 654 },
-];
+// const data = [
+//     { name: "Jan", total: 232 },
+//     { name: "Feb", total: 421 },
+//     { name: "Mar", total: 343 },
+//     { name: "Apr", total: 543 },
+//     { name: "May", total: 432 },
+//     { name: "Jun", total: 765 },
+//     { name: "Jul", total: 654 },
+// ];
 
-export function Overview() {
+export function Overview({
+    data,
+}: {
+    data: {
+        name: string;
+        total: number;
+    }[];
+}) {
     return (
         <ResponsiveContainer width="100%" height={350}>
             <LineChart data={data}>
@@ -35,7 +42,7 @@ export function Overview() {
                     fontSize={12}
                     tickLine={false}
                     axisLine={false}
-                    tickFormatter={(value) => `$${value}`}
+                    tickFormatter={(value) => `₹${value}`}
                 />
                 <Tooltip />
                 <Line

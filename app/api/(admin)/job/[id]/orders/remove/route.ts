@@ -56,6 +56,7 @@ export async function POST(
                 jobId: {
                     set: null,
                 },
+                status: "PENDING",
             },
         });
 

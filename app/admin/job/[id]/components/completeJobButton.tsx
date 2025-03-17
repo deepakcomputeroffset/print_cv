@@ -3,20 +3,20 @@
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import axios from "axios";
+import { ServerResponseType } from "@/types/types";
 
 export default function CompleteJobButton({ jobId }: { jobId: number }) {
     const router = useRouter();
 
     const handleComplete = async () => {
         try {
-            const response = await fetch(`/api/jobs/${jobId}/complete`, {
-                method: "PATCH",
-            });
+            const { data } = await axios.post<ServerResponseType<null>>(
+                `/api/job/${jobId}/complete`,
+            );
 
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || "Failed to complete job");
+            if (!data.success) {
+                throw new Error(data.message || "Failed to complete job");
             }
 
             toast.success(data.message);

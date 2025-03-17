@@ -46,27 +46,22 @@ export async function POST(
             });
         }
 
-        const updatedJob = await prisma.job.update({
+        await prisma.job.update({
             where: { id: parseInt(id) },
-            data: {
-                isVerified: !job.isVerified,
-                verifiedAt: new Date(),
-                verifiedBy: session.user.staff?.id,
-            },
+            data: { isCompleted: !job.isCompleted },
         });
 
         return serverResponse({
             status: 200,
             success: true,
-            message: "job verification status updated successfully.",
-            data: updatedJob,
+            message: "job completion status updated successfully.",
         });
     } catch (error) {
-        console.error("Error toggling job verification status:", error);
+        console.error("Error toggling job completion status:", error);
         return serverResponse({
             status: 500,
             success: false,
-            message: "Failed to update job verification status.",
+            message: "Failed to update job completion status.",
             error: error instanceof Error ? error.message : error,
         });
     }

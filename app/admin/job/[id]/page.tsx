@@ -103,11 +103,13 @@ export default async function JobPage({
                                       : "Pending"}
                             </Badge>
                         </div>
-                        {job.staff && (
+                        {job?.isVerified && (
                             <p>
                                 Verified by:{" "}
                                 <span className="font-medium">
-                                    {job.staff.name}
+                                    {job?.staff?.id == session.user.staff?.id
+                                        ? "me"
+                                        : job?.staff?.name}
                                 </span>
                             </p>
                         )}
