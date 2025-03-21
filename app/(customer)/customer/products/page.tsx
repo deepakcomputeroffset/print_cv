@@ -73,10 +73,10 @@ export default async function ProductPage({
                 </p>
 
                 <Link
-                    href="/customer/products"
+                    href="/customer/categories"
                     className="mt-6 bg-dominant-color-2 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-all"
                 >
-                    Back to Home
+                    Back to Services
                 </Link>
             </div>
         );

@@ -101,7 +101,6 @@ export async function PATCH(
 
         const data = await request.formData();
         const validatedData = parsePartialFormData(data, productCategorySchema);
-        console.log(validatedData.data);
         if (!validatedData.success) {
             return serverResponse({
                 status: 400,

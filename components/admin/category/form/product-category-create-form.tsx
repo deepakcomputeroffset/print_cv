@@ -10,6 +10,13 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/hooks/use-modal";
 import { useProductCategory } from "@/hooks/useProductCategory";
@@ -32,6 +39,7 @@ export const ProductCategoryCreateForm = () => {
             name: "",
             description: "",
             parentCategoryId: data?.productCategory?.id.toString(),
+            isAvailable: false,
         },
     });
 
@@ -98,6 +106,39 @@ export const ProductCategoryCreateForm = () => {
                             <FormLabel>Description</FormLabel>
                             <FormControl>
                                 <Textarea placeholder="Abc" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="isAvailable"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Available</FormLabel>
+                            <FormControl>
+                                <Select
+                                    value={`${field.value}`}
+                                    onValueChange={(v) =>
+                                        field.onChange(Boolean(v))
+                                    }
+                                    defaultValue="false"
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue
+                                            placeholder={"Select Availability"}
+                                        />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="true">
+                                            Yes
+                                        </SelectItem>
+                                        <SelectItem value="false">
+                                            No
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
                             </FormControl>
                             <FormMessage />
                         </FormItem>

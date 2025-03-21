@@ -54,8 +54,16 @@ export const ProductCategoryList = ({
                     {categories.map((category) => (
                         <Card
                             key={category.id}
-                            className="cursor-pointer bg-white border border-gray-200 hover:shadow-xl transition-shadow overflow-hidden"
-                            onClick={() => handleCategoryClick(category)}
+                            className={`bg-white border border-gray-200 transition-shadow overflow-hidden relative ${
+                                category.isAvailable
+                                    ? "cursor-pointer hover:shadow-xl"
+                                    : "cursor-not-allowed"
+                            }`}
+                            onClick={
+                                category.isAvailable
+                                    ? () => handleCategoryClick(category)
+                                    : undefined
+                            }
                         >
                             <div
                                 className="h-32 md:h-40 w-full bg-cover bg-center"
@@ -68,6 +76,14 @@ export const ProductCategoryList = ({
                                     <CardTitle>{category.name}</CardTitle>
                                 </div>
                             </CardHeader>
+
+                            {!category.isAvailable && (
+                                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                                    <span className="text-white font-semibold">
+                                        Coming Soon
+                                    </span>
+                                </div>
+                            )}
                         </Card>
                     ))}
                 </div>

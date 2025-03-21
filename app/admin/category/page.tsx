@@ -63,6 +63,7 @@ export default function CategoriesPage({
                             <TableHead>Id</TableHead>
                             <TableHead>Name</TableHead>
                             <TableHead>Description</TableHead>
+                            <TableHead>Available</TableHead>
                             <TableHead>Image</TableHead>
                             <TableHead>Actions</TableHead>
                         </TableRow>
@@ -143,6 +144,8 @@ const RenderCategoryRow = ({
                 <TableCell className="text-clip">
                     {category?.description?.substring(0, 30)}...
                 </TableCell>
+                <TableCell>{category?.isAvailable ? "Yes" : "No"}</TableCell>
+
                 <TableCell>
                     <div className="relative h-10 w-10">
                         <Image

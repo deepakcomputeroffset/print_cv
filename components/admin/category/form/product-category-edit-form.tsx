@@ -10,6 +10,13 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/hooks/use-modal";
 import { useProductCategory } from "@/hooks/useProductCategory";
@@ -32,8 +39,10 @@ export const ProductCategoryEditForm = () => {
             name: data?.productCategory?.name,
             description: data?.productCategory?.description || "",
             parentCategoryId: data?.productCategory?.id.toString(),
+            isAvailable: data?.productCategory?.isAvailable,
         },
     });
+
     const [imageUrl, setImageUrl] = useState<string | undefined>(
         data?.productCategory?.imageUrl,
     );
@@ -68,6 +77,7 @@ export const ProductCategoryEditForm = () => {
 
     const handleSubmit = async () => {
         if (data?.productCategory?.id) {
+            console.log(dirtyFieldsWithValues);
             const formData = createFormData(dirtyFieldsWithValues);
             await mutateAsync({
                 id: data?.productCategory?.id,
@@ -104,6 +114,40 @@ export const ProductCategoryEditForm = () => {
                             <FormLabel>Description</FormLabel>
                             <FormControl>
                                 <Textarea placeholder="Abc" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="isAvailable"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Available</FormLabel>
+                            <FormControl>
+                                <Select
+                                    value={`${field.value}`}
+                                    onValueChange={(v) =>
+                                        field.onChange(Boolean(v))
+                                    }
+                                    defaultValue="false"
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue
+                                            placeholder={"Select Availability"}
+                                        />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="true">
+                                            Yes
+                                        </SelectItem>
+                                        <SelectItem value="false">
+                                            No
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
                             </FormControl>
                             <FormMessage />
                         </FormItem>

@@ -103,6 +103,7 @@ model productCategory {
     name        String
     description String?
     imageUrl    String
+    isAvailable Boolean @default(false)
 
     products              product[]
     productAttributeTypes productAttributeType[]

@@ -19,6 +19,9 @@ export default async function CategoriesPage({
             _count: { select: { subCategories: true } },
             parentCategory: true,
         },
+        orderBy: {
+            isAvailable: "desc",
+        },
     });
 
     if (categories.length === 0) {

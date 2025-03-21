@@ -94,9 +94,9 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                         />
 
                         <span
+                            suppressHydrationWarning
                             className={cn(
-                                "box-border hover:text-[#32d3f4] font-bold leading-[28px] cursor-pointer break-words transition-colors duration-500 text-[28px] m-0 tracking-[-0.8px]",
-                                isScrolled ? "text-black" : "text-white",
+                                "box-border hover:text-[#32d3f4] font-bold leading-[28px] cursor-pointer break-words transition-colors duration-100 text-[28px] m-0 tracking-[-0.8px]",
                             )}
                         >
                             Printify
