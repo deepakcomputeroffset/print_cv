@@ -99,6 +99,13 @@ export const routes: RouteType[] = [
         roles: ["ADMIN", "JOB_MANAGER"],
     },
     {
+        title: "Dispatch",
+        icon: Blocks,
+        url: "/admin/dispatch?search=&sortorder=asc&page=1&perpage=100",
+        pattern: /^\/admin\/dispatch(?:\/.*)?$/,
+        roles: ["ADMIN", "DISPATCHER"],
+    },
+    {
         title: "Orders",
         icon: ShoppingCart,
         url: "/admin/orders?search=&sortorder=desc&orderStatus=ALL&page=1&perpage=100",

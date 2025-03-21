@@ -8,9 +8,10 @@ export const departmentBaseUrl = "/api/department";
 export const jobBaseUrl = "/api/job";
 export const ordersBaseUrl = "/api/orders";
 export const tasksBaseUrl = "/api/tasks";
+export const dispatchBaseUrl = "/api/dispatch";
+
 // CUSTOMER
 export const orderBaseUrl = "/api/customer/order";
-
 // WALLET
 
 export const walletMBaseUrl = "/api/walletM";

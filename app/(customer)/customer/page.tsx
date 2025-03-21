@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import { format } from "date-fns";
 import { IndianRupee } from "lucide-react";
+import UpiQrCode from "@/components/quCode";
 
 export const dynamic = "force-dynamic";
 
@@ -40,6 +41,7 @@ export default async function CustomerDashboard() {
     ]);
     return (
         <div className="flex flex-col gap-4  max-w-customHaf lg:max-w-custom mx-auto py-5">
+            <UpiQrCode />
             <Card>
                 <CardHeader>
                     <CardTitle className="text-xl">Current Balance</CardTitle>
