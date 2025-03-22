@@ -8,11 +8,11 @@ export default function GetStartedSection() {
     return (
         <section
             className={cn(
-                "lg:pb-10 bg-white text-charcoal-black text-[16px] m-0 leading-[24px] font-normal px-4",
+                "lg:pb-10 bg-white text-charcoal-black text-[16px] m-0 leading-[24px] font-normal",
                 sourceSerif4.className,
             )}
         >
-            <div className="max-w-customHaf lg:max-w-custom px-4 xl:px-0 w-full mx-auto">
+            <div className="w-full mx-auto">
                 <div className="relative">
                     <motion.h2
                         initial={{

@@ -1,39 +1,47 @@
-import { ConnectSection } from "@/components/landingPage/connect";
+import HomeCarousel from "@/components/carousel";
 import { Footer } from "@/components/landingPage/footer";
-// import { FrequntQuestionsSection } from "@/components/landingPage/frequentQuestions";
-// import GetStartedSection from "@/components/landingPage/getStartedSection";
-import HeroSection from "@/components/landingPage/hero";
-// import { MarqueeSection } from "@/components/landingPage/Marquee";
-// import Navbar from "@/components/navbar/nav";
-// import PrintLikeProSection from "@/components/landingPage/printLikeProSection";
-import PrintMagicSection from "@/components/landingPage/printMagicSection";
-// import ImageSection from "@/components/landingPage/imageSection";
-// import SectionTwo from "./section-2";
-// import FeedBackSection from "@/components/landingPage/feedBackSection";
-import {
-    // OurServices,
-    ServicesSectionTwo,
-} from "@/components/landingPage/serviceSection";
-import WhySection from "@/components/landingPage/whySection";
+import ServicesSection from "@/components/landingPage/serviceSection";
+import { ProductCategoryList } from "@/components/product-category/product-category";
 
-export default function TestPage() {
+export default async function HomePage() {
+    const categories = await prisma?.productCategory.findMany({
+        include: {
+            _count: { select: { subCategories: true } },
+            parentCategory: true,
+        },
+        orderBy: {
+            isAvailable: "desc",
+        },
+    });
     return (
         <>
             {/* <Navbar /> */}
-            <HeroSection />
-            {/* <MarqueeSection /> */}
-            {/* <ImageSection /> */}
-            <WhySection />
-            {/* <ServicesSection /> */}
-            {/* <PrintLikeProSection /> */}
-            <ServicesSectionTwo />
-            <PrintMagicSection />
-            {/* <OurServices /> */}
-            {/* <GetStartedSection /> */}
-            {/* <FeedBackSection /> */}
-            {/* <FrequntQuestionsSection /> */}
-            {/* <MarqueeSection /> */}
-            <ConnectSection />
+            <div className="space-y-7 px-[5vw]">
+                <HomeCarousel
+                    images={[
+                        "https://images.unsplash.com/reserve/uZYSV4nuQeyq64azfVIn_15130980706_64134efc6e_o.jpg?q=80&w=2067&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                        "https://images.unsplash.com/photo-1456456496250-d5e7c0a9b44d?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    ]}
+                />
+                {/* <HeroSection /> */}
+                {categories && categories?.length > 0 && (
+                    <ProductCategoryList categories={categories} />
+                )}
+                {/* <ImageSection /> */}
+                {/* <WhySection /> */}
+                <ServicesSection />
+                {/* <MarqueeSection /> */}
+                {/* <PrintLikeProSection /> */}
+                {/* <ServicesSectionTwo /> */}
+                {/* <PrintMagicSection /> */}
+                {/* <OurServices /> */}
+                {/* <GetStartedSection /> */}
+                {/* <FeedBackSection /> */}
+                {/* <FrequntQuestionsSection /> */}
+                {/* <MarqueeSection /> */}
+                {/* <ConnectSection /> */}
+            </div>
+
             <Footer />
         </>
     );

@@ -2,7 +2,6 @@
 import { sourceSerif4 } from "@/lib/font";
 import { cn } from "@/lib/utils";
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
-import { motion } from "motion/react";
 import Link from "next/link";
 
 export function ConnectSection() {
@@ -34,31 +33,12 @@ export function ConnectSection() {
         },
     ];
     return (
-        <section
-            className={cn(
-                "py-10 max-w-customHaf lg:max-w-custom mx-auto",
-                sourceSerif4.className,
-            )}
-            id="connect"
-        >
+        <section className={cn("mx-auto", sourceSerif4.className)} id="connect">
             <div className="relative px-4">
                 <div>
-                    <motion.h3
-                        initial={{
-                            opacity: 0,
-                        }}
-                        whileInView={{
-                            opacity: 1,
-                            transition: {
-                                duration: 0.8,
-                                ease: "easeInOut",
-                            },
-                        }}
-                        viewport={{ once: true }}
-                        className="inline-flex mb-[56px] px-[24px] py-2 md:py-[18px] shadow-[6px_8px_0px_0px_#000] rounded-2xl text-5xl md:text-7xl tracking-[-0.52px] bg-[#EDA371] text-black"
-                    >
+                    <h3 className="inline-flex mb-[56px] px-[24px] py-2 md:py-[18px] shadow-[6px_8px_0px_0px_#000] rounded-2xl text-2xl md:text-4xl tracking-[-0.52px] bg-[#EDA371] text-black">
                         Connect
-                    </motion.h3>
+                    </h3>
                 </div>
                 <div className="flex flex-col lg:flex-row gap-6">
                     <div className="relative grid grid-cols-2 sm:grid-cols-3 gap-3 place-items-center">
@@ -66,10 +46,10 @@ export function ConnectSection() {
                             <Link
                                 href={connect.url}
                                 key={idx}
-                                className="w-full max-w-[200px] max-h-[200px] px-10 py-8  gap-6 rounded-[16px] bg-[#e8ccd2] flex items-center justify-center flex-col"
+                                className="w-full max-w-[200px] max-h-[180px] px-6 py-3 gap-1 rounded-[16px] bg-[#e8ccd2] flex items-center justify-center flex-col"
                             >
-                                <connect.icon className="w-20 h-16 text-black bg-[#e8ccd2]" />
-                                <h4 className="text-center text-[20px] leading-[30px]">
+                                <connect.icon className="w-11 h-10 text-black bg-[#e8ccd2]" />
+                                <h4 className="text-center text-[16px]">
                                     {connect.name}
                                 </h4>
                             </Link>

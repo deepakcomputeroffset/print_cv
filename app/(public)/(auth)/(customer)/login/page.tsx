@@ -47,7 +47,7 @@ export default function LoginPage() {
                 phone: values.phone,
                 password: values.password,
                 userType: "customer",
-                callbackUrl: "/customer/categories",
+                callbackUrl: "/categories",
                 redirect: false,
             });
             if (result?.error) {
@@ -55,7 +55,7 @@ export default function LoginPage() {
                 return;
             }
 
-            router.push("/customer/categories");
+            router.push("/categories");
             router.refresh();
         } catch (error) {
             console.log(error);

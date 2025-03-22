@@ -1,15 +1,17 @@
-import React, { Suspense } from "react";
-import { ProductCategoryList } from "@/components/product-category/product-category";
-import { prisma } from "@/lib/prisma";
-import { ShoppingBag } from "lucide-react";
+import { Suspense } from "react";
+import { ProductCategoryList } from "./product-category";
 import Link from "next/link";
+import { ShoppingBag } from "lucide-react";
+import RecentOrders from "../order/recentOrders";
+import { auth } from "@/lib/auth";
+import { Skeleton } from "../ui/skeleton";
 
-export default async function CategoriesPage({
-    searchParams,
+export default async function ProductCategoryPage({
+    params,
 }: {
-    searchParams: Promise<{ parentCategoryId: string }>;
+    params?: { parentCategoryId: string };
 }) {
-    const params = await searchParams;
+    const session = await auth();
 
     const categories = await prisma?.productCategory.findMany({
         where: {
@@ -24,7 +26,7 @@ export default async function CategoriesPage({
         },
     });
 
-    if (categories.length === 0) {
+    if (!categories || categories?.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-6">
                 <div className="bg-white p-6 rounded-full shadow-lg">
@@ -51,8 +53,26 @@ export default async function CategoriesPage({
     }
 
     return (
-        <Suspense fallback={"loading...."}>
-            <ProductCategoryList categories={categories} />
+        <Suspense
+            fallback={
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 px-3 w-full h-full mx-auto py-10">
+                    {Array.from({ length: 15 })
+                        .fill(null)
+                        .map((_, index) => (
+                            <Skeleton
+                                key={index}
+                                className="w-full h-full min-h-36 min-w-36 rounded-lg"
+                            />
+                        ))}
+                </div>
+            }
+        >
+            <div className="mx-auto px-[5vw] space-y-7">
+                <ProductCategoryList categories={categories} />
+                {session?.user?.userType === "customer" && (
+                    <RecentOrders session={session} />
+                )}
+            </div>
         </Suspense>
     );
 }

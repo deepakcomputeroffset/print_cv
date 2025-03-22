@@ -94,7 +94,7 @@ export default {
                 "accordion-up": "accordion-up 0.2s ease-out",
             },
             maxWidth: {
-                custom: "1320px",
+                custom: "1440px",
                 customHaf: "680px",
             },
         },

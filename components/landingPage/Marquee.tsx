@@ -7,7 +7,7 @@ export function MarqueeSection() {
         <Marque className="bg-[#EDA371] ">
             <p
                 className={cn(
-                    "py-10 md:py-14 font-medium text-3xl md:text-6xl",
+                    "py-10 md:py-14 font-medium text-3xl md:text-5xl",
                     sourceSerif4.className,
                 )}
             >

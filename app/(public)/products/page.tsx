@@ -1,5 +1,5 @@
 import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
-import ProductLists from "../../../../components/product/productLists";
+import ProductLists from "../../../components/product/productLists";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProductTypeOnlyWithPrice } from "@/types/types";
@@ -19,9 +19,13 @@ export default async function ProductPage({
         ?.customerCategory as CUSTOMER_CATEGORY; // LOW, MEDIUM, HIGH
 
     if (isNaN(parseInt(params?.categoryId))) {
-        redirect("/customer/categories");
+        redirect("/categories");
     }
 
+    const category = await prisma.productCategory.findUnique({
+        where: { id: parseInt(params?.categoryId) },
+        select: { name: true, parentCategory: { select: { name: true } } },
+    });
     const products = await prisma.product.findMany({
         where: params?.categoryId
             ? {
@@ -73,7 +77,7 @@ export default async function ProductPage({
                 </p>
 
                 <Link
-                    href="/customer/categories"
+                    href="/categories"
                     className="mt-6 bg-dominant-color-2 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-all"
                 >
                     Back to Services
@@ -86,6 +90,7 @@ export default async function ProductPage({
         <div>
             <ProductLists
                 products={processedProduct as ProductTypeOnlyWithPrice[]}
+                category={category}
             />
         </div>
     );

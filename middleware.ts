@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
                 return NextResponse.redirect(new URL("/admin", request.url));
             else if (token?.userType === "customer")
                 return NextResponse.redirect(
-                    new URL("/customer/categories", request.url),
+                    new URL("/categories", request.url),
                 );
         }
 

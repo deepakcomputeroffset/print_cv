@@ -15,7 +15,7 @@ export default async function ProductPage({
 }) {
     const { id } = await params;
     if (isNaN(parseInt(id))) {
-        return redirect("/customer/product");
+        return redirect("/product");
     }
     const session = await auth();
     const customerCategory = session?.user?.customer?.customerCategory || "LOW";

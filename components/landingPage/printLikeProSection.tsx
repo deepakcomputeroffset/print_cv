@@ -4,9 +4,7 @@ import { cn } from "@/lib/utils";
 
 export default function PrintLikeProSection() {
     return (
-        <section
-            className={cn("py-20 bg-dominant-color", sourceSerif4.className)}
-        >
+        <section className={cn("py-20 bg-gray-700", sourceSerif4.className)}>
             <div
                 className={cn(
                     "max-w-customHaf lg:max-w-custom mx-auto px-4",

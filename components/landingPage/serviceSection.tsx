@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 import { motion } from "motion/react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import SparklesText from "../ui/sparkles-text";
 
 interface Service {
     title: string;
@@ -68,44 +69,46 @@ const ServicesSection: React.FC = () => {
     ];
 
     return (
-        <section
-            className={`px-4 py-32 bg-dominant-color ${sourceSerif4.className}`}
-        >
-            <div className="max-w-customHaf lg:max-w-custom mx-auto">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {services.map((service, index) => (
-                        <motion.div
-                            initial={{
-                                opacity: 0,
-                            }}
-                            whileInView={{
-                                opacity: 1,
-                                transition: {
-                                    duration: 0.4,
-                                    delay: 0.1 * index + 1,
-                                    ease: "linear",
-                                },
-                            }}
-                            viewport={{ once: true }}
-                            key={index}
-                            className={cn(
-                                "rounded-lg shadow-lg p-6 transition duration-300 hover:scale-105 hover:shadow-xl w-full sm:w-auto",
-                                service?.bgColor,
-                                service?.textColor,
-                            )}
-                        >
-                            <div className="flex items-center justify-center mb-4 text-4xl">
-                                {service?.icon}
-                            </div>
-                            <h3 className="text-2xl font-semibold mb-2 text-center tracking-wide">
-                                {service?.title}
-                            </h3>
-                            <p className="text-center text-base font-semibold tracking-wide">
-                                {service?.description}
-                            </p>
-                        </motion.div>
-                    ))}
-                </div>
+        <section className={`${sourceSerif4.className} space-y-10`}>
+            <SparklesText
+                text={"Why Choose Us?"}
+                className="text-3xl text-center font-normal uppercase text-zinc-900/75 border-b border-gray-600 pb-2 w-1/2 mx-auto"
+                colors={{ first: "green", second: "gray" }}
+                sparklesCount={10}
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+                {services.map((service, index) => (
+                    <motion.div
+                        initial={{
+                            opacity: 0,
+                        }}
+                        whileInView={{
+                            opacity: 1,
+                            transition: {
+                                duration: 0.4,
+                                delay: 0.1 * index + 1,
+                                ease: "linear",
+                            },
+                        }}
+                        viewport={{ once: true }}
+                        key={index}
+                        className={cn(
+                            "rounded-lg shadow-lg p-6 transition duration-300 hover:scale-105 hover:shadow-xl w-full sm:w-auto",
+                            service?.bgColor,
+                            service?.textColor,
+                        )}
+                    >
+                        <div className="flex items-center justify-center mb-4 text-4xl">
+                            {service?.icon}
+                        </div>
+                        <h3 className="text-2xl font-semibold mb-2 text-center tracking-wide">
+                            {service?.title}
+                        </h3>
+                        <p className="text-center text-base font-semibold tracking-wide">
+                            {service?.description}
+                        </p>
+                    </motion.div>
+                ))}
             </div>
         </section>
     );
@@ -113,10 +116,10 @@ const ServicesSection: React.FC = () => {
 
 export const ServicesSectionTwo = () => {
     return (
-        <section className={cn("py-20", sourceSerif4.className)}>
+        <section className={cn("pb-10", sourceSerif4.className)}>
             <div
                 className={cn(
-                    "text-charcoal-black text-[16px] leading-[24px] max-w-customHaf lg:max-w-custom mx-auto px-4",
+                    "text-charcoal-black text-[16px] leading-[24px]",
                     sourceSerif4.className,
                 )}
             >
