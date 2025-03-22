@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
             {
                 hostname: "storage.googleapis.com",
             },
+            {
+                hostname: "i.pravatar.cc",
+            },
         ],
     },
 };

@@ -88,6 +88,47 @@ body {
     }
 }
 
+/* Premium Carousel Animations */
+@keyframes slide-up {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-right {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+    to {
+        width: 4rem;
+        opacity: 1;
+    }
+}
+
+@layer utilities {
+    .animate-slide-up {
+        animation: slide-up 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    .animate-slide-right {
+        animation: slide-right 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    .animation-delay-200 {
+        animation-delay: 200ms;
+    }
+
+    .animation-delay-400 {
+        animation-delay: 400ms;
+    }
+}
+
 @layer base {
     :root {
         --sidebar-background: 0 0% 98%;
