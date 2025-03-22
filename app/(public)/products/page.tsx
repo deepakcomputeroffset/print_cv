@@ -6,7 +6,10 @@ import { ProductTypeOnlyWithPrice } from "@/types/types";
 import { redirect } from "next/navigation";
 import { CUSTOMER_CATEGORY } from "@prisma/client";
 import Link from "next/link";
-import { Package } from "lucide-react";
+import { Package, ArrowLeft } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { sourceSerif4 } from "@/lib/font";
+import { Button } from "@/components/ui/button";
 
 export default async function ProductPage({
     searchParams,
@@ -63,24 +66,35 @@ export default async function ProductPage({
 
     if (products.length <= 0) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-6">
-                <div className="bg-white p-6 rounded-full shadow-lg">
-                    <Package className="w-16 h-16 text-gray-400" />
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4 py-16">
+                <div className="bg-gradient-to-br from-primary/5 to-cyan-500/5 p-8 rounded-full shadow-md border border-primary/10">
+                    <Package className="w-16 h-16 text-primary/70" />
                 </div>
 
-                <h2 className="text-2xl font-semibold text-gray-800 mt-6">
-                    No Products Available
+                <h2
+                    className={cn(
+                        "text-3xl font-bold mt-8 mb-3",
+                        sourceSerif4.className,
+                    )}
+                >
+                    <span>No Products</span>{" "}
+                    <span className="text-primary relative inline-block">
+                        Available
+                        <span className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-primary/40 to-cyan-500/40"></span>
+                    </span>
                 </h2>
-                <p className="text-gray-600 mt-2 max-w-md">
-                    It seems like we don’t have any products listed right now.
-                    Please check back later or browse other categories.
+
+                <p className="text-gray-600 mt-2 max-w-md mb-8">
+                    It seems like we don&apos;t have any products listed in this
+                    category right now. Please check back later or browse other
+                    categories.
                 </p>
 
-                <Link
-                    href="/categories"
-                    className="mt-6 bg-dominant-color-2 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-all"
-                >
-                    Back to Services
+                <Link href="/categories">
+                    <Button className="bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 px-6">
+                        <ArrowLeft className="h-4 w-4 mr-2" />
+                        Browse Categories
+                    </Button>
                 </Link>
             </div>
         );
