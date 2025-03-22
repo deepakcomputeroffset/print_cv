@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import serverResponse from "@/lib/serverResponse";
 
 export async function GET(
@@ -16,7 +16,7 @@ export async function GET(
             });
         }
 
-        const product = await prisma.product.findUnique({
+        const product = await Prisma.product.findUnique({
             where: { id: productId },
             include: {
                 category: true,

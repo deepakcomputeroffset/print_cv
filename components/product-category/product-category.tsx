@@ -7,6 +7,7 @@ import { ArrowLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { useUrlFilters } from "@/hooks/useUrlFilter";
 import { productCategory } from "@prisma/client";
 import Link from "next/link";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 
@@ -36,13 +37,25 @@ export const ProductCategoryList = ({
     // CategoryCard component defined inside the parent component to access the required context
     const CategoryCard = ({
         category,
+        index,
         onClick,
     }: {
         category: productCategoryType;
+        index: number;
         onClick: () => void;
     }) => {
         return (
-            <div className="h-full">
+            <motion.div
+                initial={{ opacity: 0, translateY: 30 }}
+                whileInView={{ opacity: 1, translateY: 0 }}
+                transition={{
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    ease: [0.22, 1, 0.36, 1],
+                }}
+                viewport={{ once: true }}
+                className="h-full"
+            >
                 <Card
                     className={cn(
                         "bg-white transition-all duration-300 overflow-hidden relative h-full border-0 rounded-2xl shadow-md hover:shadow-xl",
@@ -132,13 +145,17 @@ export const ProductCategoryList = ({
                         </div>
                     )}
                 </Card>
-            </div>
+            </motion.div>
         );
     };
 
     return (
         <div className="flex flex-col space-y-12 md:space-y-20">
-            <div
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true }}
                 className={cn(
                     "text-center max-w-3xl mx-auto",
                     sourceSerif4.className,
@@ -186,7 +203,12 @@ export const ProductCategoryList = ({
                 </p>
 
                 {categories[0]?.parentCategory !== null && (
-                    <div className="flex justify-center mt-8">
+                    <motion.div
+                        className="flex justify-center mt-8"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5, duration: 0.5 }}
+                    >
                         <Link
                             href="/categories"
                             className="flex items-center text-primary bg-primary/5 hover:bg-primary/10 px-4 py-2 rounded-full transition-colors group"
@@ -196,15 +218,16 @@ export const ProductCategoryList = ({
                                 Back to all categories
                             </span>
                         </Link>
-                    </div>
+                    </motion.div>
                 )}
-            </div>
+            </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-                {categories.map((category) => (
+                {categories.map((category, index) => (
                     <CategoryCard
                         key={category.id}
                         category={category}
+                        index={index}
                         onClick={() => handleCategoryClick(category)}
                     />
                 ))}

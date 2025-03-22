@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 
 export async function GET() {
     try {
@@ -18,7 +18,7 @@ export async function GET() {
             });
         }
 
-        const tasks = await prisma.task.findMany({
+        const tasks = await Prisma.task.findMany({
             where: {
                 assignedStaffId: session.user.staff?.id,
             },

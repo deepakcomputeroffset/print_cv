@@ -5,8 +5,8 @@ import {
 } from "@/lib/constants";
 import serverResponse from "@/lib/serverResponse";
 import { QuerySchema } from "@/schemas/query.param.schema";
-import { Prisma, ROLE } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
+import { Prisma as PrismaType, ROLE } from "@prisma/client";
+import { Prisma } from "@/lib/prisma";
 
 export async function GET(
     req: Request,
@@ -41,7 +41,7 @@ export async function GET(
         const { searchParams } = new URL(req.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
-        const where: Prisma.transactionWhereInput = {
+        const where: PrismaType.transactionWhereInput = {
             AND: [
                 { walletId: parseInt(id) },
                 query.search
@@ -69,8 +69,8 @@ export async function GET(
             ],
         };
 
-        const [wallet, total, transactions] = await prisma.$transaction([
-            prisma.wallet.findUnique({
+        const [wallet, total, transactions] = await Prisma.$transaction([
+            Prisma.wallet.findUnique({
                 where: { id: parseInt(id) },
                 include: {
                     customer: {
@@ -80,8 +80,8 @@ export async function GET(
                     },
                 },
             }),
-            prisma.transaction.count({ where }),
-            prisma.transaction.findMany({
+            Prisma.transaction.count({ where }),
+            Prisma.transaction.findMany({
                 where,
                 include: {
                     staff: {

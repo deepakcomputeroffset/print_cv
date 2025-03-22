@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 
 export async function GET(req: Request) {
     try {
         const { searchParams } = new URL(req.url);
 
-        const states = await prisma.state.findMany({
+        const states = await Prisma.state.findMany({
             where: {
                 countryId: isNaN(parseInt(searchParams.get("countryId") || ""))
                     ? 1
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
             );
         }
 
-        const newState = await prisma.state.create({
+        const newState = await Prisma.state.create({
             data: { name, countryId: Number(countryId) },
         });
 
@@ -85,7 +85,7 @@ export async function PUT(req: Request) {
             );
         }
 
-        const updatedState = await prisma.state.update({
+        const updatedState = await Prisma.state.update({
             where: { id },
             data: { name },
         });
@@ -118,7 +118,7 @@ export async function DELETE(req: Request) {
             );
         }
 
-        const deletedState = await prisma.state.delete({
+        const deletedState = await Prisma.state.delete({
             where: { id },
         });
 

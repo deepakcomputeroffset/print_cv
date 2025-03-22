@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import OrderDetailsPage from "@/components/order/orderPage";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 
 export default async function OrderPage({
     params,
@@ -16,7 +16,7 @@ export default async function OrderPage({
             return redirect("/customer/orders");
         }
 
-        const order = await prisma.order.findFirst({
+        const order = await Prisma.order.findFirst({
             where: { id: parseInt(id) },
             include: {
                 customer: {

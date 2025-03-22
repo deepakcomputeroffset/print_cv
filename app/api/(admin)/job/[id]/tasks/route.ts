@@ -1,6 +1,6 @@
 import { taskSchema } from "@/schemas/task.form.schema";
 import { NextRequest } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { allowedRoleForOrderManagement } from "@/lib/constants";
 import { ROLE } from "@prisma/client";
 import { auth } from "@/lib/auth";
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
         const { jobId, taskTypeId, assignedStaffId } = validation.data;
 
-        const existingTask = await prisma.task.findFirst({
+        const existingTask = await Prisma.task.findFirst({
             where: {
                 jobId,
                 taskTypeId,
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        const task = await prisma.task.create({
+        const task = await Prisma.task.create({
             data: {
                 jobId,
                 taskTypeId,

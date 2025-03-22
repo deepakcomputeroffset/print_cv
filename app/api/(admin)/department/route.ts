@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { taskTypeFormSchema } from "@/schemas/taskType.form.schema";
-import { Prisma, ROLE } from "@prisma/client";
+import { Prisma as PrismaType, ROLE } from "@prisma/client";
 import { QuerySchema } from "@/schemas/query.param.schema";
 import {
     allowedRoleForOrderManagement,
@@ -30,7 +30,7 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
-        const where: Prisma.taskTypeWhereInput = {
+        const where: PrismaType.taskTypeWhereInput = {
             AND: [
                 query.search
                     ? {
@@ -47,9 +47,9 @@ export async function GET(request: Request) {
             ],
         };
 
-        const [total, departments] = await prisma.$transaction([
-            prisma.taskType.count({ where }),
-            prisma.taskType.findMany({
+        const [total, departments] = await Prisma.$transaction([
+            Prisma.taskType.count({ where }),
+            Prisma.taskType.findMany({
                 where,
                 orderBy: {
                     [query?.sortby ?? "id"]: query?.sortorder || "asc",
@@ -122,7 +122,7 @@ export async function POST(req: Request) {
             });
         }
 
-        const isExit = await prisma.taskType.findUnique({
+        const isExit = await Prisma.taskType.findUnique({
             where: {
                 name: safeData.name,
             },
@@ -136,7 +136,7 @@ export async function POST(req: Request) {
             });
         }
 
-        const createdDepartment = await prisma.taskType.create({
+        const createdDepartment = await Prisma.taskType.create({
             data: {
                 ...safeData,
             },

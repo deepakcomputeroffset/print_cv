@@ -1,7 +1,7 @@
 import ProductDetails from "@/components/product/productDetail";
 import { auth } from "@/lib/auth";
 import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import {
     ProductItemTypeOnlyWithPrice,
     ProductTypeOnlyWithPrice,
@@ -20,7 +20,7 @@ export default async function ProductPage({
     const session = await auth();
     const customerCategory = session?.user?.customer?.customerCategory || "LOW";
 
-    const product = await prisma.product.findUnique({
+    const product = await Prisma.product.findUnique({
         where: {
             id: parseInt(id),
         },

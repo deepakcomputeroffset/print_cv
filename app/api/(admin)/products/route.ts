@@ -1,7 +1,7 @@
 import { productFormSchema } from "@/schemas/product.form.schema";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { QuerySchema } from "@/schemas/query.param.schema";
-import { Prisma, ROLE } from "@prisma/client";
+import { Prisma as PrismaType, ROLE } from "@prisma/client";
 import {
     allowedRoleForCategoryAndProductManagement,
     defaultProductPerPage,
@@ -31,7 +31,7 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
-        const where: Prisma.productWhereInput = {
+        const where: PrismaType.productWhereInput = {
             AND: [
                 query.search
                     ? {
@@ -85,9 +85,9 @@ export async function GET(request: Request) {
             ],
         };
 
-        const [total, products] = await prisma.$transaction([
-            prisma.product.count({ where }),
-            prisma.product.findMany({
+        const [total, products] = await Prisma.$transaction([
+            Prisma.product.count({ where }),
+            Prisma.product.findMany({
                 where,
                 include: {
                     productItems: true,
@@ -164,7 +164,7 @@ export async function POST(req: Request) {
             });
         }
 
-        const newProduct = await prisma?.product.create({
+        const newProduct = await Prisma?.product.create({
             data: {
                 name: safeData.name,
                 description: safeData.description,

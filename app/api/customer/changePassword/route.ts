@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import { generateHash, verifyHash } from "@/lib/hash";
+import { Prisma } from "@/lib/prisma";
 import serverResponse from "@/lib/serverResponse";
 import { changePasswordFormSchema } from "@/schemas/customer.form.schema";
 
@@ -26,7 +27,7 @@ export async function POST(request: Request) {
 
         const { oldPassword, password } = result.data;
 
-        const customer = await prisma?.customer.findUnique({
+        const customer = await Prisma?.customer.findUnique({
             where: {
                 id: session.user.customer?.id,
             },
@@ -47,7 +48,7 @@ export async function POST(request: Request) {
 
         const hashedPassword = await generateHash(password);
 
-        await prisma?.customer.update({
+        await Prisma?.customer.update({
             where: {
                 id: session.user.customer?.id,
             },

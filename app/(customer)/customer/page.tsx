@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
     Table,
@@ -23,8 +23,8 @@ export default async function CustomerDashboard() {
         redirect("/");
     }
 
-    const [recentTransactions, wallet] = await prisma.$transaction([
-        prisma.transaction.findMany({
+    const [recentTransactions, wallet] = await Prisma.$transaction([
+        Prisma.transaction.findMany({
             where: {
                 walletId: session?.user?.customer?.wallet?.id,
             },
@@ -33,7 +33,7 @@ export default async function CustomerDashboard() {
                 createdAt: "desc",
             },
         }),
-        prisma.wallet.findUnique({
+        Prisma.wallet.findUnique({
             where: {
                 customerId: session?.user?.customer?.id,
             },

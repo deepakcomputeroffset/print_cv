@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { allowedRoleForJobManagement } from "@/lib/constants";
 import { ROLE } from "@prisma/client";
 import { auth } from "@/lib/auth";
@@ -46,7 +46,7 @@ export async function PATCH(
             });
         }
 
-        const staff = await prisma.staff.findUnique({
+        const staff = await Prisma.staff.findUnique({
             where: { id: staffId },
         });
 
@@ -58,7 +58,7 @@ export async function PATCH(
             });
         }
 
-        const task = await prisma.task.findUnique({
+        const task = await Prisma.task.findUnique({
             where: { id: taskId },
         });
 
@@ -70,7 +70,7 @@ export async function PATCH(
             });
         }
 
-        const updatedTask = await prisma.task.update({
+        const updatedTask = await Prisma.task.update({
             where: { id: taskId },
             data: {
                 assignedStaffId: staffId,

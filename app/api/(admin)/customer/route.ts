@@ -1,7 +1,7 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { generateHash } from "@/lib/hash";
 import { customerFormSchema } from "@/schemas/customer.form.schema";
-import { Prisma } from "@prisma/client";
+import { Prisma as PrismaType } from "@prisma/client";
 import { QuerySchema } from "@/schemas/query.param.schema";
 import { defaultCustomerPerPage } from "@/lib/constants";
 import { auth } from "@/lib/auth";
@@ -26,7 +26,7 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
-        const where: Prisma.customerWhereInput = {
+        const where: PrismaType.customerWhereInput = {
             AND: [
                 query.search
                     ? {
@@ -73,9 +73,9 @@ export async function GET(request: Request) {
             ],
         };
 
-        const [total, customers] = await prisma.$transaction([
-            prisma.customer.count({ where }),
-            prisma.customer.findMany({
+        const [total, customers] = await Prisma.$transaction([
+            Prisma.customer.count({ where }),
+            Prisma.customer.findMany({
                 where,
                 include: {
                     address: {
@@ -144,7 +144,7 @@ export async function POST(req: Request) {
         }
 
         // Check if customer already exists
-        const isExist = await prisma.customer.findUnique({
+        const isExist = await Prisma.customer.findUnique({
             where: { phone: safeData?.phone },
         });
 
@@ -157,7 +157,7 @@ export async function POST(req: Request) {
         }
 
         // Create customer
-        const customer = await prisma.customer.create({
+        const customer = await Prisma.customer.create({
             data: {
                 name: safeData?.name,
                 businessName: safeData?.businessName,

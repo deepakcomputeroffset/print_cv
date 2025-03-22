@@ -1,6 +1,6 @@
 import serverResponse from "@/lib/serverResponse";
 import { addOrdersToJobFormSchema } from "@/schemas/job.form.schema";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 
 export async function POST(
     request: Request,
@@ -27,11 +27,11 @@ export async function POST(
             });
         }
 
-        const isJobExist = await prisma?.job.findUnique({
+        const isJobExist = await Prisma?.job.findUnique({
             where: { id: parseInt(id) },
         });
 
-        const isOrdersExist = await prisma?.order.findMany({
+        const isOrdersExist = await Prisma?.order.findMany({
             where: {
                 id: {
                     in: result.data.orders,
@@ -53,7 +53,7 @@ export async function POST(
         }
         console.log(result.data.orders);
         // connect orders to job
-        const updatedOrder = await prisma?.order.updateMany({
+        const updatedOrder = await Prisma?.order.updateMany({
             where: {
                 id: {
                     in: result.data.orders,

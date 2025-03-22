@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { jobFormSchema } from "@/schemas/job.form.schema";
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
@@ -27,7 +27,7 @@ export async function GET(
             });
         }
         const { id } = await params;
-        const job = await prisma.job.findUnique({
+        const job = await Prisma.job.findUnique({
             where: { id: parseInt(id) },
         });
 
@@ -71,7 +71,7 @@ export async function PATCH(
         }
         const { id } = await params;
 
-        const job = await prisma.job.findUnique({
+        const job = await Prisma.job.findUnique({
             where: { id: parseInt(id) },
         });
 
@@ -86,7 +86,7 @@ export async function PATCH(
         const body = await request.json();
         const validatedData = jobFormSchema.partial().parse(body);
 
-        const updatedDepartment = await prisma.job.update({
+        const updatedDepartment = await Prisma.job.update({
             where: { id: parseInt(id) },
             data: validatedData,
         });
@@ -131,7 +131,7 @@ export async function DELETE(
         }
         const { id } = await params;
 
-        const job = await prisma.job.delete({
+        const job = await Prisma.job.delete({
             where: { id: parseInt(id), isVerified: false },
         });
 

@@ -5,8 +5,8 @@ import {
 } from "@/lib/constants";
 import serverResponse from "@/lib/serverResponse";
 import { QuerySchema } from "@/schemas/query.param.schema";
-import { Prisma, ROLE, STATUS } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
+import { Prisma as PrismaType, ROLE, STATUS } from "@prisma/client";
+import { Prisma } from "@/lib/prisma";
 
 export async function GET(request: Request) {
     try {
@@ -29,7 +29,7 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
-        const where: Prisma.orderWhereInput = {
+        const where: PrismaType.orderWhereInput = {
             AND: [
                 query.search
                     ? {
@@ -101,9 +101,9 @@ export async function GET(request: Request) {
             ],
         };
 
-        const [total, orders] = await prisma.$transaction([
-            prisma.order.count({ where }),
-            prisma.order.findMany({
+        const [total, orders] = await Prisma.$transaction([
+            Prisma.order.count({ where }),
+            Prisma.order.findMany({
                 where,
                 orderBy: {
                     [query?.sortby ?? "createdAt"]: query?.sortorder || "desc",

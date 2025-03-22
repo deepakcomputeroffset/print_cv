@@ -4,8 +4,8 @@ import {
     defaultCustomerPerPage,
 } from "@/lib/constants";
 import serverResponse from "@/lib/serverResponse";
-import { Prisma, ROLE } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
+import { Prisma as PrismaType, ROLE } from "@prisma/client";
+import { Prisma } from "@/lib/prisma";
 import { QuerySchema } from "@/schemas/query.param.schema";
 import { transactionFormSchema } from "@/schemas/transaction.form.schema";
 
@@ -31,7 +31,7 @@ export async function GET(req: Request) {
         const { searchParams } = new URL(req.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
-        const where: Prisma.customerWhereInput = {
+        const where: PrismaType.customerWhereInput = {
             AND: [
                 query.search
                     ? {
@@ -78,9 +78,9 @@ export async function GET(req: Request) {
             ],
         };
 
-        const [total, customers] = await prisma.$transaction([
-            prisma.customer.count({ where }),
-            prisma.customer.findMany({
+        const [total, customers] = await Prisma.$transaction([
+            Prisma.customer.count({ where }),
+            Prisma.customer.findMany({
                 where,
                 include: {
                     wallet: {
@@ -157,7 +157,7 @@ export async function POST(req: Request) {
             });
         }
 
-        const customer = await prisma.customer.findUnique({
+        const customer = await Prisma.customer.findUnique({
             where: {
                 id: result.data.customerId,
             },
@@ -176,7 +176,7 @@ export async function POST(req: Request) {
 
         console.log(result);
 
-        await prisma.$transaction(async (tx) => {
+        await Prisma.$transaction(async (tx) => {
             const transac = await tx.transaction.create({
                 data: {
                     walletId: customer?.wallet?.id as number,

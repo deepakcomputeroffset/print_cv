@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 
 export async function GET() {
     try {
-        const Cities = await prisma.city.findMany({
+        const Cities = await Prisma.city.findMany({
             include: { state: true },
         });
         return NextResponse.json(Cities, { status: 200 });
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
             );
         }
 
-        const newCity = await prisma.city.create({
+        const newCity = await Prisma.city.create({
             data: { name, stateId: stateId },
         });
 
@@ -58,7 +58,7 @@ export async function PUT(req: Request) {
             );
         }
 
-        const updatedCity = await prisma.city.update({
+        const updatedCity = await Prisma.city.update({
             where: { id },
             data: { name },
         });
@@ -87,7 +87,7 @@ export async function DELETE(req: Request) {
             );
         }
 
-        const deletedCity = await prisma.city.delete({
+        const deletedCity = await Prisma.city.delete({
             where: { id },
         });
 

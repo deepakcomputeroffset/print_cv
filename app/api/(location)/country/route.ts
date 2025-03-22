@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma"; // Ensure the correct path for Prisma import
+import { Prisma } from "@/lib/prisma"; // Ensure the correct path for Prisma import
 
 export async function GET() {
     try {
-        const countries = await prisma.country.findMany({
+        const countries = await Prisma.country.findMany({
             include: { states: true },
         });
         return NextResponse.json(countries, { status: 200 });
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
             );
         }
 
-        const newCountry = await prisma.country.create({
+        const newCountry = await Prisma.country.create({
             data: { name },
         });
 
@@ -58,7 +58,7 @@ export async function PUT(req: Request) {
             );
         }
 
-        const updatedCountry = await prisma.country.update({
+        const updatedCountry = await Prisma.country.update({
             where: { id },
             data: { name },
         });
@@ -87,7 +87,7 @@ export async function DELETE(req: Request) {
             );
         }
 
-        const deletedCountry = await prisma.country.delete({
+        const deletedCountry = await Prisma.country.delete({
             where: { id },
         });
 

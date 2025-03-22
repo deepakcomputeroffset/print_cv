@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
 import { ROLE } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { allowedRoleForAccountManagement } from "@/lib/constants";
 
 export async function GET(
@@ -35,7 +35,7 @@ export async function GET(
             });
         }
 
-        const customer = await prisma.customer.findUnique({
+        const customer = await Prisma.customer.findUnique({
             where: { id: parseInt(id) },
             omit: {
                 password: true,

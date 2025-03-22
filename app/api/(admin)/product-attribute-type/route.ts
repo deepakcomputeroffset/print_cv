@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { ProductAttributeTypeSchema } from "@/schemas/product.attribute.type.form.schema";
 
 export async function GET(request: Request) {
@@ -17,7 +17,7 @@ export async function GET(request: Request) {
             );
         }
         const productAttributeTypes =
-            await prisma.productAttributeType.findMany({
+            await Prisma.productAttributeType.findMany({
                 where: {
                     productCategoryId: parseInt(
                         searchParams?.get("productCategoryId") || "",
@@ -61,7 +61,7 @@ export async function POST(req: Request) {
         }
 
         const createdProduct_attribute =
-            await prisma.productAttributeType.create({
+            await Prisma.productAttributeType.create({
                 data: safeData,
             });
         return NextResponse.json(

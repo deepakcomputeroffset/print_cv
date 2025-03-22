@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import serverResponse from "@/lib/serverResponse";
 import { auth } from "@/lib/auth";
 import { allowedRoleForOrderManagement } from "@/lib/constants";
@@ -37,7 +37,7 @@ export async function PATCH(
         }
 
         // Mark current task as complete
-        const completedTask = await prisma.task.update({
+        const completedTask = await Prisma.task.update({
             where: { id: parseInt(taskId) },
             data: { completedAt: new Date() },
             include: { assignee: true },
@@ -45,7 +45,7 @@ export async function PATCH(
 
         // Start next task if available
         if (completedTask.assignedStaffId) {
-            const nextTask = await prisma.task.findFirst({
+            const nextTask = await Prisma.task.findFirst({
                 where: {
                     assignedStaffId: completedTask.assignedStaffId,
                     startedAt: null,
@@ -55,7 +55,7 @@ export async function PATCH(
             });
 
             if (nextTask) {
-                await prisma.task.update({
+                await Prisma.task.update({
                     where: { id: nextTask.id },
                     data: { startedAt: new Date() },
                 });

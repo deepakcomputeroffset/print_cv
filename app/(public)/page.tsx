@@ -7,10 +7,10 @@ import CtaSection from "@/components/landingPage/ctaSection";
 import StatsSection from "@/components/landingPage/statsSection";
 import FaqSection from "@/components/landingPage/faqSection";
 import ServiceCategories from "@/components/landingPage/serviceCategories";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 
 export default async function HomePage() {
-    const categories = await prisma?.productCategory.findMany({
+    const categories = await Prisma?.productCategory.findMany({
         include: {
             _count: { select: { subCategories: true } },
             parentCategory: true,

@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { Prisma } from "@/lib/prisma";
 import serverResponse from "@/lib/serverResponse";
 
 export const dynamic = "force-dynamic";
@@ -14,7 +15,7 @@ export async function GET() {
             });
         }
 
-        const wallet = await prisma?.wallet.findUnique({
+        const wallet = await Prisma?.wallet.findUnique({
             where: {
                 id: session?.user?.customer?.wallet?.id,
             },

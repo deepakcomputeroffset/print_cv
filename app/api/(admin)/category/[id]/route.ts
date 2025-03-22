@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { productCategorySchema } from "@/schemas/product.category.form.schema";
 import {
     allowedRoleForCategoryAndProductManagement,
@@ -33,7 +33,7 @@ export async function GET(
         }
 
         const { id } = await params;
-        const productCategory = await prisma.productCategory.findUnique({
+        const productCategory = await Prisma.productCategory.findUnique({
             where: { id: parseInt(id) },
             include: {
                 subCategories: true,
@@ -87,7 +87,7 @@ export async function PATCH(
         }
 
         const { id } = await params;
-        const productCategory = await prisma.productCategory.findUnique({
+        const productCategory = await Prisma.productCategory.findUnique({
             where: { id: parseInt(id) },
         });
 
@@ -131,7 +131,7 @@ export async function PATCH(
             validatedData.data;
         console.log(image, parentCategoryId);
 
-        const updatedCategory = await prisma.productCategory.update({
+        const updatedCategory = await Prisma.productCategory.update({
             where: { id: parseInt(id) },
             data: {
                 ...dataWithoutImage,
@@ -182,7 +182,7 @@ export async function DELETE(
         }
 
         const { id } = await params;
-        const productCategory = await prisma.productCategory.delete({
+        const productCategory = await Prisma.productCategory.delete({
             where: { id: parseInt(id) },
         });
 

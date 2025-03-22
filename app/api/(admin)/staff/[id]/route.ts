@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { staffFormSchema } from "@/schemas/staff.form.schema";
 import serverResponse from "@/lib/serverResponse";
 import { auth } from "@/lib/auth";
@@ -21,7 +21,7 @@ export async function GET(
             });
         }
         const { id } = await params;
-        const staff = await prisma.staff.findUnique({
+        const staff = await Prisma.staff.findUnique({
             where: { id: parseInt(id) },
         });
 
@@ -68,7 +68,7 @@ export async function PATCH(
         }
         const { id } = await params;
 
-        const staff = await prisma.staff.findUnique({
+        const staff = await Prisma.staff.findUnique({
             where: { id: parseInt(id) },
         });
 
@@ -144,7 +144,7 @@ export async function PATCH(
         //     }
         // }
 
-        const upadatedStaff = await prisma.staff.update({
+        const upadatedStaff = await Prisma.staff.update({
             where: { id: parseInt(id) },
             data: updateData,
         });
@@ -185,7 +185,7 @@ export async function DELETE(
 
         const { id } = await params;
 
-        const staff = await prisma.staff.delete({
+        const staff = await Prisma.staff.delete({
             where: { id: parseInt(id) },
         });
 

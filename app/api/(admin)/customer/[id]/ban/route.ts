@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import serverResponse from "@/lib/serverResponse";
 import { auth } from "@/lib/auth";
 
@@ -16,7 +16,7 @@ export async function POST(
             });
         }
         const { id } = await params;
-        const customer = await prisma.customer.findUnique({
+        const customer = await Prisma.customer.findUnique({
             where: { id: parseInt(id) },
         });
 
@@ -28,7 +28,7 @@ export async function POST(
             });
         }
 
-        const updatedCustomer = await prisma.customer.update({
+        const updatedCustomer = await Prisma.customer.update({
             where: { id: parseInt(id) },
             data: { isBanned: !customer.isBanned },
         });

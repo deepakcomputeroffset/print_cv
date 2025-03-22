@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { customerFormSchema } from "@/schemas/customer.form.schema";
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
@@ -17,7 +17,7 @@ export async function GET(
             });
         }
         const { id } = await params;
-        const customer = await prisma.customer.findUnique({
+        const customer = await Prisma.customer.findUnique({
             where: { id: parseInt(id) },
             include: {
                 address: {
@@ -72,7 +72,7 @@ export async function PATCH(
         }
         const { id } = await params;
 
-        const customer = await prisma.customer.findUnique({
+        const customer = await Prisma.customer.findUnique({
             where: { id: parseInt(id) },
         });
 
@@ -152,7 +152,7 @@ export async function PATCH(
             }
         }
 
-        const updatedCustomer = await prisma.customer.update({
+        const updatedCustomer = await Prisma.customer.update({
             where: { id: parseInt(id) },
             data: updateData,
             include: {
@@ -200,7 +200,7 @@ export async function DELETE(
         }
         const { id } = await params;
 
-        const customer = await prisma.customer.delete({
+        const customer = await Prisma.customer.delete({
             where: { id: parseInt(id) },
         });
 

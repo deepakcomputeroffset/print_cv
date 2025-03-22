@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { TRANSACTION_TYPE, STATUS, UPLOADVIA } from "@prisma/client";
 
 export async function placeOrder(
@@ -10,7 +10,7 @@ export async function placeOrder(
     uploadType: UPLOADVIA,
     fileUrls?: string[],
 ) {
-    return await prisma.$transaction(async (tx) => {
+    return await Prisma.$transaction(async (tx) => {
         // Get customer wallet
         const wallet = await tx.wallet.findUnique({
             where: { customerId },

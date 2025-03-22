@@ -7,7 +7,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { IndianRupee } from "lucide-react";
 import JobVerification from "./components/jobVerification";
 import RemoveOrderFromJob from "./components/removeOrderFromJob";
@@ -40,7 +40,7 @@ export default async function JobPage({
         redirect("/login");
     }
     const { id } = await params;
-    const job = await prisma.job.findUnique({
+    const job = await Prisma.job.findUnique({
         where: { id: parseInt(id) },
         include: {
             staff: true,
@@ -68,8 +68,8 @@ export default async function JobPage({
         );
     }
 
-    const taskTypes = await prisma.taskType.findMany();
-    const staffMembers = await prisma.staff.findMany();
+    const taskTypes = await Prisma.taskType.findMany();
+    const staffMembers = await Prisma.staff.findMany();
 
     const hasTasks = job.tasks.length > 0;
     const allTasksCompleted = job.tasks.every((task) => task.completedAt);

@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -20,13 +20,13 @@ export async function GET() {
         let isExist = false;
 
         if (session.user?.userType === "customer") {
-            isExist = !!(await prisma.customer.findUnique({
+            isExist = !!(await Prisma.customer.findUnique({
                 where: { id: session?.user?.customer?.id },
             }));
         }
 
         if (session?.user?.userType === "staff") {
-            isExist = !!(await prisma.staff.findUnique({
+            isExist = !!(await Prisma.staff.findUnique({
                 where: { id: session?.user?.staff?.id },
             }));
         }

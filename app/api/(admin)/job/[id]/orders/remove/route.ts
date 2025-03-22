@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import serverResponse from "@/lib/serverResponse";
 import { auth } from "@/lib/auth";
 import { allowedRoleForJobManagement } from "@/lib/constants";
@@ -28,7 +28,7 @@ export async function POST(
 
         const param = await params;
 
-        const job = await prisma.job.findUnique({
+        const job = await Prisma.job.findUnique({
             where: { id: parseInt(param.id) },
         });
 
@@ -50,7 +50,7 @@ export async function POST(
             });
         }
 
-        const order = await prisma.order.update({
+        const order = await Prisma.order.update({
             where: { id: orderId },
             data: {
                 jobId: {

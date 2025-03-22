@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/prisma";
-import { Prisma, ROLE } from "@prisma/client";
+import { Prisma } from "@/lib/prisma";
+import { Prisma as PrismaType, ROLE } from "@prisma/client";
 import { QuerySchema } from "@/schemas/query.param.schema";
 import {
     allowedRoleForCategoryAndProductManagement,
@@ -33,7 +33,7 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
-        const where: Prisma.productCategoryWhereInput = {
+        const where: PrismaType.productCategoryWhereInput = {
             parentCategoryId: Number(query?.categoryId) ?? null,
             AND: [
                 query.search
@@ -58,9 +58,9 @@ export async function GET(request: Request) {
             ],
         };
 
-        const [total, product_categories] = await prisma.$transaction([
-            prisma.productCategory.count({ where }),
-            prisma.productCategory.findMany({
+        const [total, product_categories] = await Prisma.$transaction([
+            Prisma.productCategory.count({ where }),
+            Prisma.productCategory.findMany({
                 where,
                 include: {
                     subCategories: {
@@ -136,7 +136,7 @@ export async function POST(req: Request) {
             });
         }
         // Check if productCategory already exists
-        const existingProductCategory = await prisma.productCategory.findFirst({
+        const existingProductCategory = await Prisma.productCategory.findFirst({
             where: { name: safeData?.data?.name },
         });
 
@@ -165,7 +165,7 @@ export async function POST(req: Request) {
             : null;
 
         // Create productCategory
-        const productCategory = await prisma.productCategory.create({
+        const productCategory = await Prisma.productCategory.create({
             data: {
                 name: safeData.data.name,
                 description: safeData.data.description,

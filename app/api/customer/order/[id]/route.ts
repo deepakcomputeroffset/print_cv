@@ -1,6 +1,6 @@
 import serverResponse from "@/lib/serverResponse";
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { deleteFiles } from "@/lib/storage";
 
@@ -18,7 +18,7 @@ export async function GET(
         //     );
         // }
 
-        // const order = await prisma.order.findUnique({
+        // const order = await Prisma.order.findUnique({
         //     where: { id: params.id },
         //     include: {
         //         user: {
@@ -69,7 +69,7 @@ export async function PATCH(
         // }
         // console.log(params);
         // const { status } = await req.json();
-        // const order = await prisma.order.update({
+        // const order = await Prisma.order.update({
         //     where: { id: params.id },
         //     data: { status },
         //     include: {
@@ -119,7 +119,7 @@ export async function DELETE(
             });
         }
 
-        const order = await prisma.order.delete({
+        const order = await Prisma.order.delete({
             where: { id: parseInt(id), customerId: session.user.customer.id },
             select: { attachment: true, id: true },
         });

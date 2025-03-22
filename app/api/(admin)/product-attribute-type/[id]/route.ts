@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 
 export async function GET(
     request: Request,
@@ -10,7 +10,7 @@ export async function GET(
         const { id } = await params;
 
         const productAttributeType =
-            await prisma.productAttributeType.findUnique({
+            await Prisma.productAttributeType.findUnique({
                 where: { id: parseInt(id) },
             });
 
@@ -42,7 +42,7 @@ export async function DELETE(
         // TODO: AUTHENTICATION
         const { id } = await params;
 
-        const productAttributeType = await prisma.productAttributeType.delete({
+        const productAttributeType = await Prisma.productAttributeType.delete({
             where: { id: parseInt(id) },
         });
 

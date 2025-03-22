@@ -1,7 +1,7 @@
 import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
 import ProductLists from "../../../components/product/productLists";
 import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { ProductTypeOnlyWithPrice } from "@/types/types";
 import { redirect } from "next/navigation";
 import { CUSTOMER_CATEGORY } from "@prisma/client";
@@ -22,11 +22,11 @@ export default async function ProductPage({
         redirect("/categories");
     }
 
-    const category = await prisma.productCategory.findUnique({
+    const category = await Prisma.productCategory.findUnique({
         where: { id: parseInt(params?.categoryId) },
         select: { name: true, parentCategory: { select: { name: true } } },
     });
-    const products = await prisma.product.findMany({
+    const products = await Prisma.product.findMany({
         where: params?.categoryId
             ? {
                   categoryId: parseInt(params?.categoryId),

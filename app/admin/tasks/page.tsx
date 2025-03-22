@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { TASK_STATUS } from "@prisma/client";
@@ -18,8 +18,8 @@ export default async function StaffTasks() {
 
     // Server-side data fetching
     const [pendingTasks, inProgressTasks, completedTasks] =
-        await prisma.$transaction([
-            prisma.task.findMany({
+        await Prisma.$transaction([
+            Prisma.task.findMany({
                 where: {
                     assignedStaffId: session.user.staff?.id,
                     status: TASK_STATUS.PENDING,
@@ -27,7 +27,7 @@ export default async function StaffTasks() {
                 include: { job: true, taskType: true },
                 orderBy: { createdAt: "asc" },
             }),
-            prisma.task.findMany({
+            Prisma.task.findMany({
                 where: {
                     assignedStaffId: session.user.staff?.id,
                     status: TASK_STATUS.IN_PROGRESS,
@@ -35,7 +35,7 @@ export default async function StaffTasks() {
                 include: { job: true, taskType: true },
                 orderBy: { createdAt: "asc" },
             }),
-            prisma.task.findMany({
+            Prisma.task.findMany({
                 where: {
                     assignedStaffId: session.user.staff?.id,
                     status: TASK_STATUS.COMPLETED,

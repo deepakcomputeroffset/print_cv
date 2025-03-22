@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { allowedRoleForJobManagement } from "@/lib/constants";
 import { ROLE, TASK_STATUS } from "@prisma/client";
 import { auth } from "@/lib/auth";
@@ -31,7 +31,7 @@ export async function POST(
         const taskId = parseInt(id);
         const staffId = session.user.staff?.id;
 
-        const task = await prisma.task.findUnique({
+        const task = await Prisma.task.findUnique({
             where: { id: taskId },
             include: { job: { select: { tasks: true } } },
         });
@@ -56,7 +56,7 @@ export async function POST(
             });
 
         // Check if there are any newer completed tasks
-        const newerCompleted = await prisma.task.findFirst({
+        const newerCompleted = await Prisma.task.findFirst({
             where: {
                 jobId: task.jobId,
                 completedAt: { gt: task.completedAt || new Date(0) },
@@ -71,7 +71,7 @@ export async function POST(
             });
         }
 
-        const updatedTask = await prisma.task.update({
+        const updatedTask = await Prisma.task.update({
             where: { id: taskId },
             data: {
                 status: TASK_STATUS.IN_PROGRESS,

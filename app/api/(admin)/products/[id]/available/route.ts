@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import serverResponse from "@/lib/serverResponse";
 import { allowedRoleForCategoryAndProductManagement } from "@/lib/constants";
 import { ROLE } from "@prisma/client";
@@ -27,7 +27,7 @@ export async function GET(
         }
 
         const { id } = await params;
-        const product = await prisma.product.findUnique({
+        const product = await Prisma.product.findUnique({
             where: { id: parseInt(id) },
         });
 
@@ -39,7 +39,7 @@ export async function GET(
             });
         }
 
-        const updatedProduct = await prisma.product.update({
+        const updatedProduct = await Prisma.product.update({
             where: { id: parseInt(id) },
             data: { isAvailable: !product.isAvailable },
         });

@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { jobFormSchema } from "@/schemas/job.form.schema";
-import { Prisma, ROLE } from "@prisma/client";
+import { Prisma as PrismaType, ROLE } from "@prisma/client";
 import { QuerySchema } from "@/schemas/query.param.schema";
 import {
     allowedRoleForOrderManagement,
@@ -30,7 +30,7 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
-        const where: Prisma.jobWhereInput = {
+        const where: PrismaType.jobWhereInput = {
             AND: [
                 query.search
                     ? {
@@ -47,9 +47,9 @@ export async function GET(request: Request) {
             ],
         };
 
-        const [total, jobs] = await prisma.$transaction([
-            prisma.job.count({ where }),
-            prisma.job.findMany({
+        const [total, jobs] = await Prisma.$transaction([
+            Prisma.job.count({ where }),
+            Prisma.job.findMany({
                 where,
                 orderBy: {
                     [query?.sortby ?? "id"]: query?.sortorder || "asc",
@@ -121,7 +121,7 @@ export async function POST(req: Request) {
             });
         }
 
-        const isExit = await prisma.job.findUnique({
+        const isExit = await Prisma.job.findUnique({
             where: {
                 name: safeData.name,
             },
@@ -135,7 +135,7 @@ export async function POST(req: Request) {
             });
         }
 
-        const createdjob = await prisma.job.create({
+        const createdjob = await Prisma.job.create({
             data: {
                 name: safeData.name,
             },

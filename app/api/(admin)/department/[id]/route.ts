@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { taskTypeFormSchema } from "@/schemas/taskType.form.schema";
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
@@ -27,7 +27,7 @@ export async function GET(
             });
         }
         const { id } = await params;
-        const department = await prisma.taskType.findUnique({
+        const department = await Prisma.taskType.findUnique({
             where: { id: parseInt(id) },
         });
 
@@ -71,7 +71,7 @@ export async function PATCH(
         }
         const { id } = await params;
 
-        const department = await prisma.taskType.findUnique({
+        const department = await Prisma.taskType.findUnique({
             where: { id: parseInt(id) },
         });
 
@@ -96,7 +96,7 @@ export async function PATCH(
         if (validatedData?.description)
             updateData.description = validatedData.description;
 
-        const updatedDepartment = await prisma.taskType.update({
+        const updatedDepartment = await Prisma.taskType.update({
             where: { id: parseInt(id) },
             data: updateData,
         });
@@ -141,7 +141,7 @@ export async function DELETE(
         }
         const { id } = await params;
 
-        const department = await prisma.taskType.delete({
+        const department = await Prisma.taskType.delete({
             where: { id: parseInt(id) },
         });
 

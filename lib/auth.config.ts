@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { AuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 
 export const authConfig: AuthOptions = {
     pages: {
@@ -29,7 +29,7 @@ export const authConfig: AuthOptions = {
                     }
 
                     if (userType === "customer") {
-                        const customer = await prisma?.customer?.findUnique({
+                        const customer = await Prisma?.customer?.findUnique({
                             where: {
                                 phone: credentials?.phone,
                             },
@@ -70,7 +70,7 @@ export const authConfig: AuthOptions = {
                             },
                         };
                     } else if (userType === "staff") {
-                        const staff = await prisma?.staff?.findUnique({
+                        const staff = await Prisma?.staff?.findUnique({
                             where: {
                                 phone: credentials?.phone,
                             },
@@ -139,7 +139,7 @@ export const authConfig: AuthOptions = {
             }
 
             if (token.userType === "customer") {
-                const customer = await prisma?.customer?.findUnique({
+                const customer = await Prisma?.customer?.findUnique({
                     where: {
                         phone: token?.customer?.phone,
                         isBanned: false,
@@ -177,7 +177,7 @@ export const authConfig: AuthOptions = {
                     staff: undefined,
                 };
             } else if (token.userType === "staff") {
-                const staff = await prisma.staff.findUnique({
+                const staff = await Prisma.staff.findUnique({
                     where: { id: token?.staff?.id },
                 });
                 if (!staff || staff?.isBanned) {

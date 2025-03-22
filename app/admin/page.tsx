@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Overview } from "@/components/admin/overview";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { RecentOrders } from "@/components/admin/recent-orders";
@@ -20,12 +20,12 @@ export default async function AdminDashboard() {
         totalStaff,
         recentOrders,
         orders,
-    ] = await prisma.$transaction([
-        prisma.order.count(),
-        prisma.product.count(),
-        prisma.customer.count(),
-        prisma.staff.count(),
-        prisma.order.findMany({
+    ] = await Prisma.$transaction([
+        Prisma.order.count(),
+        Prisma.product.count(),
+        Prisma.customer.count(),
+        Prisma.staff.count(),
+        Prisma.order.findMany({
             take: 10,
             orderBy: {
                 createdAt: "desc",
@@ -39,7 +39,7 @@ export default async function AdminDashboard() {
                 },
             },
         }),
-        prisma.order.groupBy({
+        Prisma.order.groupBy({
             by: ["createdAt"],
             _sum: {
                 amount: true,

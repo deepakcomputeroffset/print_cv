@@ -15,13 +15,14 @@ import { Badge } from "../ui/badge";
 import { format } from "date-fns";
 import { Card } from "../ui/card";
 import { Session } from "next-auth";
+import { Prisma } from "@/lib/prisma";
 
 export default async function RecentOrders({
     session,
 }: {
     session?: Session | null;
 }) {
-    const orders = await prisma?.order.findMany({
+    const orders = await Prisma?.order.findMany({
         where: {
             customerId: session?.user?.customer?.id,
         },

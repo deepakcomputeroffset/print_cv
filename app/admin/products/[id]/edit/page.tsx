@@ -1,6 +1,6 @@
 import { EditProductForm } from "@/components/admin/product/form/edit-product-form";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 
 export default async function EditProductPage({
     params,
@@ -9,7 +9,7 @@ export default async function EditProductPage({
 }) {
     try {
         const id = (await params).id;
-        const product = await prisma.product.findUnique({
+        const product = await Prisma.product.findUnique({
             where: {
                 id: parseInt(id),
             },

@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { CustomerEditForm } from "./components/customer-edit-form";
 import { customerType } from "@/types/types";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +14,7 @@ export default async function CustomerEditPage() {
         if (!session || session.user.userType !== "customer") {
             redirect("/login");
         }
-        const customer = await prisma?.customer.findUnique({
+        const customer = await Prisma?.customer.findUnique({
             where: {
                 id: session?.user?.customer?.id,
             },

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { ProductAttributeValueSchema } from "@/schemas/product.attribute.value.form.schema";
 
 export async function GET(request: Request) {
@@ -17,7 +17,7 @@ export async function GET(request: Request) {
             );
         }
         const productAttributeTypeValues =
-            await prisma.productAttributeValue.findMany({
+            await Prisma.productAttributeValue.findMany({
                 where: {
                     productAttributeTypeId: parseInt(
                         searchParams?.get("productAttributeId") || "",
@@ -59,7 +59,7 @@ export async function POST(req: Request) {
             );
         }
 
-        const productAttributeValue = await prisma.productAttributeValue.create(
+        const productAttributeValue = await Prisma.productAttributeValue.create(
             {
                 data: safeData,
             },

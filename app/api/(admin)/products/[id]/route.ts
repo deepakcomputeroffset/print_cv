@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { partialProductFormSchema } from "@/schemas/product.form.schema";
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
@@ -34,7 +34,7 @@ export async function GET(
                 { status: 400 },
             );
         }
-        const product = await prisma.product.findUnique({
+        const product = await Prisma.product.findUnique({
             where: { id: parseInt(id) },
             include: {
                 category: true,
@@ -102,7 +102,7 @@ export async function PATCH(
         const validatedData = partialProductFormSchema?.partial().parse(body);
 
         // Find existing product
-        const existingProduct = await prisma?.product?.findUnique({
+        const existingProduct = await Prisma?.product?.findUnique({
             where: { id: parseInt(id) },
             include: {
                 productItems: true,
@@ -160,14 +160,14 @@ export async function PATCH(
 
         // deleting all existing varients of product if variants changed
         if (!!validatedData?.productItems) {
-            await prisma?.productItem.deleteMany({
+            await Prisma?.productItem.deleteMany({
                 where: {
                     productId: existingProduct?.id,
                 },
             });
         }
 
-        const updatedData = await prisma?.product?.update({
+        const updatedData = await Prisma?.product?.update({
             where: { id: parseInt(id) },
             data: { ...updateData },
         });
@@ -217,7 +217,7 @@ export async function DELETE(
                 message: "Invalid ProductIc",
             });
         }
-        await prisma.product.delete({
+        await Prisma.product.delete({
             where: { id: parseInt(id) },
         });
 

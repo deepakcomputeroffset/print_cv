@@ -7,10 +7,10 @@ import {
     defaultOrderPerPage,
     maxFileSize,
 } from "@/lib/constants";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { QuerySchema } from "@/schemas/query.param.schema";
 import { NextRequest } from "next/server";
-import { Prisma, UPLOADVIA } from "@prisma/client";
+import { Prisma as PrismaType, UPLOADVIA } from "@prisma/client";
 import { placeOrder } from "@/lib/placeOrder";
 
 export async function GET(req: NextRequest) {
@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
         const { searchParams } = new URL(req.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
-        const where: Prisma.orderWhereInput = {
+        const where: PrismaType.orderWhereInput = {
             AND: [
                 query.search
                     ? {
@@ -63,9 +63,9 @@ export async function GET(req: NextRequest) {
             ],
         };
 
-        const [total, orders] = await prisma.$transaction([
-            prisma.order.count({ where }),
-            prisma.order.findMany({
+        const [total, orders] = await Prisma.$transaction([
+            Prisma.order.count({ where }),
+            Prisma.order.findMany({
                 where: {
                     customerId: session?.user?.customer?.id,
                 },
@@ -142,7 +142,7 @@ export async function POST(request: Request) {
             });
         }
 
-        const productItem = await prisma?.productItem.findUnique({
+        const productItem = await Prisma?.productItem.findUnique({
             where: {
                 id: productItemId,
             },

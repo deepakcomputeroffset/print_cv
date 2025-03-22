@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import serverResponse from "@/lib/serverResponse";
 import { auth } from "@/lib/auth";
 import { allowedRoleForJobManagement } from "@/lib/constants";
@@ -34,7 +34,7 @@ export async function POST(
             });
         }
 
-        const job = await prisma.job.findUnique({
+        const job = await Prisma.job.findUnique({
             where: { id: parseInt(id) },
         });
 
@@ -46,7 +46,7 @@ export async function POST(
             });
         }
 
-        const updatedJob = await prisma.job.update({
+        const updatedJob = await Prisma.job.update({
             where: { id: parseInt(id) },
             data: {
                 isVerified: !job.isVerified,

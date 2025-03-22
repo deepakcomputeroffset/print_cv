@@ -2,7 +2,7 @@ import { auth } from "@/lib/auth";
 import { allowedRoleForJobManagement } from "@/lib/constants";
 import serverResponse from "@/lib/serverResponse";
 import { ROLE } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 export async function DELETE(
     request: Request,
     { params }: { params: Promise<{ id: string }> },
@@ -35,7 +35,7 @@ export async function DELETE(
             });
         }
 
-        const task = await prisma.task.findUnique({
+        const task = await Prisma.task.findUnique({
             where: { id: taskId },
         });
 
@@ -47,7 +47,7 @@ export async function DELETE(
             });
         }
 
-        await prisma.task.delete({
+        await Prisma.task.delete({
             where: { id: taskId },
         });
 

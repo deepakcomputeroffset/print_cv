@@ -1,7 +1,7 @@
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 import { generateHash } from "@/lib/hash";
 import { staffFormSchema } from "@/schemas/staff.form.schema";
-import { Prisma } from "@prisma/client";
+import { Prisma as PrismaType } from "@prisma/client";
 import { QuerySchema } from "@/schemas/query.param.schema";
 import { defaultStaffPerPage } from "@/lib/constants";
 import serverResponse from "@/lib/serverResponse";
@@ -24,7 +24,7 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
-        const where: Prisma.staffWhereInput = {
+        const where: PrismaType.staffWhereInput = {
             AND: [
                 query.search
                     ? {
@@ -64,9 +64,9 @@ export async function GET(request: Request) {
             },
         };
 
-        const [total, staff] = await prisma.$transaction([
-            prisma.staff.count({ where }),
-            prisma.staff.findMany({
+        const [total, staff] = await Prisma.$transaction([
+            Prisma.staff.count({ where }),
+            Prisma.staff.findMany({
                 where,
                 // include: {
                 //     address: {
@@ -146,7 +146,7 @@ export async function POST(req: Request) {
             });
         }
 
-        const isExit = await prisma.staff.findUnique({
+        const isExit = await Prisma.staff.findUnique({
             where: {
                 phone: safeData.phone,
             },
@@ -160,7 +160,7 @@ export async function POST(req: Request) {
             });
         }
 
-        const createdStaff = await prisma.staff.create({
+        const createdStaff = await Prisma.staff.create({
             data: {
                 ...safeData,
                 password: await generateHash(safeData.password),

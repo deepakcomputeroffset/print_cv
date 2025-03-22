@@ -5,6 +5,7 @@ import { ShoppingBag } from "lucide-react";
 import RecentOrders from "../order/recentOrders";
 import { auth } from "@/lib/auth";
 import { Skeleton } from "../ui/skeleton";
+import { Prisma } from "@/lib/prisma";
 
 export default async function ProductCategoryPage({
     params,
@@ -13,7 +14,7 @@ export default async function ProductCategoryPage({
 }) {
     const session = await auth();
 
-    const categories = await prisma?.productCategory.findMany({
+    const categories = await Prisma?.productCategory.findMany({
         where: {
             parentCategoryId: Number(params?.parentCategoryId) ?? null,
         },

@@ -4,7 +4,7 @@ import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductIt
 import { ProductItemType } from "@/types/types";
 import { productAttributeValue } from "@prisma/client";
 import { redirect } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 
 export default async function PlaceOrderPage({
     searchParams,
@@ -28,7 +28,7 @@ export default async function PlaceOrderPage({
             return redirect("/customer/products");
         }
 
-        const productItem = await prisma?.productItem.findUnique({
+        const productItem = await Prisma?.productItem.findUnique({
             where: {
                 id: parseInt(params?.productItemId),
             },

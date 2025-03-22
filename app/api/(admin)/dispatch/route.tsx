@@ -2,7 +2,7 @@ import { auth } from "@/lib/auth";
 import { allowedRoleForDispatchManagement } from "@/lib/constants";
 import serverResponse from "@/lib/serverResponse";
 import { ROLE } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/lib/prisma";
 
 export async function GET() {
     try {
@@ -24,7 +24,7 @@ export async function GET() {
             });
         }
 
-        const orders = await prisma.order.findMany({
+        const orders = await Prisma.order.findMany({
             where: {
                 job: { isVerified: true, isCompleted: true },
             },
