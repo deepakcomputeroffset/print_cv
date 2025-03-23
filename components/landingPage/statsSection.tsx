@@ -38,12 +38,12 @@ const StatItem = ({
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: delay }}
-            className="flex flex-col items-center p-6 rounded-xl bg-gradient-to-br from-white to-blue-50/30 shadow-md hover:shadow-lg transition-all"
+            className="flex flex-col items-center p-3 sm:p-4 md:p-6 rounded-xl bg-gradient-to-br from-white to-blue-50/30 shadow-md hover:shadow-lg transition-all"
         >
-            <div className="p-4 rounded-full bg-primary/10 text-primary mb-4">
+            <div className="p-2 sm:p-3 md:p-4 rounded-full bg-primary/10 text-primary mb-2 sm:mb-3 md:mb-4">
                 {icon}
             </div>
-            <div className="text-3xl md:text-4xl font-bold mb-1 bg-gradient-to-r from-primary to-cyan-600 text-transparent bg-clip-text">
+            <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 bg-gradient-to-r from-primary to-cyan-600 text-transparent bg-clip-text">
                 {prefix}
                 {inView ? (
                     <CountUp
@@ -57,7 +57,9 @@ const StatItem = ({
                     "0"
                 )}
             </div>
-            <p className="text-muted-foreground text-center">{text}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground text-center">
+                {text}
+            </p>
         </motion.div>
     );
 };
@@ -65,7 +67,7 @@ const StatItem = ({
 export default function StatsSection() {
     const stats = [
         {
-            icon: <Printer className="w-8 h-8" />,
+            icon: <Printer className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />,
             value: 1.5,
             suffix: "M+",
             text: "Prints Delivered",
@@ -73,14 +75,14 @@ export default function StatsSection() {
             delay: 0.1,
         },
         {
-            icon: <Users className="w-8 h-8" />,
+            icon: <Users className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />,
             value: 15000,
             suffix: "+",
             text: "Happy Customers",
             delay: 0.2,
         },
         {
-            icon: <Clock className="w-8 h-8" />,
+            icon: <Clock className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />,
             value: 99.8,
             suffix: "%",
             text: "On-time Delivery",
@@ -88,7 +90,7 @@ export default function StatsSection() {
             delay: 0.3,
         },
         {
-            icon: <Award className="w-8 h-8" />,
+            icon: <Award className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />,
             value: 10,
             suffix: "+",
             text: "Years of Excellence",
@@ -99,7 +101,7 @@ export default function StatsSection() {
     return (
         <section
             className={cn(
-                "py-20 bg-gradient-to-b from-blue-50/30 to-background",
+                "py-12 sm:py-16 md:py-20 bg-gradient-to-b from-blue-50/30 to-background",
                 sourceSerif4.className,
             )}
         >
@@ -109,19 +111,19 @@ export default function StatsSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
-                    className="text-center mb-14"
+                    className="text-center mb-8 sm:mb-10 md:mb-14"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
                         Our Impact By The Numbers
                     </h2>
-                    <p className="text-muted-foreground max-w-2xl mx-auto">
+                    <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
                         We take pride in our track record of delivering
                         high-quality printing solutions and creating meaningful
                         impact for our customers.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
                     {stats.map((stat, index) => (
                         <StatItem key={index} {...stat} />
                     ))}

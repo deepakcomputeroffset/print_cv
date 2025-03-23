@@ -60,15 +60,18 @@ const TestimonialCard = ({
             viewport={{ once: true, margin: "-100px" }}
         >
             <Card className="h-full border-primary/5 bg-gradient-to-b from-white to-blue-50/10 shadow-md hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-6 flex flex-col h-full">
-                    <div className="text-primary/40 mb-4">
-                        <Quote size={36} />
+                <CardContent className="p-3 sm:p-4 md:p-6 flex flex-col h-full">
+                    <div className="text-primary/40 mb-2 sm:mb-3 md:mb-4">
+                        <Quote
+                            size={20}
+                            className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8"
+                        />
                     </div>
-                    <p className="text-muted-foreground flex-grow mb-6">
+                    <p className="text-xs sm:text-sm md:text-base text-muted-foreground flex-grow mb-3 sm:mb-4 md:mb-6">
                         {testimonial.content}
                     </p>
-                    <div className="flex items-center mt-auto pt-4 border-t border-gray-100">
-                        <Avatar className="h-12 w-12 border-2 border-primary/10">
+                    <div className="flex items-center mt-auto pt-2 sm:pt-3 md:pt-4 border-t border-gray-100">
+                        <Avatar className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-2 border-primary/10">
                             <AvatarImage
                                 src={testimonial.image}
                                 alt={testimonial.name}
@@ -77,11 +80,11 @@ const TestimonialCard = ({
                                 {testimonial.name.substring(0, 2)}
                             </AvatarFallback>
                         </Avatar>
-                        <div className="ml-4">
-                            <h4 className="font-medium text-foreground">
+                        <div className="ml-2 sm:ml-3 md:ml-4">
+                            <h4 className="font-medium text-xs sm:text-sm md:text-base text-foreground">
                                 {testimonial.name}
                             </h4>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-xs sm:text-sm text-muted-foreground">
                                 {testimonial.role}
                             </p>
                         </div>
@@ -96,29 +99,29 @@ export default function TestimonialsSection() {
     return (
         <section
             className={cn(
-                "py-20 bg-gradient-to-b from-background to-blue-50/30",
+                "py-12 sm:py-16 md:py-20 bg-gradient-to-b from-background to-blue-50/30",
                 sourceSerif4.className,
             )}
         >
             <div className="container px-4 mx-auto">
                 <motion.div
-                    className="text-center mb-16"
+                    className="text-center mb-10 sm:mb-12 md:mb-16"
                     initial={{ opacity: 0, y: -10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
                         What Our Customers Say
                     </h2>
-                    <p className="text-muted-foreground max-w-2xl mx-auto">
+                    <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
                         Don&apos;t just take our word for it — hear from some of
                         our satisfied customers about their experiences working
                         with Printify.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
                     {testimonials.map((testimonial, index) => (
                         <TestimonialCard
                             key={testimonial.id}
@@ -130,22 +133,22 @@ export default function TestimonialsSection() {
 
                 {/* Social proof */}
                 <motion.div
-                    className="mt-16 pt-8 text-center"
+                    className="mt-8 sm:mt-12 md:mt-16 pt-4 sm:pt-6 md:pt-8 text-center"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                     viewport={{ once: true }}
                 >
-                    <p className="text-sm font-medium text-muted-foreground mb-4">
+                    <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-2 sm:mb-3 md:mb-4">
                         TRUSTED BY OVER 15,000 CUSTOMERS
                     </p>
-                    <div className="flex justify-center items-center flex-wrap gap-6">
+                    <div className="flex justify-center items-center flex-wrap gap-3 sm:gap-4 md:gap-6">
                         <div className="flex items-center">
-                            <div className="flex -space-x-2">
+                            <div className="flex -space-x-1 sm:-space-x-2">
                                 {[1, 2, 3, 4, 5].map((i) => (
                                     <div
                                         key={i}
-                                        className="relative w-10 h-10 overflow-hidden rounded-full border-2 border-white"
+                                        className="relative w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 overflow-hidden rounded-full border-2 border-white"
                                     >
                                         <Image
                                             src={`https://i.pravatar.cc/150?img=${i + 20}`}
@@ -156,7 +159,7 @@ export default function TestimonialsSection() {
                                     </div>
                                 ))}
                             </div>
-                            <span className="ml-4 text-muted-foreground">
+                            <span className="ml-2 sm:ml-3 md:ml-4 text-xs sm:text-sm text-muted-foreground">
                                 +12K more
                             </span>
                         </div>
@@ -167,7 +170,7 @@ export default function TestimonialsSection() {
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
                                     fill="currentColor"
-                                    className="w-5 h-5"
+                                    className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5"
                                 >
                                     <path
                                         fillRule="evenodd"
@@ -176,7 +179,7 @@ export default function TestimonialsSection() {
                                     />
                                 </svg>
                             ))}
-                            <span className="ml-2 text-foreground">
+                            <span className="ml-1 sm:ml-2 text-xs sm:text-sm text-foreground">
                                 4.9/5 from 3,200+ reviews
                             </span>
                         </div>

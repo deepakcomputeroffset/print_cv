@@ -50,31 +50,33 @@ function ServiceCard({
                 className={`h-2 w-full ${color} absolute top-0 left-0 right-0`}
             />
 
-            <div className="p-8 relative z-10">
+            <div className="p-4 sm:p-6 md:p-8 relative z-10">
                 <div
-                    className={`${color.replace("bg-", "text-").replace("/10", "")} mb-6 flex items-center justify-between`}
+                    className={`${color.replace("bg-", "text-").replace("/10", "")} mb-4 md:mb-6 flex items-center justify-between`}
                 >
-                    <div className={`${color} p-4 rounded-lg`}>{icon}</div>
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <ChevronRight className="h-5 w-5" />
+                    <div className={`${color} p-2 sm:p-3 md:p-4 rounded-lg`}>
+                        {icon}
+                    </div>
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
                     </div>
                 </div>
 
-                <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-2 md:mb-3 group-hover:text-primary transition-colors duration-300">
                     {title}
                 </h3>
 
-                <p className="text-gray-600 mb-6 leading-relaxed">
+                <p className="text-gray-600 text-sm sm:text-base mb-4 md:mb-6 leading-relaxed">
                     {description}
                 </p>
 
-                <div className="pt-4 border-t border-gray-100">
+                <div className="pt-3 md:pt-4 border-t border-gray-100">
                     <Link
                         href={href}
-                        className="text-primary font-medium flex items-center group/link"
+                        className="text-primary text-sm sm:text-base font-medium flex items-center group/link"
                     >
                         Learn more
-                        <ArrowRight className="ml-1 h-4 w-4 group-hover/link:translate-x-1 transition-transform duration-300" />
+                        <ArrowRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4 group-hover/link:translate-x-1 transition-transform duration-300" />
                     </Link>
                 </div>
             </div>
@@ -174,7 +176,7 @@ export default function ServicesSection() {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
                     {services.map((service, index) => (
                         <ServiceCard
                             key={index}

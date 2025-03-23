@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 const BriefcaseIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="48"
-        height="48"
+        width="100%"
+        height="100%"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -26,8 +26,8 @@ const BriefcaseIcon = () => (
 const StoreIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="48"
-        height="48"
+        width="100%"
+        height="100%"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -44,8 +44,8 @@ const StoreIcon = () => (
 const BookIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="48"
-        height="48"
+        width="100%"
+        height="100%"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -61,8 +61,8 @@ const BookIcon = () => (
 const GiftIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="48"
-        height="48"
+        width="100%"
+        height="100%"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -81,8 +81,8 @@ const GiftIcon = () => (
 const MapIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="48"
-        height="48"
+        width="100%"
+        height="100%"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -99,8 +99,8 @@ const MapIcon = () => (
 const ShirtIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="48"
-        height="48"
+        width="100%"
+        height="100%"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -182,20 +182,24 @@ function CategoryCard({
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: Math.min(0.1 * index, 0.5) }}
+            viewport={{ once: true, margin: "-50px" }}
             className="cursor-pointer"
         >
-            <div className="group flex flex-col items-center text-center p-6 rounded-xl border border-gray-100 bg-white transition-all duration-300 hover:shadow-xl hover:border-primary/20">
+            <div className="group flex flex-col items-center text-center p-2 sm:p-3 md:p-6 rounded-xl border border-gray-100 bg-white transition-all duration-300 hover:shadow-xl hover:border-primary/20">
                 <div
-                    className={`mb-4 p-4 rounded-full bg-gradient-to-br ${color} text-white transform transition-transform group-hover:scale-110 duration-300`}
+                    className={`mb-2 sm:mb-3 md:mb-4 p-2 rounded-full bg-gradient-to-br ${color} text-white transform transition-transform group-hover:scale-110 duration-300`}
                 >
-                    {icon}
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 flex items-center justify-center">
+                        {icon}
+                    </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                <h3 className="text-sm sm:text-base md:text-xl font-semibold mb-1 sm:mb-2 group-hover:text-primary transition-colors">
                     {name}
                 </h3>
-                <p className="text-gray-600 text-sm max-w-xs">{description}</p>
+                <p className="text-xs sm:text-sm text-gray-600 max-w-xs">
+                    {description}
+                </p>
             </div>
         </motion.div>
     );
@@ -203,7 +207,7 @@ function CategoryCard({
 
 export default function ServiceCategories() {
     return (
-        <section className="py-20 bg-gray-50/50">
+        <section className="py-12 sm:py-16 md:py-20 bg-gray-50/50">
             <div className="container px-4 mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -211,11 +215,11 @@ export default function ServiceCategories() {
                     transition={{ duration: 0.5 }}
                     viewport={{ once: true }}
                     className={cn(
-                        "text-center max-w-3xl mx-auto mb-16",
+                        "text-center max-w-3xl mx-auto mb-8 sm:mb-12 md:mb-16",
                         sourceSerif4.className,
                     )}
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 relative inline-block">
                         Exceptional Print Solutions for{" "}
                         <span className="text-primary relative">
                             Every Vision
@@ -234,14 +238,14 @@ export default function ServiceCategories() {
                             </svg>
                         </span>
                     </h2>
-                    <p className="text-gray-600 md:text-lg mt-6">
+                    <p className="text-xs sm:text-sm md:text-lg text-gray-600 mt-3 sm:mt-4 md:mt-6">
                         From business essentials to large format displays, our
                         premium printing services bring your ideas to life with
                         unmatched quality and precision.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-8">
                     {categories.map((category, index) => (
                         <CategoryCard
                             key={category.id}
@@ -259,9 +263,9 @@ export default function ServiceCategories() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.6 }}
                     viewport={{ once: true }}
-                    className="mt-16 p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200 text-center"
+                    className="mt-8 sm:mt-12 md:mt-16 p-4 sm:p-5 md:p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200 text-center"
                 >
-                    <p className="text-gray-700 font-medium">
+                    <p className="text-xs sm:text-sm md:text-base text-gray-700 font-medium">
                         Can&apos;t find what you need? We offer custom printing
                         solutions tailored to your specific requirements.
                     </p>
