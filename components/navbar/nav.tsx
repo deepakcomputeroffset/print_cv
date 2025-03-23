@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import { useAnimate } from "motion/react-mini";
+import { useAnimate } from "motion/react";
 import { usePathname } from "next/navigation";
 import { sourceSerif4 } from "@/lib/font";
 import { Session } from "next-auth";
@@ -38,37 +38,36 @@ const Wallet = dynamic(() => import("@/components/wallet"), {
 export default function NavbarLinks({ session }: { session: Session | null }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [menuScope, menuAnimate] = useAnimate();
-    const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
-
-    // Handle scroll effect
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 10);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
 
     // Mobile menu animation
     const toggleMobileMenu = () => {
         if (isMobileMenuOpen) {
             // Closing animation
-            menuAnimate(
-                menuScope.current,
-                { opacity: 0, x: 20 },
-                { duration: 0.3, ease: "easeOut" },
-            ).then(() => {
+            if (menuScope.current) {
+                menuAnimate(
+                    menuScope.current,
+                    { opacity: 0, x: 20 },
+                    { duration: 0.3, ease: "easeOut" },
+                ).then(() => {
+                    setIsMobileMenuOpen(false);
+                });
+            } else {
                 setIsMobileMenuOpen(false);
-            });
+            }
         } else {
             // Opening animation
             setIsMobileMenuOpen(true);
-            menuAnimate(
-                menuScope.current,
-                { opacity: 1, x: 0 },
-                { duration: 0.3, delay: 0.1, ease: "easeOut" },
-            );
+            // We need to wait for the next render cycle when the menu is in the DOM
+            setTimeout(() => {
+                if (menuScope.current) {
+                    menuAnimate(
+                        menuScope.current,
+                        { opacity: 1, x: 0 },
+                        { duration: 0.3, delay: 0.1, ease: "easeOut" },
+                    );
+                }
+            }, 0);
         }
     };
 
@@ -85,12 +84,10 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
             className={cn(
                 "transition-all duration-300 font-medium w-full z-50",
                 sourceSerif4.className,
-                scrolled
-                    ? "bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 shadow-sm border-b border-primary/5"
-                    : "bg-background",
+                "",
             )}
         >
-            <div className="w-full relative px-4 md:px-8 lg:container mx-auto flex items-center justify-between py-3">
+            <div className="w-full relative px-4 md:px-8 lg:container mx-auto flex items-center justify-between py-3 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 shadow-sm border-b border-primary/5">
                 <div className="flex items-center space-x-4 lg:space-x-10">
                     <Link
                         href="/"
@@ -302,19 +299,19 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
             {isMobileMenuOpen && (
                 <div
                     ref={menuScope}
-                    className="lg:hidden fixed inset-0 top-[73px] z-50 bg-background/95 backdrop-blur-md"
+                    className="lg:hidden fixed inset-0 top-[73px] z-50 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 shadow-sm border-b border-primary/5shadow-lg"
                     style={{ opacity: 0, transform: "translateX(20px)" }}
                 >
                     <div className="p-6 flex flex-col h-full">
                         <div className="space-y-2 mb-6">
-                            {NAV_LINKS.map((link) => (
+                            {NAV_LINKS?.map((link) => (
                                 <Link
-                                    key={link.name}
-                                    href={link.url}
+                                    key={link?.name}
+                                    href={link?.url}
                                     onClick={toggleMobileMenu}
                                     className={cn(
                                         "block w-full p-3 rounded-lg text-lg transition-all",
-                                        isActiveLink(link.url)
+                                        isActiveLink(link?.url)
                                             ? "bg-gradient-to-r from-primary/10 to-cyan-500/10 border border-primary/10 text-primary font-medium"
                                             : "text-foreground",
                                     )}
