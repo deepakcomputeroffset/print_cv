@@ -87,211 +87,216 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                 "",
             )}
         >
-            <div className="w-full relative px-4 md:px-8 lg:container mx-auto flex items-center justify-between py-3 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 shadow-sm border-b border-primary/5">
-                <div className="flex items-center space-x-4 lg:space-x-10">
-                    <Link
-                        href="/"
-                        className="flex-shrink-0 flex items-center space-x-3 group"
-                    >
-                        <div className="relative overflow-hidden rounded-lg shadow-md bg-gradient-to-br from-primary/80 to-cyan-600 h-10 w-10 p-1 transition-all group-hover:scale-105">
-                            <Image
-                                src="/logo.avif"
-                                width={32}
-                                height={32}
-                                alt="Printify Logo"
-                                className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                        </div>
-
-                        <span
-                            suppressHydrationWarning
-                            className="font-bold text-2xl tracking-tight group-hover:text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500 transition-all duration-300"
+            <div className="w-full relative px-4 md:px-8 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 shadow-sm border-b border-primary/5">
+                <div className="w-full relative container mx-auto flex items-center justify-between py-3">
+                    <div className="flex items-center space-x-4 lg:space-x-10">
+                        <Link
+                            href="/"
+                            className="flex-shrink-0 flex items-center space-x-3 group"
                         >
-                            Printify
-                        </span>
-                    </Link>
+                            <div className="relative overflow-hidden rounded-lg shadow-md bg-gradient-to-br from-primary/80 to-cyan-600 h-10 w-10 p-1 transition-all group-hover:scale-105">
+                                <Image
+                                    src="/logo.avif"
+                                    width={32}
+                                    height={32}
+                                    alt="Printify Logo"
+                                    className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                />
+                            </div>
 
-                    <div className="hidden lg:flex items-center space-x-1">
-                        {NAV_LINKS.map((link) => (
-                            <div key={link.name} className="px-2">
+                            <span
+                                suppressHydrationWarning
+                                className="font-bold text-2xl tracking-tight group-hover:text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500 transition-all duration-300"
+                            >
+                                Printify
+                            </span>
+                        </Link>
+
+                        <div className="hidden lg:flex items-center space-x-1">
+                            {NAV_LINKS.map((link) => (
+                                <div key={link.name} className="px-2">
+                                    <Link
+                                        href={link.url}
+                                        className={cn(
+                                            "relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center",
+                                            isActiveLink(link.url)
+                                                ? "text-primary font-medium"
+                                                : "text-foreground/80 hover:text-primary",
+                                        )}
+                                    >
+                                        {link.name}
+                                        <span
+                                            className={cn(
+                                                "absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300",
+                                                isActiveLink(link.url)
+                                                    ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-24px)]"
+                                                    : "bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
+                                            )}
+                                        />
+                                    </Link>
+                                </div>
+                            ))}
+
+                            {!session && (
+                                <div className="px-2">
+                                    <Link
+                                        href="/login"
+                                        className="relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center text-foreground/80 hover:text-primary"
+                                    >
+                                        Login
+                                        <span className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300 bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60" />
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="hidden lg:flex items-center justify-center gap-4">
+                        {/* Get Started */}
+                        {!session && (
+                            <div className="box-border justify-end items-center">
+                                <Link href="/register">
+                                    <Button className="bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 transition-all text-white shadow-sm hover:shadow">
+                                        Get Started
+                                    </Button>
+                                </Link>
+                            </div>
+                        )}
+
+                        {/* Customer Dashboard */}
+                        {!!session &&
+                            session?.user?.userType === "customer" && (
+                                <div>
+                                    <Link
+                                        href="/customer"
+                                        className={cn(
+                                            "relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center",
+                                            pathname.startsWith("/customer")
+                                                ? "text-primary font-medium"
+                                                : "text-foreground/80 hover:text-primary",
+                                        )}
+                                    >
+                                        Dashboard
+                                        <span
+                                            className={cn(
+                                                "absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300",
+                                                pathname.startsWith("/customer")
+                                                    ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-24px)]"
+                                                    : "bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
+                                            )}
+                                        />
+                                    </Link>
+                                </div>
+                            )}
+
+                        {/* Staff Dashboard */}
+                        {!!session && session?.user?.userType === "staff" && (
+                            <div>
                                 <Link
-                                    href={link.url}
+                                    href="/admin"
                                     className={cn(
                                         "relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center",
-                                        isActiveLink(link.url)
+                                        pathname.startsWith("/admin")
                                             ? "text-primary font-medium"
                                             : "text-foreground/80 hover:text-primary",
                                     )}
                                 >
-                                    {link.name}
+                                    Dashboard
                                     <span
                                         className={cn(
                                             "absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300",
-                                            isActiveLink(link.url)
+                                            pathname.startsWith("/admin")
                                                 ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-24px)]"
                                                 : "bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
                                         )}
                                     />
                                 </Link>
                             </div>
-                        ))}
+                        )}
 
-                        {!session && (
-                            <div className="px-2">
-                                <Link
-                                    href="/login"
-                                    className="relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center text-foreground/80 hover:text-primary"
-                                >
-                                    Login
-                                    <span className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300 bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60" />
-                                </Link>
-                            </div>
+                        {/* User Dropdown */}
+                        {!!session && (
+                            <DropdownMenu modal={false}>
+                                <DropdownMenuTrigger asChild>
+                                    <Button
+                                        variant="ghost"
+                                        className="rounded-full p-0 h-10 w-10 hover:bg-primary/10"
+                                    >
+                                        <Avatar className="h-8 w-8 rounded-full cursor-pointer border-2 border-primary/20 hover:border-primary/50 transition-all">
+                                            <AvatarImage
+                                                alt={
+                                                    session?.user.customer
+                                                        ? session?.user
+                                                              ?.customer?.name
+                                                        : session?.user?.staff
+                                                              ?.name
+                                                }
+                                            />
+                                            <AvatarFallback className="text-black bg-gradient-to-br from-primary/20 to-cyan-600/20 rounded-full">
+                                                {session?.user.customer
+                                                    ? session?.user?.customer?.name
+                                                          .substring(0, 1)
+                                                          .toUpperCase()
+                                                    : session?.user?.staff?.name
+                                                          .substring(0, 1)
+                                                          .toUpperCase()}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <UserDropdownContent session={session} />
+                            </DropdownMenu>
                         )}
                     </div>
-                </div>
 
-                <div className="hidden lg:flex items-center justify-center gap-4">
-                    {/* Get Started */}
-                    {!session && (
-                        <div className="box-border justify-end items-center">
-                            <Link href="/register">
-                                <Button className="bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 transition-all text-white shadow-sm hover:shadow">
-                                    Get Started
-                                </Button>
-                            </Link>
-                        </div>
-                    )}
-
-                    {/* Customer Dashboard */}
-                    {!!session && session?.user?.userType === "customer" && (
-                        <div>
-                            <Link
-                                href="/customer"
-                                className={cn(
-                                    "relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center",
-                                    pathname.startsWith("/customer")
-                                        ? "text-primary font-medium"
-                                        : "text-foreground/80 hover:text-primary",
-                                )}
-                            >
-                                Dashboard
-                                <span
-                                    className={cn(
-                                        "absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300",
-                                        pathname.startsWith("/customer")
-                                            ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-24px)]"
-                                            : "bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
-                                    )}
-                                />
-                            </Link>
-                        </div>
-                    )}
-
-                    {/* Staff Dashboard */}
-                    {!!session && session?.user?.userType === "staff" && (
-                        <div>
-                            <Link
-                                href="/admin"
-                                className={cn(
-                                    "relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center",
-                                    pathname.startsWith("/admin")
-                                        ? "text-primary font-medium"
-                                        : "text-foreground/80 hover:text-primary",
-                                )}
-                            >
-                                Dashboard
-                                <span
-                                    className={cn(
-                                        "absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300",
-                                        pathname.startsWith("/admin")
-                                            ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-24px)]"
-                                            : "bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
-                                    )}
-                                />
-                            </Link>
-                        </div>
-                    )}
-
-                    {/* User Dropdown */}
-                    {!!session && (
-                        <DropdownMenu modal={false}>
-                            <DropdownMenuTrigger asChild>
-                                <Button
-                                    variant="ghost"
-                                    className="rounded-full p-0 h-10 w-10 hover:bg-primary/10"
-                                >
-                                    <Avatar className="h-8 w-8 rounded-full cursor-pointer border-2 border-primary/20 hover:border-primary/50 transition-all">
-                                        <AvatarImage
-                                            alt={
-                                                session?.user.customer
-                                                    ? session?.user?.customer
-                                                          ?.name
+                    {/* Mobile Menu Button */}
+                    <div className="lg:hidden flex items-center">
+                        {!!session && (
+                            <DropdownMenu modal={false}>
+                                <DropdownMenuTrigger asChild>
+                                    <Button
+                                        variant="ghost"
+                                        className="rounded-full p-0 h-10 w-10 mr-2 hover:bg-primary/10"
+                                    >
+                                        <Avatar className="h-8 w-8 rounded-full cursor-pointer border-2 border-primary/20">
+                                            <AvatarImage
+                                                alt={
+                                                    session?.user.customer
+                                                        ? session?.user
+                                                              ?.customer?.name
+                                                        : session?.user?.staff
+                                                              ?.name
+                                                }
+                                            />
+                                            <AvatarFallback className="text-black bg-gradient-to-br from-primary/20 to-cyan-600/20 rounded-full">
+                                                {session?.user.customer
+                                                    ? session?.user?.customer?.name
+                                                          .substring(0, 1)
+                                                          .toUpperCase()
                                                     : session?.user?.staff?.name
-                                            }
-                                        />
-                                        <AvatarFallback className="text-black bg-gradient-to-br from-primary/20 to-cyan-600/20 rounded-full">
-                                            {session?.user.customer
-                                                ? session?.user?.customer?.name
-                                                      .substring(0, 1)
-                                                      .toUpperCase()
-                                                : session?.user?.staff?.name
-                                                      .substring(0, 1)
-                                                      .toUpperCase()}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <UserDropdownContent session={session} />
-                        </DropdownMenu>
-                    )}
-                </div>
-
-                {/* Mobile Menu Button */}
-                <div className="lg:hidden flex items-center">
-                    {!!session && (
-                        <DropdownMenu modal={false}>
-                            <DropdownMenuTrigger asChild>
-                                <Button
-                                    variant="ghost"
-                                    className="rounded-full p-0 h-10 w-10 mr-2 hover:bg-primary/10"
-                                >
-                                    <Avatar className="h-8 w-8 rounded-full cursor-pointer border-2 border-primary/20">
-                                        <AvatarImage
-                                            alt={
-                                                session?.user.customer
-                                                    ? session?.user?.customer
-                                                          ?.name
-                                                    : session?.user?.staff?.name
-                                            }
-                                        />
-                                        <AvatarFallback className="text-black bg-gradient-to-br from-primary/20 to-cyan-600/20 rounded-full">
-                                            {session?.user.customer
-                                                ? session?.user?.customer?.name
-                                                      .substring(0, 1)
-                                                      .toUpperCase()
-                                                : session?.user?.staff?.name
-                                                      .substring(0, 1)
-                                                      .toUpperCase()}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <UserDropdownContent session={session} />
-                        </DropdownMenu>
-                    )}
-
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={toggleMobileMenu}
-                        className="text-foreground"
-                    >
-                        {isMobileMenuOpen ? (
-                            <X size={24} />
-                        ) : (
-                            <Menu size={24} />
+                                                          .substring(0, 1)
+                                                          .toUpperCase()}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <UserDropdownContent session={session} />
+                            </DropdownMenu>
                         )}
-                    </Button>
+
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={toggleMobileMenu}
+                            className="text-foreground"
+                        >
+                            {isMobileMenuOpen ? (
+                                <X size={24} />
+                            ) : (
+                                <Menu size={24} />
+                            )}
+                        </Button>
+                    </div>
                 </div>
             </div>
 
