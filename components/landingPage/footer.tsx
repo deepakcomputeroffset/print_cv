@@ -26,6 +26,7 @@ export function Footer() {
                 "bg-gradient-to-b from-blue-50/50 via-background to-purple-50/30 border-t border-t-primary/10 mt-16",
                 sourceSerif4.className,
             )}
+            id="connect"
         >
             {/* Decorative top border */}
             <div className="w-full h-1 bg-gradient-to-r from-cyan-500 via-primary to-purple-500"></div>

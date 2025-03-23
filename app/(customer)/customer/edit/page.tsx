@@ -1,9 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { CustomerEditForm } from "./components/customer-edit-form";
-import { customerType } from "@/types/types";
 import { Prisma } from "@/lib/prisma";
+import CustomerEditComponent from "./components/customer-edit-component";
+import { customerType } from "@/types/types";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +13,11 @@ export default async function CustomerEditPage() {
         if (!session || session.user.userType !== "customer") {
             redirect("/login");
         }
-        const customer = await Prisma?.customer.findUnique({
+
+        const customer: Omit<
+            customerType,
+            "password" | "isBanned" | "referenceId"
+        > | null = await Prisma?.customer.findUnique({
             where: {
                 id: session?.user?.customer?.id,
             },
@@ -29,7 +32,9 @@ export default async function CustomerEditPage() {
                         city: {
                             include: {
                                 state: {
-                                    include: { country: true },
+                                    include: {
+                                        country: true,
+                                    },
                                 },
                             },
                         },
@@ -42,20 +47,21 @@ export default async function CustomerEditPage() {
             redirect("/customer");
         }
 
-        return (
-            <div className="max-w-customHaf lg:max-w-custom mx-auto py-4">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Edit Profile</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <CustomerEditForm customer={customer as customerType} />
-                    </CardContent>
-                </Card>
-            </div>
-        );
+        return <CustomerEditComponent customer={customer} />;
     } catch (error) {
         console.error(error);
-        return <div>Error</div>;
+        return (
+            <div className="max-w-customHaf lg:max-w-custom mx-auto py-8 px-4">
+                <div className="bg-red-50 p-6 rounded-lg border border-red-200 text-center">
+                    <h2 className="text-red-800 font-medium text-lg mb-2">
+                        Error Loading Profile
+                    </h2>
+                    <p className="text-red-600">
+                        Unable to load your profile information. Please try
+                        again later.
+                    </p>
+                </div>
+            </div>
+        );
     }
 }

@@ -192,7 +192,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
             {/* Enhanced Thumbnails */}
             <div className="embla-thumbs mt-4">
                 <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
-                    <div className="embla-thumbs__container">
+                    <div className="embla-thumbs__container py-2">
                         {slides.map((slide, index) => (
                             <div
                                 key={index}

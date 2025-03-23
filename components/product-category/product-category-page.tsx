@@ -6,6 +6,7 @@ import RecentOrders from "../order/recentOrders";
 import { auth } from "@/lib/auth";
 import { Skeleton } from "../ui/skeleton";
 import { Prisma } from "@/lib/prisma";
+import { Footer } from "../landingPage/footer";
 
 export default async function ProductCategoryPage({
     params,
@@ -68,11 +69,15 @@ export default async function ProductCategoryPage({
                 </div>
             }
         >
-            <div className="mx-auto px-[5vw] space-y-7">
-                <ProductCategoryList categories={categories} />
-                {session?.user?.userType === "customer" && (
-                    <RecentOrders session={session} />
-                )}
+            <div>
+                <div className="mx-auto px-[5vw] space-y-7">
+                    <ProductCategoryList categories={categories} />
+                    {session?.user?.userType === "customer" && (
+                        <RecentOrders session={session} />
+                    )}
+                </div>
+
+                <Footer />
             </div>
         </Suspense>
     );

@@ -32,6 +32,7 @@ export async function GET(req: NextRequest) {
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
         const where: PrismaType.orderWhereInput = {
+            customerId: session?.user?.customer?.id,
             AND: [
                 query.search
                     ? {
@@ -60,15 +61,18 @@ export async function GET(req: NextRequest) {
                           },
                       }
                     : {},
+                !!query.orderStatus && query.orderStatus !== "ALL"
+                    ? {
+                          status: query.orderStatus,
+                      }
+                    : {},
             ],
         };
 
         const [total, orders] = await Prisma.$transaction([
             Prisma.order.count({ where }),
             Prisma.order.findMany({
-                where: {
-                    customerId: session?.user?.customer?.id,
-                },
+                where,
                 include: {
                     productItem: {
                         include: {
@@ -77,7 +81,7 @@ export async function GET(req: NextRequest) {
                     },
                 },
                 orderBy: {
-                    [query?.sortby ?? "id"]: query?.sortorder || "asc",
+                    [query?.sortby ?? "createdAt"]: query?.sortorder || "desc",
                 },
                 skip: query.page
                     ? (query.page - 1) * (query.perpage || defaultOrderPerPage)

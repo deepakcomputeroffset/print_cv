@@ -25,7 +25,10 @@ import { Button } from "../ui/button";
 const NAV_LINKS = [
     { name: "Home", url: "/" },
     { name: "Services", url: "/categories" },
-    { name: "Orders", url: "/customer/orders" },
+    {
+        name: "Orders",
+        url: "/customer/orders?search=&sortorder=desc&perpage=100",
+    },
     { name: "Contact us", url: "/#connect" },
 ];
 const Wallet = dynamic(() => import("@/components/wallet"), {

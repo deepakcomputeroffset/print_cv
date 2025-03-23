@@ -1,13 +1,20 @@
 "use client";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChangePasswordForm } from "./compnents/changePasswordForm";
+import { customerType } from "@/types/types";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
-import { KeyRound } from "lucide-react";
+import { UserCog } from "lucide-react";
+import { CustomerEditForm } from "./customer-edit-form";
 
-export default function CustomerChangePasswordPage() {
+export default function CustomerEditComponent({
+    customer,
+}: {
+    customer: Omit<
+        customerType,
+        "password" | "isBanned" | "referenceId" | "wallet"
+    >;
+}) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -24,11 +31,11 @@ export default function CustomerChangePasswordPage() {
                             sourceSerif4.className,
                         )}
                     >
-                        Security Settings
+                        Profile Settings
                     </h1>
                 </div>
                 <p className="text-gray-500 text-sm ml-11 mt-1">
-                    Manage your account security and password
+                    Update your personal information and preferences
                 </p>
             </div>
 
@@ -39,7 +46,7 @@ export default function CustomerChangePasswordPage() {
                     <CardHeader className="pb-2">
                         <div className="flex items-center space-x-3">
                             <div className="bg-primary/10 p-2 rounded-full">
-                                <KeyRound className="h-5 w-5 text-primary/80" />
+                                <UserCog className="h-5 w-5 text-primary/80" />
                             </div>
                             <CardTitle
                                 className={cn(
@@ -47,15 +54,15 @@ export default function CustomerChangePasswordPage() {
                                     sourceSerif4.className,
                                 )}
                             >
-                                Change Password
+                                Edit Profile
                             </CardTitle>
                         </div>
                         <p className="text-sm text-gray-500 ml-11 mt-1">
-                            Update your password to keep your account secure
+                            Manage your account details and shipping information
                         </p>
                     </CardHeader>
                     <CardContent>
-                        <ChangePasswordForm />
+                        <CustomerEditForm customer={customer as customerType} />
                     </CardContent>
                 </div>
             </Card>

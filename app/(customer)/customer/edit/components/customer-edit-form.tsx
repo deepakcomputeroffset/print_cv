@@ -27,6 +27,17 @@ import { useCustomers } from "@/hooks/use-customers";
 import { getDirtyFieldsWithValues } from "@/lib/utils";
 import { customerType } from "@/types/types";
 import { useRouter } from "next/navigation";
+import { motion } from "motion/react";
+import {
+    Building,
+    User,
+    MapPin,
+    Mail,
+    Phone,
+    Hash,
+    Home,
+    Save,
+} from "lucide-react";
 
 export const CustomerEditForm = ({ customer }: { customer?: customerType }) => {
     const { data: states } = useStates();
@@ -80,228 +91,337 @@ export const CustomerEditForm = ({ customer }: { customer?: customerType }) => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <FormField
-                    control={form.control}
-                    name="businessName"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Business Name</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Abc" {...field} disabled />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+            <motion.form
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
+            >
+                <div className="bg-gray-50/80 p-6 rounded-xl border border-gray-100 mb-2">
+                    <h3 className="text-gray-700 font-medium mb-4">
+                        Account Information
+                    </h3>
 
-                <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Name</FormLabel>
-                            <FormControl>
-                                <Input
-                                    placeholder="Radhe Radhe"
-                                    {...field}
-                                    disabled
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <div className="flex flex-wrap gap-2">
-                    <FormField
-                        control={form.control}
-                        name="state"
-                        render={({ field }) => (
-                            <FormItem className="flex-1">
-                                <FormLabel>State</FormLabel>
-                                <FormControl>
-                                    <Select
-                                        value={field.value}
-                                        onValueChange={(e) => {
-                                            form.setValue("city", "");
-                                            field.onChange(e);
-                                        }}
-                                        defaultValue={field.value}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue
-                                                placeholder={"Select state"}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <FormField
+                            control={form.control}
+                            name="businessName"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-600 font-medium">
+                                        Business Name
+                                    </FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Building className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                                            <Input
+                                                placeholder="Your business"
+                                                {...field}
+                                                disabled
+                                                className="w-full pl-10 py-5 bg-gray-100 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
                                             />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectGroup>
-                                                <SelectLabel>
-                                                    States
-                                                </SelectLabel>
-                                                {states?.map((state) => (
-                                                    <SelectItem
-                                                        key={state?.id}
-                                                        value={state?.id.toString()}
-                                                    >
-                                                        {state?.name}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectGroup>
-                                        </SelectContent>
-                                    </Select>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage className="text-sm text-red-500 mt-1" />
+                                </FormItem>
+                            )}
+                        />
 
-                    <FormField
-                        control={form.control}
-                        name="city"
-                        render={({ field }) => (
-                            <FormItem className="flex-1">
-                                <FormLabel>City</FormLabel>
-                                <FormControl>
-                                    <Select
-                                        value={field.value}
-                                        onValueChange={field.onChange}
-                                        defaultValue={field.value}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue
-                                                placeholder={"Select city"}
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-600 font-medium">
+                                        Your Name
+                                    </FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                                            <Input
+                                                placeholder="Your name"
+                                                {...field}
+                                                disabled
+                                                className="w-full pl-10 py-5 bg-gray-100 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
                                             />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectGroup>
-                                                <SelectLabel>city</SelectLabel>
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage className="text-sm text-red-500 mt-1" />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
 
-                                                {states?.map((state) => {
-                                                    if (
-                                                        state?.id?.toString() ==
-                                                        form?.getValues("state")
-                                                    ) {
-                                                        return state?.cities?.map(
-                                                            (city: {
-                                                                id: number;
-                                                                name: string;
-                                                            }) => (
-                                                                <SelectItem
-                                                                    key={
-                                                                        city?.id
-                                                                    }
-                                                                    value={city?.id?.toString()}
-                                                                >
-                                                                    {city?.name}
-                                                                </SelectItem>
-                                                            ),
-                                                        );
-                                                    }
-                                                })}
-                                            </SelectGroup>
-                                        </SelectContent>
-                                    </Select>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="pinCode"
-                        render={({ field }) => (
-                            <FormItem className="flex-1">
-                                <FormLabel>Pin code</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="123456" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-600 font-medium">
+                                        Email Address
+                                    </FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                                            <Input
+                                                placeholder="your.email@example.com"
+                                                {...field}
+                                                className="w-full pl-10 py-5 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
+                                            />
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage className="text-sm text-red-500 mt-1" />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="phone"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-600 font-medium">
+                                        Phone Number
+                                    </FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                                            <Input
+                                                placeholder="Your phone number"
+                                                {...field}
+                                                disabled
+                                                className="w-full pl-10 py-5 bg-gray-100 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
+                                            />
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage className="text-sm text-red-500 mt-1" />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
                 </div>
 
-                <FormField
-                    control={form.control}
-                    name="line"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Address</FormLabel>
-                            <FormControl>
-                                <Input
-                                    placeholder="Sector-8, Noida"
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                <div className="bg-gray-50/80 p-6 rounded-xl border border-gray-100">
+                    <h3 className="text-gray-700 font-medium mb-4">
+                        Shipping Information
+                    </h3>
 
-                <FormField
-                    control={form.control}
-                    name="gstNumber"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>GST Number</FormLabel>
-                            <FormControl>
-                                <Input
-                                    placeholder="Optional"
-                                    {...field}
-                                    disabled
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <FormField
+                            control={form.control}
+                            name="state"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-600 font-medium">
+                                        State
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Select
+                                            value={field.value}
+                                            onValueChange={(e) => {
+                                                form.setValue("city", "");
+                                                field.onChange(e);
+                                            }}
+                                            defaultValue={field.value}
+                                        >
+                                            <SelectTrigger className="py-5 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300">
+                                                <div className="flex items-center">
+                                                    <MapPin className="h-5 w-5 text-gray-400 mr-2" />
+                                                    <SelectValue
+                                                        placeholder={
+                                                            "Select state"
+                                                        }
+                                                    />
+                                                </div>
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectLabel>
+                                                        States
+                                                    </SelectLabel>
+                                                    {states?.map((state) => (
+                                                        <SelectItem
+                                                            key={state?.id}
+                                                            value={state?.id.toString()}
+                                                        >
+                                                            {state?.name}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+                                    </FormControl>
+                                    <FormMessage className="text-sm text-red-500 mt-1" />
+                                </FormItem>
+                            )}
+                        />
 
-                <div className="flex flex-wrap gap-3">
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem className="flex-1">
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="john@example.com"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                        <FormField
+                            control={form.control}
+                            name="city"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-600 font-medium">
+                                        City
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Select
+                                            value={field.value}
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                        >
+                                            <SelectTrigger className="py-5 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300">
+                                                <div className="flex items-center">
+                                                    <MapPin className="h-5 w-5 text-gray-400 mr-2" />
+                                                    <SelectValue
+                                                        placeholder={
+                                                            "Select city"
+                                                        }
+                                                    />
+                                                </div>
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectLabel>
+                                                        City
+                                                    </SelectLabel>
+                                                    {states?.map((state) => {
+                                                        if (
+                                                            state?.id?.toString() ==
+                                                            form?.getValues(
+                                                                "state",
+                                                            )
+                                                        ) {
+                                                            return state?.cities?.map(
+                                                                (city: {
+                                                                    id: number;
+                                                                    name: string;
+                                                                }) => (
+                                                                    <SelectItem
+                                                                        key={
+                                                                            city?.id
+                                                                        }
+                                                                        value={city?.id?.toString()}
+                                                                    >
+                                                                        {
+                                                                            city?.name
+                                                                        }
+                                                                    </SelectItem>
+                                                                ),
+                                                            );
+                                                        }
+                                                    })}
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+                                    </FormControl>
+                                    <FormMessage className="text-sm text-red-500 mt-1" />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
 
-                    <FormField
-                        control={form.control}
-                        name="phone"
-                        render={({ field }) => (
-                            <FormItem className="flex-1">
-                                <FormLabel>Phone</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="+911234567890"
-                                        {...field}
-                                        disabled
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+                        <FormField
+                            control={form.control}
+                            name="pinCode"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-600 font-medium">
+                                        Pin Code
+                                    </FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Hash className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                                            <Input
+                                                placeholder="123456"
+                                                {...field}
+                                                className="w-full pl-10 py-5 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
+                                            />
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage className="text-sm text-red-500 mt-1" />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="gstNumber"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-600 font-medium">
+                                        GST Number
+                                    </FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Hash className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                                            <Input
+                                                placeholder="Optional"
+                                                {...field}
+                                                disabled
+                                                className="w-full pl-10 py-5 bg-gray-100 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
+                                            />
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage className="text-sm text-red-500 mt-1" />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+
+                    <div className="mt-5">
+                        <FormField
+                            control={form.control}
+                            name="line"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-gray-600 font-medium">
+                                        Address
+                                    </FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Home className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                                            <Input
+                                                placeholder="Enter your address"
+                                                {...field}
+                                                className="w-full pl-10 py-5 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
+                                            />
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage className="text-sm text-red-500 mt-1" />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
                 </div>
 
-                <Button
-                    type="submit"
-                    className="w-full"
-                    disabled={isPending || !form.formState.isDirty}
+                <motion.div
+                    className="pt-4"
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
-                    {isPending ? "Updating..." : "Update"}
-                </Button>
-            </form>
+                    <Button
+                        type="submit"
+                        className="w-full bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 text-white py-6 rounded-lg text-base font-medium transition-all duration-300 shadow-md hover:shadow-lg"
+                        disabled={isPending || !form.formState.isDirty}
+                    >
+                        {isPending ? (
+                            <span className="flex items-center">
+                                <span className="animate-spin mr-2 h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+                                Updating Profile...
+                            </span>
+                        ) : (
+                            <span className="flex items-center">
+                                <Save className="h-4 w-4 mr-2" />
+                                Save Changes
+                            </span>
+                        )}
+                    </Button>
+                </motion.div>
+            </motion.form>
         </Form>
     );
 };

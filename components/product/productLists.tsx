@@ -30,7 +30,7 @@ export default function ProductLists({
     } | null;
 }) {
     return (
-        <div className="py-12 px-4 md:px-8 lg:container mx-auto">
+        <div className="py-4 px-4 md:px-8 lg:container mx-auto">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

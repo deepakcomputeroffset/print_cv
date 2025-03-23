@@ -19,6 +19,9 @@ import { useOrder } from "@/hooks/use-order";
 import { QueryParams } from "@/types/types";
 import { cn } from "@/lib/utils";
 import { getStatusColor } from "@/lib/getStatusColor";
+import { OrdersFilter } from "@/components/order/filter";
+import Pagination from "@/components/pagination";
+import { LoadingRow } from "@/components/loading-row";
 
 export default function OrdersPage({
     searchParams,
@@ -26,7 +29,7 @@ export default function OrdersPage({
     searchParams: Promise<QueryParams>;
 }) {
     const params = use(searchParams);
-    const { orders } = useOrder(params);
+    const { orders, isLoading, totalPages } = useOrder(params);
 
     return (
         <div className="max-w-customHaf lg:max-w-custom mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -34,9 +37,11 @@ export default function OrdersPage({
                 My Orders
             </h1>
 
-            {orders.length > 0 ? (
-                <Card className="p-4 sm:p-6 shadow-md rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                    <div className="w-full overflow-x-scroll">
+            <OrdersFilter filters={params} />
+
+            {!!orders && (
+                <Card className="mt-4 p-4 sm:p-6 shadow-md rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                    <div className="w-full">
                         <Table className="w-full">
                             <TableHeader>
                                 <TableRow className="bg-gray-100 dark:bg-gray-700">
@@ -54,6 +59,12 @@ export default function OrdersPage({
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
+                                {isLoading && (
+                                    <LoadingRow
+                                        text="Loading orders..."
+                                        colSpan={7}
+                                    />
+                                )}
                                 {orders?.map((order) => (
                                     <TableRow
                                         key={order.id}
@@ -103,8 +114,12 @@ export default function OrdersPage({
                             </TableBody>
                         </Table>
                     </div>
+
+                    <Pagination totalPage={totalPages} isLoading={isLoading} />
                 </Card>
-            ) : (
+            )}
+
+            {orders?.length < 0 && !isLoading && (
                 <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-6">
                     <div className="bg-white p-6 rounded-full shadow-lg">
                         <ClipboardList className="w-16 h-16 text-gray-400" />

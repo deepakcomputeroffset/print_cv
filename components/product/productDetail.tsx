@@ -20,7 +20,6 @@ import {
     Truck,
     Shield,
     Check,
-    ArrowLeft,
     Star,
     Award,
     Clock,
@@ -40,7 +39,6 @@ import Markdown from "react-markdown";
 import { motion, useScroll, useTransform } from "motion/react";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
-import Link from "next/link";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -85,9 +83,6 @@ export default function ProductDetails({
 
     const backgroundOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
 
-    // State for gallery image hover
-    const [hoveredImage, setHoveredImage] = useState<number | null>(null);
-
     const findVariant = useCallback(() => {
         return product.productItems.find((item) =>
             Object.entries(selectedAttributes).every(([typeId, valueId]) =>
@@ -128,16 +123,11 @@ export default function ProductDetails({
         return 10; // Default 10% discount for display
     };
 
-    // Simulated product ratings and reviews
-    const productRating = 4.8;
-    const reviewCount = 124;
-
     return (
         <div
             ref={productSectionRef}
-            className="relative bg-gradient-to-b from-background to-blue-50/30 py-12"
+            className="relative bg-gradient-to-b from-background to-blue-50/30 py-4"
         >
-            {/* Floating product name when scrolling */}
             <motion.div
                 style={{ opacity: backgroundOpacity }}
                 className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-white/80 border-b border-primary/10 shadow-sm"
@@ -214,7 +204,7 @@ export default function ProductDetails({
                         </BreadcrumbList>
                     </Breadcrumb>
 
-                    <div className="flex items-center justify-between">
+                    {/* <div className="flex items-center justify-between">
                         <Link
                             href={`/products?categoryId=${product.categoryId}`}
                             className="flex items-center text-primary bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-full transition-colors group"
@@ -225,7 +215,6 @@ export default function ProductDetails({
                             </span>
                         </Link>
 
-                        {/* Rating badge */}
                         <div className="flex items-center bg-white rounded-full px-3 py-1.5 shadow-sm border border-primary/10">
                             <div className="flex items-center mr-2">
                                 {[...Array(5)].map((_, i) => (
@@ -250,7 +239,7 @@ export default function ProductDetails({
                                 {reviewCount} reviews
                             </span>
                         </div>
-                    </div>
+                    </div> */}
                 </motion.div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -268,18 +257,12 @@ export default function ProductDetails({
                                 PREMIUM
                             </div>
 
-                            {/* Zoom instruction */}
-                            <div className="absolute bottom-4 right-4 z-20 bg-black/50 backdrop-blur-sm text-white text-xs px-2.5 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center">
-                                <Sparkles className="w-3 h-3 mr-1" />
-                                Hover to zoom
-                            </div>
-
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-cyan-400 to-primary z-10"></div>
                             <EmblaCarousel slides={product.imageUrl} />
                         </div>
 
                         {/* Thumbnail gallery */}
-                        <div className="grid grid-cols-5 gap-2">
+                        {/* <div className="grid grid-cols-5 gap-2">
                             {product.imageUrl
                                 .slice(0, 5)
                                 .map((image, index) => (
@@ -309,7 +292,7 @@ export default function ProductDetails({
                                         )}
                                     </div>
                                 ))}
-                        </div>
+                        </div> */}
                     </motion.div>
 
                     {/* Product Details */}
@@ -522,7 +505,7 @@ export default function ProductDetails({
                                 <Button
                                     size="lg"
                                     variant="outline"
-                                    className="border-primary/20 hover:bg-primary/5 hover:text-primary transition-colors"
+                                    className="hidden sm:block border-primary/20 hover:bg-primary/5 hover:text-primary transition-colors"
                                 >
                                     <Share2 className="w-4 h-4" />
                                 </Button>

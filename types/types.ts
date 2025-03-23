@@ -18,13 +18,15 @@ import {
 import { z, ZodIssue } from "zod";
 
 export type customerType = Omit<customer, "password"> & {
-    address?: address & {
-        city?: city & {
-            state?: state & {
-                country: country;
-            };
-        };
-    };
+    address:
+        | (address & {
+              city?: city & {
+                  state?: state & {
+                      country: country;
+                  };
+              };
+          })
+        | null;
     wallet?: { id: number; balance: number };
 };
 
