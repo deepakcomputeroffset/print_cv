@@ -8,6 +8,8 @@ export const getOrdersToDispatch = async (params: QueryParams = {}) => {
         url: dispatchBaseUrl,
         query: { ...params },
     });
+    console.log(url);
+    console.log(params);
     const { data } =
         await axios<ServerResponseType<QueryParams & { orders: orderType[] }>>(
             url,

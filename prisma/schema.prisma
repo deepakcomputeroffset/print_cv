@@ -211,11 +211,6 @@ model attachment {
     customerId   Int?
 }
 
-enum UPLOADVIA {
-    EMAIL
-    UPLOAD
-}
-
 model staff {
     id            Int           @id @default(autoincrement())
     name          String
@@ -274,6 +269,11 @@ model taskType {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+}
+
+enum UPLOADVIA {
+    EMAIL
+    UPLOAD
 }
 
 enum TASK_STATUS {

@@ -16,6 +16,15 @@ import {
     ExternalLink,
     Calendar,
     ReceiptText,
+    User,
+    ShoppingCart,
+    ClipboardCheck,
+    PackageCheck,
+    PackageOpen,
+    Factory,
+    Boxes,
+    ScrollText,
+    UserCheck,
 } from "lucide-react";
 import {
     attachment,
@@ -32,11 +41,12 @@ import { motion } from "motion/react";
 import { sourceSerif4 } from "@/lib/font";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { format } from "date-fns";
 
 interface TimelineEvent {
     icon: React.ReactNode;
     title: string;
-    description: string;
+    description: React.ReactNode;
     date: string;
     status: STATUS;
 }
@@ -91,64 +101,262 @@ export default function OrderDetailsPage({ order }: { order: Order }) {
         const baseDate = new Date(order.createdAt);
         const events: TimelineEvent[] = [
             {
-                icon: <CheckCircle2 className="h-6 w-6" />,
+                icon: <ShoppingCart className="h-6 w-6" />,
                 title: "Order Placed",
-                description: "Your order has been confirmed",
+                description: (
+                    <div className="mt-2 space-y-2">
+                        <div className="flex flex-col text-sm">
+                            <div className="flex items-center gap-2 text-gray-600">
+                                <Clock className="h-3.5 w-3.5" />
+                                <span>Started:</span>
+                                <span className="font-medium text-gray-900">
+                                    {format(baseDate, "MMM d, yyyy h:mm a")}
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-2 text-gray-600 mt-1">
+                                <ClipboardCheck className="h-3.5 w-3.5" />
+                                <span>Completed:</span>
+                                <span className="font-medium text-gray-900">
+                                    {format(baseDate, "MMM d, yyyy h:mm a")}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                ),
                 date: baseDate.toLocaleDateString(),
                 status: "PENDING",
             },
         ];
 
         if (order.status === "CANCELLED") {
+            const cancelDate = new Date(
+                baseDate.getTime() + 1 * 24 * 60 * 60 * 1000,
+            );
             events.push({
                 icon: <XCircle className="h-6 w-6" />,
                 title: "Order Cancelled",
-                description: "This order has been cancelled",
-                date: new Date(
-                    baseDate.getTime() + 1 * 24 * 60 * 60 * 1000,
-                ).toLocaleDateString(),
+                description: (
+                    <div className="mt-2 space-y-2">
+                        <div className="flex flex-col text-sm">
+                            <div className="flex items-center gap-2 text-gray-600">
+                                <Clock className="h-3.5 w-3.5" />
+                                <span>Started:</span>
+                                <span className="font-medium text-gray-900">
+                                    {format(baseDate, "MMM d, yyyy h:mm a")}
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-2 text-gray-600 mt-1">
+                                <XCircle className="h-3.5 w-3.5" />
+                                <span>Cancelled:</span>
+                                <span className="font-medium text-gray-900">
+                                    {format(cancelDate, "MMM d, yyyy h:mm a")}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                ),
+                date: cancelDate.toLocaleDateString(),
                 status: "CANCELLED",
             });
-        } else {
-            events.push(
-                {
-                    icon: <Clock className="h-6 w-6" />,
-                    title: "Order Processing",
-                    description: "We're preparing your order",
-                    date: new Date(
-                        baseDate.getTime() + 1 * 24 * 60 * 60 * 1000,
-                    ).toLocaleDateString(),
-                    status: "PROCESSING",
-                },
-                {
-                    icon: <Printer className="h-6 w-6" />,
-                    title: "Printing Started",
-                    description: "Your items are being printed",
-                    date: new Date(
-                        baseDate.getTime() + 2 * 24 * 60 * 60 * 1000,
-                    ).toLocaleDateString(),
-                    status: "PROCESSING",
-                },
-                {
-                    icon: <Package className="h-6 w-6" />,
-                    title: "Quality Check",
-                    description: "Final quality inspection",
-                    date: new Date(
-                        baseDate.getTime() + 3 * 24 * 60 * 60 * 1000,
-                    ).toLocaleDateString(),
-                    status: "PROCESSING",
-                },
-                {
-                    icon: <Truck className="h-6 w-6" />,
+        } else if (order.job?.tasks) {
+            // Add job tasks as timeline events
+            order.job.tasks
+                .filter((task) => task.status !== "PENDING")
+                .forEach((task) => {
+                    if (task.assignee) {
+                        const startDate = task.startedAt
+                            ? new Date(task.startedAt)
+                            : baseDate;
+                        const completionDate = task.completedAt
+                            ? new Date(task.completedAt)
+                            : null;
+
+                        // Get task-specific icon based on task type name
+                        const getTaskIcon = (
+                            taskType: string | undefined,
+                            status: string,
+                        ) => {
+                            if (status === "COMPLETED")
+                                return <PackageCheck className="h-6 w-6" />;
+                            if (status === "IN_PROGRESS") {
+                                switch (taskType?.toLowerCase()) {
+                                    case "ctp":
+                                        return <Factory className="h-6 w-6" />;
+                                    case "printing":
+                                        return <Printer className="h-6 w-6" />;
+                                    case "packaging":
+                                        return (
+                                            <PackageOpen className="h-6 w-6" />
+                                        );
+                                    case "quality check":
+                                        return (
+                                            <ScrollText className="h-6 w-6" />
+                                        );
+                                    default:
+                                        return <Boxes className="h-6 w-6" />;
+                                }
+                            }
+                            return <UserCheck className="h-6 w-6" />;
+                        };
+
+                        const description = (
+                            <div className="mt-2 space-y-2">
+                                <div className="flex flex-col text-sm">
+                                    <div className="flex items-center gap-2 text-gray-600">
+                                        <Clock className="h-3.5 w-3.5" />
+                                        <span>Started:</span>
+                                        <span className="font-medium text-gray-900">
+                                            {format(
+                                                startDate,
+                                                "MMM d, yyyy h:mm a",
+                                            )}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-gray-600 mt-1">
+                                        <User className="h-3.5 w-3.5" />
+                                        <span>Assigned to:</span>
+                                        <span className="font-medium text-gray-900">
+                                            {task.assignee.name}
+                                        </span>
+                                    </div>
+                                    {completionDate && (
+                                        <div className="flex items-center gap-2 text-gray-600 mt-1">
+                                            <CheckCircle2 className="h-3.5 w-3.5" />
+                                            <span>Completed:</span>
+                                            <span className="font-medium text-gray-900">
+                                                {format(
+                                                    completionDate,
+                                                    "MMM d, yyyy h:mm a",
+                                                )}
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        );
+
+                        events.push({
+                            icon: getTaskIcon(task.taskType?.name, task.status),
+                            title: `Task Assigned: ${task.taskType?.name || "Processing Task"}`,
+                            description: description,
+                            date: completionDate
+                                ? format(completionDate, "MMM d, yyyy")
+                                : format(startDate, "MMM d, yyyy"),
+                            status:
+                                task.status === "COMPLETED"
+                                    ? "DISPATCHED"
+                                    : "PROCESSING",
+                        });
+                    }
+                });
+
+            // Add final dispatch event if all tasks are completed
+            if (order.job.isCompleted) {
+                const completionDate = new Date(
+                    baseDate.getTime() +
+                        (order.job.tasks.length + 1) * 24 * 60 * 60 * 1000,
+                );
+                events.push({
+                    icon: <PackageCheck className="h-6 w-6" />,
                     title: "Order Completed",
-                    description:
-                        "Your order has been completed and ready for pickup",
-                    date: new Date(
-                        baseDate.getTime() + 4 * 24 * 60 * 60 * 1000,
-                    ).toLocaleDateString(),
+                    description: (
+                        <div className="mt-2 space-y-2">
+                            <div className="flex flex-col text-sm">
+                                <div className="flex items-center gap-2 text-gray-600">
+                                    <Clock className="h-3.5 w-3.5" />
+                                    <span>Started:</span>
+                                    <span className="font-medium text-gray-900">
+                                        {format(baseDate, "MMM d, yyyy h:mm a")}
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-2 text-gray-600 mt-1">
+                                    <CheckCircle2 className="h-3.5 w-3.5" />
+                                    <span>Completed:</span>
+                                    <span className="font-medium text-gray-900">
+                                        {format(
+                                            completionDate,
+                                            "MMM d, yyyy h:mm a",
+                                        )}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    ),
+                    date: completionDate.toLocaleDateString(),
                     status: "DISPATCHED",
-                },
+                });
+            }
+
+            // Add dispatch status if order is dispatched
+            if (order.status === "DISPATCHED") {
+                const dispatchDate = new Date(
+                    baseDate.getTime() +
+                        (order.job.tasks.length + 2) * 24 * 60 * 60 * 1000,
+                );
+                events.push({
+                    icon: <Truck className="h-6 w-6" />,
+                    title: "Order Dispatched",
+                    description: (
+                        <div className="mt-2 space-y-2">
+                            <div className="flex flex-col text-sm">
+                                <div className="flex items-center gap-2 text-gray-600">
+                                    <Clock className="h-3.5 w-3.5" />
+                                    <span>Started:</span>
+                                    <span className="font-medium text-gray-900">
+                                        {format(baseDate, "MMM d, yyyy h:mm a")}
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-2 text-gray-600 mt-1">
+                                    <Truck className="h-3.5 w-3.5" />
+                                    <span>Dispatched:</span>
+                                    <span className="font-medium text-gray-900">
+                                        {format(
+                                            dispatchDate,
+                                            "MMM d, yyyy h:mm a",
+                                        )}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    ),
+                    date: dispatchDate.toLocaleDateString(),
+                    status: "DISPATCHED",
+                });
+            }
+        } else {
+            // Fallback to generic processing status if no tasks
+            const processingDate = new Date(
+                baseDate.getTime() + 1 * 24 * 60 * 60 * 1000,
             );
+            events.push({
+                icon: <Clock className="h-6 w-6" />,
+                title: "Order Processing",
+                description: (
+                    <div className="mt-2 space-y-2">
+                        <div className="flex flex-col text-sm">
+                            <div className="flex items-center gap-2 text-gray-600">
+                                <Clock className="h-3.5 w-3.5" />
+                                <span>Started:</span>
+                                <span className="font-medium text-gray-900">
+                                    {format(baseDate, "MMM d, yyyy h:mm a")}
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-2 text-gray-600 mt-1">
+                                <CheckCircle2 className="h-3.5 w-3.5" />
+                                <span>Processing:</span>
+                                <span className="font-medium text-gray-900">
+                                    {format(
+                                        processingDate,
+                                        "MMM d, yyyy h:mm a",
+                                    )}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                ),
+                date: processingDate.toLocaleDateString(),
+                status: "PROCESSING",
+            });
         }
 
         return events;
@@ -157,10 +365,18 @@ export default function OrderDetailsPage({ order }: { order: Order }) {
     const timelineEvents = getTimelineEvents(order);
     const currentStatusIndex = timelineEvents.length - 1;
 
-    // Find active status index based on order status
+    // Find active status index based on order status and task completion
     let activeStatusIndex = 0;
     if (order.status === "PROCESSING") {
-        activeStatusIndex = Math.min(3, currentStatusIndex);
+        if (order.job?.tasks) {
+            // Count completed tasks
+            const completedTasks = order.job.tasks.filter(
+                (task) => task.status === "COMPLETED",
+            ).length;
+            activeStatusIndex = completedTasks * 2; // Multiply by 2 because each task has assignment and completion events
+        } else {
+            activeStatusIndex = Math.min(3, currentStatusIndex);
+        }
     } else if (order.status === "DISPATCHED") {
         activeStatusIndex = currentStatusIndex;
     } else if (order.status === "CANCELLED") {
@@ -433,105 +649,148 @@ export default function OrderDetailsPage({ order }: { order: Order }) {
                     </Card>
                 </motion.div>
 
-                {/* TIME LINE */}
+                {/* Timeline Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
                     <Card className="overflow-hidden border-0 shadow-md rounded-xl bg-white">
-                        <div className="p-6 md:p-8">
-                            <h2
-                                className={cn(
-                                    "text-lg font-semibold mb-8 flex items-center",
-                                    sourceSerif4.className,
-                                )}
-                            >
-                                <div className="h-1 w-6 bg-gradient-to-r from-primary to-cyan-400 rounded-full mr-3"></div>
-                                Order Timeline
-                            </h2>
+                        <div className="relative">
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/80 via-primary to-primary/80"></div>
+                            <div className="p-6 md:p-8">
+                                <div className="flex items-center gap-3 mb-8">
+                                    <div className="h-8 w-1 rounded-full bg-gradient-to-b from-primary to-primary/60"></div>
+                                    <h2
+                                        className={cn(
+                                            "text-xl md:text-2xl font-semibold text-gray-900",
+                                            sourceSerif4.className,
+                                        )}
+                                    >
+                                        Order Progress
+                                    </h2>
+                                </div>
 
-                            <div className="relative">
-                                {timelineEvents.map((event, index) => {
-                                    const isActive = index <= activeStatusIndex;
-                                    const isCancelled =
-                                        event.status === "CANCELLED";
+                                <div className="relative">
+                                    {timelineEvents.map((event, index) => {
+                                        const isActive =
+                                            index <= activeStatusIndex;
+                                        const isCancelled =
+                                            event.status === "CANCELLED";
+                                        const isLast =
+                                            index === timelineEvents.length - 1;
 
-                                    return (
-                                        <div
-                                            key={index}
-                                            className="mb-8 last:mb-0"
-                                        >
-                                            <div className="flex items-start">
-                                                <div
-                                                    className={cn(
-                                                        "w-12 h-12 rounded-full flex items-center justify-center shadow-sm transition-all duration-300",
-                                                        isCancelled
-                                                            ? "bg-red-100 text-red-600"
-                                                            : isActive
-                                                              ? "bg-primary/10 text-primary"
-                                                              : "bg-gray-100 text-gray-400",
-                                                    )}
-                                                >
-                                                    {event.icon}
-                                                </div>
-
-                                                <div className="ml-5 flex-1">
-                                                    <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-1">
-                                                        <h3
-                                                            className={cn(
-                                                                "font-medium text-base",
-                                                                isCancelled
-                                                                    ? "text-red-800"
-                                                                    : isActive
-                                                                      ? "text-gray-900"
-                                                                      : "text-gray-500",
-                                                            )}
-                                                        >
-                                                            {event.title}
-                                                        </h3>
-                                                        <span
-                                                            className={cn(
-                                                                "text-sm",
-                                                                isCancelled
-                                                                    ? "text-red-500"
-                                                                    : isActive
-                                                                      ? "text-primary/70"
-                                                                      : "text-gray-400",
-                                                            )}
-                                                        >
-                                                            {event.date}
-                                                        </span>
-                                                    </div>
-                                                    <p
+                                        return (
+                                            <motion.div
+                                                key={index}
+                                                initial={{ opacity: 0, x: -20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{
+                                                    duration: 0.5,
+                                                    delay: index * 0.1,
+                                                }}
+                                                className={cn(
+                                                    "mb-8 last:mb-0",
+                                                    isLast && "pb-2",
+                                                )}
+                                            >
+                                                <div className="flex items-start relative">
+                                                    <motion.div
+                                                        initial={{ scale: 0.8 }}
+                                                        animate={{
+                                                            scale: isActive
+                                                                ? 1
+                                                                : 0.8,
+                                                        }}
                                                         className={cn(
-                                                            "text-sm mt-1",
+                                                            "w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-all duration-300 z-10",
                                                             isCancelled
-                                                                ? "text-red-500"
+                                                                ? "bg-red-50 text-red-500 shadow-red-100"
                                                                 : isActive
-                                                                  ? "text-gray-600"
-                                                                  : "text-gray-400",
+                                                                  ? "bg-primary/10 text-primary shadow-primary/20"
+                                                                  : "bg-gray-50 text-gray-400 shadow-gray-100",
+                                                            isActive &&
+                                                                "ring-2 ring-offset-2 ring-primary/20",
                                                         )}
                                                     >
-                                                        {event.description}
-                                                    </p>
-                                                </div>
-                                            </div>
+                                                        {event.icon}
+                                                    </motion.div>
 
-                                            {index <
-                                                timelineEvents.length - 1 && (
-                                                <div
-                                                    className={cn(
-                                                        "absolute left-6 ml-[-1px] w-0.5 h-16",
-                                                        isCancelled || !isActive
-                                                            ? "bg-gray-200"
-                                                            : "bg-primary/30",
+                                                    <div className="ml-6 flex-1">
+                                                        <motion.div
+                                                            initial={{
+                                                                opacity: 0,
+                                                                y: -10,
+                                                            }}
+                                                            animate={{
+                                                                opacity: 1,
+                                                                y: 0,
+                                                            }}
+                                                            transition={{
+                                                                duration: 0.3,
+                                                                delay:
+                                                                    index *
+                                                                        0.1 +
+                                                                    0.2,
+                                                            }}
+                                                        >
+                                                            <h3
+                                                                className={cn(
+                                                                    "text-lg font-medium mb-2",
+                                                                    isCancelled
+                                                                        ? "text-red-600"
+                                                                        : isActive
+                                                                          ? "text-gray-900"
+                                                                          : "text-gray-500",
+                                                                )}
+                                                            >
+                                                                {event.title}
+                                                            </h3>
+                                                            <div
+                                                                className={cn(
+                                                                    "bg-gray-50/50 rounded-lg p-4 border transition-colors duration-200",
+                                                                    isCancelled
+                                                                        ? "border-red-100"
+                                                                        : isActive
+                                                                          ? "border-primary/10"
+                                                                          : "border-gray-100",
+                                                                    isActive &&
+                                                                        "hover:border-primary/20",
+                                                                )}
+                                                            >
+                                                                {
+                                                                    event.description
+                                                                }
+                                                            </div>
+                                                        </motion.div>
+                                                    </div>
+                                                </div>
+
+                                                {index <
+                                                    timelineEvents.length - 1 &&
+                                                    event.status !==
+                                                        "DISPATCHED" &&
+                                                    ![
+                                                        "Order Completed",
+                                                        "Order Dispatched",
+                                                    ].includes(event.title) && (
+                                                        <div className="absolute left-6 w-[1px] h-[calc(100%-20px)] top-12">
+                                                            <div
+                                                                className={cn(
+                                                                    "w-full h-full",
+                                                                    isCancelled
+                                                                        ? "bg-red-100"
+                                                                        : isActive
+                                                                          ? "bg-gradient-to-b from-primary/20 to-transparent"
+                                                                          : "bg-gray-100",
+                                                                )}
+                                                            />
+                                                        </div>
                                                     )}
-                                                />
-                                            )}
-                                        </div>
-                                    );
-                                })}
+                                            </motion.div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         </div>
                     </Card>

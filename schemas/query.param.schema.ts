@@ -22,4 +22,5 @@ export const QuerySchema = z.object({
     parentCategoryId: z.string().optional(),
     walletId: z.string().optional(),
     orderStatus: z.union([z.nativeEnum(STATUS), z.literal("ALL")]).optional(),
+    dispatched: z.enum(["true", "false"]).optional(),
 });
