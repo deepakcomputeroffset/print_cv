@@ -4,6 +4,7 @@ import { FileText, ExternalLink, ReceiptText, Package } from "lucide-react";
 import { sourceSerif4 } from "@/lib/font";
 import { cn } from "@/lib/utils";
 import { attachment, order, UPLOADVIA } from "@prisma/client";
+import { InvoiceButton } from "./InvoiceButton";
 
 interface ProductDetailsProps {
     order: order & {
@@ -19,6 +20,24 @@ interface ProductDetailsProps {
                     id: number;
                 };
             };
+        };
+        customer: {
+            address: {
+                line?: string;
+                city?: {
+                    name?: string;
+                    state?: {
+                        name?: string;
+                        country: {
+                            name: string;
+                        };
+                    };
+                };
+                pinCode: string;
+            } | null;
+            businessName: string;
+            name: string;
+            phone: string;
         };
         attachment:
             | (attachment & {
@@ -39,15 +58,18 @@ export function ProductDetails({ order }: ProductDetailsProps) {
     return (
         <div className="space-y-6">
             <div>
-                <h2
-                    className={cn(
-                        "text-lg font-semibold mb-4 flex items-center text-gray-800",
-                        sourceSerif4.className,
-                    )}
-                >
-                    <Package className="h-5 w-5 mr-2 text-primary/70" />
-                    Product Details
-                </h2>
+                <div className="flex items-center justify-between mb-4">
+                    <h2
+                        className={cn(
+                            "text-lg font-semibold flex items-center text-gray-800",
+                            sourceSerif4.className,
+                        )}
+                    >
+                        <Package className="h-5 w-5 mr-2 text-primary/70" />
+                        Product Details
+                    </h2>
+                    <InvoiceButton order={order} />
+                </div>
 
                 <div className="bg-gray-50 rounded-xl overflow-hidden p-4">
                     <div className="relative h-60 mb-4 rounded-lg overflow-hidden shadow-sm border border-gray-100 group">

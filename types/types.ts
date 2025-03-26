@@ -17,16 +17,16 @@ import {
 } from "@prisma/client";
 import { z, ZodIssue } from "zod";
 
+export type addressType = address & {
+    city?: city & {
+        state?: state & {
+            country: country;
+        };
+    };
+};
+
 export type customerType = Omit<customer, "password"> & {
-    address:
-        | (address & {
-              city?: city & {
-                  state?: state & {
-                      country: country;
-                  };
-              };
-          })
-        | null;
+    address: addressType | null;
     wallet?: { id: number; balance: number };
 };
 

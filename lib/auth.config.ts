@@ -40,6 +40,15 @@ export const authConfig: AuthOptions = {
                                         id: true,
                                     },
                                 },
+                                address: {
+                                    include: {
+                                        customer: {
+                                            include: {
+                                                address: true,
+                                            },
+                                        },
+                                    },
+                                },
                             },
                         });
 
@@ -67,6 +76,7 @@ export const authConfig: AuthOptions = {
                                 id: customer?.id,
                                 customerCategory: customer?.customerCategory,
                                 wallet: customer?.wallet,
+                                address: customer?.address,
                             },
                         };
                     } else if (userType === "staff") {
@@ -151,6 +161,15 @@ export const authConfig: AuthOptions = {
                                 id: true,
                             },
                         },
+                        address: {
+                            include: {
+                                customer: {
+                                    include: {
+                                        address: true,
+                                    },
+                                },
+                            },
+                        },
                     },
                 });
                 if (!customer) {
@@ -172,6 +191,7 @@ export const authConfig: AuthOptions = {
                         wallet: customer?.wallet
                             ? customer?.wallet
                             : { id: customer.id, balance: 0 },
+                        address: customer?.address,
                     },
                     userType: "customer",
                     staff: undefined,
