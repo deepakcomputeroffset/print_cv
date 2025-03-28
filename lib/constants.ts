@@ -29,3 +29,6 @@ export const allowedRoleForCategoryAndProductManagement: ROLE[] = [
 export const allowedRoleForAccountManagement: ROLE[] = ["ADMIN", "ACCOUNTANT"];
 export const allowedRoleForJobManagement: ROLE[] = ["ADMIN", "JOB_MANAGER"];
 export const allowedRoleForDispatchManagement: ROLE[] = ["ADMIN", "DISPATCHER"];
+
+// TAX
+export const IGST_TAX_IN_PERCENTAGE = 0.18;

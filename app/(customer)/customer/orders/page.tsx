@@ -22,7 +22,6 @@ import { QueryParams } from "@/types/types";
 import { cn } from "@/lib/utils";
 import { getStatusColor } from "@/lib/getStatusColor";
 import { OrdersFilter } from "@/components/order/filter";
-import Pagination from "@/components/pagination";
 import { Input } from "@/components/ui/input";
 import { InvoiceButton } from "@/components/order/components/InvoiceButton";
 import { sourceSerif4 } from "@/lib/font";
@@ -34,7 +33,7 @@ export default function OrdersPage({
     searchParams: Promise<QueryParams>;
 }) {
     const params = use(searchParams);
-    const { orders, isLoading, totalPages } = useOrder(params);
+    const { orders, isLoading } = useOrder(params);
     const [searchTerm, setSearchTerm] = useState("");
     const { data } = useSession();
     // Filter orders based on search term
@@ -142,189 +141,164 @@ export default function OrdersPage({
                             ))}
                         </div>
                     ) : (
-                        <>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {filteredOrders?.map((order, index) => (
-                                    <motion.div
-                                        key={order.id}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{
-                                            duration: 0.3,
-                                            delay: index * 0.05,
-                                        }}
-                                    >
-                                        <Card className="overflow-hidden shadow-md rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
-                                            <div className="p-5">
-                                                <div className="flex justify-between items-start mb-4">
-                                                    <div>
-                                                        <div className="flex items-center mb-1">
-                                                            <div
-                                                                className={cn(
-                                                                    "h-2 w-2 rounded-full mr-2",
-                                                                    getStatusClass(
-                                                                        order.status,
-                                                                    ),
-                                                                )}
-                                                            ></div>
-                                                            <h3 className="font-semibold text-gray-800 dark:text-gray-100">
-                                                                Order #
-                                                                {order.id}
-                                                            </h3>
-                                                        </div>
-                                                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                                                            {
-                                                                order
-                                                                    ?.productItem
-                                                                    ?.product
-                                                                    ?.name
-                                                            }
-                                                        </p>
-                                                    </div>
-                                                    <Badge
-                                                        className={cn(
-                                                            getStatusColor(
-                                                                order.status,
-                                                            ),
-                                                            "text-xs px-2 py-1 rounded-full uppercase font-medium",
-                                                        )}
-                                                    >
-                                                        {getStatusIcon(
-                                                            order.status,
-                                                        )}
-                                                        {order.status}
-                                                    </Badge>
-                                                </div>
-
-                                                <div className="flex flex-col space-y-2 mb-4">
-                                                    <div className="flex justify-between text-sm">
-                                                        <span className="text-gray-500 dark:text-gray-400">
-                                                            Quantity:
-                                                        </span>
-                                                        <span className="font-medium text-gray-700 dark:text-gray-200">
-                                                            {order?.qty} units
-                                                        </span>
-                                                    </div>
-                                                    <div className="flex justify-between text-sm">
-                                                        <span className="text-gray-500 dark:text-gray-400">
-                                                            Amount:
-                                                        </span>
-                                                        <span className="font-bold text-primary">
-                                                            Rs. {order?.amount}
-                                                        </span>
-                                                    </div>
-                                                    <div className="flex justify-between text-sm">
-                                                        <span className="text-gray-500 dark:text-gray-400 flex items-center">
-                                                            <Calendar className="h-3.5 w-3.5 mr-1" />
-                                                            Ordered on:
-                                                        </span>
-                                                        <span className="text-gray-700 dark:text-gray-200">
-                                                            {format(
-                                                                new Date(
-                                                                    order?.createdAt,
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {filteredOrders?.map((order, index) => (
+                                <motion.div
+                                    key={order.id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                        duration: 0.3,
+                                        delay: index * 0.05,
+                                    }}
+                                >
+                                    <Card className="overflow-hidden shadow-md rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+                                        <div className="p-5">
+                                            <div className="flex justify-between items-start mb-4">
+                                                <div>
+                                                    <div className="flex items-center mb-1">
+                                                        <div
+                                                            className={cn(
+                                                                "h-2 w-2 rounded-full mr-2",
+                                                                getStatusClass(
+                                                                    order.status,
                                                                 ),
-                                                                "dd MMM yyyy",
                                                             )}
-                                                        </span>
+                                                        ></div>
+                                                        <h3 className="font-semibold text-gray-800 dark:text-gray-100">
+                                                            Order #{order.id}
+                                                        </h3>
                                                     </div>
+                                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                        {
+                                                            order?.productItem
+                                                                ?.product?.name
+                                                        }
+                                                    </p>
                                                 </div>
+                                                <Badge
+                                                    className={cn(
+                                                        getStatusColor(
+                                                            order.status,
+                                                        ),
+                                                        "text-xs px-2 py-1 rounded-full uppercase font-medium",
+                                                    )}
+                                                >
+                                                    {getStatusIcon(
+                                                        order.status,
+                                                    )}
+                                                    {order.status}
+                                                </Badge>
+                                            </div>
 
-                                                <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
-                                                    {!!data?.user?.customer
-                                                        ?.address && (
-                                                        <InvoiceButton
-                                                            order={{
-                                                                ...order,
-                                                                customer: {
-                                                                    ...data
-                                                                        ?.user
-                                                                        ?.customer,
-                                                                    address: {
-                                                                        pinCode:
-                                                                            data
-                                                                                ?.user
-                                                                                ?.customer
-                                                                                ?.address
-                                                                                ?.pinCode,
-                                                                        line: data
+                                            <div className="flex flex-col space-y-2 mb-4">
+                                                <div className="flex justify-between text-sm">
+                                                    <span className="text-gray-500 dark:text-gray-400">
+                                                        Quantity:
+                                                    </span>
+                                                    <span className="font-medium text-gray-700 dark:text-gray-200">
+                                                        {order?.qty} units
+                                                    </span>
+                                                </div>
+                                                <div className="flex justify-between text-sm">
+                                                    <span className="text-gray-500 dark:text-gray-400">
+                                                        Amount:
+                                                    </span>
+                                                    <span className="font-bold text-primary">
+                                                        Rs. {order?.amount}
+                                                    </span>
+                                                </div>
+                                                <div className="flex justify-between text-sm">
+                                                    <span className="text-gray-500 dark:text-gray-400 flex items-center">
+                                                        <Calendar className="h-3.5 w-3.5 mr-1" />
+                                                        Ordered on:
+                                                    </span>
+                                                    <span className="text-gray-700 dark:text-gray-200">
+                                                        {format(
+                                                            new Date(
+                                                                order?.createdAt,
+                                                            ),
+                                                            "dd MMM yyyy",
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                                                {!!data?.user?.customer
+                                                    ?.address && (
+                                                    <InvoiceButton
+                                                        order={{
+                                                            ...order,
+                                                            customer: {
+                                                                ...data?.user
+                                                                    ?.customer,
+                                                                address: {
+                                                                    pinCode:
+                                                                        data
                                                                             ?.user
                                                                             ?.customer
                                                                             ?.address
-                                                                            ?.line,
-                                                                        city: {
+                                                                            ?.pinCode,
+                                                                    line: data
+                                                                        ?.user
+                                                                        ?.customer
+                                                                        ?.address
+                                                                        ?.line,
+                                                                    city: {
+                                                                        name: data
+                                                                            ?.user
+                                                                            ?.customer
+                                                                            ?.address
+                                                                            ?.city
+                                                                            ?.name,
+                                                                        state: {
                                                                             name: data
                                                                                 ?.user
                                                                                 ?.customer
                                                                                 ?.address
                                                                                 ?.city
+                                                                                ?.state
                                                                                 ?.name,
-                                                                            state: {
-                                                                                name: data
-                                                                                    ?.user
-                                                                                    ?.customer
-                                                                                    ?.address
-                                                                                    ?.city
-                                                                                    ?.state
-                                                                                    ?.name,
-                                                                                country:
-                                                                                    {
-                                                                                        name:
-                                                                                            data
-                                                                                                ?.user
-                                                                                                ?.customer
-                                                                                                ?.address
-                                                                                                ?.city
-                                                                                                ?.state
-                                                                                                ?.country
-                                                                                                ?.name ||
-                                                                                            "India",
-                                                                                    },
-                                                                            },
+                                                                            country:
+                                                                                {
+                                                                                    name:
+                                                                                        data
+                                                                                            ?.user
+                                                                                            ?.customer
+                                                                                            ?.address
+                                                                                            ?.city
+                                                                                            ?.state
+                                                                                            ?.country
+                                                                                            ?.name ||
+                                                                                        "India",
+                                                                                },
                                                                         },
                                                                     },
                                                                 },
-                                                            }}
-                                                        />
-                                                    )}
-                                                    <Button
-                                                        variant="default"
-                                                        size="sm"
-                                                        className="bg-primary hover:bg-primary/90 text-white"
-                                                        asChild
+                                                            },
+                                                        }}
+                                                    />
+                                                )}
+                                                <Button
+                                                    variant="default"
+                                                    size="sm"
+                                                    className="bg-primary hover:bg-primary/90 text-white"
+                                                    asChild
+                                                >
+                                                    <Link
+                                                        href={`/customer/orders/${order.id}`}
                                                     >
-                                                        <Link
-                                                            href={`/customer/orders/${order.id}`}
-                                                        >
-                                                            <Eye className="h-4 w-4 mr-2" />
-                                                            View Details
-                                                        </Link>
-                                                    </Button>
-                                                </div>
+                                                        <Eye className="h-4 w-4 mr-2" />
+                                                        View Details
+                                                    </Link>
+                                                </Button>
                                             </div>
-                                        </Card>
-                                    </motion.div>
-                                ))}
-                            </div>
-
-                            {filteredOrders?.length === 0 && (
-                                <div className="text-center py-12">
-                                    <AlertCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                                    <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300">
-                                        No orders found
-                                    </h3>
-                                    <p className="text-gray-500 dark:text-gray-400 mt-1">
-                                        Try adjusting your search or filter
-                                    </p>
-                                </div>
-                            )}
-
-                            <div className="mt-8">
-                                <Pagination
-                                    totalPage={totalPages}
-                                    isLoading={isLoading}
-                                />
-                            </div>
-                        </>
+                                        </div>
+                                    </Card>
+                                </motion.div>
+                            ))}
+                        </div>
                     )}
                 </motion.div>
             )}

@@ -10,11 +10,25 @@ import { productAttributeValue, UPLOADVIA } from "@prisma/client";
 import { useWallet } from "@/hooks/use-wallet";
 import { toast } from "sonner";
 import { createOrder } from "@/lib/api/order";
-import { IndianRupee, Loader2 } from "lucide-react";
+import {
+    IndianRupee,
+    Loader2,
+    FileText,
+    Mail,
+    ArrowRight,
+    Check,
+    Shield,
+    Calendar,
+    Truck,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 import { Label } from "../ui/label";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Separator } from "../ui/separator";
+import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
+import { IGST_TAX_IN_PERCENTAGE } from "@/lib/constants";
 
 export default function PlaceOrder({
     product,
@@ -38,7 +52,11 @@ export default function PlaceOrder({
     const { refetch } = useWallet();
     const router = useRouter();
 
-    const totalPrice = product.price * (qty / product?.minQty);
+    // Price calculations with taxes
+    const basePrice = product.price * (qty / product?.minQty);
+    const emailUploadCharge = uploadType === "EMAIL" ? 20 : 0;
+    const igstAmount = (basePrice + emailUploadCharge) * IGST_TAX_IN_PERCENTAGE;
+    const totalPrice = basePrice + emailUploadCharge + igstAmount;
 
     const handleIncrease = () => setQty(qty + product.minQty);
     const handleDecrease = () => {
@@ -68,11 +86,6 @@ export default function PlaceOrder({
                 formData.append("uploadType", "EMAIL");
             }
 
-            // if (!wallet?.balance || wallet?.balance < totalPrice) {
-            //     toast.warning("You don't have sufficient balance.");
-            //     return;
-            // }
-
             formData.append("productItemId", product.id.toString());
             formData.append("qty", qty.toString());
 
@@ -88,12 +101,12 @@ export default function PlaceOrder({
             toast.warning(
                 error instanceof AxiosError
                     ? error.response?.data?.error
-                    : "Order not place.",
+                    : "Order not placed.",
             );
             console.log(
                 error instanceof AxiosError
                     ? error.response?.data?.error
-                    : "Order not place.",
+                    : "Order not placed.",
             );
         } finally {
             setIsLoading(false);
@@ -101,111 +114,421 @@ export default function PlaceOrder({
     };
 
     return (
-        <Card className="max-w-3xl mx-auto p-6 md:p-8 shadow-xl rounded-2xl bg-white border border-gray-200">
-            <CardHeader>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-dominant-color text-center">
-                    Checkout
-                </h2>
-            </CardHeader>
-            <CardContent>
-                {/* Product Details Section */}
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-6 border-b pb-4">
-                    <img
-                        src={product?.product?.imageUrl[0]}
-                        alt={product.product.name}
-                        className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-md"
-                    />
-                    <div className="text-center md:text-left">
-                        <h3 className="text-lg md:text-2xl font-semibold text-gray-800">
-                            {product.product.name}
-                        </h3>
-                        <p className="text-lg md:text-xl text-gray-600 font-medium flex items-center justify-center md:justify-start">
-                            <IndianRupee className="w-4 h-4 mr-1" />
-                            {totalPrice}
-                        </p>
-                        <div className="mt-2 flex flex-wrap justify-center md:justify-start gap-2">
-                            {product.productAttributeOptions.map((option) => (
-                                <Badge
-                                    key={option.id}
-                                    className="text-xs md:text-sm px-3 py-1 bg-gray-200 text-gray-700 hover:text-white rounded-full"
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="w-full"
+        >
+            <Card className="overflow-hidden border-0 shadow-xl rounded-2xl relative">
+                {/* Premium accent line at top */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-cyan-400 to-primary"></div>
+
+                {/* Subtle pattern overlay for texture */}
+                <div className="absolute inset-0 bg-[url('/noise-pattern.png')] opacity-[0.02] mix-blend-overlay z-0 pointer-events-none"></div>
+
+                <CardHeader className="bg-gradient-to-r from-primary to-primary/90 text-white py-6 px-8 relative overflow-hidden">
+                    {/* Background decorative elements */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-32 translate-x-32"></div>
+                    <div className="absolute bottom-0 left-0 w-40 h-40 bg-black/5 rounded-full translate-y-20 -translate-x-20"></div>
+
+                    <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                        >
+                            <h2 className="text-2xl md:text-3xl font-bold">
+                                Premium Checkout
+                            </h2>
+                            <p className="text-white/80 mt-1">
+                                Complete your order details below
+                            </p>
+                        </motion.div>
+                    </div>
+                </CardHeader>
+
+                <CardContent className="p-0">
+                    <div className="grid md:grid-cols-3 gap-0">
+                        {/* Left column - Product details */}
+                        <div className="md:col-span-2 p-6 md:p-8 relative">
+                            {/* Product details section with image */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.5, delay: 0.4 }}
+                                className="flex flex-col md:flex-row gap-6 pb-6"
+                            >
+                                <div className="relative group">
+                                    <div className="absolute -inset-1 bg-gradient-to-r from-primary to-cyan-400 rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-500 group-hover:duration-200"></div>
+                                    <div className="relative">
+                                        <img
+                                            src={product?.product?.imageUrl[0]}
+                                            alt={product.product.name}
+                                            className="w-full md:w-40 h-40 object-cover rounded-xl shadow-md border border-gray-100 transition-transform duration-500 group-hover:scale-[1.02]"
+                                        />
+                                        <div className="absolute -bottom-3 -right-3 bg-gradient-to-r from-primary to-primary/90 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-md">
+                                            Premium
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <h3 className="text-xl md:text-2xl font-bold text-gray-800">
+                                        {product?.product?.name}
+                                    </h3>
+                                    <p className="text-gray-600 line-clamp-2">
+                                        {product?.product?.description}
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {product?.productAttributeOptions?.map(
+                                            (option) => (
+                                                <Badge
+                                                    key={option?.id}
+                                                    variant="outline"
+                                                    className="bg-primary/5 text-primary border-primary/20"
+                                                >
+                                                    {
+                                                        option?.productAttributeValue
+                                                    }
+                                                </Badge>
+                                            ),
+                                        )}
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            <Separator className="my-6" />
+
+                            {/* Order benefits */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.5 }}
+                                className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8"
+                            >
+                                <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl hover:shadow-md transition-shadow duration-300 group">
+                                    <div className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300">
+                                        <Truck className="h-5 w-5 text-primary" />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-semibold text-gray-800">
+                                            Fast Shipping
+                                        </h4>
+                                        <p className="text-gray-600 text-sm">
+                                            Delivered to your doorstep
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl hover:shadow-md transition-shadow duration-300 group">
+                                    <div className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300">
+                                        <Shield className="h-5 w-5 text-primary" />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-semibold text-gray-800">
+                                            Quality Guarantee
+                                        </h4>
+                                        <p className="text-gray-600 text-sm">
+                                            Premium printing quality
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl hover:shadow-md transition-shadow duration-300 group">
+                                    <div className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300">
+                                        <Calendar className="h-5 w-5 text-primary" />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-semibold text-gray-800">
+                                            On-time Delivery
+                                        </h4>
+                                        <p className="text-gray-600 text-sm">
+                                            Meet your deadlines
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl hover:shadow-md transition-shadow duration-300 group">
+                                    <div className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300">
+                                        <Check className="h-5 w-5 text-primary" />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-semibold text-gray-800">
+                                            Satisfaction
+                                        </h4>
+                                        <p className="text-gray-600 text-sm">
+                                            100% customer satisfaction
+                                        </p>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Quantity selection */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.6 }}
+                                className="space-y-4 mb-6"
+                            >
+                                <Label className="text-lg font-semibold text-gray-800 flex items-center">
+                                    <div className="h-1 w-5 mr-2 bg-gradient-to-r from-primary to-cyan-400 rounded-full"></div>
+                                    Quantity
+                                </Label>
+                                <div className="flex items-center gap-4">
+                                    <Button
+                                        onClick={handleDecrease}
+                                        className={cn(
+                                            "h-12 w-12 rounded-xl border-2",
+                                            qty <= product.minQty
+                                                ? "border-gray-200 text-gray-400"
+                                                : "border-primary/20 hover:border-primary text-primary bg-primary/5 hover:bg-primary/10",
+                                        )}
+                                        variant="outline"
+                                        disabled={
+                                            isLoading || qty <= product.minQty
+                                        }
+                                    >
+                                        -
+                                    </Button>
+                                    <span className="text-2xl font-bold text-gray-800 min-w-[3rem] text-center">
+                                        {qty}
+                                    </span>
+                                    <Button
+                                        onClick={handleIncrease}
+                                        className="h-12 w-12 rounded-xl border-2 border-primary/20 hover:border-primary text-primary bg-primary/5 hover:bg-primary/10"
+                                        variant="outline"
+                                        disabled={isLoading}
+                                    >
+                                        +
+                                    </Button>
+                                    <span className="text-sm text-gray-500 ml-2">
+                                        Min: {product.minQty} units
+                                    </span>
+                                </div>
+                            </motion.div>
+
+                            {/* Upload Method */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.7 }}
+                                className="space-y-4"
+                            >
+                                <Label className="text-lg font-semibold text-gray-800 flex items-center">
+                                    <div className="h-1 w-5 mr-2 bg-gradient-to-r from-primary to-cyan-400 rounded-full"></div>
+                                    Upload Method
+                                </Label>
+                                <RadioGroup
+                                    defaultValue="UPLOAD"
+                                    className="space-y-3"
+                                    value={uploadType}
+                                    onValueChange={(v) =>
+                                        setUploadType(v as UPLOADVIA)
+                                    }
                                 >
-                                    {option.productAttributeValue}
-                                </Badge>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                                    <div className="flex items-center space-x-3 bg-gray-50 p-4 rounded-xl cursor-pointer hover:bg-gray-100 hover:shadow-md transition-all duration-300 border border-gray-200 group">
+                                        <RadioGroupItem
+                                            value="UPLOAD"
+                                            id="upload"
+                                            className="text-primary"
+                                        />
+                                        <Label
+                                            htmlFor="upload"
+                                            className="flex items-center gap-2 cursor-pointer w-full"
+                                        >
+                                            <div className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300">
+                                                <FileText className="h-5 w-5 text-primary" />
+                                            </div>
+                                            <div>
+                                                <span className="font-medium">
+                                                    Upload File
+                                                </span>
+                                                <p className="text-xs text-gray-500">
+                                                    Upload your design in PDF
+                                                    format
+                                                </p>
+                                            </div>
+                                        </Label>
+                                    </div>
+                                    <div className="flex items-center space-x-3 bg-gray-50 p-4 rounded-xl cursor-pointer hover:bg-gray-100 hover:shadow-md transition-all duration-300 border border-gray-200 group">
+                                        <RadioGroupItem
+                                            value="EMAIL"
+                                            id="email"
+                                            className="text-primary"
+                                        />
+                                        <Label
+                                            htmlFor="email"
+                                            className="flex items-center gap-2 cursor-pointer w-full"
+                                        >
+                                            <div className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors duration-300">
+                                                <Mail className="h-5 w-5 text-primary" />
+                                            </div>
+                                            <div>
+                                                <span className="font-medium">
+                                                    Email Files Later
+                                                </span>
+                                                <p className="text-xs text-gray-500">
+                                                    Additional charge of ₹20
+                                                </p>
+                                            </div>
+                                            <Badge className="ml-auto bg-amber-100 text-amber-700 hover:bg-amber-100">
+                                                +₹20
+                                            </Badge>
+                                        </Label>
+                                    </div>
+                                </RadioGroup>
+                            </motion.div>
 
-                {/* Quantity Selector */}
-                <div className="mt-6 flex items-center justify-center md:justify-start gap-3">
-                    <Button
-                        onClick={handleDecrease}
-                        className="px-4 py-2 text-lg bg-gray-100"
-                        variant="ghost"
-                        disabled={isLoading}
-                    >
-                        -
-                    </Button>
-                    <span className="text-xl md:text-2xl font-bold">{qty}</span>
-                    <Button
-                        onClick={handleIncrease}
-                        className="px-4 py-2 text-lg bg-gray-100"
-                        variant="ghost"
-                        disabled={isLoading}
-                    >
-                        +
-                    </Button>
-                </div>
-                <div className="mt-4">
-                    <h4 className="text-lg font-semibold text-gray-800 space-y-4">
-                        File Upload
-                    </h4>
-                    <RadioGroup
-                        defaultValue="UPLOAD"
-                        className="ml-2"
-                        value={uploadType}
-                        onValueChange={(v) => setUploadType(v as UPLOADVIA)}
-                    >
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="UPLOAD" id="upload" />
-                            <Label htmlFor="upload">Upload</Label>
+                            {/* File Upload */}
+                            {uploadType === "UPLOAD" && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: "auto" }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="mt-6"
+                                >
+                                    <Label className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                        <div className="h-1 w-5 mr-2 bg-gradient-to-r from-primary to-cyan-400 rounded-full"></div>
+                                        Upload Your File
+                                    </Label>
+                                    <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center bg-gray-50 hover:bg-gray-100 transition-all duration-300 group hover:border-primary/20">
+                                        <div className="bg-primary/10 p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                                            <FileText className="w-8 h-8 text-primary" />
+                                        </div>
+                                        <p className="text-sm text-gray-600 mb-4">
+                                            {file
+                                                ? file.name
+                                                : "Drag and drop your file here or click to browse"}
+                                        </p>
+                                        <Input
+                                            type="file"
+                                            onChange={handleFileChange}
+                                            accept=".pdf"
+                                            className="cursor-pointer bg-white hover:bg-gray-100 transition-colors"
+                                            disabled={isLoading}
+                                        />
+                                        <p className="mt-2 text-xs text-gray-500">
+                                            Supported formats: PDF (Max size:
+                                            10MB)
+                                        </p>
+                                    </div>
+                                </motion.div>
+                            )}
                         </div>
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="EMAIL" id="email" />
-                            <Label htmlFor="EMAIL">Email</Label>
-                        </div>
-                    </RadioGroup>
-                </div>
-                {/* File Upload */}
-                {uploadType === "UPLOAD" && (
-                    <div className="mt-6">
-                        <label className="block text-sm font-medium text-gray-700">
-                            Upload File (Required)
-                        </label>
-                        <Input
-                            type="file"
-                            onChange={handleFileChange}
-                            accept=".pdf"
-                            className="mt-2 border border-gray-300 rounded-lg px-4 py-2"
-                            disabled={isLoading}
-                        />
-                    </div>
-                )}
 
-                {/* Checkout Button */}
-                <Button
-                    onClick={handleCheckout}
-                    className="mt-6 w-full py-4 text-lg"
-                    variant="redish"
-                    disabled={isLoading}
-                >
-                    {isLoading ? (
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                    ) : (
-                        "Checkout"
-                    )}
-                </Button>
-            </CardContent>
-        </Card>
+                        {/* Right column - Order summary */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5, delay: 0.5 }}
+                            className="bg-gray-50 p-6 md:p-8 border-t md:border-t-0 md:border-l border-gray-200 relative"
+                        >
+                            {/* Accent corner */}
+                            <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-primary/10 rotate-45 transform origin-top-right"></div>
+                            </div>
+
+                            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                <div className="h-1 w-5 mr-2 bg-gradient-to-r from-primary to-cyan-400 rounded-full"></div>
+                                Order Summary
+                            </h3>
+
+                            <div className="space-y-3 mb-6">
+                                <div className="flex justify-between text-gray-600">
+                                    <span>Base Price</span>
+                                    <span className="flex items-center">
+                                        <IndianRupee className="w-3.5 h-3.5 mr-1" />
+                                        {basePrice.toFixed(2)}
+                                    </span>
+                                </div>
+                                {emailUploadCharge > 0 && (
+                                    <div className="flex justify-between text-gray-600">
+                                        <span>Email Upload Charge</span>
+                                        <span className="flex items-center">
+                                            <IndianRupee className="w-3.5 h-3.5 mr-1" />
+                                            {emailUploadCharge.toFixed(2)}
+                                        </span>
+                                    </div>
+                                )}
+                                <div className="flex justify-between text-gray-600">
+                                    <span>IGST (18%)</span>
+                                    <span className="flex items-center">
+                                        <IndianRupee className="w-3.5 h-3.5 mr-1" />
+                                        {igstAmount.toFixed(2)}
+                                    </span>
+                                </div>
+                                <Separator />
+                                <div className="flex justify-between text-lg font-bold text-gray-900 pt-2">
+                                    <span>Total Amount</span>
+                                    <span className="flex items-center">
+                                        <IndianRupee className="w-4 h-4 mr-1" />
+                                        {totalPrice.toFixed(2)}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Order benefits summary */}
+                            <div className="bg-white p-4 rounded-xl mb-6 border border-gray-200">
+                                <h4 className="font-semibold text-gray-800 mb-2">
+                                    Order includes:
+                                </h4>
+                                <ul className="space-y-2">
+                                    <li className="flex items-center text-sm text-gray-600">
+                                        <Check className="h-4 w-4 text-green-500 mr-2" />
+                                        Premium quality printing
+                                    </li>
+                                    <li className="flex items-center text-sm text-gray-600">
+                                        <Check className="h-4 w-4 text-green-500 mr-2" />
+                                        Professional packaging
+                                    </li>
+                                    <li className="flex items-center text-sm text-gray-600">
+                                        <Check className="h-4 w-4 text-green-500 mr-2" />
+                                        Doorstep delivery
+                                    </li>
+                                </ul>
+                            </div>
+
+                            {/* Checkout Button */}
+                            <Button
+                                onClick={handleCheckout}
+                                className={cn(
+                                    "w-full h-14 text-lg mt-6 relative overflow-hidden group",
+                                    "bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary",
+                                )}
+                                disabled={
+                                    isLoading ||
+                                    (uploadType === "UPLOAD" && !file)
+                                }
+                            >
+                                <div className="absolute inset-0 w-full h-full">
+                                    <div className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                                        <div className="absolute -inset-[400%] animate-[spin_10s_linear_infinite] bg-white/10 h-[50%] aspect-square rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+                                    </div>
+                                </div>
+
+                                <div className="relative">
+                                    {isLoading ? (
+                                        <Loader2 className="w-6 h-6 animate-spin" />
+                                    ) : (
+                                        <div className="flex items-center justify-center gap-2">
+                                            <span>Place Order</span>
+                                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                        </div>
+                                    )}
+                                </div>
+                            </Button>
+
+                            <div className="mt-6 text-center">
+                                <p className="text-xs text-gray-500">
+                                    By placing this order, you agree to our
+                                    <button className="text-primary hover:underline ml-1">
+                                        Terms & Conditions
+                                    </button>
+                                </p>
+                            </div>
+                        </motion.div>
+                    </div>
+                </CardContent>
+            </Card>
+        </motion.div>
     );
 }
