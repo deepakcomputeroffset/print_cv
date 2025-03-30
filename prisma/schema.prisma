@@ -183,7 +183,10 @@ model order {
     customerId    Int
     productItemId Int
     qty           Int
-    amount        Int
+    igst          Float
+    uploadCharge  Float
+    price         Float
+    total         Float
     status        STATUS @default(PENDING)
 
     attachment attachment?

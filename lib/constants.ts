@@ -32,3 +32,4 @@ export const allowedRoleForDispatchManagement: ROLE[] = ["ADMIN", "DISPATCHER"];
 
 // TAX
 export const IGST_TAX_IN_PERCENTAGE = 0.18;
+export const FILE_UPLOAD_EMAIL_CHARGE = 20;

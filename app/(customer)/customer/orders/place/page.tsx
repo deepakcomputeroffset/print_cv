@@ -5,6 +5,7 @@ import { ProductItemType } from "@/types/types";
 import { productAttributeValue } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { Prisma } from "@/lib/prisma";
+import Button from "./components/button";
 
 export default async function PlaceOrderPage({
     searchParams,
@@ -73,12 +74,7 @@ export default async function PlaceOrderPage({
                                 The product you&apos;re looking for doesn&apos;t
                                 exist or has been removed.
                             </p>
-                            <button
-                                onClick={() => window.history.back()}
-                                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                            >
-                                Go Back
-                            </button>
+                            <Button />
                         </div>
                     </div>
                 </div>
@@ -156,12 +152,7 @@ export default async function PlaceOrderPage({
                                 ? error.message
                                 : "An error occurred while processing your request."}
                         </p>
-                        <button
-                            onClick={() => window.history.back()}
-                            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                        >
-                            Go Back
-                        </button>
+                        <Button />
                     </div>
                 </div>
             </div>

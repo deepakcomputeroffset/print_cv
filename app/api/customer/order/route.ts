@@ -160,16 +160,14 @@ export async function POST(request: Request) {
             });
         }
 
-        const totalAmount =
-            getPriceAccordingToCategoryOfCustomer(
-                session.user.customer.customerCategory,
-                {
-                    avgPrice: productItem.avgPrice,
-                    maxPrice: productItem.maxPrice,
-                    minPrice: productItem.minPrice,
-                },
-            ) *
-            (Math.max(qty, productItem?.minQty) / productItem.minQty);
+        const price = getPriceAccordingToCategoryOfCustomer(
+            session.user.customer.customerCategory,
+            {
+                avgPrice: productItem.avgPrice,
+                maxPrice: productItem.maxPrice,
+                minPrice: productItem.minPrice,
+            },
+        );
 
         let fileUrls: string[] | undefined = undefined;
         if (uploadType === "UPLOAD") {
@@ -208,7 +206,8 @@ export async function POST(request: Request) {
                 productItem?.id,
                 productItem.sku,
                 Math.max(qty, productItem?.minQty),
-                totalAmount,
+                productItem?.minQty,
+                price,
                 uploadType === "UPLOAD" ? "UPLOAD" : "EMAIL",
                 fileUrls,
             );

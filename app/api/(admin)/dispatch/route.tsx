@@ -77,14 +77,14 @@ export async function GET(request: Request) {
                     : {},
                 query.minPrice && !isNaN(parseInt(query.minPrice))
                     ? {
-                          amount: {
+                          total: {
                               gte: parseInt(query.minPrice),
                           },
                       }
                     : {},
                 query.maxPrice && !isNaN(parseInt(query.maxPrice))
                     ? {
-                          amount: {
+                          total: {
                               lte: parseInt(query.maxPrice),
                           },
                       }

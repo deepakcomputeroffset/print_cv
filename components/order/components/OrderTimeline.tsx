@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { sourceSerif4 } from "@/lib/font";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
@@ -19,6 +18,7 @@ import {
     Printer,
 } from "lucide-react";
 import { order, job, staff, STATUS, task, taskType } from "@prisma/client";
+import { MotionDiv } from "../../motionDiv";
 
 interface TimelineEvent {
     icon: React.ReactNode;
@@ -46,7 +46,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
     const getTimelineEvents = (
         order: OrderTimelineProps["order"],
     ): TimelineEvent[] => {
-        const baseDate = new Date(order.createdAt);
+        const baseDate = new Date(order?.createdAt);
         const events: TimelineEvent[] = [
             {
                 icon: <ShoppingCart className="h-6 w-6" />,
@@ -65,7 +65,10 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                                 <ClipboardCheck className="h-3.5 w-3.5" />
                                 <span>Completed:</span>
                                 <span className="font-medium text-gray-900">
-                                    {format(baseDate, "MMM d, yyyy h:mm a")}
+                                    {format(
+                                        order?.createdAt,
+                                        "dd MMM yyyy h:mm a",
+                                    )}
                                 </span>
                             </div>
                         </div>
@@ -314,7 +317,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                         const isLast = index === timelineEvents.length - 1;
 
                         return (
-                            <motion.div
+                            <MotionDiv
                                 key={index}
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -328,7 +331,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                                 )}
                             >
                                 <div className="flex items-start relative">
-                                    <motion.div
+                                    <MotionDiv
                                         initial={{ scale: 0.8 }}
                                         animate={{ scale: isActive ? 1 : 0.8 }}
                                         className={cn(
@@ -343,10 +346,10 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                                         )}
                                     >
                                         {event.icon}
-                                    </motion.div>
+                                    </MotionDiv>
 
                                     <div className="ml-6 flex-1">
-                                        <motion.div
+                                        <MotionDiv
                                             initial={{ opacity: 0, y: -10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{
@@ -380,7 +383,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                                             >
                                                 {event.description}
                                             </div>
-                                        </motion.div>
+                                        </MotionDiv>
                                     </div>
                                 </div>
 
@@ -403,7 +406,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                                             />
                                         </div>
                                     )}
-                            </motion.div>
+                            </MotionDiv>
                         );
                     })}
                 </div>

@@ -193,7 +193,7 @@ export const generateInvoice = (order: InvoiceOrder) => {
                 `#${order.id}`,
                 order.qty.toString(),
                 `Product Name: Matte + UV\nPrinting: Single Side Printing + Single Side UV`,
-                `${order.amount.toFixed(2)}-`,
+                `${order.total.toFixed(2)}-`,
             ],
         ],
         theme: "grid",
@@ -217,9 +217,9 @@ export const generateInvoice = (order: InvoiceOrder) => {
     });
 
     // Tax summary rows
-    const taxAmount = order.amount * 0.18; // 18% tax
+    const taxAmount = order?.total * 0.18; // 18% tax
     const shippingCost = 0;
-    const totalAmount = order.amount + taxAmount + shippingCost;
+    const totalAmount = order?.total + taxAmount + shippingCost;
 
     // eslint-disable-next-line
     const tableEndY = (doc as any).lastAutoTable.finalY;

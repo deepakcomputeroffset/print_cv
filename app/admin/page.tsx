@@ -42,7 +42,7 @@ export default async function AdminDashboard() {
         Prisma.order.groupBy({
             by: ["createdAt"],
             _sum: {
-                amount: true,
+                total: true,
             },
             where: {
                 createdAt: {
@@ -62,7 +62,7 @@ export default async function AdminDashboard() {
         }), // Convert index to month name
         total: orders
             .filter((o) => new Date(o.createdAt).getMonth() === index)
-            .reduce((sum, o) => sum + (o._sum?.amount || 0), 0),
+            .reduce((sum, o) => sum + (o._sum?.total || 0), 0),
     }));
 
     return (

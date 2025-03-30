@@ -105,7 +105,7 @@ export default function RecentOrderList({
                                             </TableCell>
                                             <TableCell>{order?.qty}</TableCell>
                                             <TableCell className="font-medium">
-                                                ₹{order?.amount}
+                                                ₹{order?.total}
                                             </TableCell>
                                             <TableCell>
                                                 {format(

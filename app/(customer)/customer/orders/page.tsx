@@ -36,6 +36,7 @@ export default function OrdersPage({
     const { orders, isLoading } = useOrder(params);
     const [searchTerm, setSearchTerm] = useState("");
     const { data } = useSession();
+
     // Filter orders based on search term
     const filteredOrders = orders?.filter(
         (order) =>
@@ -72,8 +73,6 @@ export default function OrdersPage({
                 return null;
         }
     };
-
-    console.log(data);
 
     return (
         <div className="max-w-customHaf lg:max-w-custom mx-auto py-10 px-4 sm:px-6 lg:px-8">
@@ -200,12 +199,17 @@ export default function OrdersPage({
                                                         {order?.qty} units
                                                     </span>
                                                 </div>
+
+                                                {/* Total Amount */}
                                                 <div className="flex justify-between text-sm">
                                                     <span className="text-gray-500 dark:text-gray-400">
-                                                        Amount:
+                                                        Total Amount:
                                                     </span>
                                                     <span className="font-bold text-primary">
-                                                        Rs. {order?.amount}
+                                                        ₹{" "}
+                                                        {order?.total.toFixed(
+                                                            2,
+                                                        )}
                                                     </span>
                                                 </div>
                                                 <div className="flex justify-between text-sm">
@@ -229,37 +233,76 @@ export default function OrdersPage({
                                                     ?.address && (
                                                     <InvoiceButton
                                                         order={{
-                                                            ...order,
+                                                            // Only include the properties needed by InvoiceButton with correct types
+                                                            id: order.id,
+                                                            status: order.status,
+                                                            qty: order.qty,
+                                                            productItemId:
+                                                                order.productItemId,
+                                                            customerId:
+                                                                order.customerId,
+                                                            createdAt:
+                                                                order.createdAt,
+                                                            updatedAt:
+                                                                order.updatedAt,
+                                                            jobId: order.jobId,
+                                                            price: order.price,
+                                                            total: order.total,
+                                                            igst: order.igst,
+                                                            uploadCharge:
+                                                                order.uploadCharge,
+                                                            productItem:
+                                                                order.productItem,
                                                             customer: {
-                                                                ...data?.user
-                                                                    ?.customer,
+                                                                businessName:
+                                                                    data?.user
+                                                                        ?.customer
+                                                                        ?.businessName ||
+                                                                    "",
+                                                                name:
+                                                                    data?.user
+                                                                        ?.customer
+                                                                        ?.name ||
+                                                                    "",
+                                                                phone:
+                                                                    data?.user
+                                                                        ?.customer
+                                                                        ?.phone ||
+                                                                    "",
                                                                 address: {
                                                                     pinCode:
                                                                         data
                                                                             ?.user
                                                                             ?.customer
                                                                             ?.address
-                                                                            ?.pinCode,
-                                                                    line: data
-                                                                        ?.user
-                                                                        ?.customer
-                                                                        ?.address
-                                                                        ?.line,
-                                                                    city: {
-                                                                        name: data
+                                                                            ?.pinCode ||
+                                                                        "",
+                                                                    line:
+                                                                        data
                                                                             ?.user
                                                                             ?.customer
                                                                             ?.address
-                                                                            ?.city
-                                                                            ?.name,
-                                                                        state: {
-                                                                            name: data
+                                                                            ?.line ||
+                                                                        "",
+                                                                    city: {
+                                                                        name:
+                                                                            data
                                                                                 ?.user
                                                                                 ?.customer
                                                                                 ?.address
                                                                                 ?.city
-                                                                                ?.state
-                                                                                ?.name,
+                                                                                ?.name ||
+                                                                            "",
+                                                                        state: {
+                                                                            name:
+                                                                                data
+                                                                                    ?.user
+                                                                                    ?.customer
+                                                                                    ?.address
+                                                                                    ?.city
+                                                                                    ?.state
+                                                                                    ?.name ||
+                                                                                "",
                                                                             country:
                                                                                 {
                                                                                     name:

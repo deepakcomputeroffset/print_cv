@@ -101,8 +101,10 @@ export default async function OrderPage({
                 </div>
             );
         }
+
         return <OrderDetailsPage order={order} />;
     } catch (error) {
+        console.error("Error loading order:", error);
         return (
             <div>
                 <p>

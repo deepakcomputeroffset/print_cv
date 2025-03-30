@@ -28,7 +28,7 @@ export async function GET() {
         return serverResponse({
             status: 200,
             success: true,
-            data: wallet,
+            data: { id: wallet?.id, balance: wallet?.balance },
             message: "wallet fetched successfully.",
         });
     } catch (error) {

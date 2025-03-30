@@ -190,7 +190,10 @@ export const authConfig: AuthOptions = {
                         customerCategory: customer?.customerCategory,
                         wallet: customer?.wallet
                             ? customer?.wallet
-                            : { id: customer.id, balance: 0 },
+                            : {
+                                  id: customer?.wallet?.id as number,
+                                  balance: 0,
+                              },
                         address: customer?.address,
                     },
                     userType: "customer",

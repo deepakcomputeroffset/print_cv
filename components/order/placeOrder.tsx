@@ -28,7 +28,10 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Separator } from "../ui/separator";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-import { IGST_TAX_IN_PERCENTAGE } from "@/lib/constants";
+import {
+    FILE_UPLOAD_EMAIL_CHARGE,
+    IGST_TAX_IN_PERCENTAGE,
+} from "@/lib/constants";
 
 export default function PlaceOrder({
     product,
@@ -54,8 +57,9 @@ export default function PlaceOrder({
 
     // Price calculations with taxes
     const basePrice = product.price * (qty / product?.minQty);
-    const emailUploadCharge = uploadType === "EMAIL" ? 20 : 0;
-    const igstAmount = (basePrice + emailUploadCharge) * IGST_TAX_IN_PERCENTAGE;
+    const emailUploadCharge =
+        uploadType === "EMAIL" ? FILE_UPLOAD_EMAIL_CHARGE : 0;
+    const igstAmount = basePrice * IGST_TAX_IN_PERCENTAGE;
     const totalPrice = basePrice + emailUploadCharge + igstAmount;
 
     const handleIncrease = () => setQty(qty + product.minQty);
@@ -440,6 +444,13 @@ export default function PlaceOrder({
                                         {basePrice.toFixed(2)}
                                     </span>
                                 </div>
+                                <div className="flex justify-between text-gray-600">
+                                    <span>IGST (18%)</span>
+                                    <span className="flex items-center">
+                                        <IndianRupee className="w-3.5 h-3.5 mr-1" />
+                                        {igstAmount.toFixed(2)}
+                                    </span>
+                                </div>
                                 {emailUploadCharge > 0 && (
                                     <div className="flex justify-between text-gray-600">
                                         <span>Email Upload Charge</span>
@@ -449,13 +460,6 @@ export default function PlaceOrder({
                                         </span>
                                     </div>
                                 )}
-                                <div className="flex justify-between text-gray-600">
-                                    <span>IGST (18%)</span>
-                                    <span className="flex items-center">
-                                        <IndianRupee className="w-3.5 h-3.5 mr-1" />
-                                        {igstAmount.toFixed(2)}
-                                    </span>
-                                </div>
                                 <Separator />
                                 <div className="flex justify-between text-lg font-bold text-gray-900 pt-2">
                                     <span>Total Amount</span>

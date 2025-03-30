@@ -260,7 +260,7 @@ export default async function JobPage({
                                         <TableCell>{order.qty}</TableCell>
                                         <TableCell className="flex items-center gap-1">
                                             <IndianRupee className="w-4 h-4" />
-                                            {order.amount}
+                                            {order?.total}
                                         </TableCell>
                                         <TableCell>
                                             <Badge variant="outline">

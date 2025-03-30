@@ -37,7 +37,7 @@ export default function UpiQrCode() {
                         <Button
                             onClick={() => setShowQr(!showQr)}
                             disabled={!isValidAmount}
-                            className="w-full mt-2"
+                            className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white"
                         >
                             Generate QR Code
                         </Button>
