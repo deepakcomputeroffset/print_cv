@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import QRCode from "react-qr-code";
+import { useState, useEffect, useRef } from "react";
+import qrcode from "qrcode";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
@@ -11,7 +11,49 @@ import { X } from "lucide-react";
 export default function UpiQrCode() {
     const [amount, setAmount] = useState("");
     const [showQr, setShowQr] = useState(false);
+    const [qrUrl, setQrUrl] = useState("");
     const isValidAmount = !isNaN(parseFloat(amount)) && parseFloat(amount) > 0;
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    useEffect(() => {
+        if (showQr && isValidAmount && canvasRef.current) {
+            const upiString = `upi://pay?pa=7479796212@upi&pn=AdityaKumar&am=${parseFloat(amount)}`;
+
+            // Generate QR code in canvas
+            qrcode.toCanvas(
+                canvasRef.current,
+                upiString,
+                {
+                    width: 256,
+                    margin: 1,
+                    color: {
+                        dark: "#000000",
+                        light: "#ffffff",
+                    },
+                },
+                (error) => {
+                    if (error)
+                        console.error("Error generating QR code:", error);
+                },
+            );
+
+            // Also generate a data URL for download if needed
+            qrcode.toDataURL(
+                upiString,
+                {
+                    width: 256,
+                    margin: 1,
+                },
+                (err, url) => {
+                    if (err) {
+                        console.error("Error generating QR code URL:", err);
+                        return;
+                    }
+                    setQrUrl(url);
+                },
+            );
+        }
+    }, [showQr, amount, isValidAmount]);
 
     return (
         <div className="flex flex-col items-center justify-center w-full">
@@ -61,16 +103,31 @@ export default function UpiQrCode() {
                             <h2 className="text-lg font-semibold">
                                 Scan QR Code to Pay
                             </h2>
-                            <div className="p-4 bg-white rounded-lg">
-                                <QRCode
-                                    size={256}
-                                    value={`upi://pay?pa=7479796212@upi&pn=AdityaKumar&am=${parseFloat(amount)}`}
+                            <div className="p-4 bg-white rounded-lg flex items-center justify-center">
+                                <canvas
+                                    ref={canvasRef}
                                     className="w-64 h-64"
-                                />
+                                ></canvas>
                             </div>
                             <p className="text-sm text-muted-foreground">
                                 Amount: ₹{parseFloat(amount).toFixed(2)}
                             </p>
+                            <Button
+                                onClick={() => {
+                                    if (qrUrl) {
+                                        const a = document.createElement("a");
+                                        a.href = qrUrl;
+                                        a.download = `payment-qr-${amount}.png`;
+                                        document.body.appendChild(a);
+                                        a.click();
+                                        document.body.removeChild(a);
+                                    }
+                                }}
+                                size="sm"
+                                variant="outline"
+                            >
+                                Download QR Code
+                            </Button>
                         </div>
                     </Card>
                 )}

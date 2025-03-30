@@ -109,7 +109,7 @@ export default async function CustomerDashboard() {
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
-            <div className="bg-gradient-to-r from-gray-900 to-blue-800 pb-16">
+            <div className="bg-gradient-to-r from-gray-900 to-purple-800 pb-16">
                 <div className="max-w-customHaf lg:max-w-custom mx-auto px-4 pt-10">
                     <div className="py-6">
                         <h1
