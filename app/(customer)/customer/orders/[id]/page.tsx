@@ -48,14 +48,12 @@ export default async function OrderPage({
                     },
                 },
                 productItem: {
-                    select: {
-                        productId: true,
-                        sku: true,
+                    include: {
                         product: {
                             select: {
+                                name: true,
                                 description: true,
                                 imageUrl: true,
-                                name: true,
                                 category: {
                                     select: {
                                         name: true,

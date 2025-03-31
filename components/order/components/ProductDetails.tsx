@@ -3,23 +3,14 @@ import Link from "next/link";
 import { FileText, ExternalLink, ReceiptText, Package } from "lucide-react";
 import { sourceSerif4 } from "@/lib/font";
 import { cn } from "@/lib/utils";
-import { attachment, order, UPLOADVIA } from "@prisma/client";
+import { attachment, order, productItem, UPLOADVIA } from "@prisma/client";
 import { InvoiceButton } from "./InvoiceButton";
+import { ProductTypeOnlyWithPrice } from "@/types/types";
 
 interface ProductDetailsProps {
     order: order & {
-        productItem: {
-            productId: number;
-            sku: string;
-            product: {
-                description: string;
-                imageUrl: string[];
-                name: string;
-                category: {
-                    name: string;
-                    id: number;
-                };
-            };
+        productItem: productItem & {
+            product: ProductTypeOnlyWithPrice;
         };
         customer: {
             address: {

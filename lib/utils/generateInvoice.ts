@@ -1,18 +1,15 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import { order } from "@prisma/client";
+import { order, productItem } from "@prisma/client";
 import qrcode from "qrcode";
+import { IGST_TAX_IN_PERCENTAGE } from "../constants";
+import { ProductTypeOnlyWithPrice } from "@/types/types";
 
 interface InvoiceOrder extends order {
-    productItem: {
-        productId: number;
-        sku: string;
-        product: {
-            name: string;
-            description?: string;
-        };
+    productItem: productItem & {
+        product: ProductTypeOnlyWithPrice;
     };
-    customer: {
+    customer?: {
         businessName: string;
         name: string;
         phone: string;
@@ -57,7 +54,7 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     doc.setTextColor(50, 50, 50);
     doc.setFontSize(20);
     doc.setFont("helvetica", "bold");
-    doc.text("PrintMasters", margin, 15);
+    doc.text("Printify", margin, 15);
 
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
@@ -120,7 +117,7 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     doc.setFontSize(9);
     doc.setFont("helvetica", "normal");
 
-    const customerName = order.customer.name || "Customer";
+    const customerName = order?.customer?.name || "Customer";
     doc.text(`Name: ${customerName}`, margin + 5, 65);
 
     // Format address
@@ -154,12 +151,12 @@ export const generateInvoice = async (order: InvoiceOrder) => {
 
         // Position remaining details
         doc.text(
-            `Phone: ${order.customer.phone || "N/A"}`,
+            `Phone: ${order?.customer?.phone || "N/A"}`,
             margin + 5,
             cityStateY + 6,
         );
         doc.text(
-            `Email: ${order.customer.businessName || "N/A"}`,
+            `Email: ${order?.customer?.businessName || "N/A"}`,
             margin + 5,
             cityStateY + 12,
         );
@@ -167,9 +164,9 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     } else {
         doc.text(addressText, margin + 5, 70);
         doc.text(cityStateText, margin + 5, 76);
-        doc.text(`Phone: ${order.customer.phone || "N/A"}`, margin + 5, 82);
+        doc.text(`Phone: ${order?.customer?.phone || "N/A"}`, margin + 5, 82);
         doc.text(
-            `Email: ${order.customer.businessName || "N/A"}`,
+            `Email: ${order?.customer?.businessName || "N/A"}`,
             margin + 5,
             88,
         );
@@ -242,16 +239,14 @@ export const generateInvoice = async (order: InvoiceOrder) => {
         body: [
             [
                 "1",
-                // Format product details with proper spacing and without breaking into small portions
+                // Format product details with SKU in parentheses
                 {
-                    content: `${order.productItem.product.name || "Matte + UV"}
-${order.productItem.product.description || "Single Side Printing + Single Side UV"}
-SKU: ${order.productItem.sku}`,
+                    content: `${order.productItem.product.name} (${order.productItem.sku})`,
                     styles: { cellWidth: "auto", minCellWidth: 70 },
                 },
                 order.qty.toString(),
+                `Rs. ${(order.price / (order.qty / order?.productItem?.minQty)).toFixed(2)}`,
                 `Rs. ${(order.price || 0).toFixed(2)}`,
-                `Rs. ${(order.total || 0).toFixed(2)}`,
             ],
         ],
         theme: "grid",
@@ -259,7 +254,7 @@ SKU: ${order.productItem.sku}`,
             fontSize: 9,
             cellPadding: 5,
             lineColor: [220, 220, 220],
-            overflow: "linebreak", // Ensure text breaks properly
+            overflow: "linebreak",
         },
         headStyles: {
             fillColor: [41, 98, 255],
@@ -268,38 +263,40 @@ SKU: ${order.productItem.sku}`,
             halign: "center",
         },
         columnStyles: {
-            0: { halign: "center", cellWidth: 20 }, // Wider S. No. column
-            1: { fontStyle: "normal", cellWidth: "auto", halign: "left" }, // Auto width for product details
+            0: { halign: "center", cellWidth: 20 },
+            1: { fontStyle: "normal", cellWidth: "auto", halign: "left" },
             2: { halign: "center", cellWidth: 25 },
             3: { halign: "right", cellWidth: 30 },
             4: { halign: "right", cellWidth: 30 },
         },
         didParseCell: function (data) {
-            // Ensure product details column has proper formatting
             if (data.section === "body" && data.column.index === 1) {
-                data.cell.styles.minCellHeight = 30; // Ensure minimum height
+                data.cell.styles.minCellHeight = 20;
             }
         },
     });
 
-    // Calculate tax breakdown
-    const subtotal = order?.total || 0;
-    const cgst = subtotal * 0.09; // 9% CGST
-    const sgst = subtotal * 0.09; // 9% SGST
+    // Calculate tax breakdown with IGST instead of CGST/SGST
+
+    const subtotal = order?.price;
+    const igst = subtotal * IGST_TAX_IN_PERCENTAGE;
+    const uploadCharge = order?.uploadCharge;
+    const totalAmount = subtotal + igst + uploadCharge;
     const shippingCost = 0;
-    const totalAmount = subtotal + cgst + sgst + shippingCost;
 
     // eslint-disable-next-line
     const tableEndY = (doc as any).lastAutoTable.finalY;
 
-    // TAX BREAKDOWN TABLE with more detailed information
+    // TAX BREAKDOWN TABLE with IGST
     autoTable(doc, {
         startY: tableEndY + 5,
         body: [
             ["", "", "", "Subtotal", `Rs. ${subtotal.toFixed(2)}`],
-            ["", "", "", "CGST (9%)", `Rs. ${cgst.toFixed(2)}`],
-            ["", "", "", "SGST (9%)", `Rs. ${sgst.toFixed(2)}`],
+            ["", "", "", "IGST (18%)", `Rs. ${igst.toFixed(2)}`],
+            ["", "", "", "CGST (0%)", "Rs. 0.00"],
+            ["", "", "", "SGST (0%)", "Rs. 0.00"],
             ["", "", "", "Shipping Charges", `Rs. ${shippingCost.toFixed(2)}`],
+            ["", "", "", "Upload Charges", `Rs. ${uploadCharge.toFixed(2)}`],
             ["", "", "", "Total Amount", `Rs. ${totalAmount.toFixed(2)}`],
         ],
         theme: "grid",
@@ -309,7 +306,7 @@ SKU: ${order.productItem.sku}`,
             lineColor: [220, 220, 220],
         },
         columnStyles: {
-            0: { cellWidth: 20 }, // Matched width to the S.No. column
+            0: { cellWidth: 20 },
             1: { cellWidth: "auto" },
             2: { cellWidth: 25 },
             3: { fontStyle: "bold", cellWidth: 60 },
@@ -326,120 +323,120 @@ SKU: ${order.productItem.sku}`,
     doc.setFontSize(9);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(80, 80, 80);
-    doc.text("Amount in words:", margin, taxTableEndY + 10);
+    doc.text("Amount in words:", margin, taxTableEndY + 15);
     doc.setFont("helvetica", "normal");
     doc.text(
         `Rupees ${numberToWords(totalAmount)} only`,
         margin + 30,
-        taxTableEndY + 10,
+        taxTableEndY + 15,
     );
 
-    // BANK DETAILS & TERMS CONDITIONS SECTION with proper spacing
-    const detailsY = taxTableEndY + 20;
-    const boxHeight = 55;
+    // BANK DETAILS & TERMS CONDITIONS SECTION with increased spacing
+    // const detailsY = taxTableEndY + 30;
+    // const boxHeight = 55;
 
     // Bank Details (left side) in a box with fixed width
-    doc.setFillColor(248, 249, 250);
-    doc.roundedRect(margin, detailsY, columnWidth, boxHeight, 2, 2, "F");
+    // doc.setFillColor(248, 249, 250);
+    // doc.roundedRect(margin, detailsY, columnWidth, boxHeight, 2, 2, "F");
 
-    doc.setFontSize(11);
-    doc.setFont("helvetica", "bold");
-    doc.setTextColor(41, 98, 255);
-    doc.text("BANK DETAILS", margin + 5, detailsY + 8);
+    // doc.setFontSize(11);
+    // doc.setFont("helvetica", "bold");
+    // doc.setTextColor(41, 98, 255);
+    // doc.text("BANK DETAILS", margin + 5, detailsY + 8);
 
-    doc.setTextColor(80, 80, 80);
-    doc.setFontSize(9);
-    doc.setFont("helvetica", "normal");
+    // doc.setTextColor(80, 80, 80);
+    // doc.setFontSize(9);
+    // doc.setFont("helvetica", "normal");
 
     // Break bank details into smaller lines to avoid overlap
-    doc.text("Bank Name: Union Bank Of India", margin + 5, detailsY + 16);
-    doc.text(
-        "Branch Address: Plot No-8, Vivek Vihar,",
-        margin + 5,
-        detailsY + 24,
-    );
-    doc.text(
-        "New Sanganer Road, Pt-Shyam Nagar, Jaipur",
-        margin + 5,
-        detailsY + 32,
-    );
-    doc.text(
-        "Account Name: Prestige Printing Press",
-        margin + 5,
-        detailsY + 40,
-    );
-    doc.text("Account Number: 510101007070716", margin + 5, detailsY + 48);
+    // doc.text("Bank Name: Union Bank Of India", margin + 5, detailsY + 16);
+    // doc.text(
+    //     "Branch Address: Plot No-8, Vivek Vihar,",
+    //     margin + 5,
+    //     detailsY + 24,
+    // );
+    // doc.text(
+    //     "New Sanganer Road, Pt-Shyam Nagar, Jaipur",
+    //     margin + 5,
+    //     detailsY + 32,
+    // );
+    // doc.text(
+    //     "Account Name: Prestige Printing Press",
+    //     margin + 5,
+    //     detailsY + 40,
+    // );
+    // doc.text("Account Number: 510101007070716", margin + 5, detailsY + 48);
 
     // Terms and Conditions (right side) in a box
-    doc.setFillColor(248, 249, 250);
-    doc.roundedRect(rightColumnX, detailsY, columnWidth, boxHeight, 2, 2, "F");
+    // doc.setFillColor(248, 249, 250);
+    // doc.roundedRect(rightColumnX, detailsY, columnWidth, boxHeight, 2, 2, "F");
 
-    doc.setFontSize(11);
-    doc.setFont("helvetica", "bold");
-    doc.setTextColor(41, 98, 255);
-    doc.text("TERMS AND CONDITIONS", rightColumnX + 5, detailsY + 8);
+    // doc.setFontSize(11);
+    // doc.setFont("helvetica", "bold");
+    // doc.setTextColor(41, 98, 255);
+    // doc.text("TERMS AND CONDITIONS", rightColumnX + 5, detailsY + 8);
 
-    doc.setTextColor(80, 80, 80);
-    doc.setFontSize(9);
-    doc.setFont("helvetica", "normal");
+    // doc.setTextColor(80, 80, 80);
+    // doc.setFontSize(9);
+    // doc.setFont("helvetica", "normal");
 
-    doc.text(
-        "1. Goods once sold will not be taken back.",
-        rightColumnX + 5,
-        detailsY + 16,
-    );
-    doc.text(
-        "2. Warranty as per manufacturer's policy.",
-        rightColumnX + 5,
-        detailsY + 24,
-    );
-    doc.text("3. Subject to Jurisdiction.", rightColumnX + 5, detailsY + 32);
-    doc.text(
-        "4. Payment to be made within 30 days.",
-        rightColumnX + 5,
-        detailsY + 40,
-    );
-    doc.text("5. E. & O.E.", rightColumnX + 5, detailsY + 48);
+    // doc.text(
+    //     "1. Goods once sold will not be taken back.",
+    //     rightColumnX + 5,
+    //     detailsY + 16,
+    // );
+    // doc.text(
+    //     "2. Warranty as per manufacturer's policy.",
+    //     rightColumnX + 5,
+    //     detailsY + 24,
+    // );
+    // doc.text("3. Subject to Jurisdiction.", rightColumnX + 5, detailsY + 32);
+    // doc.text(
+    //     "4. Payment to be made within 30 days.",
+    //     rightColumnX + 5,
+    //     detailsY + 40,
+    // );
+    // doc.text("5. E. & O.E.", rightColumnX + 5, detailsY + 48);
 
     // FOOTER SECTION
-    const footerY = detailsY + boxHeight + 10;
+    // const footerY = detailsY + boxHeight + 20;
 
     // Signature line on right side
-    doc.setDrawColor(180, 180, 180);
-    doc.line(
-        rightColumnX + 20,
-        footerY,
-        rightColumnX + columnWidth - 5,
-        footerY,
-    );
-    doc.setFontSize(9);
-    doc.setTextColor(80, 80, 80);
-    doc.text(
-        "Authorized Signatory",
-        rightColumnX + columnWidth - 40,
-        footerY + 6,
-    );
+    // doc.setDrawColor(180, 180, 180);
+    // doc.line(
+    //     rightColumnX + 20,
+    //     footerY,
+    //     rightColumnX + columnWidth - 5,
+    //     footerY,
+    // );
+    // doc.setFontSize(9);
+    // doc.setTextColor(80, 80, 80);
+    // doc.text(
+    //     "Authorized Signatory",
+    //     rightColumnX + columnWidth - 40,
+    //     footerY + 6,
+    // );
 
-    // Certification text (center aligned)
-    doc.setFontSize(8);
-    doc.setFont("helvetica", "italic");
-    doc.setTextColor(120, 120, 120);
-    doc.text(
-        "Certified that particulars given above are true and correct. This is a computer generated invoice.",
-        pageWidth / 2,
-        footerY + 20,
-        { align: "center" },
-    );
+    // Certification text (center aligned) with increased bottom margin
+    // doc.setFontSize(8);
+    // doc.setFont("helvetica", "italic");
+    // doc.setTextColor(120, 120, 120);
+    // doc.text(
+    //     "Certified that particulars given above are true and correct. This is a computer generated invoice.",
+    //     pageWidth / 2,
+    //     footerY + 25,
+    //     { align: "center" },
+    // );
 
-    // Print date
-    const printDate = new Date().toLocaleDateString("en-US", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-    });
-    doc.text(`Generated on ${printDate}`, pageWidth / 2, footerY + 25, {
-        align: "center",
-    });
+    // Print date with increased bottom margin
+    // const printDate = new Date().toLocaleDateString("en-US", {
+    //     day: "2-digit",
+    //     month: "long",
+    //     year: "numeric",
+    // });
+    // doc.text(`Generated on ${printDate}`, pageWidth / 2, footerY + 35, {
+    //     align: "center",
+    // });
 
     // Save the PDF with a proper name
     const invoiceNumber = `Tax_Invoice_${order.id}_${new Date().toISOString().slice(0, 10)}`;

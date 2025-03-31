@@ -37,14 +37,14 @@ export default function OrdersPage({
     const [searchTerm, setSearchTerm] = useState("");
     const { data } = useSession();
 
-    // Filter orders based on search term
-    const filteredOrders = orders?.filter(
-        (order) =>
-            order.id.toString().includes(searchTerm) ||
-            order?.productItem?.product?.name
-                ?.toLowerCase()
-                .includes(searchTerm.toLowerCase()),
-    );
+    // // Filter orders based on search term
+    // const filteredOrders = orders?.filter(
+    //     (order) =>
+    //         order.id.toString().includes(searchTerm) ||
+    //         order?.productItem?.product?.name
+    //             ?.toLowerCase()
+    //             .includes(searchTerm.toLowerCase()),
+    // );
 
     const getStatusClass = (status: string) => {
         switch (status) {
@@ -141,7 +141,7 @@ export default function OrdersPage({
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {filteredOrders?.map((order, index) => (
+                            {orders?.map((order, index) => (
                                 <motion.div
                                     key={order.id}
                                     initial={{ opacity: 0, y: 20 }}
@@ -233,26 +233,7 @@ export default function OrdersPage({
                                                     ?.address && (
                                                     <InvoiceButton
                                                         order={{
-                                                            // Only include the properties needed by InvoiceButton with correct types
-                                                            id: order.id,
-                                                            status: order.status,
-                                                            qty: order.qty,
-                                                            productItemId:
-                                                                order.productItemId,
-                                                            customerId:
-                                                                order.customerId,
-                                                            createdAt:
-                                                                order.createdAt,
-                                                            updatedAt:
-                                                                order.updatedAt,
-                                                            jobId: order.jobId,
-                                                            price: order.price,
-                                                            total: order.total,
-                                                            igst: order.igst,
-                                                            uploadCharge:
-                                                                order.uploadCharge,
-                                                            productItem:
-                                                                order.productItem,
+                                                            ...order,
                                                             customer: {
                                                                 businessName:
                                                                     data?.user

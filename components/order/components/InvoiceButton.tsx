@@ -2,19 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import { FileDown, Check } from "lucide-react";
-import { order } from "@prisma/client";
+import { order, productItem } from "@prisma/client";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { ProductTypeOnlyWithPrice } from "@/types/types";
 
 interface InvoiceButtonProps {
     order: order & {
-        productItem: {
-            productId: number;
-            sku: string;
-            product: {
-                name: string;
-            };
+        productItem: productItem & {
+            product: ProductTypeOnlyWithPrice;
         };
         customer?: {
             businessName: string;
@@ -54,7 +51,7 @@ export function InvoiceButton({ order }: InvoiceButtonProps) {
                 return;
             }
             //  eslint-disable-next-line
-            await generateInvoice(order as any);
+            await generateInvoice(order);
 
             // Show success state for 2 seconds
             setIsSuccess(true);
