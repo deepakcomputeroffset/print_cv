@@ -15,9 +15,7 @@ export async function middleware(request: NextRequest) {
             if (token?.userType === "staff")
                 return NextResponse.redirect(new URL("/admin", request.url));
             else if (token?.userType === "customer")
-                return NextResponse.redirect(
-                    new URL("/categories", request.url),
-                );
+                return NextResponse.redirect(new URL("/", request.url));
         }
 
         // Block non-admin users from accessing the admin panel

@@ -50,7 +50,6 @@ export function InvoiceButton({ order }: InvoiceButtonProps) {
                 );
                 return;
             }
-            //  eslint-disable-next-line
             await generateInvoice(order);
 
             // Show success state for 2 seconds

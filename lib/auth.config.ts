@@ -149,75 +149,53 @@ export const authConfig: AuthOptions = {
             }
 
             if (token.userType === "customer") {
-                const customer = await Prisma?.customer?.findUnique({
-                    where: {
-                        phone: token?.customer?.phone,
-                        isBanned: false,
-                    },
-                    include: {
-                        wallet: {
-                            select: {
-                                balance: true,
-                                id: true,
-                            },
-                        },
-                        address: {
-                            include: {
-                                customer: {
-                                    include: {
-                                        address: true,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                });
-                if (!customer) {
-                    session.user.customer = undefined;
-                    session.user.staff = undefined;
-                    session.user.userType = undefined;
-                    return session;
-                }
+                // const customer = await Prisma?.customer?.findUnique({
+                //     where: {
+                //         phone: token?.customer?.phone,
+                //         isBanned: false,
+                //     },
+                //     include: {
+                //         wallet: {
+                //             select: {
+                //                 balance: true,
+                //                 id: true,
+                //             },
+                //         },
+                //         address: {
+                //             include: {
+                //                 customer: {
+                //                     include: {
+                //                         address: true,
+                //                     },
+                //                 },
+                //             },
+                //         },
+                //     },
+                // });
+                // if (!customer) {
+                //     session.user.customer = undefined;
+                //     session.user.staff = undefined;
+                //     session.user.userType = undefined;
+                //     return session;
+                // }
 
                 session.user = {
-                    customer: {
-                        email: customer?.email,
-                        name: customer?.name,
-                        businessName: customer?.businessName,
-                        phone: customer?.phone,
-                        isBanned: customer?.isBanned,
-                        id: customer?.id,
-                        customerCategory: customer?.customerCategory,
-                        wallet: customer?.wallet
-                            ? customer?.wallet
-                            : {
-                                  id: customer?.wallet?.id as number,
-                                  balance: 0,
-                              },
-                        address: customer?.address,
-                    },
+                    customer: token.customer,
                     userType: "customer",
                     staff: undefined,
                 };
             } else if (token.userType === "staff") {
-                const staff = await Prisma.staff.findUnique({
-                    where: { id: token?.staff?.id },
-                });
-                if (!staff || staff?.isBanned) {
-                    session.user.customer = undefined;
-                    session.user.staff = undefined;
-                    session.user.userType = undefined;
-                    return session;
-                }
+                // const staff = await Prisma.staff.findUnique({
+                //     where: { id: token?.staff?.id },
+                // });
+                // if (!staff || staff?.isBanned) {
+                //     session.user.customer = undefined;
+                //     session.user.staff = undefined;
+                //     session.user.userType = undefined;
+                //     return session;
+                // }
                 session.user = {
-                    staff: {
-                        email: staff?.email,
-                        id: staff.id,
-                        isBanned: staff.isBanned,
-                        name: staff.name,
-                        phone: staff.phone,
-                        role: staff.role,
-                    },
+                    staff: token?.staff,
                     customer: undefined,
                     userType: "staff",
                 };
