@@ -1,13 +1,12 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import { order, productItem } from "@prisma/client";
+import { order, product, productItem } from "@prisma/client";
 import qrcode from "qrcode";
 import { IGST_TAX_IN_PERCENTAGE } from "../constants";
-import { ProductTypeOnlyWithPrice } from "@/types/types";
 
 interface InvoiceOrder extends order {
     productItem: productItem & {
-        product: ProductTypeOnlyWithPrice;
+        product: product;
     };
     customer?: {
         businessName: string;

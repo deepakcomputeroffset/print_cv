@@ -49,19 +49,7 @@ export default async function OrderPage({
                 },
                 productItem: {
                     include: {
-                        product: {
-                            select: {
-                                name: true,
-                                description: true,
-                                imageUrl: true,
-                                category: {
-                                    select: {
-                                        name: true,
-                                        id: true,
-                                    },
-                                },
-                            },
-                        },
+                        product: true,
                     },
                 },
                 job: {

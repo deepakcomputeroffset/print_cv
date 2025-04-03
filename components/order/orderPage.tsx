@@ -1,5 +1,13 @@
+"use client";
 import Link from "next/link";
-import { ArrowLeft, FileText, ReceiptText, ExternalLink } from "lucide-react";
+import {
+    ArrowLeft,
+    FileText,
+    ReceiptText,
+    ExternalLink,
+    XCircle,
+    Loader2,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -9,6 +17,10 @@ import { getStatusColor } from "@/lib/getStatusColor";
 import { ProductDetails } from "./components/ProductDetails";
 import { DeliveryDetails } from "./components/DeliveryDetails";
 import { OrderTimeline } from "./components/OrderTimeline";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { cancelOrder } from "@/lib/api/order";
 import {
     order,
     job,
@@ -17,81 +29,88 @@ import {
     taskType,
     attachment,
     UPLOADVIA,
+    product,
+    productItem,
 } from "@prisma/client";
 import { MotionDiv } from "../motionDiv";
-
-// This type ensures that all Decimal values are converted to numbers
-type SerializedOrder = Omit<
-    order,
-    "price" | "total" | "igst" | "uploadCharge"
-> & {
-    price: number;
-    total: number;
-    igst: number;
-    uploadCharge: number;
-    productItem: {
-        productId: number;
-        sku: string;
-        product: {
-            description: string;
-            imageUrl: string[];
-            name: string;
-            category: {
-                name: string;
-                id: number;
-            };
-        };
-    };
-    customer: {
-        address: {
-            line?: string;
-            city?: {
-                name?: string;
-                state?: {
-                    name?: string;
-                    country: {
-                        name: string;
-                    };
-                };
-            };
-            pinCode: string;
-        } | null;
-        businessName: string;
-        name: string;
-        phone: string;
-    };
-    job:
-        | (job & {
-              staff: Pick<staff, "id" | "name"> | null;
-              tasks: (task & {
-                  taskType: taskType | null;
-                  assignee: Pick<staff, "id" | "name"> | null;
-              })[];
-          })
-        | null;
-    attachment:
-        | (attachment & {
-              id: number;
-              customerId: number | null;
-              createdAt: Date;
-              updatedAt: Date;
-              orderId: number;
-              uploadVia: UPLOADVIA;
-              urls: string[];
-              uploadedById: number | null;
-          })
-        | null;
-};
+import { useState } from "react";
 
 interface OrderDetailsPageProps {
-    order: SerializedOrder;
+    order: order & {
+        productItem: productItem & {
+            product: product;
+        };
+        customer: {
+            address: {
+                line?: string;
+                city?: {
+                    name?: string;
+                    state?: {
+                        name?: string;
+                        country: {
+                            name: string;
+                        };
+                    };
+                };
+                pinCode: string;
+            } | null;
+            businessName: string;
+            name: string;
+            phone: string;
+        };
+        job:
+            | (job & {
+                  staff: Pick<staff, "id" | "name"> | null;
+                  tasks: (task & {
+                      taskType: taskType | null;
+                      assignee: Pick<staff, "id" | "name"> | null;
+                  })[];
+              })
+            | null;
+        attachment:
+            | (attachment & {
+                  id: number;
+                  customerId: number | null;
+                  createdAt: Date;
+                  updatedAt: Date;
+                  orderId: number;
+                  uploadVia: UPLOADVIA;
+                  urls: string[];
+                  uploadedById: number | null;
+              })
+            | null;
+    };
 }
 
 export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
-    // Safe casting to work with child components that expect Decimal types
-    // In reality, our order object has number values instead of Decimal objects
-    // eslint-disable-next-line
-    const orderWithCompatibleTypes = order as any;
+    const router = useRouter();
+    const [isCancelling, setIsCancelling] = useState(false);
+
+    const handleCancelOrder = async () => {
+        try {
+            setIsCancelling(true);
+            const response = await cancelOrder(order.id);
+
+            if (!response.data.success) {
+                throw new Error(
+                    response.data.error || "Failed to cancel order",
+                );
+            }
+
+            toast.success(
+                response.data.message || "Order cancelled successfully",
+            );
+            router.refresh();
+        } catch (error) {
+            toast.error(
+                error instanceof Error
+                    ? error.message
+                    : "Failed to cancel order",
+            );
+        } finally {
+            setIsCancelling(false);
+        }
+    };
 
     return (
         <MotionDiv
@@ -100,15 +119,37 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
             transition={{ duration: 0.5 }}
             className="max-w-customHaf lg:max-w-custom mx-auto py-8"
         >
-            <Link
-                href="/customer/orders"
-                className="flex items-center text-primary hover:text-primary/80 transition-colors mb-8 group"
-            >
-                <div className="bg-primary/5 p-1.5 rounded-full group-hover:bg-primary/10 transition-colors mr-2">
-                    <ArrowLeft className="h-4 w-4" />
-                </div>
-                <span className="font-medium">Back to Orders</span>
-            </Link>
+            <div className="flex justify-between items-center mb-8">
+                <Link
+                    href="/customer/orders"
+                    className="flex items-center text-primary hover:text-primary/80 transition-colors group"
+                >
+                    <div className="bg-primary/5 p-1.5 rounded-full group-hover:bg-primary/10 transition-colors mr-2">
+                        <ArrowLeft className="h-4 w-4" />
+                    </div>
+                    <span className="font-medium">Back to Orders</span>
+                </Link>
+                {order.status === "PENDING" && (
+                    <Button
+                        variant="destructive"
+                        onClick={handleCancelOrder}
+                        disabled={isCancelling}
+                        className="flex items-center gap-2"
+                    >
+                        {isCancelling ? (
+                            <>
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                                Cancelling...
+                            </>
+                        ) : (
+                            <>
+                                <XCircle className="h-4 w-4" />
+                                Cancel Order
+                            </>
+                        )}
+                    </Button>
+                )}
+            </div>
 
             <div className="space-y-10">
                 <MotionDiv
@@ -159,12 +200,8 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                                 </div>
 
                                 <div className="grid md:grid-cols-2 gap-10">
-                                    <ProductDetails
-                                        order={orderWithCompatibleTypes}
-                                    />
-                                    <DeliveryDetails
-                                        order={orderWithCompatibleTypes}
-                                    />
+                                    <ProductDetails order={order} />
+                                    <DeliveryDetails order={order} />
                                 </div>
                             </div>
                         </div>
@@ -177,7 +214,7 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
                     <Card className="overflow-hidden border-0 shadow-md rounded-xl bg-white">
-                        <OrderTimeline order={orderWithCompatibleTypes} />
+                        <OrderTimeline order={order} />
                     </Card>
                 </MotionDiv>
 

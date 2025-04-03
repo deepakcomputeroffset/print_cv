@@ -3,14 +3,19 @@ import Link from "next/link";
 import { FileText, ExternalLink, ReceiptText, Package } from "lucide-react";
 import { sourceSerif4 } from "@/lib/font";
 import { cn } from "@/lib/utils";
-import { attachment, order, productItem, UPLOADVIA } from "@prisma/client";
+import {
+    attachment,
+    order,
+    product,
+    productItem,
+    UPLOADVIA,
+} from "@prisma/client";
 import { InvoiceButton } from "./InvoiceButton";
-import { ProductTypeOnlyWithPrice } from "@/types/types";
 
 interface ProductDetailsProps {
     order: order & {
         productItem: productItem & {
-            product: ProductTypeOnlyWithPrice;
+            product: product;
         };
         customer: {
             address: {
@@ -47,42 +52,42 @@ interface ProductDetailsProps {
 
 // Helper function to safely handle Decimal or number values
 // eslint-disable-next-line
-const formatTotalAmount = (value: any): string => {
-    // Handle Date objects - should not be processed
-    if (value instanceof Date) {
-        console.error("Date object passed to formatTotalAmount");
-        return "0.00";
-    }
+// const formatTotalAmount = (value: any): string => {
+//     // Handle Date objects - should not be processed
+//     if (value instanceof Date) {
+//         console.error("Date object passed to formatTotalAmount");
+//         return "0.00";
+//     }
 
-    if (value === null || value === undefined) return "0.00";
+//     if (value === null || value === undefined) return "0.00";
 
-    try {
-        // Handle Decimal objects (with toNumber method)
-        if (
-            typeof value === "object" &&
-            value !== null &&
-            typeof value.toNumber === "function"
-        ) {
-            return value.toNumber().toFixed(2);
-        }
+//     try {
+//         // Handle Decimal objects (with toNumber method)
+//         if (
+//             typeof value === "object" &&
+//             value !== null &&
+//             typeof value.toNumber === "function"
+//         ) {
+//             return value.toNumber().toFixed(2);
+//         }
 
-        // Handle regular numbers
-        if (typeof value === "number") {
-            return value.toFixed(2);
-        }
+//         // Handle regular numbers
+//         if (typeof value === "number") {
+//             return value.toFixed(2);
+//         }
 
-        // Try parsing as number if it's a string
-        if (typeof value === "string") {
-            const parsed = parseFloat(value);
-            return isNaN(parsed) ? "0.00" : parsed.toFixed(2);
-        }
+//         // Try parsing as number if it's a string
+//         if (typeof value === "string") {
+//             const parsed = parseFloat(value);
+//             return isNaN(parsed) ? "0.00" : parsed.toFixed(2);
+//         }
 
-        return "0.00";
-    } catch (e) {
-        console.error("Error formatting amount:", e);
-        return "0.00";
-    }
-};
+//         return "0.00";
+//     } catch (e) {
+//         console.error("Error formatting amount:", e);
+//         return "0.00";
+//     }
+// };
 
 export function ProductDetails({ order }: ProductDetailsProps) {
     return (
@@ -98,7 +103,9 @@ export function ProductDetails({ order }: ProductDetailsProps) {
                         <Package className="h-5 w-5 mr-2 text-primary/70" />
                         Product Details
                     </h2>
-                    <InvoiceButton order={order} />
+                    {order.status === "DISPATCHED" && (
+                        <InvoiceButton order={order} />
+                    )}
                 </div>
 
                 <div className="bg-gray-50 rounded-xl overflow-hidden p-4">
@@ -140,7 +147,7 @@ export function ProductDetails({ order }: ProductDetailsProps) {
                         <div className="flex justify-between items-center pb-2 border-b border-gray-100">
                             <span className="text-gray-600">Base Price</span>
                             <span className="font-medium text-gray-800">
-                                ₹{formatTotalAmount(order?.price)}
+                                ₹{order?.price}
                             </span>
                         </div>
 
@@ -152,7 +159,7 @@ export function ProductDetails({ order }: ProductDetailsProps) {
                                 {(() => {
                                     const basePrice = order?.price || 0;
                                     const igstAmount = basePrice * 0.18;
-                                    return formatTotalAmount(igstAmount);
+                                    return igstAmount;
                                 })()}
                             </span>
                         </div>
@@ -164,7 +171,7 @@ export function ProductDetails({ order }: ProductDetailsProps) {
                                     Upload Charge
                                 </span>
                                 <span className="font-medium text-gray-800">
-                                    ₹{formatTotalAmount(order?.uploadCharge)}
+                                    ₹{order?.uploadCharge}
                                 </span>
                             </div>
                         )}
@@ -173,7 +180,7 @@ export function ProductDetails({ order }: ProductDetailsProps) {
                         <div className="flex justify-between items-center">
                             <span className="text-gray-600">Total Amount</span>
                             <span className="text-lg font-semibold text-primary">
-                                ₹{formatTotalAmount(order?.total)}
+                                ₹{order?.total}
                             </span>
                         </div>
                     </div>

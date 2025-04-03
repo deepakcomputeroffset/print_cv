@@ -3,7 +3,7 @@ import { Prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { deleteFiles } from "@/lib/storage";
 
-export async function DELETE(
+export async function POST(
     req: Request,
     { params }: { params: Promise<{ id: string }> },
 ) {
@@ -30,9 +30,9 @@ export async function DELETE(
             });
         }
 
-        const order = await Prisma.order.delete({
+        const order = await Prisma.order.findFirst({
             where: { id: parseInt(id), customerId: session.user.customer.id },
-            select: { attachment: true, id: true },
+            include: { attachment: true },
         });
 
         if (!order) {
@@ -42,6 +42,19 @@ export async function DELETE(
                 error: "Order not found!",
             });
         }
+
+        if (order?.status !== "PENDING") {
+            return serverResponse({
+                status: 400,
+                success: false,
+                error: "Order cannot be cancelled!",
+            });
+        }
+
+        await Prisma.order.update({
+            where: { id: parseInt(id) },
+            data: { status: "CANCELLED" },
+        });
 
         if (order?.attachment) {
             const deleted = await deleteFiles(order?.attachment?.urls);
@@ -55,7 +68,7 @@ export async function DELETE(
         return serverResponse({
             status: 200,
             success: true,
-            message: "Order deleted successfully.",
+            message: "Order cancelled successfully.",
         });
     } catch (error) {
         console.error(error);

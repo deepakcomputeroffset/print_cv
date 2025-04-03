@@ -15,7 +15,6 @@ import {
     IndianRupee,
     Wallet,
     Calendar,
-    CreditCard,
     BarChart3,
     ShoppingBag,
     Package,
@@ -311,11 +310,20 @@ export default async function CustomerDashboard() {
 
                         {/* Recent Transactions */}
                         <div className="space-y-4">
-                            <div className="flex items-center">
-                                <CreditCard className="h-5 w-5 mr-2 text-gray-600" />
-                                <h2 className="text-lg font-medium text-gray-800">
-                                    Recent Transactions
-                                </h2>
+                            <div className="flex justify-between items-center">
+                                <div className="flex items-center">
+                                    <IndianRupee className="h-5 w-5 mr-2 text-gray-600" />
+                                    <h2 className="text-lg font-medium text-gray-800">
+                                        Recent Transactions
+                                    </h2>
+                                </div>
+                                <Link
+                                    href="/customer/wallet"
+                                    className="text-sm text-blue-600 hover:underline flex items-center"
+                                >
+                                    View all{" "}
+                                    <ArrowRight className="ml-1 h-4 w-4" />
+                                </Link>
                             </div>
 
                             <Card className="shadow-sm rounded-lg border border-gray-200 overflow-hidden">
@@ -482,6 +490,25 @@ export default async function CustomerDashboard() {
                                                     </div>
                                                     <p className="text-xs text-gray-500">
                                                         Explore our catalog
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                        </Button>
+
+                                        <Button
+                                            asChild
+                                            variant="outline"
+                                            className="justify-start h-auto py-3 border-gray-200"
+                                        >
+                                            <Link href="/customer/wallet">
+                                                <Wallet className="h-5 w-5 mr-3 text-green-600" />
+                                                <div className="text-left">
+                                                    <div className="font-medium">
+                                                        My Wallet
+                                                    </div>
+                                                    <p className="text-xs text-gray-500">
+                                                        View transactions and
+                                                        add funds
                                                     </p>
                                                 </div>
                                             </Link>

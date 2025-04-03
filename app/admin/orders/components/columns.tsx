@@ -5,6 +5,7 @@ import { DataTableColumnHeader } from "./data-table-column-header";
 import { orderType } from "@/types/types";
 import { IndianRupee } from "lucide-react";
 import { format } from "date-fns";
+import { DataTableRowActions } from "./data-table-row-actions";
 
 export const columns: ColumnDef<orderType>[] = [
     {
@@ -190,8 +191,8 @@ export const columns: ColumnDef<orderType>[] = [
         },
         enableSorting: true,
     },
-    // {
-    //     id: "actions",
-    //     cell: ({ row }) => <DataTableRowActions row={row} />,
-    // },
+    {
+        id: "actions",
+        cell: ({ row }) => <DataTableRowActions row={row} />,
+    },
 ];

@@ -1,12 +1,8 @@
 import queryString from "query-string";
 import axios from "axios";
-import {
-    ProductTypeOnlyWithPrice,
-    QueryParams,
-    ServerResponseType,
-} from "@/types/types";
+import { QueryParams, ServerResponseType } from "@/types/types";
 import { orderBaseUrl } from "../urls";
-import { order, productItem } from "@prisma/client";
+import { order, product, productItem } from "@prisma/client";
 
 export async function fetchOrders(params: QueryParams = {}) {
     const url = queryString.stringifyUrl({
@@ -18,7 +14,7 @@ export async function fetchOrders(params: QueryParams = {}) {
             QueryParams & {
                 data: (order & {
                     productItem: productItem & {
-                        product: ProductTypeOnlyWithPrice;
+                        product: product;
                     };
                 })[];
             }
@@ -31,5 +27,5 @@ export async function createOrder(data: FormData) {
 }
 
 export async function cancelOrder(id: number) {
-    return await axios.delete(`${orderBaseUrl}/${id}`);
+    return await axios.post(`${orderBaseUrl}/${id}`);
 }

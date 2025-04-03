@@ -25,12 +25,20 @@ import { Button } from "../ui/button";
 const NAV_LINKS = [
     { name: "Home", url: "/" },
     { name: "Services", url: "/categories" },
+    { name: "Contact us", url: "/#connect" },
+];
+
+const CUSTOMER_LINKS = [
     {
         name: "Orders",
         url: "/customer/orders?search=&sortorder=desc&perpage=100",
     },
-    { name: "Contact us", url: "/#connect" },
+    {
+        name: "Wallet",
+        url: "/customer/wallet",
+    },
 ];
+
 const Wallet = dynamic(() => import("@/components/wallet"), {
     ssr: false,
 });
@@ -136,6 +144,32 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                     </Link>
                                 </div>
                             ))}
+
+                            {!!session &&
+                                session?.user?.userType === "customer" &&
+                                CUSTOMER_LINKS.map((link) => (
+                                    <div key={link.name} className="px-2">
+                                        <Link
+                                            href={link.url}
+                                            className={cn(
+                                                "relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center",
+                                                isActiveLink(link.url)
+                                                    ? "text-primary font-medium"
+                                                    : "text-foreground/80 hover:text-primary",
+                                            )}
+                                        >
+                                            {link.name}
+                                            <span
+                                                className={cn(
+                                                    "absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300",
+                                                    isActiveLink(link.url)
+                                                        ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-24px)]"
+                                                        : "bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
+                                                )}
+                                            />
+                                        </Link>
+                                    </div>
+                                ))}
 
                             {!session && (
                                 <div className="px-2">
@@ -324,6 +358,24 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                     {link.name}
                                 </Link>
                             ))}
+
+                            {!!session &&
+                                session?.user?.userType === "customer" &&
+                                CUSTOMER_LINKS.map((link) => (
+                                    <Link
+                                        key={link?.name}
+                                        href={link?.url}
+                                        onClick={toggleMobileMenu}
+                                        className={cn(
+                                            "block w-full p-3 rounded-lg text-lg transition-all",
+                                            isActiveLink(link?.url)
+                                                ? "bg-gradient-to-r from-primary/10 to-cyan-500/10 border border-primary/10 text-primary font-medium"
+                                                : "text-foreground",
+                                        )}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                ))}
 
                             {!session && (
                                 <Link
