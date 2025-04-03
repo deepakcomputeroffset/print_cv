@@ -26,6 +26,6 @@ export async function createOrder(data: FormData) {
     return await axios.post<ServerResponseType<order>>(orderBaseUrl, data);
 }
 
-export async function cancelOrder(id: number) {
-    return await axios.post(`${orderBaseUrl}/${id}`);
+export async function cancelOrder(id: number, reason?: string) {
+    return await axios.post(`${orderBaseUrl}/${id}`, { reason });
 }

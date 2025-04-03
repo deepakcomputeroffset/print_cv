@@ -23,3 +23,7 @@ export async function addJobToOrders(id: number, orders: number[]) {
     });
     return axios.post<ServerResponseType<null>>(url, { orders });
 }
+
+export async function markOrderAsImproper(id: number, reason: string) {
+    return await axios.post(`${ordersBaseUrl}/${id}/improper`, { reason });
+}

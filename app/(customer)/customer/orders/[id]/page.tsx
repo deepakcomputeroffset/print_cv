@@ -77,6 +77,25 @@ export default async function OrderPage({
                     },
                 },
                 attachment: true,
+                comments: {
+                    include: {
+                        staff: {
+                            select: {
+                                id: true,
+                                name: true,
+                            },
+                        },
+                        customer: {
+                            select: {
+                                id: true,
+                                name: true,
+                            },
+                        },
+                    },
+                    orderBy: {
+                        createdAt: "desc",
+                    },
+                },
             },
         });
 

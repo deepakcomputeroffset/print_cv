@@ -10,11 +10,8 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { UploadFileModal } from "./upload-file-modal";
 import { ViewFilesModal } from "./view-files-modal";
-
-// import { labels } from "../data/data"
-// import { taskSchema } from "../data/schema"
+import { ImproperOrderModal } from "../modal/ImproperOrderModal";
 
 interface DataTableRowActionsProps<TData> {
     row: Row<TData>;
@@ -38,12 +35,11 @@ export function DataTableRowActions<TData>({
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[160px]">
-                {file?.uploadVia === "EMAIL" &&
-                    (file?.urls?.length > 0 ? (
-                        <ViewFilesModal orderId={order.id} files={file.urls} />
-                    ) : (
-                        <UploadFileModal orderId={order.id} />
-                    ))}
+                {file && file?.urls?.length > 0 && (
+                    <ViewFilesModal orderId={order.id} files={file.urls} />
+                )}
+
+                <ImproperOrderModal orderId={order.id} />
             </DropdownMenuContent>
         </DropdownMenu>
     );

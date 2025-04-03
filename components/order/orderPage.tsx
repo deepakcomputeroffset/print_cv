@@ -1,13 +1,6 @@
 "use client";
 import Link from "next/link";
-import {
-    ArrowLeft,
-    FileText,
-    ReceiptText,
-    ExternalLink,
-    XCircle,
-    Loader2,
-} from "lucide-react";
+import { ArrowLeft, XCircle, MessageCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -18,9 +11,6 @@ import { ProductDetails } from "./components/ProductDetails";
 import { DeliveryDetails } from "./components/DeliveryDetails";
 import { OrderTimeline } from "./components/OrderTimeline";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { cancelOrder } from "@/lib/api/order";
 import {
     order,
     job,
@@ -31,9 +21,12 @@ import {
     UPLOADVIA,
     product,
     productItem,
+    orderComment,
 } from "@prisma/client";
 import { MotionDiv } from "../motionDiv";
-import { useState } from "react";
+import { CancellationModal } from "./components/CancellationModal";
+import { format } from "date-fns";
+import { useModal } from "@/hooks/use-modal";
 
 interface OrderDetailsPageProps {
     order: order & {
@@ -79,38 +72,15 @@ interface OrderDetailsPageProps {
                   uploadedById: number | null;
               })
             | null;
+        comments?: (orderComment & {
+            staff?: Pick<staff, "id" | "name"> | null;
+            customer?: Pick<{ id: number; name: string }, "id" | "name"> | null;
+        })[];
     };
 }
 
 export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
-    const router = useRouter();
-    const [isCancelling, setIsCancelling] = useState(false);
-
-    const handleCancelOrder = async () => {
-        try {
-            setIsCancelling(true);
-            const response = await cancelOrder(order.id);
-
-            if (!response.data.success) {
-                throw new Error(
-                    response.data.error || "Failed to cancel order",
-                );
-            }
-
-            toast.success(
-                response.data.message || "Order cancelled successfully",
-            );
-            router.refresh();
-        } catch (error) {
-            toast.error(
-                error instanceof Error
-                    ? error.message
-                    : "Failed to cancel order",
-            );
-        } finally {
-            setIsCancelling(false);
-        }
-    };
+    const { onOpen } = useModal();
 
     return (
         <MotionDiv
@@ -132,21 +102,13 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                 {order.status === "PENDING" && (
                     <Button
                         variant="destructive"
-                        onClick={handleCancelOrder}
-                        disabled={isCancelling}
+                        onClick={() =>
+                            onOpen("cancelOrder", { orderId: order.id })
+                        }
                         className="flex items-center gap-2"
                     >
-                        {isCancelling ? (
-                            <>
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                                Cancelling...
-                            </>
-                        ) : (
-                            <>
-                                <XCircle className="h-4 w-4" />
-                                Cancel Order
-                            </>
-                        )}
+                        <XCircle className="h-4 w-4" />
+                        Cancel Order
                     </Button>
                 )}
             </div>
@@ -208,6 +170,73 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                     </Card>
                 </MotionDiv>
 
+                {/* Comments Section */}
+                {order.comments && order.comments.length > 0 && (
+                    <MotionDiv
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                        <Card className="overflow-hidden border-0 shadow-md rounded-xl bg-white">
+                            <div className="p-6 md:p-8">
+                                <div className="flex items-center mb-6">
+                                    <div className="h-1 w-6 bg-gradient-to-r from-primary to-cyan-400 rounded-full mr-3"></div>
+                                    <h2
+                                        className={cn(
+                                            "text-xl font-bold text-gray-800",
+                                            sourceSerif4.className,
+                                        )}
+                                    >
+                                        Comments
+                                    </h2>
+                                </div>
+                                <div className="space-y-4">
+                                    {order.comments.map((comment) => (
+                                        <div
+                                            key={comment.id}
+                                            className="bg-gray-50 p-4 rounded-lg border border-gray-100"
+                                        >
+                                            <div className="flex justify-between items-start mb-2">
+                                                <div className="flex items-center">
+                                                    <MessageCircle className="h-4 w-4 mr-2 text-primary" />
+                                                    <span className="font-medium text-gray-800">
+                                                        {comment.commentType ===
+                                                        "CANCELLATION"
+                                                            ? "Cancellation Reason"
+                                                            : comment.commentType.replace(
+                                                                  /_/g,
+                                                                  " ",
+                                                              )}
+                                                    </span>
+                                                </div>
+                                                <span className="text-xs text-gray-500">
+                                                    {format(
+                                                        new Date(
+                                                            comment.createdAt,
+                                                        ),
+                                                        "MMM d, yyyy h:mm a",
+                                                    )}
+                                                </span>
+                                            </div>
+                                            <p className="text-gray-700 mt-1">
+                                                {comment.comment}
+                                            </p>
+                                            <div className="mt-2 text-xs text-gray-500">
+                                                By:{" "}
+                                                {comment.customer
+                                                    ? comment.customer.name
+                                                    : comment.staff
+                                                      ? comment.staff.name
+                                                      : "System"}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </Card>
+                    </MotionDiv>
+                )}
+
                 <MotionDiv
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -217,32 +246,9 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                         <OrderTimeline order={order} />
                     </Card>
                 </MotionDiv>
-
-                {order?.attachment && order?.attachment?.urls?.length > 0 && (
-                    <div className="mt-6 bg-blue-50/50 p-4 rounded-lg border border-blue-100">
-                        <h4 className="font-medium mb-3 text-gray-800 flex items-center">
-                            <FileText className="h-4 w-4 mr-2 text-primary" />
-                            Attached Files
-                        </h4>
-                        <div className="space-y-2">
-                            {order?.attachment?.urls.map((u, idx) => (
-                                <Link
-                                    key={idx}
-                                    href={u}
-                                    target="_blank"
-                                    className="flex items-center p-2 bg-white rounded-md hover:bg-blue-50 transition-colors text-primary group"
-                                >
-                                    <ReceiptText className="h-4 w-4 mr-2" />
-                                    <span className="flex-1 text-gray-700">
-                                        Attachment {idx + 1}
-                                    </span>
-                                    <ExternalLink className="h-3.5 w-3.5 text-gray-400 group-hover:text-primary transition-colors" />
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-                )}
             </div>
+
+            <CancellationModal />
         </MotionDiv>
     );
 }

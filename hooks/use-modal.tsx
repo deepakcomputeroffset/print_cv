@@ -31,7 +31,9 @@ type ModalType =
     | "addJob"
     | "editJob"
     | "deleteJob"
-    | "selectJob";
+    | "selectJob"
+    | "cancelOrder"
+    | "improperOrder";
 
 type DataType = {
     staff?: staff;
@@ -45,6 +47,7 @@ type DataType = {
     taskType?: taskType;
     job?: job;
     orders?: orderType[];
+    orderId?: number;
 };
 
 interface modalStore {

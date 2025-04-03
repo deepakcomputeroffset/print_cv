@@ -26,9 +26,10 @@ model customer {
     references  customer[] @relation("reference")
     referedBy   customer?  @relation("reference", fields: [referenceId], references: [id])
 
-    createdAt   DateTime     @default(now())
-    updatedAt   DateTime     @updatedAt
-    attachments attachment[]
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+    attachments  attachment[]
+    orderComment orderComment[]
 }
 
 model wallet {
@@ -190,6 +191,7 @@ model order {
     status        STATUS @default(PENDING)
 
     attachment attachment?
+    comments   orderComment[]
 
     jobId Int?
     job   job? @relation(fields: [jobId], references: [id], onDelete: SetNull)
@@ -198,6 +200,22 @@ model order {
     customer    customer    @relation(fields: [customerId], references: [id])
     createdAt   DateTime    @default(now())
     updatedAt   DateTime    @updatedAt
+}
+
+model orderComment {
+    id          Int          @id @default(autoincrement())
+    orderId     Int
+    comment     String
+    commentType COMMENT_TYPE
+    createdById Int? // Could be either staff or customer
+    staffId     Int?
+    customerId  Int?
+
+    order     order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    staff     staff?    @relation(fields: [staffId], references: [id])
+    customer  customer? @relation(fields: [customerId], references: [id])
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
 }
 
 model attachment {
@@ -215,19 +233,20 @@ model attachment {
 }
 
 model staff {
-    id            Int           @id @default(autoincrement())
+    id            Int            @id @default(autoincrement())
     name          String
     email         String
-    phone         String        @unique
-    role          ROLE          @default(STAFF)
-    isBanned      Boolean       @default(false)
+    phone         String         @unique
+    role          ROLE           @default(STAFF)
+    isBanned      Boolean        @default(false)
     password      String
     assignedTasks task[]
     jobVerified   job[]
     transactions  transaction[]
     attachments   attachment[]
-    createdAt     DateTime      @default(now())
-    updatedAt     DateTime      @updatedAt
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt
+    orderComment  orderComment[]
 }
 
 model job {
@@ -311,4 +330,13 @@ enum STATUS {
     PROCESSING
     DISPATCHED
     CANCELLED
+    IMPROPER_ORDER
+}
+
+enum COMMENT_TYPE {
+    CANCELLATION
+    IMPROPER_ORDER
+    GENERAL
+    CUSTOMER_QUERY
+    STAFF_NOTE
 }

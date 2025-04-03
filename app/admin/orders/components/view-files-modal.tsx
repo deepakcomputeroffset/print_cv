@@ -19,7 +19,7 @@ export function ViewFilesModal({ orderId, files }: ViewFilesModalProps) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="w-full">
                     <FileText className="w-4 h-4 mr-2" />
                     View Files
                 </Button>
@@ -35,7 +35,7 @@ export function ViewFilesModal({ orderId, files }: ViewFilesModalProps) {
                     {files.map((url, index) => (
                         <div
                             key={index}
-                            className="flex items-center justify-between p-2 text-sm border rounded-md"
+                            className="flex items-center justify-between p-2 text-sm border rounded-md w-full"
                         >
                             <span className="truncate">
                                 {url.split("/").pop()}

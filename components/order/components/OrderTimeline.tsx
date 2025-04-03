@@ -80,9 +80,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
         ];
 
         if (order.status === "CANCELLED") {
-            const cancelDate = new Date(
-                baseDate.getTime() + 1 * 24 * 60 * 60 * 1000,
-            );
+            const cancelDate = new Date(order?.updatedAt);
             events.push({
                 icon: <XCircle className="h-6 w-6" />,
                 title: "Order Cancelled",
@@ -93,7 +91,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                                 <Clock className="h-3.5 w-3.5" />
                                 <span>Started:</span>
                                 <span className="font-medium text-gray-900">
-                                    {format(baseDate, "MMM d, yyyy h:mm a")}
+                                    {format(cancelDate, "MMM d, yyyy h:mm a")}
                                 </span>
                             </div>
                             <div className="flex items-center gap-2 text-gray-600 mt-1">
