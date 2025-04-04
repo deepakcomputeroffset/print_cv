@@ -25,12 +25,10 @@ import { Badge } from "@/components/ui/badge";
 import { sourceSerif4 } from "@/lib/font";
 import Pagination from "@/components/pagination";
 
-export const dynamic = "force-dynamic";
-
 export default async function CustomerWalletPage({
     searchParams,
 }: {
-    searchParams: { page?: string; perpage?: string };
+    searchParams: Promise<{ page?: string; perpage?: string }>;
 }) {
     const session = await auth();
 
@@ -39,8 +37,9 @@ export default async function CustomerWalletPage({
     }
 
     // Parse pagination params
-    const page = searchParams.page ? parseInt(searchParams.page) : 1;
-    const perPage = searchParams.perpage ? parseInt(searchParams.perpage) : 10;
+    const { page, perpage } = await searchParams;
+    // const page = searchParams.page ? parseInt(searchParams.page) : 1;
+    // const perPage = searchParams.perpage ? parseInt(searchParams.perpage) : 10;
 
     // Get wallet and transaction data
     const [transactions, wallet, transactionsCount] = await Prisma.$transaction(
@@ -50,8 +49,8 @@ export default async function CustomerWalletPage({
                 where: {
                     walletId: session?.user?.customer?.wallet?.id,
                 },
-                take: perPage,
-                skip: (page - 1) * perPage,
+                take: Number(perpage) || 10,
+                skip: (Number(page) || 1 - 1) * Number(perpage) || 10,
                 orderBy: {
                     createdAt: "desc",
                 },
@@ -79,7 +78,7 @@ export default async function CustomerWalletPage({
         (transaction) => transaction.type === "DEBIT",
     );
 
-    const totalPages = Math.ceil(transactionsCount / perPage);
+    const totalPages = Math.ceil(transactionsCount / Number(perpage) || 10);
 
     return (
         <div className="max-w-customHaf lg:max-w-custom mx-auto py-10 px-4 sm:px-6 lg:px-8">
@@ -281,7 +280,7 @@ export default async function CustomerWalletPage({
                                     </TableBody>
                                 </Table>
                             </div>
-                            {transactionsCount > perPage && (
+                            {transactionsCount > Number(perpage || 10) && (
                                 <div className="mt-4">
                                     <Pagination
                                         isLoading={false}

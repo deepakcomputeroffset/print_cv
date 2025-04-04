@@ -7,7 +7,7 @@ import { uploadMultipleFiles } from "@/lib/storage";
 
 export async function POST(
     request: Request,
-    { params }: { params: { orderId: string } },
+    { params }: { params: Promise<{ orderId: string }> },
 ) {
     try {
         const session = await auth();
@@ -26,9 +26,9 @@ export async function POST(
                 error: "Unauthorized",
             });
         }
+        const { orderId } = await params;
 
-        const orderId = parseInt(params.orderId);
-        if (isNaN(orderId)) {
+        if (isNaN(parseInt(orderId))) {
             return serverResponse({
                 status: 400,
                 success: false,
@@ -37,7 +37,7 @@ export async function POST(
         }
 
         const order = await Prisma.order.findUnique({
-            where: { id: orderId },
+            where: { id: parseInt(orderId) },
             include: { attachment: true },
         });
 
@@ -85,7 +85,7 @@ export async function POST(
         }
 
         await Prisma.attachment.update({
-            where: { orderId },
+            where: { orderId: parseInt(orderId) },
             data: {
                 urls: {
                     push: urls,
