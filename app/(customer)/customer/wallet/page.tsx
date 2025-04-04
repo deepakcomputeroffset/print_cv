@@ -37,7 +37,9 @@ export default async function CustomerWalletPage({
     }
 
     // Parse pagination params
-    const { page, perpage } = await searchParams;
+    const { page: pp, perpage } = await searchParams;
+    const page = parseInt(pp || "1");
+    const perPage = parseInt(perpage || "10");
     // const page = searchParams.page ? parseInt(searchParams.page) : 1;
     // const perPage = searchParams.perpage ? parseInt(searchParams.perpage) : 10;
 
@@ -49,8 +51,8 @@ export default async function CustomerWalletPage({
                 where: {
                     walletId: session?.user?.customer?.wallet?.id,
                 },
-                take: Number(perpage) || 10,
-                skip: (Number(page) || 1 - 1) * Number(perpage) || 10,
+                take: perPage,
+                skip: (page - 1) * perPage,
                 orderBy: {
                     createdAt: "desc",
                 },
@@ -78,7 +80,7 @@ export default async function CustomerWalletPage({
         (transaction) => transaction.type === "DEBIT",
     );
 
-    const totalPages = Math.ceil(transactionsCount / Number(perpage) || 10);
+    const totalPages = Math.ceil(transactionsCount / perPage);
 
     return (
         <div className="max-w-customHaf lg:max-w-custom mx-auto py-10 px-4 sm:px-6 lg:px-8">
@@ -280,7 +282,7 @@ export default async function CustomerWalletPage({
                                     </TableBody>
                                 </Table>
                             </div>
-                            {transactionsCount > Number(perpage || 10) && (
+                            {transactionsCount > perPage && (
                                 <div className="mt-4">
                                     <Pagination
                                         isLoading={false}
