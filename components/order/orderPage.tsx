@@ -91,7 +91,7 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
         >
             <div className="flex justify-between items-center mb-8">
                 <Link
-                    href="/customer/orders"
+                    href="/customer/orders?search=&sortorder=desc&perpage=100"
                     className="flex items-center text-primary hover:text-primary/80 transition-colors group"
                 >
                     <div className="bg-primary/5 p-1.5 rounded-full group-hover:bg-primary/10 transition-colors mr-2">

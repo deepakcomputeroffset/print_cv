@@ -42,9 +42,13 @@ export const authConfig: AuthOptions = {
                                 },
                                 address: {
                                     include: {
-                                        customer: {
+                                        city: {
                                             include: {
-                                                address: true,
+                                                state: {
+                                                    include: {
+                                                        country: true,
+                                                    },
+                                                },
                                             },
                                         },
                                     },

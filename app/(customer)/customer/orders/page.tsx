@@ -224,153 +224,44 @@ export default function OrdersPage({
                                                 {!!data?.user?.customer
                                                     ?.address && (
                                                     <div className="flex space-x-2">
-                                                        {/* <InvoiceButton
-                                                        order={{
-                                                            ...order,
-                                                            customer: {
-                                                                businessName:
-                                                                    data?.user
-                                                                        ?.customer
-                                                                        ?.businessName ||
-                                                                    "",
-                                                                name:
-                                                                    data?.user
-                                                                        ?.customer
-                                                                        ?.name ||
-                                                                    "",
-                                                                phone:
-                                                                    data?.user
-                                                                        ?.customer
-                                                                        ?.phone ||
-                                                                    "",
-                                                                address: {
-                                                                    pinCode:
-                                                                        data
-                                                                            ?.user
-                                                                            ?.customer
-                                                                            ?.address
-                                                                            ?.pinCode ||
-                                                                        "",
-                                                                    line:
-                                                                        data
-                                                                            ?.user
-                                                                            ?.customer
-                                                                            ?.address
-                                                                            ?.line ||
-                                                                        "",
-                                                                    city: {
+                                                        {order?.status !==
+                                                            "CANCELLED" && (
+                                                            <LabelButton
+                                                                order={{
+                                                                    ...order,
+                                                                    customer: {
+                                                                        customerCategory:
+                                                                            data
+                                                                                ?.user
+                                                                                ?.customer
+                                                                                ?.customerCategory,
+                                                                        businessName:
+                                                                            data
+                                                                                ?.user
+                                                                                ?.customer
+                                                                                ?.businessName ||
+                                                                            "",
                                                                         name:
                                                                             data
                                                                                 ?.user
                                                                                 ?.customer
-                                                                                ?.address
-                                                                                ?.city
                                                                                 ?.name ||
                                                                             "",
-                                                                        state: {
-                                                                            name:
-                                                                                data
-                                                                                    ?.user
-                                                                                    ?.customer
-                                                                                    ?.address
-                                                                                    ?.city
-                                                                                    ?.state
-                                                                                    ?.name ||
-                                                                                "",
-                                                                            country:
-                                                                                {
-                                                                                    name:
-                                                                                        data
-                                                                                            ?.user
-                                                                                            ?.customer
-                                                                                            ?.address
-                                                                                            ?.city
-                                                                                            ?.state
-                                                                                            ?.country
-                                                                                            ?.name ||
-                                                                                        "India",
-                                                                                },
-                                                                        },
-                                                                    },
-                                                                },
-                                                            },
-                                                        }}
-                                                        /> */}
-                                                        <LabelButton
-                                                            order={{
-                                                                ...order,
-                                                                customer: {
-                                                                    businessName:
-                                                                        data
-                                                                            ?.user
-                                                                            ?.customer
-                                                                            ?.businessName ||
-                                                                        "",
-                                                                    name:
-                                                                        data
-                                                                            ?.user
-                                                                            ?.customer
-                                                                            ?.name ||
-                                                                        "",
-                                                                    phone:
-                                                                        data
-                                                                            ?.user
-                                                                            ?.customer
-                                                                            ?.phone ||
-                                                                        "",
-                                                                    address: {
-                                                                        pinCode:
+                                                                        phone:
                                                                             data
                                                                                 ?.user
                                                                                 ?.customer
-                                                                                ?.address
-                                                                                ?.pinCode ||
+                                                                                ?.phone ||
                                                                             "",
-                                                                        line:
+                                                                        address:
                                                                             data
                                                                                 ?.user
                                                                                 ?.customer
-                                                                                ?.address
-                                                                                ?.line ||
-                                                                            "",
-                                                                        city: {
-                                                                            name:
-                                                                                data
-                                                                                    ?.user
-                                                                                    ?.customer
-                                                                                    ?.address
-                                                                                    ?.city
-                                                                                    ?.name ||
-                                                                                "",
-                                                                            state: {
-                                                                                name:
-                                                                                    data
-                                                                                        ?.user
-                                                                                        ?.customer
-                                                                                        ?.address
-                                                                                        ?.city
-                                                                                        ?.state
-                                                                                        ?.name ||
-                                                                                    "",
-                                                                                country:
-                                                                                    {
-                                                                                        name:
-                                                                                            data
-                                                                                                ?.user
-                                                                                                ?.customer
-                                                                                                ?.address
-                                                                                                ?.city
-                                                                                                ?.state
-                                                                                                ?.country
-                                                                                                ?.name ||
-                                                                                            "India",
-                                                                                    },
-                                                                            },
-                                                                        },
+                                                                                ?.address,
                                                                     },
-                                                                },
-                                                            }}
-                                                        />
+                                                                }}
+                                                            />
+                                                        )}
                                                     </div>
                                                 )}
                                                 <Button

@@ -50,45 +50,6 @@ interface ProductDetailsProps {
     };
 }
 
-// Helper function to safely handle Decimal or number values
-// eslint-disable-next-line
-// const formatTotalAmount = (value: any): string => {
-//     // Handle Date objects - should not be processed
-//     if (value instanceof Date) {
-//         console.error("Date object passed to formatTotalAmount");
-//         return "0.00";
-//     }
-
-//     if (value === null || value === undefined) return "0.00";
-
-//     try {
-//         // Handle Decimal objects (with toNumber method)
-//         if (
-//             typeof value === "object" &&
-//             value !== null &&
-//             typeof value.toNumber === "function"
-//         ) {
-//             return value.toNumber().toFixed(2);
-//         }
-
-//         // Handle regular numbers
-//         if (typeof value === "number") {
-//             return value.toFixed(2);
-//         }
-
-//         // Try parsing as number if it's a string
-//         if (typeof value === "string") {
-//             const parsed = parseFloat(value);
-//             return isNaN(parsed) ? "0.00" : parsed.toFixed(2);
-//         }
-
-//         return "0.00";
-//     } catch (e) {
-//         console.error("Error formatting amount:", e);
-//         return "0.00";
-//     }
-// };
-
 export function ProductDetails({ order }: ProductDetailsProps) {
     return (
         <div className="space-y-6">
@@ -155,17 +116,12 @@ export function ProductDetails({ order }: ProductDetailsProps) {
                         <div className="flex justify-between items-center pb-2 border-b border-gray-100">
                             <span className="text-gray-600">IGST (18%)</span>
                             <span className="font-medium text-gray-800">
-                                ₹
-                                {(() => {
-                                    const basePrice = order?.price || 0;
-                                    const igstAmount = basePrice * 0.18;
-                                    return igstAmount;
-                                })()}
+                                ₹{(order?.price * order?.igst)?.toFixed(2)}
                             </span>
                         </div>
 
-                        {/* Upload Charge (if any) */}
-                        {order?.uploadCharge && order?.uploadCharge > 0 && (
+                        {/* Upload Charge */}
+                        {
                             <div className="flex justify-between items-center pb-2">
                                 <span className="text-gray-600">
                                     Upload Charge
@@ -174,7 +130,7 @@ export function ProductDetails({ order }: ProductDetailsProps) {
                                     ₹{order?.uploadCharge}
                                 </span>
                             </div>
-                        )}
+                        }
 
                         {/* Total Amount */}
                         <div className="flex justify-between items-center">

@@ -1,5 +1,5 @@
-import qrcode from "qrcode";
-import { order, product, productItem } from "@prisma/client";
+import { CUSTOMER_CATEGORY, order, product, productItem } from "@prisma/client";
+import JsBarcode from "jsbarcode";
 
 interface LabelOrder extends order {
     productItem: productItem & {
@@ -22,6 +22,7 @@ interface LabelOrder extends order {
             };
             pinCode: string;
         } | null;
+        customerCategory: CUSTOMER_CATEGORY;
     };
 }
 
@@ -29,151 +30,234 @@ export const generateLabel = async (order: LabelOrder) => {
     try {
         // Create a canvas element for drawing the label
         const canvas = document.createElement("canvas");
-        const width = 800; // Width in pixels
-        const height = 1200; // Height in pixels
+
+        // Set dimensions to 338x204 at 96dpi (standard screen resolution)
+        const width = 338;
+        const height = 204;
+
         canvas.width = width;
         canvas.height = height;
 
-        const ctx = canvas.getContext("2d");
+        // For 96dpi output explicitly
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+
+        const ctx = canvas.getContext("2d", { alpha: false });
         if (!ctx) {
             throw new Error("Could not get canvas context");
         }
 
-        // Fill background with white
+        // Enable high quality image rendering
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+
+        // Fill background with white (for 32-bit color depth)
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, width, height);
 
-        // Draw border
+        // Border around entire label
         ctx.strokeStyle = "black";
-        ctx.lineWidth = 4;
-        ctx.strokeRect(40, 40, width - 80, height - 80);
+        ctx.lineWidth = 2;
+        ctx.strokeRect(1, 1, width - 2, height - 2);
 
-        // Set up fonts
-        const titleFont = "48px Arial bold";
-        const subtitleFont = "32px Arial";
-        const normalFont = "32px Arial";
-        const smallFont = "24px Arial";
-        const addressFont = "28px Arial";
+        // Generate order reference code from the order
+        // Use shorter reference format like "22/B" from the new image
+        // Format order number to 4 digits with leading zeros
+        const orderId = order?.id.toString().padStart(5, "0");
+        const customerId = order?.customerId?.toString().padStart(4, "0");
+        const orderRef = `${orderId}/${order?.jobId}`;
 
-        // Company header
-        ctx.fillStyle = "black";
-        ctx.font = titleFont;
-        ctx.textAlign = "center";
-        ctx.fillText("PRINTIFY", width / 2, 100);
+        // Constants for calculating positions - adjusted for smaller size
+        const rowHeights = [55, 25, 25, 25, 25, 25]; // Heights of each row - scaled down
 
-        ctx.font = subtitleFont;
-        ctx.fillText("Professional Printing Services", width / 2, 160);
+        // First row: Left side number and right side barcode
+        let currentY = 0;
 
-        // Order details section
+        // First row (order ref and barcode)
+        ctx.beginPath();
+        ctx.moveTo(0, currentY);
+        ctx.lineTo(0, currentY + rowHeights[0]);
+        ctx.lineTo(width, currentY + rowHeights[0]);
+        ctx.lineTo(width, currentY);
+        ctx.lineTo(0, currentY);
+        ctx.stroke();
+
+        // Vertical divider in first row
+        const firstColumnWidth = width / 3;
+        ctx.beginPath();
+        ctx.moveTo(firstColumnWidth, 0);
+        ctx.lineTo(firstColumnWidth, rowHeights[0]);
+        ctx.stroke();
+
+        // Draw order reference and ID in first cell - smaller font
+        ctx.font = "bold 18px Arial";
+        ctx.fillStyle = "red";
         ctx.textAlign = "left";
-        ctx.font = normalFont;
-        ctx.fillText(`ORDER #${order.id}`, 80, 240);
+        ctx.fillText(orderRef, 10, 25);
+        ctx.fillText("00000", 10, 45);
 
-        // Order date
+        // Create a temporary canvas for the barcode
+        const barcodeCanvas = document.createElement("canvas");
+        // Set appropriate size for barcode
+        barcodeCanvas.width = width - firstColumnWidth - 20;
+        barcodeCanvas.height = 40;
+
+        // Generate barcode using JSBarcode
+        JsBarcode(barcodeCanvas, orderId, {
+            format: "CODE128",
+            width: 2, // Reduced for proper fit
+            height: 40,
+            displayValue: false,
+            margin: 5,
+            background: "#ffffff",
+            lineColor: "#000000",
+        });
+
+        // Draw barcode on main canvas
+        ctx.drawImage(barcodeCanvas, firstColumnWidth + 14, 4);
+
+        // Second row with product details
+        currentY += rowHeights[0];
+        ctx.beginPath();
+        ctx.moveTo(0, currentY);
+        ctx.lineTo(0, currentY + rowHeights[1]);
+        ctx.lineTo(width, currentY + rowHeights[1]);
+        ctx.lineTo(width, currentY);
+        ctx.lineTo(0, currentY);
+        ctx.stroke();
+
+        // Vertical divider in second row
+        const secondRowDividerPos = width / 3;
+        ctx.beginPath();
+        ctx.moveTo(secondRowDividerPos, currentY);
+        ctx.lineTo(secondRowDividerPos, currentY + rowHeights[1]);
+        ctx.stroke();
+
+        // Product number and specs - smaller font
+        ctx.font = "bold 14px Arial";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "left";
+
+        // Extract product code and description
+        ctx.fillText(orderId, 10, currentY + 18);
+
+        // Product specifications in second column
+        const productSpecs = `${order?.productItem?.product?.name} - ${order?.productItem?.sku}`;
+        ctx.fillText(productSpecs, secondRowDividerPos + 10, currentY + 18);
+
+        // Third row - Order By information
+        currentY += rowHeights[1];
+        ctx.beginPath();
+        ctx.moveTo(0, currentY);
+        ctx.lineTo(0, currentY + rowHeights[2]);
+        ctx.lineTo(width, currentY + rowHeights[2]);
+        ctx.lineTo(width, currentY);
+        ctx.lineTo(0, currentY);
+        ctx.stroke();
+
+        // Format: Ord By -M-orderId (CITY - orderId)
+        ctx.font = "bold 12px Arial";
+        ctx.fillStyle = "red";
+        const city = order.customer?.address?.city?.name;
+        const ordByText = `Ord By - ${customerId} (${city} - ${order?.customer?.address?.city?.state?.name})`;
+        ctx.fillText(ordByText, 10, currentY + 18);
+
+        // Fourth row - Customer address
+        currentY += rowHeights[2];
+        ctx.beginPath();
+        ctx.moveTo(0, currentY);
+        ctx.lineTo(0, currentY + rowHeights[3]);
+        ctx.lineTo(width, currentY + rowHeights[3]);
+        ctx.lineTo(width, currentY);
+        ctx.lineTo(0, currentY);
+        ctx.stroke();
+
+        // Format customer address line - in red text like the reference image
+        const businessName = order.customer?.businessName;
+        const addressLine = order.customer?.address?.line;
+        const pinCode = order.customer?.address?.pinCode;
+
+        // Format address like in the reference image
+        const fullAddress = `${businessName}${businessName ? ", " : ""}${addressLine}, ${pinCode}`;
+        ctx.fillText(fullAddress, 10, currentY + 18);
+
+        // Fifth row - Product details
+        currentY += rowHeights[3];
+        ctx.beginPath();
+        ctx.moveTo(0, currentY);
+        ctx.lineTo(0, currentY + rowHeights[4]);
+        ctx.lineTo(width, currentY + rowHeights[4]);
+        ctx.lineTo(width, currentY);
+        ctx.lineTo(0, currentY);
+        ctx.stroke();
+
+        // Product quantity and code
+        const productDetails = `${order.qty} ${productSpecs}`;
+        ctx.fillText(productDetails, 10, currentY + 18);
+
+        // Sixth row - Date and status
+        currentY += rowHeights[4];
+        ctx.beginPath();
+        ctx.moveTo(0, currentY);
+        ctx.lineTo(0, currentY + rowHeights[5]);
+        ctx.lineTo(width, currentY + rowHeights[5]);
+        ctx.lineTo(width, currentY);
+        ctx.lineTo(0, currentY);
+        ctx.stroke();
+
+        // Vertical dividers in last row
+        const dateColumnEnd = width - 70;
+        const statusColumnEnd = width - 35;
+
+        ctx.beginPath();
+        ctx.moveTo(dateColumnEnd, currentY);
+        ctx.lineTo(dateColumnEnd, currentY + rowHeights[5]);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(statusColumnEnd, currentY);
+        ctx.lineTo(statusColumnEnd, currentY + rowHeights[5]);
+        ctx.stroke();
+
+        // Format date
         const orderDate = new Date(order.createdAt).toLocaleDateString(
             "en-US",
             {
-                day: "2-digit",
                 month: "short",
+                day: "2-digit",
                 year: "numeric",
             },
         );
-        ctx.font = smallFont;
-        ctx.fillText(`Date: ${orderDate}`, 80, 300);
 
-        // Product details
-        ctx.fillText(`Product: ${order.productItem.product.name}`, 80, 360);
-        ctx.fillText(`SKU: ${order.productItem.sku}`, 80, 410);
-        ctx.fillText(`Quantity: ${order.qty}`, 80, 460);
-
-        // Draw separator line
-        ctx.beginPath();
-        ctx.strokeStyle = "#cccccc";
-        ctx.lineWidth = 2;
-        ctx.moveTo(80, 500);
-        ctx.lineTo(width - 80, 500);
-        ctx.stroke();
-
-        // Shipping information
-        ctx.font = normalFont;
-        ctx.fillStyle = "black";
-        ctx.fillText("SHIP TO:", 80, 560);
-
-        // Customer details - name in bold
-        ctx.font = `bold ${addressFont}`;
-        ctx.fillText(
-            order.customer?.businessName || order.customer?.name || "Customer",
-            80,
-            620,
+        const orderTime = new Date(order.createdAt).toLocaleTimeString(
+            "en-US",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+            },
         );
 
-        // Address details
-        ctx.font = addressFont;
-        const addressLine = order.customer?.address?.line || "";
-        let cityState = "";
-        if (order.customer?.address?.city?.name) {
-            cityState += order.customer.address.city.name;
-        }
-        if (order.customer?.address?.city?.state?.name) {
-            cityState += `, ${order.customer.address.city.state.name}`;
-        }
-        if (order.customer?.address?.pinCode) {
-            cityState += ` ${order.customer.address.pinCode}`;
-        }
-
-        ctx.fillText(addressLine, 80, 670);
-        ctx.fillText(cityState, 80, 720);
+        // Smaller font for date time
+        ctx.font = "bold 10px Arial";
         ctx.fillText(
-            order.customer?.address?.city?.state?.country?.name || "India",
-            80,
-            770,
+            `Order Date & Time - ${orderDate} ${orderTime}`,
+            5,
+            currentY + 18,
         );
-        ctx.fillText(`Phone: ${order.customer?.phone || "N/A"}`, 80, 820);
 
-        // Generate QR code
-        try {
-            const qrCodeDataUrl = await qrcode.toDataURL(`ORDER:${order.id}`, {
-                errorCorrectionLevel: "H",
-                margin: 1,
-                width: 200,
-            });
-
-            const qrImg = new Image();
-            await new Promise((resolve, reject) => {
-                qrImg.onload = resolve;
-                qrImg.onerror = reject;
-                qrImg.src = qrCodeDataUrl;
-            });
-
-            // Draw QR code on the right side
-            ctx.drawImage(qrImg, width - 280, 560, 200, 200);
-        } catch (error) {
-            console.error("Error generating QR code:", error);
-        }
-
-        // Draw barcode (simplified visual representation)
-        ctx.fillStyle = "black";
-        const barcodeY = 880;
-        const barWidths = [4, 8, 4, 12, 8, 4, 8, 4, 12, 8, 4, 8, 4];
-        let currentX = 200;
-
-        barWidths.forEach((width) => {
-            ctx.fillRect(currentX, barcodeY, width * 3, 80);
-            currentX += width * 3 + 12;
-        });
-
-        // Add order ID below barcode
-        ctx.font = normalFont;
+        // DD-Y in the middle-right section
+        ctx.font = "bold 12px Arial";
         ctx.textAlign = "center";
-        ctx.fillText(`${order.id}`, width / 2, barcodeY + 120);
-
-        // Footer text
-        ctx.font = smallFont;
         ctx.fillText(
-            "This is a shipping label generated by Printify",
-            width / 2,
-            height - 60,
+            "DD-Y",
+            (dateColumnEnd + statusColumnEnd) / 2,
+            currentY + 18,
         );
+
+        // X in the rightmost cell
+        ctx.font = "bold 18px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("X", (statusColumnEnd + width) / 2, currentY + 18);
 
         // Convert canvas to PNG data URL and trigger download
         const pngDataUrl = canvas.toDataURL("image/png");

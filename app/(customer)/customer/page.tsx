@@ -213,7 +213,7 @@ export default async function CustomerDashboard() {
                                     </h2>
                                 </div>
                                 <Link
-                                    href="/customer/orders"
+                                    href="/customer/orders?search=&sortorder=desc&perpage=100"
                                     className="text-sm text-blue-600 hover:underline flex items-center"
                                 >
                                     View all{" "}
