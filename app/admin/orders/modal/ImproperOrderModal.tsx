@@ -51,7 +51,7 @@ export function ImproperOrderModal({ orderId }: { orderId: number }) {
             setIsSubmitting(true);
             // Update this API endpoint if needed
             const response = await axios.post(
-                `/api/admin/order/${orderId}/improper`,
+                `/api/orders/${orderId}/improper`,
                 {
                     reason: values.reason,
                 },

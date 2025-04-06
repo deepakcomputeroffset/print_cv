@@ -40,8 +40,6 @@ export default async function CustomerWalletPage({
     const { page: pp, perpage } = await searchParams;
     const page = parseInt(pp || "1");
     const perPage = parseInt(perpage || "10");
-    // const page = searchParams.page ? parseInt(searchParams.page) : 1;
-    // const perPage = searchParams.perpage ? parseInt(searchParams.perpage) : 10;
 
     // Get wallet and transaction data
     const [transactions, wallet, transactionsCount] = await Prisma.$transaction(

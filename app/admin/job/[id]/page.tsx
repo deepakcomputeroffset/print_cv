@@ -22,6 +22,7 @@ import { redirect } from "next/navigation";
 import { allowedRoleForJobManagement } from "@/lib/constants";
 import { ROLE } from "@prisma/client";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { ViewFilesModal } from "@/components/admin/view-files-modal";
 
 export default async function JobPage({
     params,
@@ -57,6 +58,7 @@ export default async function JobPage({
                 include: {
                     customer: true,
                     productItem: true,
+                    attachment: true,
                 },
             },
         },
@@ -235,13 +237,17 @@ export default async function JobPage({
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Order ID</TableHead>
+                                    <TableHead className="whitespace-nowrap">
+                                        Order ID
+                                    </TableHead>
                                     <TableHead>Customer</TableHead>
                                     <TableHead>Product</TableHead>
                                     <TableHead>Qty</TableHead>
                                     <TableHead>Amount</TableHead>
                                     <TableHead>Status</TableHead>
-                                    <TableHead>Created At</TableHead>
+                                    <TableHead className="whitespace-nowrap">
+                                        Created At
+                                    </TableHead>
                                     {!job.isVerified && (
                                         <TableHead>Actions</TableHead>
                                     )}
@@ -250,14 +256,18 @@ export default async function JobPage({
                             <TableBody>
                                 {job.orders.map((order) => (
                                     <TableRow key={order.id}>
-                                        <TableCell>#{order.id}</TableCell>
-                                        <TableCell>
+                                        <TableCell className="whitespace-nowrap">
+                                            #{order.id}
+                                        </TableCell>
+                                        <TableCell className="whitespace-nowrap">
                                             {order.customer.name}
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell className="whitespace-nowrap">
                                             {order.productItem?.sku}
                                         </TableCell>
-                                        <TableCell>{order.qty}</TableCell>
+                                        <TableCell className="whitespace-nowrap">
+                                            {order.qty}
+                                        </TableCell>
                                         <TableCell className="flex items-center gap-1">
                                             <IndianRupee className="w-4 h-4" />
                                             {order?.total}
@@ -267,14 +277,23 @@ export default async function JobPage({
                                                 {order.status}
                                             </Badge>
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell className="whitespace-nowrap">
                                             {format(
                                                 job.createdAt,
                                                 "dd MMM yyyy",
                                             )}
                                         </TableCell>
                                         {!job.isVerified && (
-                                            <TableCell>
+                                            <TableCell className="flex space-x-1">
+                                                {!!order?.attachment?.urls && (
+                                                    <ViewFilesModal
+                                                        orderId={order.id}
+                                                        files={
+                                                            order?.attachment
+                                                                ?.urls
+                                                        }
+                                                    />
+                                                )}
                                                 <RemoveOrderFromJob
                                                     jobId={job.id}
                                                     orderId={order.id}

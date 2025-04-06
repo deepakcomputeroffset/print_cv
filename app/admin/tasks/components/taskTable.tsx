@@ -71,12 +71,24 @@ export default function ClientTaskTable({
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Task Name</TableHead>
-                            <TableHead>Job ID</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Created At</TableHead>
-                            <TableHead>Started At</TableHead>
-                            <TableHead>Completed At</TableHead>
+                            <TableHead className="whitespace-nowrap">
+                                Task Name
+                            </TableHead>
+                            <TableHead className="whitespace-nowrap">
+                                Job ID
+                            </TableHead>
+                            <TableHead className="whitespace-nowrap">
+                                Status
+                            </TableHead>
+                            <TableHead className="whitespace-nowrap">
+                                Created At
+                            </TableHead>
+                            <TableHead className="whitespace-nowrap">
+                                Started At
+                            </TableHead>
+                            <TableHead className="whitespace-nowrap">
+                                Completed At
+                            </TableHead>
                             <TableHead className="text-right">
                                 Actions
                             </TableHead>
@@ -88,12 +100,15 @@ export default function ClientTaskTable({
                                 task?.id.toString(),
                             );
                             return (
-                                <TableRow key={task.id}>
+                                <TableRow
+                                    key={task.id}
+                                    className="whitespace-nowrap"
+                                >
                                     <TableCell className="font-medium">
                                         {task.taskType.name}
                                     </TableCell>
-                                    <TableCell>{`${task?.jobId} (${task?.job?.name})`}</TableCell>
-                                    <TableCell>
+                                    <TableCell className="whitespace-nowrap">{`${task?.jobId} (${task?.job?.name})`}</TableCell>
+                                    <TableCell className="whitespace-nowrap">
                                         <Badge
                                             variant={
                                                 status === TASK_STATUS.PENDING
@@ -107,13 +122,13 @@ export default function ClientTaskTable({
                                             {status}
                                         </Badge>
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell className="whitespace-nowrap">
                                         {format(
                                             new Date(task.createdAt),
                                             "dd/MM/yyyy HH:mm",
                                         )}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell className="whitespace-nowrap">
                                         {task.startedAt
                                             ? format(
                                                   new Date(task.startedAt),
@@ -121,7 +136,7 @@ export default function ClientTaskTable({
                                               )
                                             : "-"}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell className="whitespace-nowrap">
                                         {task.completedAt
                                             ? format(
                                                   new Date(task.completedAt),
@@ -129,7 +144,7 @@ export default function ClientTaskTable({
                                               )
                                             : "-"}
                                     </TableCell>
-                                    <TableCell className="text-right">
+                                    <TableCell className="text-right whitespace-nowrap">
                                         {status === TASK_STATUS.PENDING && (
                                             <Button
                                                 size="sm"
@@ -194,6 +209,18 @@ export default function ClientTaskTable({
                                                 )}
                                             </Button>
                                         )}
+                                        <Button
+                                            size="sm"
+                                            variant="outline"
+                                            className="ml-2"
+                                            onClick={() =>
+                                                router.push(
+                                                    `/admin/tasks/${task.id}`,
+                                                )
+                                            }
+                                        >
+                                            View Details
+                                        </Button>
                                     </TableCell>
                                 </TableRow>
                             );

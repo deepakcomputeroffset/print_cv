@@ -10,7 +10,7 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ViewFilesModal } from "./view-files-modal";
+import { ViewFilesModal } from "@/components/admin/view-files-modal";
 import { ImproperOrderModal } from "../modal/ImproperOrderModal";
 
 interface DataTableRowActionsProps<TData> {
@@ -38,8 +38,9 @@ export function DataTableRowActions<TData>({
                 {file && file?.urls?.length > 0 && (
                     <ViewFilesModal orderId={order.id} files={file.urls} />
                 )}
-
-                <ImproperOrderModal orderId={order.id} />
+                {order?.status === "PENDING" && (
+                    <ImproperOrderModal orderId={order.id} />
+                )}
             </DropdownMenuContent>
         </DropdownMenu>
     );
