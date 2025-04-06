@@ -19,6 +19,8 @@ import { sourceSerif4 } from "@/lib/font";
 import { Package, Truck, MapPin, User, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { LoadingRow } from "@/components/loading-row";
+import { InvoiceButton } from "@/components/InvoiceButton";
+import { LabelButton } from "@/components/LabelButton";
 
 export default function DispatchPage({
     searchParams,
@@ -82,6 +84,10 @@ export default function DispatchPage({
                                     <TableHead className="font-medium">
                                         Status
                                     </TableHead>
+                                    <TableHead className="font-medium">
+                                        Doc
+                                    </TableHead>
+
                                     <TableHead className="font-medium">
                                         Actions
                                     </TableHead>
@@ -202,6 +208,17 @@ export default function DispatchPage({
                                                         ? "Pending"
                                                         : "Dispatched"}
                                                 </Badge>
+                                            </TableCell>
+
+                                            <TableCell>
+                                                <div>
+                                                    <LabelButton
+                                                        order={order}
+                                                    />
+                                                    <InvoiceButton
+                                                        order={order}
+                                                    />
+                                                </div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex items-center gap-2">

@@ -30,7 +30,6 @@ export async function GET(request: Request) {
 
         const { searchParams } = new URL(request.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
-        console.log(query);
         const where: PrismaType.orderWhereInput = {
             AND: [
                 {
@@ -103,11 +102,12 @@ export async function GET(request: Request) {
                           },
                       }
                     : {},
-                query?.dispatched === "false"
+                !query?.dispatched || query?.dispatched == "false"
                     ? { status: "PROCESSING" }
                     : { status: "DISPATCHED" },
             ],
         };
+
         const [total, orders] = await Prisma.$transaction([
             Prisma.order.count({ where }),
             Prisma.order.findMany({
@@ -146,10 +146,10 @@ export async function GET(request: Request) {
                             },
                         },
                     },
+                    attachment: true,
                 },
             }),
         ]);
-
         return serverResponse({
             status: 200,
             success: true,

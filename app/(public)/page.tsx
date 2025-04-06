@@ -29,16 +29,6 @@ const cachedCategories = unstable_cache(getCategories, ["categories"], {
 });
 
 export default async function HomePage() {
-    // const categories = await Prisma?.productCategory.findMany({
-    //     include: {
-    //         _count: { select: { subCategories: true } },
-    //         parentCategory: true,
-    //     },
-    //     orderBy: {
-    //         isAvailable: "desc",
-    //     },
-    // });
-
     const categories = await cachedCategories();
 
     const carouselSlides = [

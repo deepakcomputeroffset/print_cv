@@ -1,13 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Tag, Check } from "lucide-react";
-import { CUSTOMER_CATEGORY, order, product, productItem } from "@prisma/client";
+import { FileDown, Check } from "lucide-react";
+import { order, product, productItem } from "@prisma/client";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
-interface LabelButtonProps {
+interface InvoiceButtonProps {
     order: order & {
         productItem: productItem & {
             product: product;
@@ -29,38 +29,39 @@ interface LabelButtonProps {
                 };
                 pinCode: string;
             } | null;
-            customerCategory: CUSTOMER_CATEGORY;
         };
     };
 }
 
-export function LabelButton({ order }: LabelButtonProps) {
+export function InvoiceButton({ order }: InvoiceButtonProps) {
     const [isGenerating, setIsGenerating] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
-    const handleDownloadLabel = async () => {
+    const handleDownloadInvoice = async () => {
         try {
             setIsGenerating(true);
-            const { generateLabel } = await import("@/lib/utils/generateLabel");
+            const { generateInvoice } = await import(
+                "@/lib/utils/generateInvoice"
+            );
             if (!order.customer) {
                 toast.error(
-                    "Cannot generate label: Missing customer information",
+                    "Cannot generate invoice: Missing customer information",
                 );
                 return;
             }
-            await generateLabel(order);
+            await generateInvoice(order);
 
             // Show success state for 2 seconds
             setIsSuccess(true);
-            toast.success("Shipping label generated successfully!");
+            toast.success("Invoice generated successfully!");
 
             // Reset to original state after 2 seconds
             setTimeout(() => {
                 setIsSuccess(false);
             }, 2000);
         } catch (error) {
-            console.error("Error generating shipping label:", error);
-            toast.error("Failed to generate shipping label. Please try again.");
+            console.error("Error generating invoice:", error);
+            toast.error("Failed to generate invoice. Please try again.");
         } finally {
             setIsGenerating(false);
         }
@@ -73,27 +74,24 @@ export function LabelButton({ order }: LabelButtonProps) {
             className={cn(
                 isSuccess
                     ? "bg-green-500 hover:bg-green-600 text-white border-0"
-                    : "border-emerald-500/30 text-emerald-600 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20",
+                    : "border-primary/20 text-primary hover:bg-primary/5",
                 "transition-all duration-200",
             )}
-            onClick={handleDownloadLabel}
+            onClick={handleDownloadInvoice}
             disabled={isGenerating}
         >
             {isSuccess ? (
                 <Check className="h-4 w-4 mr-2" />
             ) : (
-                <Tag
-                    className={cn(
-                        "h-4 w-4 mr-2",
-                        isGenerating && "animate-bounce",
-                    )}
+                <FileDown
+                    className={cn("h-4 w-4", isGenerating && "animate-bounce")}
                 />
             )}
             {isGenerating
                 ? "Generating..."
                 : isSuccess
                   ? "Downloaded!"
-                  : "Download Label"}
+                  : "Invoice"}
         </Button>
     );
 }

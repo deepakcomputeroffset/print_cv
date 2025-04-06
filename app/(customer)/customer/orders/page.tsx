@@ -24,7 +24,7 @@ import { getStatusColor } from "@/lib/getStatusColor";
 import { OrdersFilter } from "@/components/order/filter";
 import { Input } from "@/components/ui/input";
 // import { InvoiceButton } from "@/components/order/components/InvoiceButton";
-import { LabelButton } from "@/components/order/components/LabelButton";
+import { LabelButton } from "@/components/LabelButton";
 import { sourceSerif4 } from "@/lib/font";
 import { useSession } from "next-auth/react";
 

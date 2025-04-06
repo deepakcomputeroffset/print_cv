@@ -10,7 +10,7 @@ import {
     productItem,
     UPLOADVIA,
 } from "@prisma/client";
-import { InvoiceButton } from "./InvoiceButton";
+import { InvoiceButton } from "../../InvoiceButton";
 
 interface ProductDetailsProps {
     order: order & {
