@@ -8,8 +8,9 @@ import StatsSection from "@/components/landingPage/statsSection";
 import FaqSection from "@/components/landingPage/faqSection";
 import ServiceCategories from "@/components/landingPage/serviceCategories";
 import { Prisma } from "@/lib/prisma";
+import { unstable_cache } from "next/cache";
 
-export default async function HomePage() {
+async function getCategories() {
     const categories = await Prisma?.productCategory.findMany({
         include: {
             _count: { select: { subCategories: true } },
@@ -19,6 +20,26 @@ export default async function HomePage() {
             isAvailable: "desc",
         },
     });
+    return categories;
+}
+
+const cachedCategories = unstable_cache(getCategories, ["categories"], {
+    revalidate: 60 * 60,
+    tags: ["categories"],
+});
+
+export default async function HomePage() {
+    // const categories = await Prisma?.productCategory.findMany({
+    //     include: {
+    //         _count: { select: { subCategories: true } },
+    //         parentCategory: true,
+    //     },
+    //     orderBy: {
+    //         isAvailable: "desc",
+    //     },
+    // });
+
+    const categories = await cachedCategories();
 
     const carouselSlides = [
         {

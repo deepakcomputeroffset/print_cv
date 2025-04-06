@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Prisma } from "@/lib/prisma";
 import { Footer } from "@/components/landingPage/footer";
 import RecentOrderList from "@/components/order/recentOrderList";
+import { unstable_cache } from "next/cache";
 
 export default async function ProductCategoryPage({
     params,
@@ -17,36 +18,43 @@ export default async function ProductCategoryPage({
 
     const { parentCategoryId } = await params;
 
-    const [categories, orders] = await Prisma?.$transaction([
-        Prisma?.productCategory.findMany({
-            where: {
-                parentCategoryId: Number(parentCategoryId) ?? null,
-            },
-            include: {
-                _count: { select: { subCategories: true } },
-                parentCategory: true,
-            },
-            orderBy: {
-                isAvailable: "desc",
-            },
-        }),
-        Prisma?.order.findMany({
-            where: {
-                customerId: session?.user?.customer?.id,
-            },
-            include: {
-                productItem: {
-                    include: {
-                        product: true,
+    async function getCategories() {
+        return await Prisma?.$transaction([
+            Prisma?.productCategory.findMany({
+                where: {
+                    parentCategoryId: Number(parentCategoryId) ?? null,
+                },
+                include: {
+                    _count: { select: { subCategories: true } },
+                    parentCategory: true,
+                },
+                orderBy: {
+                    isAvailable: "desc",
+                },
+            }),
+            Prisma?.order.findMany({
+                where: {
+                    customerId: session?.user?.customer?.id,
+                },
+                include: {
+                    productItem: {
+                        include: {
+                            product: true,
+                        },
                     },
                 },
-            },
-            orderBy: {
-                createdAt: "desc",
-            },
-            take: 10,
-        }),
-    ]);
+                orderBy: {
+                    createdAt: "desc",
+                },
+                take: 10,
+            }),
+        ]);
+    }
+    const cachedData = unstable_cache(getCategories, ["categories-orders"], {
+        revalidate: 60 * 60,
+        tags: ["categories-orders"],
+    });
+    const [categories, orders] = await cachedData();
 
     if (!categories || categories?.length === 0) {
         return (
