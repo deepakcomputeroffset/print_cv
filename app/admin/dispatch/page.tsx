@@ -20,7 +20,10 @@ import { Package, Truck, MapPin, User, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { LoadingRow } from "@/components/loading-row";
 import { InvoiceButton } from "@/components/InvoiceButton";
-import { LabelButton } from "@/components/LabelButton";
+import {
+    LabelButton,
+    LabelButtonWithAttachment,
+} from "@/components/LabelButton";
 
 export default function DispatchPage({
     searchParams,
@@ -97,13 +100,13 @@ export default function DispatchPage({
                             <TableBody>
                                 {isLoading ? (
                                     <LoadingRow
-                                        colSpan={6}
+                                        colSpan={7}
                                         text="Loading orders..."
                                     />
                                 ) : orders?.length === 0 ? (
                                     <TableRow>
                                         <TableCell
-                                            colSpan={6}
+                                            colSpan={7}
                                             className="h-24 text-center"
                                         >
                                             <div className="flex flex-col items-center justify-center text-muted-foreground">
@@ -211,8 +214,11 @@ export default function DispatchPage({
                                             </TableCell>
 
                                             <TableCell>
-                                                <div>
+                                                <div className="flex flex-col gap-2">
                                                     <LabelButton
+                                                        order={order}
+                                                    />
+                                                    <LabelButtonWithAttachment
                                                         order={order}
                                                     />
                                                     <InvoiceButton

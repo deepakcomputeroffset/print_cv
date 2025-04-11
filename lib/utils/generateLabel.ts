@@ -1,5 +1,7 @@
 import { CUSTOMER_CATEGORY, order, product, productItem } from "@prisma/client";
 import JsBarcode from "jsbarcode";
+import { joinImages } from "./joinImages";
+import { convertFileToBase64 } from "./imageToBase64";
 
 interface LabelOrder extends order {
     productItem: productItem & {
@@ -26,14 +28,14 @@ interface LabelOrder extends order {
     };
 }
 
-export const generateLabel = async (order: LabelOrder) => {
+export const generateLabel = async (
+    order: LabelOrder,
+    width = 338,
+    height = 204,
+    // Set dimensions to 338x204 at 96dpi (standard screen resolution)
+) => {
     try {
-        // Create a canvas element for drawing the label
         const canvas = document.createElement("canvas");
-
-        // Set dimensions to 338x204 at 96dpi (standard screen resolution)
-        const width = 338;
-        const height = 204;
 
         canvas.width = width;
         canvas.height = height;
@@ -60,9 +62,6 @@ export const generateLabel = async (order: LabelOrder) => {
         ctx.lineWidth = 2;
         ctx.strokeRect(1, 1, width - 2, height - 2);
 
-        // Generate order reference code from the order
-        // Use shorter reference format like "22/B" from the new image
-        // Format order number to 4 digits with leading zeros
         const orderId = order?.id.toString().padStart(5, "0");
         const customerId = order?.customerId?.toString().padStart(4, "0");
         const orderRef = `${orderId}/${order?.jobId}`;
@@ -260,20 +259,31 @@ export const generateLabel = async (order: LabelOrder) => {
         ctx.fillText("X", (statusColumnEnd + width) / 2, currentY + 18);
 
         // Convert canvas to PNG data URL and trigger download
-        const pngDataUrl = canvas.toDataURL("image/png");
-        const labelName = `Shipping_Label_${order.id}_${new Date().toISOString().slice(0, 10)}`;
-
-        // Create download link
-        const link = document.createElement("a");
-        link.href = pngDataUrl;
-        link.download = `${labelName}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        return pngDataUrl;
+        return canvas.toDataURL("image/png");
     } catch (error) {
         console.error("Error generating PNG label:", error);
         throw error;
     }
 };
+
+export const generateLabelWithAttachment = async (
+    order: LabelOrder,
+    file: File,
+) => {
+    try {
+        const firstImage = await convertFileToBase64(file);
+        const secondImage = await generateLabel(order);
+        const newLabel = await joinImages(firstImage, secondImage);
+        download(newLabel, order.id);
+    } catch (error) {
+        console.error("Error generating combined label:", error);
+        throw error;
+    }
+};
+
+export function download(labelDataUrl: string, orderId: number): void {
+    const link = document.createElement("a");
+    link.href = labelDataUrl;
+    link.download = `Label_${orderId}_${new Date().toISOString().slice(0, 10)}.png`;
+    link.click();
+}

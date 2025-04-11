@@ -7,7 +7,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Prisma } from "@/lib/prisma";
 import { Footer } from "@/components/landingPage/footer";
 import RecentOrderList from "@/components/order/recentOrderList";
-import { unstable_cache } from "next/cache";
 
 export default async function ProductCategoryPage({
     params,
@@ -50,11 +49,11 @@ export default async function ProductCategoryPage({
             }),
         ]);
     }
-    const cachedData = unstable_cache(getCategories, ["categories-orders"], {
-        revalidate: 60 * 60,
-        tags: ["categories-orders"],
-    });
-    const [categories, orders] = await cachedData();
+    // const cachedData = unstable_cache(getCategories, ["categories-orders"], {
+    //     revalidate: 60 * 60,
+    //     tags: ["categories-orders"],
+    // });
+    const [categories, orders] = await getCategories();
 
     if (!categories || categories?.length === 0) {
         return (

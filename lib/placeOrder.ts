@@ -23,11 +23,9 @@ export async function placeOrder(
             const totalPrice = totalProductPrice + charge + uploadCharge;
 
             // Get customer wallet
-            const wallet = await tx.wallet.findUnique({
+            const wallet = await tx.wallet.findFirst({
                 where: { customerId },
-                include: { transactions: true },
             });
-
             if (!wallet) {
                 throw new Error("Wallet not found");
             }

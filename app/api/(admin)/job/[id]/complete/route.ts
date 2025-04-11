@@ -46,11 +46,21 @@ export async function POST(
             });
         }
 
-        await Prisma.job.update({
-            where: { id: parseInt(id) },
-            data: { isCompleted: !job.isCompleted },
-        });
+        await Prisma.$transaction(async (tx) => {
+            tx.job.update({
+                where: { id: parseInt(id) },
+                data: { isCompleted: !job.isCompleted },
+            });
 
+            tx.order.updateMany({
+                where: {
+                    jobId: parseInt(id),
+                },
+                data: {
+                    status: "PROCESSED",
+                },
+            });
+        });
         return serverResponse({
             status: 200,
             success: true,

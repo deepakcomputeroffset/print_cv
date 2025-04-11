@@ -130,7 +130,6 @@ export async function POST(request: Request) {
         }
 
         const orderDetail = await request.formData();
-
         const productItemId = parseInt(
             orderDetail.get("productItemId")?.toString() || "",
         );
@@ -219,6 +218,7 @@ export async function POST(request: Request) {
                 data: order,
             });
         } catch (error) {
+            console.log(error);
             if (uploadType === "UPLOAD")
                 fileUrls?.forEach(async (u) => await deleteFile(u));
             return serverResponse({

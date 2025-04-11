@@ -103,7 +103,7 @@ export async function GET(request: Request) {
                       }
                     : {},
                 !query?.dispatched || query?.dispatched == "false"
-                    ? { status: "PROCESSING" }
+                    ? { status: "PROCESSED" }
                     : { status: "DISPATCHED" },
             ],
         };
