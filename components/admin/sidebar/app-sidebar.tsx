@@ -24,31 +24,42 @@ import { routes } from "./routes";
 export function AppSidebar({ session }: { session: Session | null }) {
     const currentPath = usePathname();
     const isRouteActive = (pattern: RegExp) => pattern.test(currentPath);
-    const { isMobile, toggleSidebar } = useSidebar();
+    const { isMobile, toggleSidebar, state } = useSidebar();
+
     return (
-        <Sidebar variant="floating" collapsible="icon">
-            <SidebarHeader>
+        <Sidebar
+            variant="floating"
+            collapsible="icon"
+            className="border-r border-gray-200"
+        >
+            <SidebarHeader className="border-b border-gray-100">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <div>
-                                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                                    <GalleryVerticalEnd className="size-4" />
+                            <div className="flex items-center gap-3 p-2">
+                                <div className="flex aspect-square px-[7px] items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-md">
+                                    <GalleryVerticalEnd className="size-5 m-0" />
                                 </div>
-                                <div className="flex flex-col gap-0.5 leading-none">
-                                    <span className="font-semibold">
-                                        Print Club
-                                    </span>
-                                    <span>Dashboard</span>
-                                </div>
+                                {state !== "collapsed" && (
+                                    <div className="flex flex-col gap-0.5 leading-none">
+                                        <span className="font-bold text-lg bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                                            Print Club
+                                        </span>
+                                        <span className="text-sm text-gray-500">
+                                            Admin Panel
+                                        </span>
+                                    </div>
+                                )}
                             </div>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
-            <SidebarContent>
+            <SidebarContent className="py-4">
                 <SidebarGroup>
-                    <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
+                    <SidebarGroupLabel className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Navigation
+                    </SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {routes
@@ -62,7 +73,11 @@ export function AppSidebar({ session }: { session: Session | null }) {
                                 .map((item) => (
                                     <SidebarMenuItem key={item.title}>
                                         <SidebarMenuButton
-                                            className={`sidebar-item ${isRouteActive(item.pattern) ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""}`}
+                                            className={`sidebar-item transition-all duration-200 ${
+                                                isRouteActive(item.pattern)
+                                                    ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
+                                                    : "hover:bg-gray-50 hover:text-gray-900"
+                                            }`}
                                             asChild
                                         >
                                             <Link
@@ -70,9 +85,18 @@ export function AppSidebar({ session }: { session: Session | null }) {
                                                 onClick={() =>
                                                     isMobile && toggleSidebar()
                                                 }
+                                                className="flex items-center gap-3 px-4 py-2.5"
                                             >
-                                                <item.icon />
-                                                <span className="text-base font-semibold">
+                                                <item.icon
+                                                    className={`size-5 ${
+                                                        isRouteActive(
+                                                            item.pattern,
+                                                        )
+                                                            ? "text-blue-600"
+                                                            : "text-gray-500"
+                                                    }`}
+                                                />
+                                                <span className="text-sm font-medium">
                                                     {item?.title}
                                                 </span>
                                             </Link>
@@ -84,7 +108,7 @@ export function AppSidebar({ session }: { session: Session | null }) {
                 </SidebarGroup>
             </SidebarContent>
 
-            <SidebarFooter>
+            <SidebarFooter className="border-t border-gray-100">
                 <NavUser session={session} />
             </SidebarFooter>
             <SidebarRail />
