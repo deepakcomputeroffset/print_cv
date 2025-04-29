@@ -8,7 +8,9 @@
         "start": "next start",
         "lint": "next lint",
         "prepare": "husky",
-        "postinstall": "prisma generate --no-engine"
+        "postinstall": "prisma generate --no-engine",
+        "seed:india": "node prisma/scripts/seed-india-data.js",
+        "seed:admin": "node prisma/scripts/seed-admin.js"
     },
     "dependencies": {
         "@google-cloud/storage": "^7.15.2",
