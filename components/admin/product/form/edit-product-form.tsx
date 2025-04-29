@@ -26,7 +26,7 @@ import { ProductAttributes } from "../../attribute/product-attribute";
 import { ProductVariants } from "../product-variants";
 import { useProductCategory } from "@/hooks/useProductCategory";
 import { productFormSchema } from "@/schemas/product.form.schema";
-import { ProductVariantType } from "@/types/types";
+import { ProductVariantType, ServerResponseType } from "@/types/types";
 import { toast } from "sonner";
 import { maxImageSize } from "@/lib/constants";
 import Image from "next/image";
@@ -44,7 +44,6 @@ import { getDirtyFieldsWithValues } from "@/lib/utils";
 import { useMount } from "@/hooks/use-mount";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { UploadApiResponse } from "cloudinary";
 
 type productItemWithOptions = productItem & {
     productAttributeOptions?: (productAttributeValue & {
@@ -133,32 +132,24 @@ export function EditProductForm({
                 if (validFiles.length !== files.length) {
                     toast.error("Some files exceed the 5MB size limit.");
                 }
-                const fileReaders = validFiles.map((file) => {
-                    return new Promise<string>((resolve, reject) => {
-                        const fileReader = new FileReader();
-                        fileReader.readAsDataURL(file);
-                        fileReader.onload = () =>
-                            resolve(fileReader.result as string);
-                        fileReader.onerror = () =>
-                            reject("Error reading file.");
-                    });
-                });
-                const images = await Promise.all(fileReaders);
-                const { data } = await axios.post<UploadApiResponse[]>(
+                const formData = new FormData();
+                validFiles.forEach((file) => formData.append("files", file));
+                formData.append("folder", "images");
+
+                const { data } = await axios.post<ServerResponseType<string[]>>(
                     "/api/upload",
-                    {
-                        files: images,
-                    },
+                    formData,
                 );
                 console.log(data);
-                form.setValue(
-                    "imageUrl",
-                    [
-                        ...form.getValues("imageUrl"),
-                        ...data?.map((url) => url?.secure_url),
-                    ],
-                    { shouldDirty: true },
-                );
+                if (data?.data) {
+                    form.setValue(
+                        "imageUrl",
+                        [...form.getValues("imageUrl"), ...data?.data],
+                        {
+                            shouldDirty: true,
+                        },
+                    );
+                }
             } catch (error) {
                 console.log(error);
                 toast.error("Error processing files.");
