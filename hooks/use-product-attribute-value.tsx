@@ -12,7 +12,8 @@ export function useProductAttributeValue(productAttributeId?: number) {
     // Fetch ProductAttributeValues query
     const { data, isLoading, error, refetch } = useQuery({
         queryKey,
-        queryFn: () => api.fetchProductAttributeValues(productAttributeId),
+        queryFn: async () =>
+            await api.fetchProductAttributeValues(productAttributeId),
     });
 
     const createMutation = useMutation({
@@ -44,7 +45,7 @@ export function useProductAttributeValue(productAttributeId?: number) {
     });
 
     return {
-        ProductAttributeValues: data?.data ?? [],
+        ProductAttributeValues: data ?? [],
         error,
         isLoading,
         refetch,

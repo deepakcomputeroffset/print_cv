@@ -1,10 +1,30 @@
 import { NextResponse } from "next/server";
 import { Prisma } from "@/lib/prisma";
 import { ProductAttributeValueSchema } from "@/schemas/product.attribute.value.form.schema";
+import serverResponse from "@/lib/serverResponse";
+import { allowedRoleForCategoryAndProductManagement } from "@/lib/constants";
+import { ROLE } from "@prisma/client";
+import { auth } from "@/lib/auth";
 
 export async function GET(request: Request) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session.user.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session.user.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session.user.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                message: "Unauthorized",
+            });
+        }
+
         const { searchParams } = new URL(request.url);
 
         if (isNaN(parseInt(searchParams?.get("productAttributeId") || ""))) {
@@ -42,7 +62,22 @@ export async function GET(request: Request) {
 
 export async function POST(req: Request) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session.user.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session.user.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session.user.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                message: "Unauthorized",
+            });
+        }
         const data = await req.json();
         const { success, data: safeData } =
             ProductAttributeValueSchema.safeParse(data);

@@ -70,12 +70,12 @@ function AuthError() {
                                 Go Back
                             </Button>
 
-                            <Button
+                            {/* <Button
                                 onClick={() => router.push("/login")}
                                 className="bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 text-white transition-all shadow hover:shadow-md"
                             >
                                 Try Again
-                            </Button>
+                            </Button> */}
 
                             <Button
                                 onClick={() => router.push("/")}

@@ -65,7 +65,9 @@ export function ProductForm() {
         },
     });
 
-    const { productCategories, isLoading } = useProductCategory();
+    const { productCategories, isLoading } = useProductCategory({
+        perpage: 100,
+    });
 
     const { createProduct } = useProducts();
 

@@ -1,12 +1,30 @@
-import { NextResponse } from "next/server";
 import { Prisma } from "@/lib/prisma";
+import serverResponse from "@/lib/serverResponse";
+import { ROLE } from "@prisma/client";
+import { allowedRoleForCategoryAndProductManagement } from "@/lib/constants";
+import { auth } from "@/lib/auth";
 
 export async function GET(
     request: Request,
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session.user.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session.user.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session.user.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                message: "Unauthorized",
+            });
+        }
         const { id } = await params;
 
         const productAttributeType =
@@ -15,22 +33,27 @@ export async function GET(
             });
 
         if (!productAttributeType) {
-            return NextResponse.json(
-                { success: false, error: "product attribute not found" },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Product AttributeType not found.",
+            });
         }
 
-        return NextResponse.json(
-            { success: true, data: productAttributeType },
-            { status: 200 },
-        );
+        return serverResponse({
+            status: 200,
+            success: true,
+            data: productAttributeType,
+            message: "Product Attribute fetched successfully.",
+        });
     } catch (error) {
         console.error("Error fetching productAttributeType:", error);
-        return NextResponse.json(
-            { error: "Failed to fetch productAttributeType" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Error while  fetching productAttributeType.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }
 
@@ -39,7 +62,22 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> },
 ) {
     try {
-        // TODO: AUTHENTICATION
+        const session = await auth();
+        if (
+            !session ||
+            session.user.userType != "staff" ||
+            !allowedRoleForCategoryAndProductManagement.includes(
+                session.user.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session.user.staff?.isBanned)
+        ) {
+            return serverResponse({
+                status: 401,
+                success: false,
+                message: "Unauthorized",
+            });
+        }
         const { id } = await params;
 
         const productAttributeType = await Prisma.productAttributeType.delete({
@@ -47,21 +85,25 @@ export async function DELETE(
         });
 
         if (!productAttributeType) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "productAttributeType not found",
-                },
-                { status: 404 },
-            );
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Product AttributeType not found.",
+            });
         }
 
-        return new NextResponse(null, { status: 200 });
+        return serverResponse({
+            status: 200,
+            success: true,
+            message: "Product Attribute Deleted successfully.",
+        });
     } catch (error) {
         console.error("Error deleting productAttributeType:", `${error}`);
-        return NextResponse.json(
-            { error: "Failed to delete productAttributeType" },
-            { status: 500 },
-        );
+        return serverResponse({
+            status: 500,
+            success: false,
+            message: "Error while  deleting productAttributeType.",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 }

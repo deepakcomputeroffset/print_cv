@@ -27,7 +27,7 @@ export const AddProductAttributeValueModal = ({
     } = useProductAttributeValue(data?.productAttribute?.id);
 
     const getAvailableAttributeValues = useCallback(() => {
-        return ProductAttributeValues?.filter(
+        return (ProductAttributeValues as productAttributeValue[])?.filter(
             (v) => !selectedOptions?.some((opt) => opt.id === v.id), // Compare by `id`
         );
     }, [selectedOptions, ProductAttributeValues]);
