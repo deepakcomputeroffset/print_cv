@@ -26,14 +26,16 @@ const formSchema = z.object({
     password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
+const isDevelopment = process.env.NODE_ENV === "development";
+
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            phone: "7479796212",
-            password: "Abc1234@@",
+            phone: isDevelopment ? "7479796212" : "",
+            password: isDevelopment ? "Abc1234@@" : "",
         },
     });
 
