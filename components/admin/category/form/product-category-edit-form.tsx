@@ -22,7 +22,7 @@ import { useModal } from "@/hooks/use-modal";
 import { useProductCategory } from "@/hooks/useProductCategory";
 import { createFormData } from "@/lib/formData";
 import { getDirtyFieldsWithValues } from "@/lib/utils";
-import { productCategorySchema } from "@/schemas/product.category.form.schema";
+import { getProductCategorySchema } from "@/schemas/product.category.form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Trash } from "lucide-react";
 import Image from "next/image";
@@ -33,6 +33,7 @@ import { z } from "zod";
 
 export const ProductCategoryEditForm = () => {
     const { onClose, data } = useModal();
+    const productCategorySchema = getProductCategorySchema();
     const form = useForm<z.infer<typeof productCategorySchema>>({
         resolver: zodResolver(productCategorySchema.partial()),
         defaultValues: {

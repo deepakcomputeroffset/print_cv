@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import * as api from "@/lib/api/product.category";
 import { QueryParams } from "@/types/types";
-import { productCategorySchema } from "@/schemas/product.category.form.schema";
+import { getProductCategorySchema } from "@/schemas/product.category.form.schema";
 import { parseFormData, parsePartialFormData } from "@/lib/formData";
 
 export function useProductCategory(props: QueryParams = {}) {
@@ -18,7 +18,7 @@ export function useProductCategory(props: QueryParams = {}) {
     // Update product category mutation
     const createMutation = useMutation({
         mutationFn: (data: FormData) => {
-            const result = parseFormData(data, productCategorySchema);
+            const result = parseFormData(data, getProductCategorySchema());
             if (result.success) return api.createProductCategory(data);
             throw result.error;
         },
@@ -34,7 +34,10 @@ export function useProductCategory(props: QueryParams = {}) {
     // Update product category mutation
     const updateMutation = useMutation({
         mutationFn: ({ id, data }: { id: number; data: FormData }) => {
-            const result = parsePartialFormData(data, productCategorySchema);
+            const result = parsePartialFormData(
+                data,
+                getProductCategorySchema(),
+            );
             if (result.success) return api.updateProductCategory(id, data);
             throw result.error;
         },

@@ -6,7 +6,7 @@ import {
     defaultProductCategoryPerPage,
     maxImageSize,
 } from "@/lib/constants";
-import { productCategorySchema } from "@/schemas/product.category.form.schema";
+import { getProductCategorySchema } from "@/schemas/product.category.form.schema";
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
 import { parseFormData } from "@/lib/formData";
@@ -125,7 +125,7 @@ export async function POST(req: Request) {
         }
 
         const data = await req.formData();
-        const safeData = parseFormData(data, productCategorySchema);
+        const safeData = parseFormData(data, getProductCategorySchema());
 
         if (!safeData.success) {
             return serverResponse({

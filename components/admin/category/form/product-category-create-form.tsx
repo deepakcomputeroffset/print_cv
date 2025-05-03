@@ -21,7 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/hooks/use-modal";
 import { useProductCategory } from "@/hooks/useProductCategory";
 import { createFormData } from "@/lib/formData";
-import { productCategorySchema } from "@/schemas/product.category.form.schema";
+import { getProductCategorySchema } from "@/schemas/product.category.form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Trash } from "lucide-react";
 import Image from "next/image";
@@ -33,6 +33,9 @@ import { z } from "zod";
 export const ProductCategoryCreateForm = () => {
     const { onClose, data } = useModal();
     const [imageUrl, setImageUrl] = useState<string>();
+
+    const productCategorySchema = getProductCategorySchema();
+
     const form = useForm<z.infer<typeof productCategorySchema>>({
         resolver: zodResolver(productCategorySchema),
         defaultValues: {

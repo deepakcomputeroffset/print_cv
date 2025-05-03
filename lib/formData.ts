@@ -1,15 +1,23 @@
 import { z } from "zod";
 
-export function createFormData<
-    T extends Record<string, string | number | File | boolean>,
->(values: T): FormData {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function createFormData<T extends Record<string, any>>(
+    values: T,
+): FormData {
     const formData = new FormData();
-    Object.keys(values).forEach((key) => {
-        const value = values[key as keyof T];
-        if (value !== undefined) {
-            formData.append(key, value as string | Blob);
+
+    Object.entries(values).forEach(([key, value]) => {
+        if (value === undefined || value === null) return;
+
+        if (typeof value === "boolean" || typeof value === "number") {
+            formData.append(key, value.toString());
+        } else if (value instanceof File) {
+            formData.append(key, value);
+        } else {
+            formData.append(key, value);
         }
     });
+
     return formData;
 }
 

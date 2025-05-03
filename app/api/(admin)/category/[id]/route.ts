@@ -1,5 +1,5 @@
 import { Prisma } from "@/lib/prisma";
-import { productCategorySchema } from "@/schemas/product.category.form.schema";
+import { getProductCategorySchema } from "@/schemas/product.category.form.schema";
 import {
     allowedRoleForCategoryAndProductManagement,
     maxImageSize,
@@ -9,6 +9,7 @@ import serverResponse from "@/lib/serverResponse";
 import { ROLE } from "@prisma/client";
 import { parsePartialFormData } from "@/lib/formData";
 import { deleteFile, uploadFile } from "@/lib/storage";
+import { FileLike } from "@/types/types";
 
 export async function GET(
     request: Request,
@@ -100,7 +101,10 @@ export async function PATCH(
         }
 
         const data = await request.formData();
-        const validatedData = parsePartialFormData(data, productCategorySchema);
+        const validatedData = parsePartialFormData(
+            data,
+            getProductCategorySchema(),
+        );
         if (!validatedData.success) {
             return serverResponse({
                 status: 400,
@@ -111,7 +115,7 @@ export async function PATCH(
         }
         let imageUrl = undefined;
         if (validatedData?.data.image) {
-            const image = data.get("image");
+            const image = data.get("image") as FileLike;
 
             if (!image || typeof image !== "object" || !("size" in image)) {
                 return serverResponse({
