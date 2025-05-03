@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Tag, Check, FileText, Image } from "lucide-react";
+import { Tag, Check, FileText, ImageIcon } from "lucide-react";
 import {
     CUSTOMER_CATEGORY,
     attachment,
@@ -164,7 +164,7 @@ export function LabelButtonWithAttachment({ order }: LabelButtonProps) {
                     size="sm"
                     className="border-blue-500/30 text-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-all duration-200"
                 >
-                    <Image className="h-4 w-4" />
+                    <ImageIcon className="h-4 w-4" />
                     Custom Label
                 </Button>
             </DialogTrigger>

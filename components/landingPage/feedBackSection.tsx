@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import Marquee from "react-fast-marquee";
 import { motion } from "motion/react";
+import Image from "next/image";
 
 export default function FeedBackSection() {
     return (
@@ -80,10 +81,12 @@ const TestimonialsCarousel = () => {
                                 <div>
                                     <div className="flex items-center">
                                         <div>
-                                            <img
+                                            <Image
                                                 alt={testimonial.name}
                                                 src={testimonial.imageUrl}
                                                 className="w-[50px] h-[50px] object-cover rounded-full"
+                                                height={50}
+                                                width={50}
                                             />
                                         </div>
                                         <div className="ml-4 md:ml-6 lg:ml-[20px] relative">

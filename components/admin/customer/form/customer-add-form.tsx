@@ -1,5 +1,5 @@
 "use client";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
@@ -45,7 +45,6 @@ export const CustomerRegisterForm = () => {
     const [loading, setLoading] = useState(false);
 
     const { data: states } = useStates();
-
     const form = useForm<z.infer<typeof customerFormSchema>>({
         resolver: zodResolver(customerFormSchema),
         defaultValues: {
@@ -66,6 +65,11 @@ export const CustomerRegisterForm = () => {
             referenceId: process.env.NODE_ENV === "development" ? "" : "",
             password: process.env.NODE_ENV === "development" ? "Abc1234@@" : "",
         },
+    });
+
+    const selectedStateId = useWatch({
+        control: form.control,
+        name: "state",
     });
 
     async function onSubmit(values: z.infer<typeof customerFormSchema>) {
@@ -158,6 +162,7 @@ export const CustomerRegisterForm = () => {
                                         value={field.value}
                                         onValueChange={(e) => {
                                             form.setValue("city", "");
+                                            console.log(e);
                                             field.onChange(e);
                                         }}
                                         disabled={loading}
@@ -219,8 +224,26 @@ export const CustomerRegisterForm = () => {
                                         <SelectContent>
                                             <SelectGroup>
                                                 <SelectLabel>City</SelectLabel>
-
-                                                {states?.map((state) => {
+                                                {states
+                                                    ?.find(
+                                                        (state) =>
+                                                            state.id.toString() ===
+                                                            selectedStateId,
+                                                    )
+                                                    ?.cities?.map(
+                                                        (city: {
+                                                            id: number;
+                                                            name: string;
+                                                        }) => (
+                                                            <SelectItem
+                                                                key={city?.id}
+                                                                value={city?.id?.toString()}
+                                                            >
+                                                                {city?.name}
+                                                            </SelectItem>
+                                                        ),
+                                                    )}
+                                                {/* {states?.map((state) => {
                                                     if (
                                                         state?.id?.toString() ==
                                                         form?.getValues("state")
@@ -241,7 +264,7 @@ export const CustomerRegisterForm = () => {
                                                             ),
                                                         );
                                                     }
-                                                })}
+                                                })} */}
                                             </SelectGroup>
                                         </SelectContent>
                                     </Select>

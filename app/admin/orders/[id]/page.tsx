@@ -11,6 +11,7 @@ import Link from "next/link";
 import { IndianRupee, ArrowLeft } from "lucide-react";
 import { ViewFilesModal } from "@/components/admin/view-files-modal";
 import { ImproperOrderModal } from "../modal/ImproperOrderModal";
+import Image from "next/image";
 
 export default async function OrderDetail({
     params,
@@ -273,7 +274,8 @@ export default async function OrderDetail({
                                         Product Image
                                     </p>
                                     <div className="rounded-md overflow-hidden w-32 h-32">
-                                        <img
+                                        <Image
+                                            fill
                                             src={order.productItem.imageUrl[0]}
                                             alt={order.productItem.product.name}
                                             className="object-cover w-full h-full"

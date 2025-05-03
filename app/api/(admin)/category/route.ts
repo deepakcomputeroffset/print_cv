@@ -148,7 +148,15 @@ export async function POST(req: Request) {
             });
         }
 
-        const image = data.get("image") as File;
+        const image = data.get("image");
+
+        if (!image || typeof image !== "object" || !("size" in image)) {
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "Invalid image file.",
+            });
+        }
 
         if (image.size > maxImageSize) {
             return serverResponse({

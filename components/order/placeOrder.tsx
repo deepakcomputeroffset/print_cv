@@ -32,6 +32,7 @@ import {
     FILE_UPLOAD_EMAIL_CHARGE,
     IGST_TAX_IN_PERCENTAGE,
 } from "@/lib/constants";
+import Image from "next/image";
 
 export default function PlaceOrder({
     product,
@@ -166,10 +167,12 @@ export default function PlaceOrder({
                                 <div className="relative group">
                                     <div className="absolute -inset-1 bg-gradient-to-r from-primary to-cyan-400 rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-500 group-hover:duration-200"></div>
                                     <div className="relative">
-                                        <img
+                                        <Image
                                             src={product?.product?.imageUrl[0]}
                                             alt={product.product.name}
                                             className="w-full md:w-40 h-40 object-cover rounded-xl shadow-md border border-gray-100 transition-transform duration-500 group-hover:scale-[1.02]"
+                                            width={160}
+                                            height={160}
                                         />
                                         <div className="absolute -bottom-3 -right-3 bg-gradient-to-r from-primary to-primary/90 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-md">
                                             Premium
@@ -181,8 +184,8 @@ export default function PlaceOrder({
                                     <h3 className="text-xl md:text-2xl font-bold text-gray-800">
                                         {product?.product?.name}
                                     </h3>
-                                    <p className="text-gray-600 line-clamp-2">
-                                        {product?.product?.description}
+                                    <p className="text-gray-600 text-sm line-clamp-2">
+                                        sku: {product?.sku}
                                     </p>
                                     <div className="flex flex-wrap gap-2">
                                         {product?.productAttributeOptions?.map(

@@ -133,7 +133,7 @@ export async function POST(req: Request) {
             data: safeData,
             error,
         } = customerFormSchema?.safeParse(data);
-
+        console.log(safeData);
         if (!success) {
             return serverResponse({
                 status: 400,
