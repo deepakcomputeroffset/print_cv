@@ -4,6 +4,7 @@ import { ROLE } from "@prisma/client";
 import serverResponse from "@/lib/serverResponse";
 import { Prisma } from "@/lib/prisma";
 import { uploadMultipleFiles } from "@/lib/storage";
+import { FileLike } from "@/types/types";
 
 export async function POST(
     request: Request,
@@ -58,7 +59,7 @@ export async function POST(
         }
 
         const formData = await request.formData();
-        const files = formData.getAll("files") as File[];
+        const files = formData.getAll("files") as FileLike[];
 
         if (!files || files.length === 0) {
             return serverResponse({

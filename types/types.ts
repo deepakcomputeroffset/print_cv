@@ -107,3 +107,10 @@ export interface orderType extends order {
         };
     };
 }
+
+export type FileLike = {
+    size: number;
+    type: string;
+    name?: string;
+    arrayBuffer: () => Promise<ArrayBuffer>;
+};

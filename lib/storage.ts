@@ -1,3 +1,4 @@
+import { FileLike } from "@/types/types";
 import { Storage } from "@google-cloud/storage";
 
 export const storage = new Storage({
@@ -13,7 +14,7 @@ export const bucket = storage.bucket(process?.env?.bucketName as string);
 
 export const old = async (
     folder: "files" | "images" = "files",
-    file: File,
+    file: FileLike,
     name: string,
 ) => {
     const bytes = await file.arrayBuffer();
@@ -51,7 +52,7 @@ export const old = async (
  */
 export const uploadFile = async (
     folder: "files" | "images" = "files",
-    file: File,
+    file: FileLike,
     name: string,
 ): Promise<string> => {
     const fileName = `${folder}/${name}_${Date.now()}`;
@@ -78,7 +79,7 @@ export const uploadFile = async (
  */
 export const uploadMultipleFiles = async (
     folder: "files" | "images" = "files",
-    files: File[],
+    files: FileLike[],
     namePrefix: string,
 ): Promise<string[]> => {
     return Promise.all(

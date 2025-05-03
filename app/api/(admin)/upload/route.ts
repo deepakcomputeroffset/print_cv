@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { maxImageSize } from "@/lib/constants";
 import serverResponse from "@/lib/serverResponse";
 import { deleteFile, uploadMultipleFiles } from "@/lib/storage";
+import { FileLike } from "@/types/types";
 
 export async function POST(res: Request): Promise<Response> {
     try {
@@ -18,7 +19,7 @@ export async function POST(res: Request): Promise<Response> {
             });
         }
         const data = await res.formData();
-        const files = data?.getAll("files") as File[];
+        const files = data?.getAll("files") as FileLike[];
 
         if (!files) {
             return serverResponse({

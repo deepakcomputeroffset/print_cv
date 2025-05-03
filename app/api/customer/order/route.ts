@@ -12,6 +12,7 @@ import { QuerySchema } from "@/schemas/query.param.schema";
 import { NextRequest } from "next/server";
 import { Prisma as PrismaType, UPLOADVIA } from "@prisma/client";
 import { placeOrder } from "@/lib/placeOrder";
+import { FileLike } from "@/types/types";
 
 export async function GET(req: NextRequest) {
     try {
@@ -170,7 +171,7 @@ export async function POST(request: Request) {
 
         let fileUrls: string[] | undefined = undefined;
         if (uploadType === "UPLOAD") {
-            const files = orderDetail.getAll("file") as File[];
+            const files = orderDetail.getAll("file") as FileLike[];
             if (!files.length) {
                 return serverResponse({
                     status: 400,
