@@ -8,7 +8,7 @@
         "start": "next start",
         "lint": "next lint",
         "prepare": "husky",
-        "postinstall": "prisma generate --no-engine",
+        "postinstall": "prisma generate",
         "seed:india": "node prisma/scripts/seed-india-data.js",
         "seed:admin": "node prisma/scripts/seed-admin.js"
     },
