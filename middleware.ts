@@ -3,7 +3,11 @@ import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
     const token = await getToken({ req: request });
-    const { pathname } = request.nextUrl;
+    const { pathname, hostname } = request.nextUrl;
+
+    if (hostname === "printvc.com") {
+        return NextResponse.redirect(new URL("https://www.printvc.com/"));
+    }
 
     if (token) {
         if (
