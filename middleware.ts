@@ -6,7 +6,9 @@ export async function middleware(request: NextRequest) {
     const { pathname, hostname } = request.nextUrl;
 
     if (hostname === "printvc.com") {
-        return NextResponse.redirect(new URL("https://www.printvc.com/"));
+        return NextResponse.redirect(
+            new URL(pathname, "https://www.printvc.com"),
+        );
     }
 
     if (token) {
