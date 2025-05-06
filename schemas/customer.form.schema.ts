@@ -1,11 +1,24 @@
 import { z } from "zod";
 
-export const customerFormSchema = z.object({
+// Customer Info Schema
+export const customerInfoSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters."),
     businessName: z
         .string()
-        .min(2, "Business name must be atleast 2 characters"),
+        .min(2, "Business name must be at least 2 characters"),
+    gstNumber: z.string().optional(),
+    phone: z
+        .string()
+        .min(10, "Enter valid phone number")
+        .regex(/^\d{10}$/, "Invalid phone number format. e.g., 1234567890."),
+    email: z.string().email("Enter valid email address."),
+    referenceId: z.string().optional(),
+    password: z.string().min(8, "Password must be at least 8 characters long."),
+    customerCategoryId: z.number().default(1),
+});
 
+// Address Schema
+export const addressSchema = z.object({
     country: z.string({
         required_error: "Select country",
     }),
@@ -19,22 +32,13 @@ export const customerFormSchema = z.object({
         .string({ required_error: "Enter pin code." })
         .min(6, "Enter valid pin code.")
         .max(6, "Enter valid pin code."),
-
-    gstNumber: z.string().optional(),
-
     line: z
         .string({ required_error: "Enter address" })
         .min(4, "Enter valid address"),
-
-    phone: z
-        .string()
-        .min(10, "Enter valid phone number")
-        .regex(/^\d{1,10}$/, "Invalid phone number format. e.g., 1234567890."),
-    email: z.string().email("Enter valid email address."),
-    referenceId: z.string().optional(),
-
-    password: z.string().min(8, "Password must be at least 8 characters long."),
 });
+
+// Combined Schema
+export const customerFormSchema = customerInfoSchema.merge(addressSchema);
 
 export const changePasswordFormSchema = z
     .object({

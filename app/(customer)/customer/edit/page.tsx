@@ -2,7 +2,6 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { Prisma } from "@/lib/prisma";
 import CustomerEditComponent from "./components/customer-edit-component";
-import { customerType } from "@/types/types";
 
 export const dynamic = "force-dynamic";
 
@@ -14,28 +13,26 @@ export default async function CustomerEditPage() {
             redirect("/login");
         }
 
-        const customer: Omit<
-            customerType,
-            "password" | "isBanned" | "referenceId"
-        > | null = await Prisma?.customer.findUnique({
+        const customer = await Prisma?.customer.findUnique({
             where: {
                 id: session?.user?.customer?.id,
             },
+            include: { customerCategory: true },
             omit: {
                 password: true,
                 isBanned: true,
                 referenceId: true,
             },
+        });
+
+        const address = await Prisma.address.findFirst({
+            where: { ownerId: customer?.id, ownerType: "CUSTOMER" },
             include: {
-                address: {
+                city: {
                     include: {
-                        city: {
+                        state: {
                             include: {
-                                state: {
-                                    include: {
-                                        country: true,
-                                    },
-                                },
+                                country: true,
                             },
                         },
                     },
@@ -47,7 +44,11 @@ export default async function CustomerEditPage() {
             redirect("/customer");
         }
 
-        return <CustomerEditComponent customer={customer} />;
+        return (
+            <CustomerEditComponent
+                customer={{ ...customer, address: address }}
+            />
+        );
     } catch (error) {
         console.error(error);
         return (

@@ -21,27 +21,6 @@ export default async function OrderPage({
             include: {
                 customer: {
                     select: {
-                        address: {
-                            select: {
-                                line: true,
-                                city: {
-                                    select: {
-                                        name: true,
-                                        state: {
-                                            select: {
-                                                name: true,
-                                                country: {
-                                                    select: {
-                                                        name: true,
-                                                    },
-                                                },
-                                            },
-                                        },
-                                    },
-                                },
-                                pinCode: true,
-                            },
-                        },
                         businessName: true,
                         name: true,
                         phone: true,
@@ -98,6 +77,20 @@ export default async function OrderPage({
                 },
             },
         });
+        const address = await Prisma.address.findFirst({
+            where: { ownerId: order?.customerId, ownerType: "CUSTOMER" },
+            include: {
+                city: {
+                    include: {
+                        state: {
+                            include: {
+                                country: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
 
         if (!order) {
             return (
@@ -106,8 +99,11 @@ export default async function OrderPage({
                 </div>
             );
         }
-
-        return <OrderDetailsPage order={order} />;
+        return (
+            <OrderDetailsPage
+                order={{ ...order, customer: { ...order.customer, address } }}
+            />
+        );
     } catch (error) {
         console.error("Error loading order:", error);
         return (

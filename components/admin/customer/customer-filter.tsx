@@ -7,7 +7,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "../../ui/select";
-import { CUSTOMER_CATEGORY } from "@prisma/client";
 import { Input } from "../../ui/input";
 import { Search } from "lucide-react";
 import { Button } from "../../ui/button";
@@ -15,8 +14,10 @@ import { banStatus, QueryParams, sortType } from "@/types/types";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useUrlFilters } from "@/hooks/useUrlFilter";
 import { useEffect, useState } from "react";
+import { useCustomerCategory } from "@/hooks/use-customer-category";
 
 export const CustomerFilter = ({ filters }: { filters: QueryParams }) => {
+    const { customersCategory } = useCustomerCategory();
     const [search, setSearch] = useState(filters?.search || "");
     const [sortOrder, setSortOrder] = useState<sortType>(
         filters?.sortorder !== undefined ? filters?.sortorder : "asc",
@@ -47,7 +48,7 @@ export const CustomerFilter = ({ filters }: { filters: QueryParams }) => {
                 <Select
                     value={filters?.category || "all"}
                     onValueChange={(value) =>
-                        setParam("category", value as "all" | CUSTOMER_CATEGORY)
+                        setParam("category", value as "all")
                     }
                 >
                     <SelectTrigger className="md:w-[180px]">
@@ -55,9 +56,14 @@ export const CustomerFilter = ({ filters }: { filters: QueryParams }) => {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="all">All Categories</SelectItem>
-                        <SelectItem value="LOW">Low</SelectItem>
-                        <SelectItem value="MEDIUM">Medium</SelectItem>
-                        <SelectItem value="HIGH">High</SelectItem>
+                        {customersCategory?.map((ccat) => (
+                            <SelectItem
+                                value={ccat.id.toString()}
+                                key={ccat.id}
+                            >
+                                {ccat.name}
+                            </SelectItem>
+                        ))}
                     </SelectContent>
                 </Select>
 

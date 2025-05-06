@@ -62,7 +62,7 @@ export async function GET(request: Request) {
                     : {},
                 query?.category && query?.category !== "all"
                     ? {
-                          customerCategory: query?.category,
+                          customerCategoryId: parseInt(query?.category),
                       }
                     : {},
                 query?.status && query?.status !== "all"
@@ -77,17 +77,7 @@ export async function GET(request: Request) {
             Prisma.customer.count({ where }),
             Prisma.customer.findMany({
                 where,
-                include: {
-                    address: {
-                        include: {
-                            city: {
-                                include: {
-                                    state: true,
-                                },
-                            },
-                        },
-                    },
-                },
+                include: { customerCategory: true },
                 omit: { password: true },
                 orderBy: {
                     [query?.sortby ?? "id"]: query?.sortorder || "asc",
@@ -100,9 +90,38 @@ export async function GET(request: Request) {
             }),
         ]);
 
+        const customerIds = customers.map((c) => c.id);
+        const address = await Prisma.address.findMany({
+            where: {
+                ownerId: { in: customerIds },
+                ownerType: "CUSTOMER",
+            },
+            include: {
+                city: {
+                    include: {
+                        state: true,
+                    },
+                },
+            },
+            orderBy: {
+                [query?.sortby ?? "id"]: query?.sortorder || "asc",
+            },
+            skip: query.page
+                ? (query.page - 1) * (query.perpage || defaultCustomerPerPage)
+                : 0,
+            take: query.perpage || defaultCustomerPerPage,
+        });
+        // Map addresses to customers
+        const customersWithAddresses = customers.map((customer) => ({
+            ...customer,
+            address: address.filter(
+                (a) => a.ownerId === customer.id && a.ownerType === "CUSTOMER",
+            )[0],
+        }));
+
         return serverResponse({
             data: {
-                customers,
+                customers: customersWithAddresses,
                 total,
                 page: query.page || 1,
                 perpage: query.perpage || defaultCustomerPerPage,
@@ -163,25 +182,34 @@ export async function POST(req: Request) {
                 businessName: safeData?.businessName,
                 phone: safeData?.phone,
                 email: safeData?.email,
-                password: await generateHash(safeData?.password),
-                address: {
-                    create: {
-                        line: safeData?.line,
-                        pinCode: safeData?.pinCode,
-                        cityId: Number(safeData?.city),
+                customerCategory: {
+                    connect: {
+                        level: 1,
                     },
                 },
+                password: await generateHash(safeData?.password),
                 wallet: {
                     create: {},
                 },
             },
         });
 
+        const address = await Prisma.address.create({
+            data: {
+                ownerId: customer.id,
+                ownerType: "CUSTOMER",
+                line: safeData?.line,
+                pinCode: safeData?.pinCode,
+                cityId: Number(safeData?.city),
+            },
+        });
+
+        const customerWithAddress = { ...customer, address };
         return serverResponse({
             status: 201,
             success: true,
             message: "Customer created successfully",
-            data: customer,
+            data: customerWithAddress,
         });
     } catch (error) {
         console.error("Registration error:", `${error}`);

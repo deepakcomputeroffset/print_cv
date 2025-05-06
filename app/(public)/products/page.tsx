@@ -1,10 +1,6 @@
-import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
 import ProductLists from "../../../components/product/productLists";
-import { auth } from "@/lib/auth";
 import { Prisma } from "@/lib/prisma";
-import { ProductTypeOnlyWithPrice } from "@/types/types";
 import { redirect } from "next/navigation";
-import { CUSTOMER_CATEGORY } from "@prisma/client";
 import Link from "next/link";
 import { Package, ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -17,9 +13,6 @@ export default async function ProductPage({
     searchParams: Promise<{ categoryId: string }>;
 }) {
     const params = await searchParams;
-    const session = await auth();
-    const customerCategory = session?.user?.customer
-        ?.customerCategory as CUSTOMER_CATEGORY; // LOW, MEDIUM, HIGH
 
     if (isNaN(parseInt(params?.categoryId))) {
         redirect("/categories");
@@ -42,27 +35,8 @@ export default async function ProductPage({
             name: true,
             description: true,
             imageUrl: true,
-            maxPrice: true,
-            avgPrice: true,
-            minPrice: true,
         },
     });
-
-    const processedProduct = products.map(
-        ({ id, name, description, imageUrl, maxPrice, avgPrice, minPrice }) => {
-            const price = getPriceAccordingToCategoryOfCustomer(
-                customerCategory,
-                { avgPrice, maxPrice, minPrice },
-            );
-            return {
-                id,
-                name,
-                description,
-                imageUrl,
-                price,
-            };
-        },
-    );
 
     if (products.length <= 0) {
         return (
@@ -102,10 +76,7 @@ export default async function ProductPage({
 
     return (
         <div>
-            <ProductLists
-                products={processedProduct as ProductTypeOnlyWithPrice[]}
-                category={category}
-            />
+            <ProductLists products={products} category={category} />
         </div>
     );
 }

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { AlertCircle, FileText, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -25,12 +25,14 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { DialogContent } from "@/components/ui/dialog";
-import { DialogTrigger } from "@/components/ui/dialog";
 import { Dialog } from "@/components/ui/dialog";
+import { useModal } from "@/hooks/use-modal";
 
 type ImproperOrderFormValues = z.infer<typeof improperOrderFormSchema>;
 
-export function ImproperOrderModal({ orderId }: { orderId: number }) {
+export function ImproperOrderModal() {
+    const { isOpen, onClose, data, modal } = useModal();
+    const open = isOpen && modal === "improperOrder";
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
 
@@ -42,7 +44,7 @@ export function ImproperOrderModal({ orderId }: { orderId: number }) {
     });
 
     const handleMarkAsImproper = async (values: ImproperOrderFormValues) => {
-        if (!orderId) {
+        if (!data?.orderId) {
             toast.error("Order ID is missing");
             return;
         }
@@ -51,7 +53,7 @@ export function ImproperOrderModal({ orderId }: { orderId: number }) {
             setIsSubmitting(true);
             // Update this API endpoint if needed
             const response = await axios.post(
-                `/api/orders/${orderId}/improper`,
+                `/api/orders/${data?.orderId}/improper`,
                 {
                     reason: values.reason,
                 },
@@ -81,13 +83,19 @@ export function ImproperOrderModal({ orderId }: { orderId: number }) {
     };
 
     return (
-        <Dialog onOpenChange={() => form.reset()}>
-            <DialogTrigger asChild>
-                <Button variant="outline" size="sm">
+        <Dialog
+            open={open}
+            onOpenChange={() => {
+                onClose();
+                form.reset();
+            }}
+        >
+            {/* <DialogTrigger asChild>
+                <Button variant="outline" size="sm" onClick={() => onClick()}>
                     <FileText className="w-4 h-4 mr-2" />
                     Mark as Improper
                 </Button>
-            </DialogTrigger>
+            </DialogTrigger> */}
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Mark Order as Improper</DialogTitle>

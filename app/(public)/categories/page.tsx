@@ -28,7 +28,7 @@ export default async function ProductCategoryPage({
                     parentCategory: true,
                 },
                 orderBy: {
-                    isAvailable: "desc",
+                    id: "asc",
                 },
             }),
             Prisma?.order.findMany({

@@ -229,11 +229,6 @@ export default function OrdersPage({
                                                                 order={{
                                                                     ...order,
                                                                     customer: {
-                                                                        customerCategory:
-                                                                            data
-                                                                                ?.user
-                                                                                ?.customer
-                                                                                ?.customerCategory,
                                                                         businessName:
                                                                             data
                                                                                 ?.user

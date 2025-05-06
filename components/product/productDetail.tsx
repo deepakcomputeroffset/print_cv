@@ -28,10 +28,6 @@ import {
     Info,
 } from "lucide-react";
 import EmblaCarousel from "@/components/ui/embla-carousel/js/EmblaCarousel";
-import {
-    ProductItemTypeOnlyWithPrice,
-    ProductTypeOnlyWithPrice,
-} from "@/types/types";
 import getDistinctOptionsWithDetails from "@/components/product/getAttributeWithOptions";
 import { useRouter } from "next/navigation";
 import { getBaseVarient } from "@/components/product/getBaseVarient";
@@ -53,12 +49,14 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { product } from "@prisma/client";
+import { ProductItemTypeWithAttribute } from "@/types/types";
 
 export default function ProductDetails({
     product,
 }: {
-    product: ProductTypeOnlyWithPrice & {
-        productItems: ProductItemTypeOnlyWithPrice[];
+    product: Omit<product, "ogPrice"> & {
+        productItems: ProductItemTypeWithAttribute[];
     };
 }) {
     const distinctAttributeWithOptions = getDistinctOptionsWithDetails(product);
@@ -67,7 +65,7 @@ export default function ProductDetails({
         Record<number, number>
     >(getBaseVarient(distinctAttributeWithOptions));
     const [selectedVariant, setSelectedVariant] =
-        useState<ProductItemTypeOnlyWithPrice | null>(null);
+        useState<ProductItemTypeWithAttribute | null>(null);
     const router = useRouter();
     const [qty, setQty] = useState<number>(product.minQty);
 

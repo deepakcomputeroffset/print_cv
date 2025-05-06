@@ -43,6 +43,13 @@ export const routes: RouteType[] = [
         roles: ["ADMIN"],
     },
     {
+        title: "C.Category",
+        icon: Users,
+        url: "/admin/customer-category",
+        pattern: /^\/admin\/customer-category(?:\/.*)?$/,
+        roles: ["ADMIN"],
+    },
+    {
         title: "Customers",
         icon: Users,
         url: "/admin/customer?search=&sortorder=asc&perpage=100",

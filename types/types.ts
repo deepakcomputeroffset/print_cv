@@ -14,6 +14,7 @@ import {
     productItem,
     state,
     task,
+    customerCategory,
 } from "@prisma/client";
 import { z, ZodIssue } from "zod";
 
@@ -28,6 +29,7 @@ export type addressType = address & {
 export type customerType = Omit<customer, "password"> & {
     address: addressType | null;
     wallet?: { id: number; balance: number };
+    customerCategory: customerCategory | null;
 };
 
 export interface productCategoryWithSubCategory extends productCategory {
@@ -45,20 +47,7 @@ export interface ProductVariantType
 
 export interface QueryParams extends z.infer<typeof QuerySchema> {}
 
-export type ProductType = Omit<
-    product,
-    "minPrice" | "avgPrice" | "maxPrice" | "ogPrice"
->;
-export type ProductTypeOnlyWithPrice = ProductType & {
-    price: number;
-};
-
-export type ProductItemType = Omit<
-    productItem,
-    "minPrice" | "avgPrice" | "maxPrice" | "ogPrice"
->;
-export type ProductItemTypeOnlyWithPrice = ProductItemType & {
-    price: number;
+export type ProductItemTypeWithAttribute = Omit<productItem, "ogPrice"> & {
     productAttributeOptions: (productAttributeValue & {
         productAttributeType: productAttributeType;
     })[];
@@ -92,7 +81,7 @@ export interface orderType extends order {
     customer: Pick<
         customer,
         | "businessName"
-        | "customerCategory"
+        | "customerCategoryId"
         | "email"
         | "gstNumber"
         | "id"

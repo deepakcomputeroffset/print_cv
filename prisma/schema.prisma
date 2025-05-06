@@ -8,64 +8,44 @@ datasource db {
 }
 
 model customer {
-    id               Int               @id @default(autoincrement())
-    name             String
-    businessName     String
-    customerCategory CUSTOMER_CATEGORY @default(LOW)
-    isBanned         Boolean           @default(false)
-    email            String
-    phone            String            @unique
-    password         String
-    wallet           wallet?
-    gstNumber        String?
-    address          address?
+    id                 Int     @id @default(autoincrement())
+    name               String
+    businessName       String
+    isBanned           Boolean @default(false)
+    email              String
+    phone              String  @unique
+    password           String
+    wallet             wallet?
+    gstNumber          String?
+    customerCategoryId Int?
 
     orders order[]
 
     referenceId Int?
     references  customer[] @relation("reference")
-    referedBy   customer?  @relation("reference", fields: [referenceId], references: [id])
+    referedBy   customer?  @relation("reference", fields: [referenceId], references: [id], onDelete: Restrict)
 
-    createdAt    DateTime       @default(now())
-    updatedAt    DateTime       @updatedAt
-    attachments  attachment[]
-    orderComment orderComment[]
-}
-
-model wallet {
-    id           Int           @id @default(autoincrement())
-    customerId   Int           @unique
-    balance      Float         @default(0)
-    transactions transaction[]
-    customer     customer      @relation(fields: [customerId], references: [id])
-    createdAt    DateTime      @default(now())
-    updatedAt    DateTime      @updatedAt
-}
-
-model transaction {
-    id          Int              @id @default(autoincrement())
-    walletId    Int
-    amount      Float
-    type        TRANSACTION_TYPE
-    description String
-    createBy    Int
-    wallet      wallet           @relation(fields: [walletId], references: [id])
-    staff       staff            @relation(fields: [createBy], references: [id])
-    createdAt   DateTime         @default(now())
-    updatedAt   DateTime         @updatedAt
+    createdAt        DateTime          @default(now())
+    updatedAt        DateTime          @updatedAt
+    attachments      attachment[]
+    orderComment     orderComment[]
+    customerCategory customerCategory? @relation(fields: [customerCategoryId], references: [id], onDelete: Restrict)
 }
 
 model address {
-    id         Int    @id @default(autoincrement())
-    customerId Int    @unique
-    line       String
-    pinCode    String
-    cityId     Int
+    id        Int              @id @default(autoincrement())
+    line      String
+    pinCode   String
+    cityId    Int
+    ownerId   Int
+    ownerType AddressOwnerType @default(CUSTOMER)
 
-    customer  customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
-    city      city     @relation(fields: [cityId], references: [id])
+    city city @relation(fields: [cityId], references: [id])
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    @@index([ownerId, ownerType]) // for efficient lookup
 }
 
 model country {
@@ -94,9 +74,60 @@ model city {
     name      String
     addresses address[]
 
-    state     state    @relation(fields: [stateId], references: [id])
+    state     state          @relation(fields: [stateId], references: [id])
+    createdAt DateTime       @default(now())
+    updatedAt DateTime       @updatedAt
+    discount  cityDiscount[]
+}
+
+model customerCategory {
+    id        Int            @id @default(autoincrement())
+    name      String         @unique
+    discount  Float
+    level     Int            @unique
+    customers customer[]
+    city      cityDiscount[]
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+}
+
+model cityDiscount {
+    id                 Int   @id @default(autoincrement())
+    cityId             Int
+    customerCategoryId Int
+    discount           Float // Specific to city + category
+
+    city             city             @relation(fields: [cityId], references: [id])
+    customerCategory customerCategory @relation(fields: [customerCategoryId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([cityId, customerCategoryId]) // Prevent duplicates
+}
+
+model wallet {
+    id           Int           @id @default(autoincrement())
+    customerId   Int           @unique
+    balance      Float         @default(0)
+    transactions transaction[]
+    customer     customer      @relation(fields: [customerId], references: [id])
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
+}
+
+model transaction {
+    id          Int              @id @default(autoincrement())
+    walletId    Int
+    amount      Float
+    type        TRANSACTION_TYPE
+    description String
+    createBy    Int
+    wallet      wallet           @relation(fields: [walletId], references: [id])
+    staff       staff            @relation(fields: [createBy], references: [id])
+    createdAt   DateTime         @default(now())
+    updatedAt   DateTime         @updatedAt
 }
 
 model productCategory {
@@ -127,9 +158,7 @@ model product {
     sku          String        @unique
     minQty       Int
     ogPrice      Int
-    minPrice     Int
-    avgPrice     Int
-    maxPrice     Int
+    price        Int
     productItems productItem[]
 
     category  productCategory @relation(fields: [categoryId], references: [id])
@@ -143,9 +172,7 @@ model productItem {
     sku                     String
     minQty                  Int
     ogPrice                 Int
-    minPrice                Int
-    avgPrice                Int
-    maxPrice                Int
+    price                   Int
     imageUrl                String[]
     isAvailable             Boolean                 @default(false)
     productAttributeOptions productAttributeValue[]
@@ -165,6 +192,9 @@ model productAttributeValue {
     productAttributeType productAttributeType @relation(fields: [productAttributeTypeId], references: [id], onDelete: Restrict)
     createdAt            DateTime             @default(now())
     updatedAt            DateTime             @updatedAt
+
+    // Composite unique constraint
+    @@unique([productAttributeTypeId, productAttributeValue])
 }
 
 model productAttributeType {
@@ -293,6 +323,11 @@ model taskType {
     updatedAt DateTime @updatedAt
 }
 
+enum AddressOwnerType {
+    CUSTOMER
+    STAFF
+}
+
 enum UPLOADVIA {
     EMAIL
     UPLOAD
@@ -311,13 +346,8 @@ enum ROLE {
     JOB_MANAGER
     DISPATCHER
     ACCOUNTANT
+    DISTRIBUTER
     STAFF
-}
-
-enum CUSTOMER_CATEGORY {
-    LOW
-    MEDIUM
-    HIGH
 }
 
 enum TRANSACTION_TYPE {

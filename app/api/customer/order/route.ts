@@ -10,7 +10,11 @@ import {
 import { Prisma } from "@/lib/prisma";
 import { QuerySchema } from "@/schemas/query.param.schema";
 import { NextRequest } from "next/server";
-import { Prisma as PrismaType, UPLOADVIA } from "@prisma/client";
+import {
+    customerCategory,
+    Prisma as PrismaType,
+    UPLOADVIA,
+} from "@prisma/client";
 import { placeOrder } from "@/lib/placeOrder";
 import { FileLike } from "@/types/types";
 
@@ -160,13 +164,23 @@ export async function POST(request: Request) {
             });
         }
 
-        const price = getPriceAccordingToCategoryOfCustomer(
-            session.user.customer.customerCategory,
-            {
-                avgPrice: productItem.avgPrice,
-                maxPrice: productItem.maxPrice,
-                minPrice: productItem.minPrice,
+        const address = await Prisma.address.findFirst({
+            where: {
+                ownerId: session.user.customer.id,
+                ownerType: "CUSTOMER",
             },
+        });
+        const cityDiscount = await Prisma.cityDiscount.findFirst({
+            where: {
+                cityId: address?.cityId,
+                customerCategoryId: session.user.customer
+                    .customerCategoryId as number,
+            },
+        });
+        const price = getPriceAccordingToCategoryOfCustomer(
+            session.user.customer.customerCategory as customerCategory,
+            cityDiscount,
+            productItem.price,
         );
 
         let fileUrls: string[] | undefined = undefined;

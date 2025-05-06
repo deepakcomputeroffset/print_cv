@@ -1,5 +1,5 @@
 import "next-auth";
-import { address, customer, staff } from "@prisma/client";
+import { customer, customerCategory, staff } from "@prisma/client";
 import { addressType } from "./types/types";
 
 declare module "next-auth" {
@@ -10,7 +10,8 @@ declare module "next-auth" {
             "createdAt" | "gstNumber" | "password" | "referenceId" | "updatedAt"
         > & {
             wallet?: { id: number; balance: number };
-            address?: addressType | null;
+            customerCategory?: customerCategory;
+            address?: addressType;
         };
         staff?: Omit<staff, "createdAt" | "updatedAt" | "password">;
     }
@@ -27,7 +28,8 @@ declare module "next-auth" {
                 | "updatedAt"
             > & {
                 wallet?: { id: number; balance: number };
-                address?: addressType | null;
+                customerCategory?: customerCategory;
+                address?: addressType;
             };
             staff?: Omit<staff, "createdAt" | "updatedAt" | "password">;
         };
@@ -42,7 +44,8 @@ declare module "next-auth/jwt" {
             "createdAt" | "gstNumber" | "password" | "referenceId" | "updatedAt"
         > & {
             wallet?: { id: number; balance: number };
-            address?: addressType | null;
+            customerCategory?: customerCategory;
+            address?: addressType;
         };
         staff?: Omit<staff, "createdAt" | "updatedAt" | "password">;
     }

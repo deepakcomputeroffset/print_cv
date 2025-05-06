@@ -2,7 +2,6 @@ import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { UserX, UserCheck, Eye, Pencil, Trash } from "lucide-react";
-import { CUSTOMER_CATEGORY } from "@prisma/client";
 import { useModal } from "@/hooks/use-modal";
 import { customerType } from "@/types/types";
 
@@ -32,10 +31,10 @@ export const CustomerTableRow = ({
             <TableCell>
                 <span
                     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getCategoryBadgeClass(
-                        customer?.customerCategory,
+                        customer?.customerCategory?.name || "ASSOCIATE",
                     )}`}
                 >
-                    {customer?.customerCategory}
+                    {customer?.customerCategory?.name}
                 </span>
             </TableCell>
             <TableCell>
@@ -117,13 +116,17 @@ export const CustomerTableRow = ({
     );
 };
 
-export const getCategoryBadgeClass = (category: CUSTOMER_CATEGORY) => {
+export const getCategoryBadgeClass = (category: string) => {
     switch (category) {
-        case "HIGH":
+        case "PREMIUM":
             return "bg-green-100 text-green-800";
-        case "MEDIUM":
-            return "bg-blue-100 text-blue-800";
-        case "LOW":
+        case "GOLD":
+            return "bg-yellow-100 text-blue-800";
+        case "ELITE":
+            return "bg-green-100 text-gray-800";
+        case "ASSOCIATE":
             return "bg-gray-100 text-gray-800";
+        default:
+            return "bg-pink-100 text-gray-800";
     }
 };

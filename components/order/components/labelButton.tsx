@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Tag, Check } from "lucide-react";
-import { CUSTOMER_CATEGORY, order, product, productItem } from "@prisma/client";
+import { order, product, productItem } from "@prisma/client";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -29,7 +29,6 @@ interface LabelButtonProps {
                 };
                 pinCode: string;
             } | null;
-            customerCategory: CUSTOMER_CATEGORY;
         };
     };
 }

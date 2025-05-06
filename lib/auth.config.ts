@@ -40,15 +40,20 @@ export const authConfig: AuthOptions = {
                                         id: true,
                                     },
                                 },
-                                address: {
+                                customerCategory: true,
+                            },
+                        });
+                        const address = await Prisma.address.findFirst({
+                            where: {
+                                ownerId: customer?.id,
+                                ownerType: "CUSTOMER",
+                            },
+                            include: {
+                                city: {
                                     include: {
-                                        city: {
+                                        state: {
                                             include: {
-                                                state: {
-                                                    include: {
-                                                        country: true,
-                                                    },
-                                                },
+                                                country: true,
                                             },
                                         },
                                     },
@@ -75,12 +80,12 @@ export const authConfig: AuthOptions = {
                                 email: customer?.email,
                                 name: customer?.name,
                                 businessName: customer?.businessName,
+                                customerCategory: customer.customerCategory,
                                 phone: customer?.phone,
                                 isBanned: customer?.isBanned,
                                 id: customer?.id,
-                                customerCategory: customer?.customerCategory,
                                 wallet: customer?.wallet,
-                                address: customer?.address,
+                                address,
                             },
                         };
                     } else if (userType === "staff") {

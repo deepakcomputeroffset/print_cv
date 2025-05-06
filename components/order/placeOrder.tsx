@@ -5,8 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ProductItemType } from "@/types/types";
-import { productAttributeValue, UPLOADVIA } from "@prisma/client";
+import {
+    product,
+    productAttributeValue,
+    productItem,
+    UPLOADVIA,
+} from "@prisma/client";
 import { useWallet } from "@/hooks/use-wallet";
 import { toast } from "sonner";
 import { createOrder } from "@/lib/api/order";
@@ -37,15 +41,12 @@ import Image from "next/image";
 export default function PlaceOrder({
     product,
 }: {
-    product: ProductItemType & {
+    product: Omit<productItem, "ogPrice"> & {
         productAttributeOptions: productAttributeValue[];
-        product: {
-            name: string;
-            categoryId: number;
-            description: string;
-            imageUrl: string[];
-        };
-        price: number;
+        product: Pick<
+            product,
+            "categoryId" | "name" | "description" | "imageUrl"
+        >;
         qty: number;
     };
 }) {

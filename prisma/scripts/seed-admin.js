@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
 import bcryptjs from "bcryptjs";
-const prisma = new PrismaClient();
+import { Prisma } from "./conn.js";
 
-async function seedAdminUser() {
+export async function seedAdminUser() {
     try {
         // Check if admin already exists to avoid duplicates
         if (
@@ -11,7 +10,7 @@ async function seedAdminUser() {
             !process.env.ADMIN_EMAIL
         )
             return;
-        const adminExists = await prisma.staff.findFirst({
+        const adminExists = await Prisma.staff.findFirst({
             where: {
                 phone: process.env.ADMIN_PHONE,
                 role: "ADMIN",
@@ -25,7 +24,7 @@ async function seedAdminUser() {
                 parseInt(process.env.SALT),
             );
 
-            await prisma.staff.create({
+            await Prisma.staff.create({
                 data: {
                     name: "Administrator",
                     phone: process.env.ADMIN_PHONE,
@@ -41,10 +40,5 @@ async function seedAdminUser() {
         }
     } catch (error) {
         console.error("❌ Error seeding admin user:", error);
-    } finally {
-        await prisma.$disconnect();
     }
 }
-
-// Execute the function
-seedAdminUser();

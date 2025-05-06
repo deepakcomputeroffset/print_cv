@@ -102,10 +102,8 @@ export function EditProductForm({
             imageUrl: product?.imageUrl || [],
             categoryId: product?.categoryId.toString(),
             productItems: product?.productItems,
-            avgPrice: product?.avgPrice,
+            price: product?.price,
             isAvailable: product?.isAvailable,
-            maxPrice: product?.maxPrice,
-            minPrice: product?.minPrice,
             minQty: product?.minQty,
             ogPrice: product?.ogPrice,
             sku: product?.sku,
@@ -231,9 +229,7 @@ export function EditProductForm({
             sku: `${form.getValues("sku")}-${index + 1}`,
             minQty: form?.getValues("minQty"),
             ogPrice: form?.getValues("ogPrice"),
-            minPrice: form?.getValues("minPrice"),
-            avgPrice: form?.getValues("avgPrice"),
-            maxPrice: form?.getValues("maxPrice"),
+            price: form?.getValues("price"),
             imageUrl: [],
             isAvailable: false,
         }));
@@ -499,74 +495,6 @@ export function EditProductForm({
 
                     <FormField
                         control={form.control}
-                        name="minPrice"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Minimum Price</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                        type="number"
-                                        placeholder="Enter Minimum Price"
-                                        onChange={(e) =>
-                                            field.onChange(
-                                                parseInt(e.target.value),
-                                            )
-                                        }
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="avgPrice"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Average Price</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                        type="number"
-                                        placeholder="Enter Average Price"
-                                        onChange={(e) =>
-                                            field.onChange(
-                                                parseInt(e.target.value),
-                                            )
-                                        }
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="maxPrice"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Maximum Price</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                        type="number"
-                                        placeholder="Enter Maximum Price"
-                                        onChange={(e) =>
-                                            field.onChange(
-                                                parseInt(e.target.value),
-                                            )
-                                        }
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
                         name="ogPrice"
                         render={({ field }) => (
                             <FormItem>
@@ -576,6 +504,29 @@ export function EditProductForm({
                                         {...field}
                                         type="number"
                                         placeholder="Enter Original Price"
+                                        onChange={(e) =>
+                                            field.onChange(
+                                                parseInt(e.target.value),
+                                            )
+                                        }
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="price"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Minimum Price</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        {...field}
+                                        type="number"
+                                        placeholder="Enter Minimum Price"
                                         onChange={(e) =>
                                             field.onChange(
                                                 parseInt(e.target.value),

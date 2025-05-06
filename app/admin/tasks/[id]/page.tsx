@@ -16,8 +16,9 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { ViewFilesModal } from "@/components/admin/view-files-modal";
+import { ViewFilesModal } from "@/components/view-files-modal";
 import { Button } from "@/components/ui/button";
+import { ViewFilesButton } from "../../../../components/ViewFilesButton";
 
 const TaskActions = dynamic(() => import("../components/TaskActions"));
 
@@ -207,12 +208,33 @@ export default async function TaskDetail({
                                             {order.attachment &&
                                                 order.attachment.urls.length >
                                                     0 && (
-                                                    <ViewFilesModal
-                                                        orderId={order.id}
-                                                        files={
-                                                            order.attachment
-                                                                .urls
-                                                        }
+                                                    // <Button
+                                                    //     variant="outline"
+                                                    //     size="sm"
+                                                    //     className="w-full"
+                                                    //     onClick={() =>
+                                                    //         onOpen(
+                                                    //             "viewFiles",
+                                                    //             {
+                                                    //                 orderId:
+                                                    //                     order.id,
+                                                    //                 files: order
+                                                    //                     ?.attachment
+                                                    //                     ?.urls,
+                                                    //             },
+                                                    //         )
+                                                    //     }
+                                                    // >
+                                                    //     <FileText className="w-4 h-4 mr-2" />
+                                                    //     View Files
+                                                    // </Button>
+                                                    <ViewFilesButton
+                                                        order={{
+                                                            id: order.id,
+                                                            attachment:
+                                                                order.attachment
+                                                                    .urls,
+                                                        }}
                                                     />
                                                 )}
                                         </TableCell>
@@ -240,6 +262,8 @@ export default async function TaskDetail({
                     )}
                 </CardContent>
             </Card>
+
+            <ViewFilesModal />
         </div>
     );
 }

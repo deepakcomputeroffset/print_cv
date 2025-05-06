@@ -22,7 +22,8 @@ import { redirect } from "next/navigation";
 import { allowedRoleForJobManagement } from "@/lib/constants";
 import { ROLE } from "@prisma/client";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { ViewFilesModal } from "@/components/admin/view-files-modal";
+import { ViewFilesModal } from "@/components/view-files-modal";
+import { ViewFilesButton } from "@/components/ViewFilesButton";
 
 export default async function JobPage({
     params,
@@ -286,12 +287,13 @@ export default async function JobPage({
                                         {!job.isVerified && (
                                             <TableCell className="flex space-x-1">
                                                 {!!order?.attachment?.urls && (
-                                                    <ViewFilesModal
-                                                        orderId={order.id}
-                                                        files={
-                                                            order?.attachment
-                                                                ?.urls
-                                                        }
+                                                    <ViewFilesButton
+                                                        order={{
+                                                            id: order.id,
+                                                            attachment:
+                                                                order.attachment
+                                                                    .urls,
+                                                        }}
                                                     />
                                                 )}
                                                 <RemoveOrderFromJob
@@ -311,6 +313,8 @@ export default async function JobPage({
                     )}
                 </CardContent>
             </Card>
+
+            <ViewFilesModal />
         </div>
     );
 }

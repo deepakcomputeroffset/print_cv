@@ -26,11 +26,13 @@ import { useStates } from "@/hooks/useStates";
 import { useModal } from "@/hooks/use-modal";
 import { useCustomers } from "@/hooks/use-customers";
 import { getDirtyFieldsWithValues } from "@/lib/utils";
+import { useCustomerCategory } from "@/hooks/use-customer-category";
 
 export const CustomerEditForm = () => {
     const { data, onClose } = useModal();
     const { data: states } = useStates();
     const { updateCustomer } = useCustomers();
+    const { customersCategory } = useCustomerCategory();
     const customerFormSchemaUpdated = customerFormSchema?.partial();
 
     const form = useForm<z.infer<typeof customerFormSchemaUpdated>>({
@@ -47,6 +49,7 @@ export const CustomerEditForm = () => {
             line: data?.customer?.address?.line,
             phone: data?.customer?.phone,
             referenceId: data?.customer?.referenceId?.toString(),
+            customerCategoryId: data?.customer?.customerCategoryId || 1,
         },
     });
 
@@ -277,6 +280,47 @@ export const CustomerEditForm = () => {
                         )}
                     />
                 </div>
+
+                <FormField
+                    control={form.control}
+                    name="customerCategoryId"
+                    render={({ field }) => (
+                        <FormItem className="flex-1">
+                            <FormLabel>Category</FormLabel>
+                            <FormControl>
+                                <Select
+                                    value={field.value?.toString()}
+                                    onValueChange={(e) =>
+                                        field.onChange(parseInt(e))
+                                    }
+                                    defaultValue={field.value?.toString()}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue
+                                            placeholder={"Select Category"}
+                                        />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectLabel>
+                                                Categories
+                                            </SelectLabel>
+                                            {customersCategory?.map((ccat) => (
+                                                <SelectItem
+                                                    key={ccat?.id}
+                                                    value={ccat?.id?.toString()}
+                                                >
+                                                    {ccat?.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
 
                 <FormField
                     control={form.control}

@@ -2,6 +2,7 @@ import { Prisma } from "@/lib/prisma";
 import { customerFormSchema } from "@/schemas/customer.form.schema";
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
+import { Prisma as PPrisma } from "@prisma/client";
 
 export async function GET(
     request: Request,
@@ -20,13 +21,18 @@ export async function GET(
         const customer = await Prisma.customer.findUnique({
             where: { id: parseInt(id) },
             include: {
-                address: {
+                customerCategory: true,
+            },
+        });
+        const address = await Prisma.address.findFirst({
+            where: {
+                ownerId: customer?.id,
+                ownerType: "CUSTOMER",
+            },
+            include: {
+                city: {
                     include: {
-                        city: {
-                            include: {
-                                state: true,
-                            },
-                        },
+                        state: true,
                     },
                 },
             },
@@ -39,11 +45,11 @@ export async function GET(
                 message: "Customer not found.",
             });
         }
-
+        const customerWithAddress = { ...customer, address };
         return serverResponse({
             status: 200,
             success: true,
-            data: customer,
+            data: customerWithAddress,
             message: "Customer fetech successfully.",
         });
     } catch (error) {
@@ -63,20 +69,28 @@ export async function PATCH(
 ) {
     try {
         const session = await auth();
-        if (!session) {
+        if (
+            !session ||
+            session?.user?.userType !== "staff" ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session?.user?.staff?.isBanned)
+        ) {
             return serverResponse({
                 status: 401,
                 success: false,
                 error: "Unauthorized",
             });
         }
-        const { id } = await params;
 
-        const customer = await Prisma.customer.findUnique({
-            where: { id: parseInt(id) },
+        const { id } = await params;
+        const customerId = parseInt(id);
+
+        // Validate customer exists
+        const existingCustomer = await Prisma.customer.findUnique({
+            where: { id: customerId },
         });
 
-        if (!customer) {
+        if (!existingCustomer) {
             return serverResponse({
                 status: 404,
                 success: false,
@@ -84,95 +98,101 @@ export async function PATCH(
             });
         }
 
+        // Parse and validate request body
         const body = await request.json();
         const validatedData = customerFormSchema.partial().parse(body);
 
-        // eslint-disable-next-line
-        type NestedObject<T = any> = {
-            [key: string]: T | NestedObject<T>;
-        };
-        const updateData: NestedObject = {};
+        // Prepare customer update data
+        const customerUpdate: PPrisma.customerUpdateInput = {};
 
-        if (validatedData?.name) updateData.name = validatedData.name;
-        if (validatedData?.businessName)
-            updateData.businessName = validatedData.businessName;
-        if (validatedData.email) updateData.email = validatedData.email;
-        if (validatedData.phone) updateData.phone = validatedData.phone;
+        // Update basic fields
+        if (validatedData.name) customerUpdate.name = validatedData.name;
+        if (validatedData.businessName)
+            customerUpdate.businessName = validatedData.businessName;
+        if (validatedData.email) customerUpdate.email = validatedData.email;
+        if (validatedData.phone) customerUpdate.phone = validatedData.phone;
         if (validatedData.password)
-            updateData.password = validatedData.password;
+            customerUpdate.password = validatedData.password;
         if (validatedData.gstNumber)
-            updateData.gstNumber = validatedData.gstNumber;
-
-        if (
-            validatedData.line ||
-            validatedData.pinCode ||
-            validatedData.city ||
-            validatedData.state ||
-            validatedData.country
-        ) {
-            updateData.address = {
-                update: {},
+            customerUpdate.gstNumber = validatedData.gstNumber;
+        if (validatedData.customerCategoryId)
+            customerUpdate.customerCategory = {
+                connect: {
+                    id: validatedData.customerCategoryId,
+                },
             };
+        // Handle reference relationship
+        if (validatedData.referenceId !== undefined) {
+            if (validatedData.referenceId === "") {
+                customerUpdate.referedBy = { disconnect: true };
+            } else {
+                const referenceId = parseInt(validatedData.referenceId);
+                if (!isNaN(referenceId)) {
+                    customerUpdate.referedBy = { connect: { id: referenceId } };
+                }
+            }
+        }
+        // Update customer
+        await Prisma.customer.update({
+            where: { id: customerId },
+            data: customerUpdate,
+        });
 
-            if (validatedData.line)
-                updateData.address.update.line = validatedData.line;
+        // Handle address updates
+        if (validatedData.line || validatedData.pinCode || validatedData.city) {
+            // Convert address schema fields to database format
+            const addressData: Record<string, string | number> = {};
+
+            if (validatedData.line) addressData.line = validatedData.line;
             if (validatedData.pinCode)
-                updateData.address.update.pinCode = validatedData.pinCode;
+                addressData.pinCode = validatedData.pinCode;
+            if (validatedData.city)
+                addressData.cityId = parseInt(validatedData.city);
 
-            if (validatedData?.city) {
-                updateData.address.update.city = {
-                    connect: { id: parseInt(validatedData.city) }, // Linking to an existing city
-                };
-            }
+            // Find existing customer address
+            const existingAddress = await Prisma.address.findFirst({
+                where: {
+                    ownerId: customerId,
+                    ownerType: "CUSTOMER",
+                },
+            });
 
-            if (validatedData?.state) {
-                updateData.address.update.city = {
-                    update: {
-                        state: {
-                            connect: { id: parseInt(validatedData.state) }, // Linking to an existing state
-                        },
-                    },
-                };
-            }
-
-            if (validatedData?.country) {
-                updateData.address.update.city = {
-                    update: {
-                        state: {
-                            update: {
-                                country: {
-                                    connect: {
-                                        id: parseInt(validatedData.country),
-                                    }, // Linking to an existing country
-                                },
-                            },
-                        },
-                    },
-                };
+            if (existingAddress) {
+                // Update existing address
+                await Prisma.address.update({
+                    where: { id: existingAddress.id },
+                    data: addressData,
+                });
             }
         }
 
-        const updatedCustomer = await Prisma.customer.update({
-            where: { id: parseInt(id) },
-            data: updateData,
+        // Fetch updated customer with relations
+        const customer = await Prisma.customer.findUnique({
+            where: { id: customerId },
             include: {
-                address: {
-                    include: {
-                        city: {
-                            include: {
-                                state: true,
-                            },
-                        },
-                    },
-                },
+                customerCategory: true,
+                referedBy: true,
             },
         });
+
+        const customerAddress = await Prisma.address.findFirst({
+            where: {
+                ownerId: customer?.id,
+                ownerType: "CUSTOMER",
+            },
+        });
+
+        // Transform to maintain response format
+        const customerWithAddress = {
+            ...customer,
+            address: customerAddress,
+        };
 
         return serverResponse({
             status: 200,
             success: true,
             message: "Customer updated successfully.",
-            data: updatedCustomer,
+            data: customerWithAddress,
         });
     } catch (error) {
         console.error("Error updating customer:", error);
@@ -202,6 +222,19 @@ export async function DELETE(
 
         const customer = await Prisma.customer.delete({
             where: { id: parseInt(id) },
+        });
+
+        const address = await Prisma.address.findFirst({
+            where: {
+                ownerId: customer?.id,
+                ownerType: "CUSTOMER",
+            },
+        });
+
+        await Prisma.address.delete({
+            where: {
+                id: address?.id,
+            },
         });
 
         if (!customer) {

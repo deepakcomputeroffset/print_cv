@@ -67,7 +67,7 @@ export async function GET(req: Request) {
                     : {},
                 query?.category && query?.category !== "all"
                     ? {
-                          customerCategory: query?.category,
+                          customerCategoryId: parseInt(query?.category),
                       }
                     : {},
                 query?.status && query?.status !== "all"

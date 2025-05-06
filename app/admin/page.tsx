@@ -21,8 +21,8 @@ import {
     Star,
     Tag,
     ShoppingBag,
-    UserPlus,
-    Activity,
+    // UserPlus,
+    // Activity,
 } from "lucide-react";
 import { SalesChart } from "@/components/admin/sales-chart";
 import { TopProducts } from "@/components/admin/top-products";
@@ -71,14 +71,12 @@ interface AdminStats {
     dailyRevenue: { _sum: { total: number | null } };
     productPriceStats: {
         _avg: {
-            avgPrice: number | null;
-            minPrice: number | null;
-            maxPrice: number | null;
+            price: number | null;
         };
     };
     availableProducts: number;
     customerCategories: {
-        customerCategory: string;
+        // customerCategory: string;
         _count: { _all: number };
     }[];
     bannedCustomers: number;
@@ -255,9 +253,7 @@ export default async function AdminDashboard() {
                 // Product Price Statistics
                 Prisma.product.aggregate({
                     _avg: {
-                        avgPrice: true,
-                        minPrice: true,
-                        maxPrice: true,
+                        price: true,
                     },
                 }),
                 // Available Products Count
@@ -268,7 +264,7 @@ export default async function AdminDashboard() {
                 }),
                 // Customer Categories
                 Prisma.customer.groupBy({
-                    by: ["customerCategory"],
+                    by: ["customerCategoryId"],
                     _count: {
                         _all: true,
                     },
@@ -623,7 +619,7 @@ export default async function AdminDashboard() {
                                     <CardContent>
                                         <div className="text-3xl font-bold text-gray-900">
                                             ₹
-                                            {adminStats.productPriceStats._avg?.avgPrice?.toLocaleString() ||
+                                            {adminStats.productPriceStats._avg?.price?.toLocaleString() ||
                                                 0}
                                         </div>
                                         <p className="text-xs text-gray-500 mt-1">
@@ -649,7 +645,7 @@ export default async function AdminDashboard() {
                                     </CardContent>
                                 </Card>
 
-                                <Card className="bg-purple-50 hover:bg-purple-100 transition-all duration-300 hover:shadow-lg">
+                                {/* <Card className="bg-purple-50 hover:bg-purple-100 transition-all duration-300 hover:shadow-lg">
                                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                         <CardTitle className="text-sm font-medium text-gray-600">
                                             Min Price
@@ -666,9 +662,9 @@ export default async function AdminDashboard() {
                                             Minimum product price
                                         </p>
                                     </CardContent>
-                                </Card>
+                                </Card> */}
 
-                                <Card className="bg-orange-50 hover:bg-orange-100 transition-all duration-300 hover:shadow-lg">
+                                {/* <Card className="bg-orange-50 hover:bg-orange-100 transition-all duration-300 hover:shadow-lg">
                                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                         <CardTitle className="text-sm font-medium text-gray-600">
                                             Max Price
@@ -685,7 +681,7 @@ export default async function AdminDashboard() {
                                             Maximum product price
                                         </p>
                                     </CardContent>
-                                </Card>
+                                </Card> */}
                             </div>
                         </section>
 
@@ -696,7 +692,7 @@ export default async function AdminDashboard() {
                                 Customer Analytics
                             </h2>
                             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                                <Card className="bg-blue-50 hover:bg-blue-100 transition-all duration-300 hover:shadow-lg">
+                                {/* <Card className="bg-blue-50 hover:bg-blue-100 transition-all duration-300 hover:shadow-lg">
                                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                         <CardTitle className="text-sm font-medium text-gray-600">
                                             High Value
@@ -715,9 +711,9 @@ export default async function AdminDashboard() {
                                             High value customers
                                         </p>
                                     </CardContent>
-                                </Card>
+                                </Card> */}
 
-                                <Card className="bg-green-50 hover:bg-green-100 transition-all duration-300 hover:shadow-lg">
+                                {/* <Card className="bg-green-50 hover:bg-green-100 transition-all duration-300 hover:shadow-lg">
                                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                         <CardTitle className="text-sm font-medium text-gray-600">
                                             Medium Value
@@ -736,9 +732,9 @@ export default async function AdminDashboard() {
                                             Medium value customers
                                         </p>
                                     </CardContent>
-                                </Card>
+                                </Card> */}
 
-                                <Card className="bg-purple-50 hover:bg-purple-100 transition-all duration-300 hover:shadow-lg">
+                                {/* <Card className="bg-purple-50 hover:bg-purple-100 transition-all duration-300 hover:shadow-lg">
                                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                         <CardTitle className="text-sm font-medium text-gray-600">
                                             Low Value
@@ -757,7 +753,7 @@ export default async function AdminDashboard() {
                                             Low value customers
                                         </p>
                                     </CardContent>
-                                </Card>
+                                </Card> */}
 
                                 <Card className="bg-red-50 hover:bg-red-100 transition-all duration-300 hover:shadow-lg">
                                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

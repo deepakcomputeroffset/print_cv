@@ -74,7 +74,7 @@ export const ProductLists = ({ filters }: { filters: QueryParams }) => {
                                     </div>
                                 </TableCell>
                                 <TableCell className="text-nowrap">
-                                    ₹{product?.minPrice} - ₹{product?.maxPrice}
+                                    ₹{product?.price}
                                 </TableCell>
                                 <TableCell>
                                     <Badge

@@ -1,8 +1,7 @@
-import CheckoutPage from "@/components/order/placeOrder";
+import PlaceOrder from "@/components/order/placeOrder";
 import { auth } from "@/lib/auth";
 import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
-import { ProductItemType } from "@/types/types";
-import { productAttributeValue } from "@prisma/client";
+import { product, productAttributeValue, productItem } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { Prisma } from "@/lib/prisma";
 import Button from "./components/button";
@@ -15,10 +14,9 @@ export default async function PlaceOrderPage({
     try {
         const params = await searchParams;
         const session = await auth();
-        const customerCategory =
-            session?.user?.customer?.customerCategory || "LOW";
+        const customerCategory = session?.user?.customer?.customerCategory;
 
-        if (!session) return redirect("/");
+        if (!session || !customerCategory) return redirect("/");
 
         if (
             !params?.productItemId ||
@@ -28,6 +26,13 @@ export default async function PlaceOrderPage({
         ) {
             return redirect("/customer/products");
         }
+
+        const cityDiscount = await Prisma.cityDiscount.findFirst({
+            where: {
+                cityId: session.user.customer?.address?.cityId,
+                customerCategoryId: customerCategory?.id,
+            },
+        });
 
         const productItem = await Prisma?.productItem.findUnique({
             where: {
@@ -81,15 +86,12 @@ export default async function PlaceOrderPage({
             );
         }
 
-        const transformedProductItem: ProductItemType & {
+        const transformedProductItem: Omit<productItem, "ogPrice"> & {
             productAttributeOptions: productAttributeValue[];
-            product: {
-                name: string;
-                categoryId: number;
-                description: string;
-                imageUrl: string[];
-            };
-            price: number;
+            product: Pick<
+                product,
+                "categoryId" | "name" | "description" | "imageUrl"
+            >;
             qty: number;
         } = {
             id: productItem.id,
@@ -101,11 +103,11 @@ export default async function PlaceOrderPage({
             sku: productItem.sku,
             createdAt: productItem.createdAt,
             updatedAt: productItem.updatedAt,
-            price: getPriceAccordingToCategoryOfCustomer(customerCategory, {
-                avgPrice: productItem.avgPrice,
-                maxPrice: productItem.maxPrice,
-                minPrice: productItem.minPrice,
-            }),
+            price: getPriceAccordingToCategoryOfCustomer(
+                customerCategory,
+                cityDiscount,
+                productItem.price,
+            ),
             product: productItem.product,
             qty: parseInt(params.qty),
         };
@@ -118,7 +120,7 @@ export default async function PlaceOrderPage({
                         <span className="text-blue-600">Premium</span> Order
                     </h1>
                     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-2 rounded-2xl shadow-lg">
-                        <CheckoutPage product={transformedProductItem} />
+                        <PlaceOrder product={transformedProductItem} />
                     </div>
                 </div>
             </div>

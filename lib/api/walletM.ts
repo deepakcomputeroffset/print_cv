@@ -45,13 +45,9 @@ export const fetchWallet = async (params: QueryParams = {}) => {
 };
 
 export async function fetchCustomerByWalletid(id: string | number) {
-    return await axios<
-        ServerResponseType<
-            Omit<customer, "password"> & {
-                wallet: { balance: number; id: number };
-            }
-        >
-    >(`${walletMBaseUrl}/${id}/customer`);
+    return await axios<ServerResponseType<customerType>>(
+        `${walletMBaseUrl}/${id}/customer`,
+    );
 }
 
 export async function createTransaction(

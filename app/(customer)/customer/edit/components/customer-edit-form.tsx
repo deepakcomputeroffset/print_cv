@@ -38,6 +38,8 @@ import {
     Home,
     Save,
 } from "lucide-react";
+import { customerCategory } from "@prisma/client";
+import { useCustomerCategory } from "@/hooks/use-customer-category";
 
 export const CustomerEditForm = ({ customer }: { customer?: customerType }) => {
     const { data: states } = useStates();
@@ -45,6 +47,7 @@ export const CustomerEditForm = ({ customer }: { customer?: customerType }) => {
     const {
         updateCustomer: { isPending, mutateAsync },
     } = useCustomers();
+    const { customersCategory } = useCustomerCategory();
     const customerFormSchemaUpdated = customerFormSchema?.partial();
     const form = useForm<z.infer<typeof customerFormSchemaUpdated>>({
         resolver: zodResolver(customerFormSchemaUpdated),
@@ -59,6 +62,7 @@ export const CustomerEditForm = ({ customer }: { customer?: customerType }) => {
             gstNumber: customer?.gstNumber || undefined,
             line: customer?.address?.line,
             phone: customer?.phone,
+            customerCategoryId: customer?.customerCategoryId || 0,
         },
         values: {
             name: customer?.name,
@@ -71,6 +75,7 @@ export const CustomerEditForm = ({ customer }: { customer?: customerType }) => {
             gstNumber: customer?.gstNumber || undefined,
             line: customer?.address?.line,
             phone: customer?.phone,
+            customerCategoryId: customer?.customerCategoryId || 0,
         },
     });
 
@@ -397,6 +402,47 @@ export const CustomerEditForm = ({ customer }: { customer?: customerType }) => {
                         />
                     </div>
                 </div>
+
+                <FormField
+                    control={form.control}
+                    name="customerCategoryId"
+                    render={({ field }) => (
+                        <FormItem className="flex-1">
+                            <FormLabel>City</FormLabel>
+                            <FormControl>
+                                <Select
+                                    value={field.value?.toString()}
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value?.toString()}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue
+                                            placeholder={"Select Category"}
+                                        />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectLabel>
+                                                Categories
+                                            </SelectLabel>
+                                            {customersCategory?.map(
+                                                (ccat: customerCategory) => (
+                                                    <SelectItem
+                                                        key={ccat?.id}
+                                                        value={ccat?.id?.toString()}
+                                                    >
+                                                        {ccat?.name}
+                                                    </SelectItem>
+                                                ),
+                                            )}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
 
                 <motion.div
                     className="pt-4"

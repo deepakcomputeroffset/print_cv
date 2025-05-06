@@ -2,10 +2,6 @@ import ProductDetails from "@/components/product/productDetail";
 import { auth } from "@/lib/auth";
 import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
 import { Prisma } from "@/lib/prisma";
-import {
-    ProductItemTypeOnlyWithPrice,
-    ProductTypeOnlyWithPrice,
-} from "@/types/types";
 import { redirect } from "next/navigation";
 
 export default async function ProductPage({
@@ -15,10 +11,13 @@ export default async function ProductPage({
 }) {
     const { id } = await params;
     if (isNaN(parseInt(id))) {
-        return redirect("/product");
+        return redirect("/products");
     }
     const session = await auth();
-    const customerCategory = session?.user?.customer?.customerCategory || "LOW";
+    console.log(session);
+    const customerCategory = session?.user?.customer?.customerCategory;
+    console.log(customerCategory);
+    if (!customerCategory) return redirect("/products");
 
     const product = await Prisma.product.findUnique({
         where: {
@@ -45,9 +44,15 @@ export default async function ProductPage({
             </div>
         );
     }
-    const transformedProduct: ProductTypeOnlyWithPrice & {
-        productItems: ProductItemTypeOnlyWithPrice[];
-    } = {
+
+    const cityDiscount = await Prisma.cityDiscount.findFirst({
+        where: {
+            cityId: session.user.customer?.address?.cityId,
+            customerCategoryId: customerCategory?.id,
+        },
+    });
+
+    const transformedProduct = {
         id: product.id,
         name: product.name,
         categoryId: product.categoryId,
@@ -56,11 +61,11 @@ export default async function ProductPage({
         isAvailable: product.isAvailable,
         sku: product.sku,
         minQty: product.minQty,
-        price: getPriceAccordingToCategoryOfCustomer(customerCategory, {
-            avgPrice: product.avgPrice,
-            maxPrice: product.maxPrice,
-            minPrice: product.minPrice,
-        }),
+        price: getPriceAccordingToCategoryOfCustomer(
+            customerCategory,
+            cityDiscount,
+            product.price,
+        ),
         createdAt: product.createdAt,
         updatedAt: product.updatedAt,
         productItems: product.productItems.map((item) => ({
@@ -73,11 +78,11 @@ export default async function ProductPage({
             sku: item.sku,
             createdAt: item.createdAt,
             updatedAt: item.updatedAt,
-            price: getPriceAccordingToCategoryOfCustomer(customerCategory, {
-                avgPrice: item.avgPrice,
-                maxPrice: item.maxPrice,
-                minPrice: item.minPrice,
-            }),
+            price: getPriceAccordingToCategoryOfCustomer(
+                customerCategory,
+                cityDiscount,
+                item.price,
+            ),
         })),
     };
 

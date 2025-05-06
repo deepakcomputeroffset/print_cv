@@ -63,69 +63,30 @@ export function VariantForm({ form, index }: VariantFormProps) {
 
             <FormField
                 control={form.control}
-                name={`productItems.${index}.minPrice`}
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Minimum Price</FormLabel>
-                        <FormControl>
-                            <Input
-                                type="number"
-                                {...field}
-                                onChange={(e) =>
-                                    field.onChange(parseInt(e.target.value))
-                                }
-                            />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-
-            <FormField
-                control={form.control}
-                name={`productItems.${index}.avgPrice`}
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Average Price</FormLabel>
-                        <FormControl>
-                            <Input
-                                type="number"
-                                {...field}
-                                onChange={(e) =>
-                                    field.onChange(parseInt(e.target.value))
-                                }
-                            />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-
-            <FormField
-                control={form.control}
-                name={`productItems.${index}.maxPrice`}
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Maximum Price</FormLabel>
-                        <FormControl>
-                            <Input
-                                type="number"
-                                {...field}
-                                onChange={(e) =>
-                                    field.onChange(parseInt(e.target.value))
-                                }
-                            />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-            <FormField
-                control={form.control}
                 name={`productItems.${index}.ogPrice`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Original Price</FormLabel>
+                        <FormControl>
+                            <Input
+                                type="number"
+                                {...field}
+                                onChange={(e) =>
+                                    field.onChange(parseInt(e.target.value))
+                                }
+                            />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+
+            <FormField
+                control={form.control}
+                name={`productItems.${index}.price`}
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Minimum Price</FormLabel>
                         <FormControl>
                             <Input
                                 type="number"

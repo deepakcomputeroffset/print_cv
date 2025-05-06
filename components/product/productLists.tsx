@@ -1,7 +1,6 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { ProductTypeOnlyWithPrice } from "@/types/types";
 import Link from "next/link";
 import {
     Breadcrumb,
@@ -16,12 +15,13 @@ import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 import { ChevronRight } from "lucide-react";
+import { product } from "@prisma/client";
 
 export default function ProductLists({
     products,
     category,
 }: {
-    products: ProductTypeOnlyWithPrice[];
+    products: Pick<product, "name" | "description" | "id" | "imageUrl">[];
     category: {
         name: string;
         parentCategory: {

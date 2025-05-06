@@ -34,8 +34,8 @@ export default function LoginPage() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            phone: isDevelopment ? "7479796212" : "",
-            password: isDevelopment ? "Abc1234@@" : "",
+            phone: isDevelopment ? process.env.ADMIN_PHONE : "",
+            password: isDevelopment ? process.env.ADMIN_PASSWORD : "",
         },
     });
 

@@ -132,10 +132,7 @@ export async function PATCH(
             updateData.isAvailable = validatedData.isAvailable;
         if (validatedData?.sku) updateData.sku = validatedData.sku;
         if (validatedData.minQty) updateData.minQty = validatedData.minQty;
-        if (validatedData.avgPrice)
-            updateData.avgPrice = validatedData.avgPrice;
-        if (validatedData.maxPrice)
-            updateData.maxPrice = validatedData.maxPrice;
+        if (validatedData.price) updateData.price = validatedData.price;
         if (validatedData.ogPrice) updateData.ogPrice = validatedData.ogPrice;
         if (validatedData.categoryId)
             updateData.categoryId = parseInt(validatedData.categoryId);
@@ -145,9 +142,7 @@ export async function PATCH(
                     sku: item.sku,
                     minQty: item.minQty,
                     ogPrice: item.ogPrice,
-                    minPrice: item.minPrice,
-                    avgPrice: item.avgPrice,
-                    maxPrice: item.maxPrice,
+                    price: item.price,
                     imageUrl: item.imageUrl,
                     isAvailable: item.isAvailable,
                     productAttributeOptions: {

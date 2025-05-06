@@ -6,6 +6,8 @@ import { defaultOrderPerPage } from "@/lib/constants";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { DataTable } from "./components/data-table";
 import { columns } from "./components/columns";
+import { ViewFilesModal } from "../../../components/view-files-modal";
+import { ImproperOrderModal } from "./modal/ImproperOrderModal";
 
 export default function OrdersPage({
     searchParams,
@@ -34,6 +36,9 @@ export default function OrdersPage({
                 filters={filters}
                 addJobToOrders={addJobToOrders}
             />
+
+            <ViewFilesModal />
+            <ImproperOrderModal />
         </div>
     );
 }

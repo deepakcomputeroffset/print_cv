@@ -70,15 +70,15 @@ export async function GET(request: Request) {
                     : {},
                 query?.minPrice && Number(query?.minPrice) != 0
                     ? {
-                          minPrice: {
+                          price: {
                               gte: Number(query?.minPrice),
                           },
                       }
                     : {},
                 query?.maxPrice && Number(query?.maxPrice) != 0
                     ? {
-                          maxPrice: {
-                              gte: Number(query?.maxPrice),
+                          price: {
+                              lte: Number(query?.maxPrice),
                           },
                       }
                     : {},
@@ -174,17 +174,13 @@ export async function POST(req: Request) {
                 sku: safeData.sku,
                 minQty: safeData.minQty,
                 ogPrice: safeData.ogPrice,
-                minPrice: safeData.minPrice,
-                avgPrice: safeData.avgPrice,
-                maxPrice: safeData.maxPrice,
+                price: safeData.price,
                 productItems: {
                     create: safeData.productItems.map((item) => ({
                         sku: item.sku,
                         minQty: item.minQty,
                         ogPrice: item.ogPrice,
-                        minPrice: item.minPrice,
-                        avgPrice: item.avgPrice,
-                        maxPrice: item.maxPrice,
+                        price: item.price,
                         imageUrl: item.imageUrl,
                         isAvailable: item.isAvailable,
                         productAttributeOptions: {

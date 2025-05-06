@@ -86,7 +86,7 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                                         slide.title ||
                                         "Printing services showcase"
                                     }
-                                    className="object-cover w-full h-full transform scale-105 transition-transform duration-[25000ms] ease-in-out"
+                                    className="object-cover w-full h-full transform scale-105 transition-transform duration-200 ease-in-out"
                                     style={{
                                         transformOrigin:
                                             idx % 2 === 0

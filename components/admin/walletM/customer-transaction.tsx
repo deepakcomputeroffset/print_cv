@@ -18,11 +18,21 @@ import { MessageRow } from "@/components/message-row";
 import { LoadingRow } from "@/components/loading-row";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowLeft, Building2, Mail, Phone, User, Wallet } from "lucide-react";
+import {
+    ArrowLeft,
+    Building2,
+    CreditCard,
+    Mail,
+    Phone,
+    User,
+    Wallet,
+} from "lucide-react";
 import { transaction } from "@prisma/client";
 import { format } from "date-fns";
 import { TransactionFilter } from "@/components/admin/walletM/transaction-filter";
 import { useCustomerByWallet } from "@/hooks/use-customer";
+import { TransactionCreateModal } from "./model/transaction";
+import { useModal } from "@/hooks/use-modal";
 
 export default function CustomerTransactions({
     filters,
@@ -31,6 +41,7 @@ export default function CustomerTransactions({
     filters: QueryParams;
     id: string;
 }) {
+    const { onOpen } = useModal();
     // Fetch customer details
     const {
         customer,
@@ -101,6 +112,17 @@ export default function CustomerTransactions({
                                     {customer.wallet?.balance.toFixed(2) ||
                                         "0.00"}
                                 </div>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() =>
+                                        onOpen("transaction", {
+                                            customer: customer,
+                                        })
+                                    }
+                                >
+                                    <CreditCard className="h-4 w-4" />
+                                </Button>
                             </div>
                         </div>
                     ) : (
@@ -198,6 +220,8 @@ export default function CustomerTransactions({
                     <Pagination isLoading={isLoading} totalPage={totalPages} />
                 </CardContent>
             </Card>
+
+            <TransactionCreateModal />
         </div>
     );
 }

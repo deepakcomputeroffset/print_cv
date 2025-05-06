@@ -129,19 +129,6 @@ export async function GET(request: Request) {
                     },
                     customer: {
                         select: {
-                            address: {
-                                include: {
-                                    city: {
-                                        include: {
-                                            state: {
-                                                include: {
-                                                    country: true,
-                                                },
-                                            },
-                                        },
-                                    },
-                                },
-                            },
                             businessName: true,
                             customerCategory: true,
                             name: true,
@@ -156,11 +143,42 @@ export async function GET(request: Request) {
             }),
         ]);
 
+        const customerIds = orders.map((c) => c.customerId);
+        const address = await Prisma.address.findMany({
+            where: {
+                ownerId: { in: customerIds },
+                ownerType: "CUSTOMER",
+            },
+            include: {
+                city: {
+                    include: {
+                        state: true,
+                    },
+                },
+            },
+            skip: query.page
+                ? (query.page - 1) * (query.perpage || defaultOrderPerPage)
+                : 0,
+            take: query.perpage || defaultOrderPerPage,
+        });
+
+        const orderWithCustomerWithAddress = orders.map((order) => ({
+            ...order,
+            customer: {
+                ...order.customer,
+                address: address.filter(
+                    (a) =>
+                        a.ownerId === order.customerId &&
+                        a.ownerType === "CUSTOMER",
+                ),
+            },
+        }));
+
         return serverResponse({
             status: 200,
             success: true,
             data: {
-                orders,
+                orders: orderWithCustomerWithAddress,
                 total,
                 page: query.page || 1,
                 perpage: query.perpage || defaultOrderPerPage,

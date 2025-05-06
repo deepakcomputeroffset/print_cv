@@ -8,9 +8,7 @@ export function compareVariants(
     if (
         oldVariant.sku !== newVariant.sku ||
         oldVariant.minQty !== newVariant.minQty ||
-        oldVariant.minPrice !== newVariant.minPrice ||
-        oldVariant.avgPrice !== newVariant.avgPrice ||
-        oldVariant.maxPrice !== newVariant.maxPrice ||
+        oldVariant.price !== newVariant.price ||
         oldVariant.ogPrice !== newVariant.ogPrice ||
         oldVariant.isAvailable !== newVariant.isAvailable ||
         oldVariant.imageUrl !== newVariant.imageUrl

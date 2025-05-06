@@ -6,12 +6,13 @@ import { format } from "date-fns";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { IndianRupee, ArrowLeft } from "lucide-react";
-import { ViewFilesModal } from "@/components/admin/view-files-modal";
+import { IndianRupee } from "lucide-react";
 import { ImproperOrderModal } from "../modal/ImproperOrderModal";
 import Image from "next/image";
+import { ViewFilesButton } from "@/components/ViewFilesButton";
+import { ImproperOrderButton } from "../components/ImproperButton";
+import { BackButton } from "@/components/backButton";
 
 export default async function OrderDetail({
     params,
@@ -38,21 +39,21 @@ export default async function OrderDetail({
         where: { id: orderId },
         include: {
             customer: {
-                include: {
-                    address: {
-                        include: {
-                            city: {
-                                include: {
-                                    state: {
-                                        include: {
-                                            country: true,
-                                        },
-                                    },
-                                },
-                            },
-                        },
-                    },
-                },
+                // include: {
+                //     address: {
+                //         include: {
+                //             city: {
+                //                 include: {
+                //                     state: {
+                //                         include: {
+                //                             country: true,
+                //                         },
+                //                     },
+                //                 },
+                //             },
+                //         },
+                //     },
+                // },
             },
             productItem: {
                 include: {
@@ -77,12 +78,30 @@ export default async function OrderDetail({
         },
     });
 
+    const address = await Prisma.address.findFirst({
+        where: {
+            ownerId: order?.customerId,
+            ownerType: "CUSTOMER",
+        },
+        include: {
+            city: {
+                include: {
+                    state: {
+                        include: {
+                            country: true,
+                        },
+                    },
+                },
+            },
+        },
+    });
+
     if (!order) {
         return redirect("/admin/orders");
     }
 
     // Format the full address
-    const address = order.customer.address;
+    // const address = order.customer.address;
     const fullAddress = address
         ? `${address.line}, ${address.city.name}, ${address.city.state.name}, ${address.city.state.country.name} - ${address.pinCode}`
         : "No address provided";
@@ -111,12 +130,13 @@ export default async function OrderDetail({
                         {order.status}
                     </Badge>
                 </div>
-                <Link href="/admin/orders">
+                <BackButton />
+                {/* <Link href="/admin/orders">
                     <Button variant="outline" size="sm">
                         <ArrowLeft className="mr-2 h-4 w-4" />
                         Back to Orders
                     </Button>
-                </Link>
+                </Link> */}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -230,9 +250,11 @@ export default async function OrderDetail({
                                     <p className="text-sm text-muted-foreground mb-2">
                                         Attachments
                                     </p>
-                                    <ViewFilesModal
-                                        orderId={order.id}
-                                        files={order.attachment.urls}
+                                    <ViewFilesButton
+                                        order={{
+                                            id: order.id,
+                                            attachment: order.attachment.urls,
+                                        }}
                                     />
                                 </div>
                             )}
@@ -393,10 +415,11 @@ export default async function OrderDetail({
             {/* Actions */}
             <div className="flex justify-end gap-2">
                 {order.status === STATUS.PENDING && (
-                    <ImproperOrderModal orderId={order.id} />
+                    <ImproperOrderButton order={{ id: order.id }} />
                 )}
                 {/* Add more action buttons as needed */}
             </div>
+            <ImproperOrderModal />
         </div>
     );
 }

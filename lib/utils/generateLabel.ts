@@ -1,4 +1,4 @@
-import { CUSTOMER_CATEGORY, order, product, productItem } from "@prisma/client";
+import { order, product, productItem } from "@prisma/client";
 import JsBarcode from "jsbarcode";
 import { joinImages } from "./joinImages";
 import { convertFileToBase64 } from "./imageToBase64";
@@ -24,7 +24,6 @@ interface LabelOrder extends order {
             };
             pinCode: string;
         } | null;
-        customerCategory: CUSTOMER_CATEGORY;
     };
 }
 

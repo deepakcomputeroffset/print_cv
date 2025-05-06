@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Tag, Check, FileText, ImageIcon } from "lucide-react";
 import {
-    CUSTOMER_CATEGORY,
+    address,
     attachment,
     order,
     product,
@@ -32,20 +32,7 @@ interface LabelButtonProps {
             businessName: string;
             name: string;
             phone: string;
-            address: {
-                line?: string;
-                city?: {
-                    name?: string;
-                    state?: {
-                        name?: string;
-                        country: {
-                            name: string;
-                        };
-                    };
-                };
-                pinCode: string;
-            } | null;
-            customerCategory: CUSTOMER_CATEGORY;
+            address: address | null;
         };
         attachment?: attachment;
     };

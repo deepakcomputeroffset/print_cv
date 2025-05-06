@@ -1,12 +1,12 @@
 import {
     productAttributeWithOptions,
-    ProductItemTypeOnlyWithPrice,
-    ProductTypeOnlyWithPrice,
+    ProductItemTypeWithAttribute,
 } from "@/types/types";
+import { product } from "@prisma/client";
 
 export default function getDistinctOptionsWithDetails(
-    product: ProductTypeOnlyWithPrice & {
-        productItems: ProductItemTypeOnlyWithPrice[];
+    product: Omit<product, "ogPrice"> & {
+        productItems: ProductItemTypeWithAttribute[];
     },
 ): productAttributeWithOptions[] {
     const distinctOptions: { [key: string]: productAttributeWithOptions } = {};

@@ -9,8 +9,7 @@
         "lint": "next lint",
         "prepare": "husky",
         "postinstall": "prisma generate",
-        "seed:india": "node prisma/scripts/seed-india-data.js",
-        "seed:admin": "node prisma/scripts/seed-admin.js"
+        "seed:data": "node prisma/scripts/seed.js"
     },
     "dependencies": {
         "@google-cloud/storage": "^7.15.2",
@@ -82,6 +81,7 @@
         "prettier": "^3.4.2",
         "prisma": "^6.5.0",
         "tailwindcss": "^3.4.1",
+        "ts-node": "^10.9.2",
         "typescript": "^5"
     },
     "lint-staged": {

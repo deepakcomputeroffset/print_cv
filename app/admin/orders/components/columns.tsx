@@ -120,7 +120,7 @@ export const columns: ColumnDef<orderType>[] = [
         },
     },
     {
-        accessorKey: "amount",
+        accessorKey: "total",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Amount" />
         ),
@@ -128,7 +128,7 @@ export const columns: ColumnDef<orderType>[] = [
             return (
                 <div className="flex items-center">
                     <IndianRupee className="w-3 h-3" />
-                    {row.getValue("amount")}
+                    {row.getValue("total")}
                 </div>
             );
         },

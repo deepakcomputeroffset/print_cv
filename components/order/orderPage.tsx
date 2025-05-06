@@ -27,6 +27,7 @@ import { MotionDiv } from "../motionDiv";
 import { CancellationModal } from "./components/CancellationModal";
 import { format } from "date-fns";
 import { useModal } from "@/hooks/use-modal";
+import { addressType } from "@/types/types";
 
 interface OrderDetailsPageProps {
     order: order & {
@@ -34,19 +35,7 @@ interface OrderDetailsPageProps {
             product: product;
         };
         customer: {
-            address: {
-                line?: string;
-                city?: {
-                    name?: string;
-                    state?: {
-                        name?: string;
-                        country: {
-                            name: string;
-                        };
-                    };
-                };
-                pinCode: string;
-            } | null;
+            address: addressType | null;
             businessName: string;
             name: string;
             phone: string;

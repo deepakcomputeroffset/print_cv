@@ -55,7 +55,7 @@ export const CustomerViewModal = () => {
                                     <span className="text-muted-foreground">
                                         Category:
                                     </span>
-                                    {data?.customer?.customerCategory}
+                                    {data?.customer?.customerCategory?.name}
                                 </p>
                                 <p>
                                     <span className="text-muted-foreground">

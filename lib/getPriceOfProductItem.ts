@@ -1,17 +1,12 @@
-import { CUSTOMER_CATEGORY } from "@prisma/client";
+import { cityDiscount, customerCategory } from "@prisma/client";
 
 export function getPriceAccordingToCategoryOfCustomer(
-    customerCategory: CUSTOMER_CATEGORY,
-    prices: { maxPrice: number; avgPrice: number; minPrice: number },
+    customerCategory: customerCategory,
+    cityDiscount: cityDiscount | null,
+    price: number,
 ): number {
-    switch (customerCategory) {
-        case "LOW":
-            return prices?.maxPrice;
-        case "MEDIUM":
-            return prices?.avgPrice;
-        case "HIGH":
-            return prices?.minPrice;
-        default:
-            return prices?.maxPrice;
+    if (cityDiscount) {
+        return price - (price * cityDiscount.discount) / 100;
     }
+    return price - (price * customerCategory.discount) / 100;
 }
