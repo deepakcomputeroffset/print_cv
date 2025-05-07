@@ -35,9 +35,9 @@ export const StaffListTable = ({
             </TableHeader>
             <TableBody>
                 {isLoading ? (
-                    <LoadingRow text="Loading customers..." colSpan={8} />
+                    <LoadingRow text="Loading staffs..." colSpan={8} />
                 ) : customers.length === 0 ? (
-                    <MessageRow colSpan={8} text="No customers found" />
+                    <MessageRow colSpan={8} text="No staffs found" />
                 ) : (
                     customers?.map((staff: staff) => (
                         <StaffTableRow

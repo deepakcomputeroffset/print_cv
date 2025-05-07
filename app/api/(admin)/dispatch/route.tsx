@@ -163,7 +163,7 @@ export async function GET(request: Request) {
                     (a) =>
                         a.ownerId === order.customerId &&
                         a.ownerType === "CUSTOMER",
-                ),
+                )[0],
             },
         }));
         return serverResponse({

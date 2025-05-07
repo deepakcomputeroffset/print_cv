@@ -76,7 +76,8 @@ export default async function JobPage({
 
     const hasTasks = job.tasks.length > 0;
     const allTasksCompleted = job.tasks.every((task) => task.completedAt);
-    const canComplete = hasTasks && allTasksCompleted && !job.isCompleted;
+    const canComplete =
+        hasTasks && allTasksCompleted && job.isCompleted === false;
     return (
         <div className="p-6 space-y-6">
             <div className="flex justify-between items-start">

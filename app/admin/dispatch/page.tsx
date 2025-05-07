@@ -207,7 +207,7 @@ export default function DispatchPage({
                                                     className="bg-blue-50 text-blue-700 border-blue-200"
                                                 >
                                                     {order.status ===
-                                                    "PROCESSING"
+                                                    "PROCESSED"
                                                         ? "Pending"
                                                         : "Dispatched"}
                                                 </Badge>
