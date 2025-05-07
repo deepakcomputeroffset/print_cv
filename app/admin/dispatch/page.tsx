@@ -24,6 +24,8 @@ import {
     LabelButton,
     LabelButtonWithAttachment,
 } from "@/components/LabelButton";
+import { SelectDributorModal } from "@/components/admin/distributor/modal/selectDistributorModal";
+import { useModal } from "@/hooks/use-modal";
 
 export default function DispatchPage({
     searchParams,
@@ -31,12 +33,11 @@ export default function DispatchPage({
     searchParams: Promise<QueryParams>;
 }) {
     const filters = use(searchParams);
-    const { orders, isLoading, updateOrderDispatch } = useDispatch(filters);
-    const {
-        orders: dispatchedOrders,
-        isLoading: dispatchedOrdersLoading,
-        updateOrderDispatch: updateDispatchedOrderDispatch,
-    } = useDispatch({ ...filters, dispatched: "true" });
+    const { orders, isLoading, updateOrderDispatch, dispatchViaDistributor } =
+        useDispatch(filters);
+    const { onOpen } = useModal();
+    const { orders: dispatchedOrders, isLoading: dispatchedOrdersLoading } =
+        useDispatch({ ...filters, dispatched: "true" });
     return (
         <div className="space-y-6 h-full min-h-full">
             <div className="flex justify-between items-center">
@@ -231,23 +232,23 @@ export default function DispatchPage({
                                                     <Button
                                                         variant="ghost"
                                                         size="sm"
-                                                        onClick={() => {
-                                                            const confirmed =
-                                                                confirm(
-                                                                    "Are you sure you want to dispatch this order?",
-                                                                );
-                                                            if (confirmed) {
-                                                                updateOrderDispatch.mutate(
-                                                                    {
-                                                                        id: order?.id,
-                                                                    },
-                                                                );
-                                                            }
-                                                        }}
+                                                        onClick={() =>
+                                                            onOpen(
+                                                                "selectDistributor",
+                                                                {
+                                                                    order: order,
+                                                                    cityId: order
+                                                                        .customer
+                                                                        ?.address
+                                                                        ?.cityId,
+                                                                },
+                                                            )
+                                                        }
                                                         disabled={
-                                                            order?.status ===
-                                                                "DISPATCHED" ||
-                                                            updateOrderDispatch.isPending
+                                                            order?.status !==
+                                                                "PROCESSED" ||
+                                                            updateOrderDispatch.isPending ||
+                                                            dispatchViaDistributor?.isPending
                                                         }
                                                     >
                                                         <Truck className="w-4 h-4 mr-2" />
@@ -289,9 +290,9 @@ export default function DispatchPage({
                                     <TableHead className="font-medium">
                                         Status
                                     </TableHead>
-                                    <TableHead className="font-medium">
+                                    {/* <TableHead className="font-medium">
                                         Actions
-                                    </TableHead>
+                                    </TableHead> */}
                                 </TableRow>
                             </TableHeader>
 
@@ -408,9 +409,10 @@ export default function DispatchPage({
                                                     "PROCESSING"
                                                         ? "Pending"
                                                         : "Dispatched"}
+                                                    {" : "} {order?.deliveryVia}
                                                 </Badge>
                                             </TableCell>
-                                            <TableCell>
+                                            {/* <TableCell>
                                                 <div className="flex items-center gap-2">
                                                     <Button
                                                         variant="ghost"
@@ -438,7 +440,7 @@ export default function DispatchPage({
                                                         Dispatch
                                                     </Button>
                                                 </div>
-                                            </TableCell>
+                                            </TableCell> */}
                                         </TableRow>
                                     ))
                                 )}
@@ -447,6 +449,11 @@ export default function DispatchPage({
                     </div>
                 </CardContent>
             </Card>
+
+            <SelectDributorModal
+                dispatchDirectly={updateOrderDispatch}
+                dispatchViaDistributor={dispatchViaDistributor}
+            />
         </div>
     );
 }

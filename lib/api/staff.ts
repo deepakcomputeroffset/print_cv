@@ -2,7 +2,7 @@ import queryString from "query-string";
 import axios from "axios";
 import { z } from "zod";
 import { staffFormSchema } from "@/schemas/staff.form.schema";
-import { QueryParams, ServerResponseType } from "@/types/types";
+import { QueryParams, ServerResponseType, staffType } from "@/types/types";
 import { staffBaseUrl } from "../urls";
 import { staff } from "@prisma/client";
 import { defaultStaffPerPage } from "../constants";
@@ -20,7 +20,9 @@ export async function fetchStaffs(
         query: { ...params },
     });
     const { data } =
-        await axios<ServerResponseType<QueryParams & { staff: staff[] }>>(url);
+        await axios<ServerResponseType<QueryParams & { staff: staffType[] }>>(
+            url,
+        );
     return data.data;
 }
 

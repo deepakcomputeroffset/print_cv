@@ -8,14 +8,14 @@ import {
 import { MessageRow } from "@/components/message-row";
 import { StaffTableRow } from "./staff-list-table-row";
 import { LoadingRow } from "@/components/loading-row";
-import { staff } from "@prisma/client";
+import { staffType } from "@/types/types";
 
 export const StaffListTable = ({
-    customers,
+    staffs,
     toggleBanStatus,
     isLoading,
 }: {
-    customers: staff[];
+    staffs: staffType[];
     toggleBanStatus: (id: number) => void;
     isLoading: boolean;
 }) => {
@@ -36,10 +36,10 @@ export const StaffListTable = ({
             <TableBody>
                 {isLoading ? (
                     <LoadingRow text="Loading staffs..." colSpan={8} />
-                ) : customers.length === 0 ? (
+                ) : staffs.length === 0 ? (
                     <MessageRow colSpan={8} text="No staffs found" />
                 ) : (
-                    customers?.map((staff: staff) => (
+                    staffs?.map((staff) => (
                         <StaffTableRow
                             staff={staff}
                             key={staff?.id}

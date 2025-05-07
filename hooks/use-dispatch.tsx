@@ -25,6 +25,23 @@ export function useDispatch(props: QueryParams = {}) {
         },
     });
 
+    const DispatchViaDistributor = useMutation({
+        mutationFn: ({
+            id,
+            distributorId,
+        }: {
+            id: number;
+            distributorId: number;
+        }) => api.dispatchViaDistributor(id, distributorId),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey });
+            toast.success("Order dispatch via distributor successfully");
+        },
+        onError: () => {
+            toast.error("Failed to dispatch order via distributor status.");
+        },
+    });
+
     return {
         orders: data?.data?.orders ?? [],
         totalPages: data?.data?.totalPages ?? 0,
@@ -33,5 +50,6 @@ export function useDispatch(props: QueryParams = {}) {
         isLoading,
         refetch,
         updateOrderDispatch: toggleDispatchStatus,
+        dispatchViaDistributor: DispatchViaDistributor,
     };
 }

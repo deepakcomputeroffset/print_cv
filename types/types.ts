@@ -15,6 +15,7 @@ import {
     state,
     task,
     customerCategory,
+    staff,
 } from "@prisma/client";
 import { z, ZodIssue } from "zod";
 
@@ -30,6 +31,10 @@ export type customerType = Omit<customer, "password"> & {
     address: addressType | null;
     wallet?: { id: number; balance: number };
     customerCategory: customerCategory | null;
+};
+
+export type staffType = Omit<staff, "password"> & {
+    address: addressType | null;
 };
 
 export interface productCategoryWithSubCategory extends productCategory {

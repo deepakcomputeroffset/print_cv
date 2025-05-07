@@ -10,6 +10,7 @@ export const jobBaseUrl = "/api/job";
 export const ordersBaseUrl = "/api/orders";
 export const tasksBaseUrl = "/api/tasks";
 export const dispatchBaseUrl = "/api/dispatch";
+export const distributorBaseUrl = "/api/distributor";
 
 // CUSTOMER
 export const orderBaseUrl = "/api/customer/order";

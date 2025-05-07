@@ -49,6 +49,9 @@ export async function GET(
                 role: "DISTRIBUTER",
                 isBanned: false,
             },
+            omit: {
+                password: true,
+            },
         });
 
         staffsId = distributors.map((d) => d.id);

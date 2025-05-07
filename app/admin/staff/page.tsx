@@ -70,7 +70,7 @@ export default function StaffsPage({
                 <CardContent className="p-6">
                     <div className="rounded-md border">
                         <StaffListTable
-                            customers={staffs}
+                            staffs={staffs}
                             isLoading={isLoading}
                             toggleBanStatus={toggleBanStatus}
                         />

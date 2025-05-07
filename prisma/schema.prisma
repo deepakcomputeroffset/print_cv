@@ -220,12 +220,13 @@ model order {
     total         Float
     status        STATUS @default(PENDING)
 
-    attachment attachment?
-    comments   orderComment[]
+    jobId        Int?
+    attachment   attachment?
+    comments     orderComment[]
+    deliveryVia  DELIVERYVIA    @default(NONE)
+    distribution distribution?
 
-    jobId Int?
-    job   job? @relation(fields: [jobId], references: [id], onDelete: SetNull)
-
+    job         job?        @relation(fields: [jobId], references: [id], onDelete: SetNull)
     productItem productItem @relation(fields: [productItemId], references: [id], onDelete: Restrict)
     customer    customer    @relation(fields: [customerId], references: [id])
     createdAt   DateTime    @default(now())
@@ -274,9 +275,19 @@ model staff {
     jobVerified   job[]
     transactions  transaction[]
     attachments   attachment[]
+    orderComment  orderComment[]
     createdAt     DateTime       @default(now())
     updatedAt     DateTime       @updatedAt
-    orderComment  orderComment[]
+    distributions distribution[]
+}
+
+model distribution {
+    id            Int     @id @default(autoincrement())
+    orderId       Int     @unique
+    distributorId Int
+    completed     Boolean @default(false)
+    order         order   @relation(fields: [orderId], references: [id], onDelete: Restrict)
+    distributor   staff   @relation(fields: [distributorId], references: [id], onDelete: Restrict)
 }
 
 model job {
@@ -321,6 +332,12 @@ model taskType {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+}
+
+enum DELIVERYVIA {
+    NONE
+    DISTRIBUTOR
+    DIRECT
 }
 
 enum AddressOwnerType {

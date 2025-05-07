@@ -214,7 +214,7 @@ export async function POST(request: Request) {
 
         const order = await Prisma.order.update({
             where: { id },
-            data: { status: "DISPATCHED" },
+            data: { status: "DISPATCHED", deliveryVia: "DIRECT" },
         });
 
         return serverResponse({

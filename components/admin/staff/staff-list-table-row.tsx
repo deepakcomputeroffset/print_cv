@@ -1,17 +1,16 @@
 import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
-
 import { Button } from "@/components/ui/button";
 import { UserX, UserCheck, Eye, Pencil, Trash } from "lucide-react";
-import { staff } from "@prisma/client";
 import { useModal } from "@/hooks/use-modal";
 import { format } from "date-fns";
+import { staffType } from "@/types/types";
 
 export const StaffTableRow = ({
     staff,
     toggleBanStatus,
 }: {
-    staff: staff;
+    staff: staffType;
     toggleBanStatus: (id: number) => void;
 }) => {
     const { onOpen } = useModal();

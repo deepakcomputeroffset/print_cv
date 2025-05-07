@@ -19,3 +19,14 @@ export const updateOrderDispatch = async (id: number) => {
     const { data } = await axios.post(`${dispatchBaseUrl}`, { id });
     return data;
 };
+
+export const dispatchViaDistributor = async (
+    id: number,
+    distributorId: number,
+) => {
+    const { data } = await axios.post(`${dispatchBaseUrl}/distributor`, {
+        id,
+        distributorId,
+    });
+    return data;
+};

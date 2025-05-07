@@ -7,12 +7,39 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { customer, order } from "@prisma/client";
 
 export function RecentOrders({
     orders,
 }: {
-    orders: (order & { customer: Partial<customer> })[];
+    orders: {
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        status:
+            | "PENDING"
+            | "PROCESSING"
+            | "PROCESSED"
+            | "DISPATCHED"
+            | "CANCELLED"
+            | "IMPROPER_ORDER";
+        jobId: number | null;
+        customerId: number;
+        productItemId: number;
+        qty: number;
+        igst: number;
+        uploadCharge: number;
+        price: number;
+        total: number;
+        customer: {
+            name: string;
+            phone: string;
+        };
+        productItem: {
+            product: {
+                name: string;
+            };
+        };
+    }[];
 }) {
     return (
         <Table>
