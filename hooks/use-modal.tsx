@@ -1,4 +1,4 @@
-import { customerType, orderType } from "@/types/types";
+import { addressType, customerType, orderType } from "@/types/types";
 import {
     customerCategory,
     job,
@@ -41,7 +41,9 @@ type ModalType =
     | "viewFiles";
 
 type DataType = {
-    staff?: staff;
+    staff?: staff & {
+        address: addressType;
+    };
     customer?: customerType;
     page?: string;
     searchParameter?: string;

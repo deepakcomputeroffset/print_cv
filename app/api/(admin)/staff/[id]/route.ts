@@ -81,6 +81,7 @@ export async function PATCH(
         }
 
         const body = await request.json();
+        console.log(body);
         const validatedData = staffFormSchema.partial().parse(body);
 
         // eslint-disable-next-line
@@ -95,65 +96,79 @@ export async function PATCH(
         if (validatedData.password)
             updateData.password = validatedData.password;
 
-        // if (
-        //     validatedData.line ||
-        //     validatedData.pinCode ||
-        //     validatedData.city ||
-        //     validatedData.state ||
-        //     validatedData.country
-        // ) {
-        //     updateData.address = {
-        //         update: {},
-        //     };
+        // Handle address updates
+        if (validatedData.line || validatedData.pinCode || validatedData.city) {
+            // Convert address schema fields to database format
+            const addressData: Record<string, string | number> = {};
 
-        //     if (validatedData.line)
-        //         updateData.address.update.line = validatedData.line;
-        //     if (validatedData.pinCode)
-        //         updateData.address.update.pinCode = validatedData.pinCode;
+            if (validatedData.line) addressData.line = validatedData.line;
+            if (validatedData.pinCode)
+                addressData.pinCode = validatedData.pinCode;
+            if (validatedData.city)
+                addressData.cityId = parseInt(validatedData.city);
 
-        //     if (validatedData?.city) {
-        //         updateData.address.update.city = {
-        //             connect: { id: parseInt(validatedData.city) }, // Linking to an existing city
-        //         };
-        //     }
-
-        //     if (validatedData?.state) {
-        //         updateData.address.update.city = {
-        //             update: {
-        //                 state: {
-        //                     connect: { id: parseInt(validatedData.state) }, // Linking to an existing state
-        //                 },
-        //             },
-        //         };
-        //     }
-
-        //     if (validatedData?.country) {
-        //         updateData.address.update.city = {
-        //             update: {
-        //                 state: {
-        //                     update: {
-        //                         country: {
-        //                             connect: {
-        //                                 id: parseInt(validatedData.country),
-        //                             }, // Linking to an existing country
-        //                         },
-        //                     },
-        //                 },
-        //             },
-        //         };
-        //     }
-        // }
-
+            // Find existing customer address
+            const existingAddress = await Prisma.address.findFirst({
+                where: {
+                    ownerId: staff.id,
+                    ownerType: "STAFF",
+                },
+            });
+            console.log(validatedData);
+            if (existingAddress) {
+                // Update existing address
+                console.log("updating");
+                await Prisma.address.update({
+                    where: { id: existingAddress.id },
+                    data: addressData,
+                });
+            } else {
+                console.log("creating");
+                console.log(addressData);
+                if (
+                    addressData?.cityId &&
+                    addressData?.line &&
+                    addressData?.pinCode
+                ) {
+                    console.log("inside creating");
+                    await Prisma.address.create({
+                        data: {
+                            ownerId: staff.id,
+                            ownerType: "STAFF",
+                            cityId: Number(addressData?.cityId),
+                            line: addressData.line as string,
+                            pinCode: addressData?.pinCode as string,
+                        },
+                    });
+                }
+            }
+        }
         const upadatedStaff = await Prisma.staff.update({
             where: { id: parseInt(id) },
             data: updateData,
+            omit: {
+                password: true,
+            },
         });
+
+        const staffAddress = await Prisma.address.findFirst({
+            where: {
+                ownerId: staff?.id,
+                ownerType: "STAFF",
+            },
+        });
+
+        // Transform to maintain response format
+        const staffWithAddress = {
+            ...upadatedStaff,
+            address: staffAddress,
+        };
 
         return serverResponse({
             status: 200,
             success: true,
             message: "staff updated successfully",
-            data: upadatedStaff,
+            data: staffWithAddress,
         });
     } catch (error) {
         return serverResponse({
@@ -187,6 +202,19 @@ export async function DELETE(
 
         const staff = await Prisma.staff.delete({
             where: { id: parseInt(id) },
+        });
+
+        const address = await Prisma.address.findFirst({
+            where: {
+                ownerId: staff.id,
+                ownerType: "STAFF",
+            },
+        });
+
+        await Prisma.address.delete({
+            where: {
+                id: address?.id,
+            },
         });
 
         if (!staff) {

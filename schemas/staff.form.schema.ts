@@ -1,7 +1,8 @@
 import { ROLE } from "@prisma/client";
 import { z } from "zod";
+import { addressSchema } from "./address.form.schema";
 
-export const staffFormSchema = z.object({
+export const StaffInfoSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters."),
     email: z.string().email("Enter valid email address."),
     phone: z
@@ -11,3 +12,5 @@ export const staffFormSchema = z.object({
     role: z.nativeEnum(ROLE, { message: "Invalid role." }),
     password: z.string().min(8, "Password must be at least 8 characters long."),
 });
+
+export const staffFormSchema = StaffInfoSchema.merge(addressSchema);

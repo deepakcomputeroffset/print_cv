@@ -68,17 +68,6 @@ export async function GET(request: Request) {
             Prisma.staff.count({ where }),
             Prisma.staff.findMany({
                 where,
-                // include: {
-                //     address: {
-                //         include: {
-                //             city: {
-                //                 include: {
-                //                     state: true,
-                //                 },
-                //             },
-                //         },
-                //     },
-                // },
                 omit: { password: true },
                 orderBy: {
                     [query?.sortby ?? "id"]: query?.sortorder || "asc",
@@ -90,11 +79,40 @@ export async function GET(request: Request) {
             }),
         ]);
 
+        const staffIds = staff.map((c) => c.id);
+        const address = await Prisma.address.findMany({
+            where: {
+                ownerId: { in: staffIds },
+                ownerType: "STAFF",
+            },
+            include: {
+                city: {
+                    include: {
+                        state: true,
+                    },
+                },
+            },
+            orderBy: {
+                [query?.sortby ?? "id"]: query?.sortorder || "asc",
+            },
+            skip: query.page
+                ? (query.page - 1) * (query.perpage || defaultStaffPerPage)
+                : 0,
+            take: query.perpage || defaultStaffPerPage,
+        });
+        // Map addresses to staff
+        const staffWithAddresses = staff.map((s) => ({
+            ...s,
+            address: address.filter(
+                (a) => a.ownerId === s.id && a.ownerType === "STAFF",
+            )[0],
+        }));
+
         return serverResponse({
             status: 200,
             success: true,
             data: {
-                staff,
+                staff: staffWithAddresses,
                 total,
                 page: query.page || 1,
                 perpage: query.perpage || defaultStaffPerPage,
@@ -162,15 +180,30 @@ export async function POST(req: Request) {
 
         const createdStaff = await Prisma.staff.create({
             data: {
-                ...safeData,
+                name: safeData.name,
+                phone: safeData.phone,
+                role: safeData.role,
+                email: safeData.email,
                 password: await generateHash(safeData.password),
             },
         });
 
+        const address = await Prisma.address.create({
+            data: {
+                ownerId: createdStaff.id,
+                ownerType: "STAFF",
+                line: safeData?.line,
+                pinCode: safeData?.pinCode,
+                cityId: Number(safeData?.city),
+            },
+        });
+
+        const staff = { ...createdStaff, address };
+
         return serverResponse({
             status: 201,
             success: true,
-            data: createdStaff,
+            data: staff,
             message: "staff created successfully",
         });
     } catch (error) {

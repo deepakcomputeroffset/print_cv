@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { addressSchema } from "./address.form.schema";
 
 // Customer Info Schema
 export const customerInfoSchema = z.object({
@@ -15,26 +16,6 @@ export const customerInfoSchema = z.object({
     referenceId: z.string().optional(),
     password: z.string().min(8, "Password must be at least 8 characters long."),
     customerCategoryId: z.number().default(1),
-});
-
-// Address Schema
-export const addressSchema = z.object({
-    country: z.string({
-        required_error: "Select country",
-    }),
-    state: z.string({
-        required_error: "Select state",
-    }),
-    city: z.string({
-        required_error: "Select city",
-    }),
-    pinCode: z
-        .string({ required_error: "Enter pin code." })
-        .min(6, "Enter valid pin code.")
-        .max(6, "Enter valid pin code."),
-    line: z
-        .string({ required_error: "Enter address" })
-        .min(4, "Enter valid address"),
 });
 
 // Combined Schema

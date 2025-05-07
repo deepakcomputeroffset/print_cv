@@ -14,7 +14,9 @@ import {
 import {
     Select,
     SelectContent,
+    SelectGroup,
     SelectItem,
+    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
@@ -26,9 +28,11 @@ import { getDirtyFieldsWithValues } from "@/lib/utils";
 import { useStaff } from "@/hooks/use-staff";
 import { Loader2 } from "lucide-react";
 import { FormEvent } from "react";
+import { useStates } from "@/hooks/useStates";
 
 export const EditStaffForm = () => {
     const { data, onClose } = useModal();
+    const { data: states } = useStates();
     const form = useForm<z.infer<typeof staffFormSchema>>({
         resolver: zodResolver(staffFormSchema),
         defaultValues: {
@@ -37,6 +41,11 @@ export const EditStaffForm = () => {
             phone: data?.staff?.phone,
             password: "",
             role: data?.staff?.role,
+            country: data?.staff?.address?.city?.state?.countryId.toString(),
+            state: data?.staff?.address?.city?.stateId?.toString(),
+            city: data?.staff?.address?.cityId?.toString() || "",
+            pinCode: data?.staff?.address?.pinCode,
+            line: data?.staff?.address?.line,
         },
     });
 
@@ -45,6 +54,7 @@ export const EditStaffForm = () => {
     } = useStaff();
 
     const formData = form.watch();
+    console.log(formData);
     const dirtyFields = form.formState.dirtyFields;
 
     const dirtyFieldsWithValues = getDirtyFieldsWithValues(
@@ -54,6 +64,7 @@ export const EditStaffForm = () => {
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        console.log(dirtyFieldsWithValues);
         if (Object.keys(dirtyFieldsWithValues).length > 0 && data?.staff?.id) {
             await mutateAsync({
                 id: data?.staff?.id,
@@ -107,6 +118,132 @@ export const EditStaffForm = () => {
                                 <Input
                                     type="tel"
                                     placeholder="1234567890"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <div className="flex flex-wrap gap-2">
+                    <FormField
+                        control={form.control}
+                        name="state"
+                        render={({ field }) => (
+                            <FormItem className="flex-1">
+                                <FormLabel>State</FormLabel>
+                                <FormControl>
+                                    <Select
+                                        value={field.value}
+                                        onValueChange={(e) => {
+                                            form.setValue("city", "");
+                                            field.onChange(e);
+                                        }}
+                                        defaultValue={field.value}
+                                    >
+                                        <SelectTrigger>
+                                            <SelectValue
+                                                placeholder={"Select state"}
+                                            />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectGroup>
+                                                <SelectLabel>
+                                                    States
+                                                </SelectLabel>
+                                                {states?.map((state) => (
+                                                    <SelectItem
+                                                        key={state?.id}
+                                                        value={state?.id.toString()}
+                                                    >
+                                                        {state?.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectGroup>
+                                        </SelectContent>
+                                    </Select>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="city"
+                        render={({ field }) => (
+                            <FormItem className="flex-1">
+                                <FormLabel>City</FormLabel>
+                                <FormControl>
+                                    <Select
+                                        value={field.value}
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value}
+                                    >
+                                        <SelectTrigger>
+                                            <SelectValue
+                                                placeholder={"Select city"}
+                                            />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectGroup>
+                                                <SelectLabel>city</SelectLabel>
+
+                                                {states?.map((state) => {
+                                                    if (
+                                                        state?.id?.toString() ==
+                                                        form?.getValues("state")
+                                                    ) {
+                                                        return state?.cities?.map(
+                                                            (city: {
+                                                                id: number;
+                                                                name: string;
+                                                            }) => (
+                                                                <SelectItem
+                                                                    key={
+                                                                        city?.id
+                                                                    }
+                                                                    value={city?.id?.toString()}
+                                                                >
+                                                                    {city?.name}
+                                                                </SelectItem>
+                                                            ),
+                                                        );
+                                                    }
+                                                })}
+                                            </SelectGroup>
+                                        </SelectContent>
+                                    </Select>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="pinCode"
+                        render={({ field }) => (
+                            <FormItem className="flex-1">
+                                <FormLabel>Pin code</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="123456" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
+
+                <FormField
+                    control={form.control}
+                    name="line"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Address</FormLabel>
+                            <FormControl>
+                                <Input
+                                    placeholder="Sector-8, Noida"
                                     {...field}
                                 />
                             </FormControl>
