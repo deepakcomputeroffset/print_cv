@@ -23,4 +23,5 @@ export const QuerySchema = z.object({
     walletId: z.string().optional(),
     orderStatus: z.union([z.nativeEnum(STATUS), z.literal("ALL")]).optional(),
     dispatched: z.enum(["true", "false"]).optional(),
+    completed: z.enum(["true", "false"]).optional(),
 });
