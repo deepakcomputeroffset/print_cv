@@ -1092,9 +1092,6 @@ export async function seedLocationWithTransaction() {
     } catch (error) {
         console.error("Error during database seeding transaction:", error);
         throw error; // Re-throw to handle at the caller level if needed
-    } finally {
-        await Prisma.$disconnect();
-        console.log("Prisma client disconnected.");
     }
 }
 
@@ -1232,9 +1229,6 @@ export async function seedDatabaseWithChunkedTransactions() {
     } catch (error) {
         console.error("Error during chunked transaction seeding:", error);
         throw error;
-    } finally {
-        await Prisma.$disconnect();
-        console.log("Prisma client disconnected.");
     }
 }
 

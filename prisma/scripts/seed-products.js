@@ -50,12 +50,30 @@ export async function seedProducts() {
             attributeTypeMap.set(key, existingType.id);
         }
     }
-
+    console.log(newProducts);
+    console.log(attributeTypesSet);
+    console.log(attributeTypeMap);
     // Step 3: Create Products and their associated ProductItems and AttributeValues
     for (const productData of newProducts) {
         // Create Product
-        const product = await Prisma.product.create({
-            data: {
+        const product = await Prisma.product.upsert({
+            where: {
+                sku: productData.sku,
+            },
+            create: {
+                name: productData.name,
+                description: productData.description,
+                imageUrl: productData.imageUrl,
+                categoryId: productData.categoryId,
+                isAvailable: productData.isAvailable,
+                sku: productData.sku,
+                minQty: productData.minQty,
+                ogPrice: productData.ogPrice,
+                price: productData.price,
+                createdAt: new Date(productData.createdAt),
+                updatedAt: new Date(productData.updatedAt),
+            },
+            update: {
                 name: productData.name,
                 description: productData.description,
                 imageUrl: productData.imageUrl,
@@ -97,10 +115,23 @@ export async function seedProducts() {
                     continue;
                 }
 
-                await Prisma.productAttributeValue.create({
-                    data: {
+                await Prisma.productAttributeValue.upsert({
+                    where: {
+                        productAttributeTypeId_productAttributeValue: {
+                            productAttributeTypeId: attributeTypeId,
+                            productAttributeValue:
+                                attrData.productAttributeValue,
+                        },
+                    },
+                    create: {
                         productAttributeValue: attrData.productAttributeValue,
                         productAttributeTypeId: attributeTypeId,
+                        productItems: {
+                            connect: { id: productItem.id },
+                        },
+                    },
+                    update: {
+                        // Ensure product item is connected to the existing value
                         productItems: {
                             connect: { id: productItem.id },
                         },

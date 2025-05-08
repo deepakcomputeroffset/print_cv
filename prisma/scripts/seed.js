@@ -4,10 +4,10 @@ import { seedCustomerCategories } from "./seed-customer-category.js";
 import { seedLocationWithTransaction } from "./seed-location.js";
 import { seedProducts } from "./seed-products.js";
 async function Seed() {
-    await seedCustomerCategories();
-    await seedLocationWithTransaction();
-    await seedProductCategories();
-    await seedAdminUser();
+    // await seedCustomerCategories();
+    // await seedLocationWithTransaction();
+    // await seedProductCategories();
+    // await seedAdminUser();
     await seedProducts();
 }
 
