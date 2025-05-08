@@ -52,7 +52,7 @@ export default function DispatchPage({
                         Dispatch Management
                     </h1>
                 </div>
-                <div className="flex items-center gap-2">
+                {/* <div className="flex items-center gap-2">
                     <Button variant="outline" size="sm">
                         <Truck className="w-4 h-4 mr-2" />
                         Export
@@ -61,7 +61,7 @@ export default function DispatchPage({
                         <Package className="w-4 h-4 mr-2" />
                         New Dispatch
                     </Button>
-                </div>
+                </div> */}
             </div>
 
             <Card className="border-primary/5">

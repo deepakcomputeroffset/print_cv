@@ -119,6 +119,13 @@ export const routes: RouteType[] = [
         pattern: /^\/admin\/orders(?:\/.*)?$/,
         roles: ["ADMIN", "ORDER_MANAGER"],
     },
+    {
+        title: "Distribution",
+        icon: Package,
+        url: "/admin/distribution?search=&sortorder=desc&orderStatus=ALL&page=1&perpage=100",
+        pattern: /^\/admin\/distribution(?:\/.*)?$/,
+        roles: ["DISTRIBUTER"],
+    },
 ];
 
 export const getFilteredRoutes = (session: Session | null) => {

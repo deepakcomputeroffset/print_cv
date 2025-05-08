@@ -45,6 +45,11 @@ export async function GET(req: Request) {
                                 password: true,
                             },
                         },
+                        productItem: {
+                            include: {
+                                product: true,
+                            },
+                        },
                     },
                 },
             },
@@ -128,6 +133,7 @@ export async function PATCH(req: Request) {
             });
         }
         const { orderId } = await req.json();
+
         if (!orderId) {
             return serverResponse({
                 status: 400,

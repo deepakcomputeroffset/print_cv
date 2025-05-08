@@ -282,12 +282,15 @@ model staff {
 }
 
 model distribution {
-    id            Int     @id @default(autoincrement())
-    orderId       Int     @unique
+    id            Int       @id @default(autoincrement())
+    orderId       Int       @unique
     distributorId Int
-    completed     Boolean @default(false)
-    order         order   @relation(fields: [orderId], references: [id], onDelete: Restrict)
-    distributor   staff   @relation(fields: [distributorId], references: [id], onDelete: Restrict)
+    completed     Boolean   @default(false)
+    completedTime DateTime?
+    order         order     @relation(fields: [orderId], references: [id], onDelete: Restrict)
+    distributor   staff     @relation(fields: [distributorId], references: [id], onDelete: Restrict)
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
 }
 
 model job {
