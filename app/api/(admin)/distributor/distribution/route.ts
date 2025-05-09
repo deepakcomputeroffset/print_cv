@@ -31,8 +31,66 @@ export async function GET(req: Request) {
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
         const where: PrismaType.distributionWhereInput = {
-            distributorId: session.user?.staff?.id,
-            completed: Boolean(query.completed) || false,
+            AND: [
+                {
+                    // distributorId: session?.user?.staff?.id,
+                    distributorId: 2,
+                    completed: Boolean(query.completed) || false,
+                },
+                query.search
+                    ? {
+                          order: {
+                              OR: [
+                                  !isNaN(parseInt(query?.search))
+                                      ? {
+                                            id: {
+                                                gte: parseInt(query?.search),
+                                            },
+                                        }
+                                      : {},
+                                  {
+                                      customer: {
+                                          OR: [
+                                              {
+                                                  name: {
+                                                      contains: query?.search,
+                                                      mode: "insensitive",
+                                                  },
+                                              },
+                                              {
+                                                  businessName: {
+                                                      contains: query?.search,
+                                                      mode: "insensitive",
+                                                  },
+                                              },
+                                              {
+                                                  email: {
+                                                      contains: query?.search,
+                                                      mode: "insensitive",
+                                                  },
+                                              },
+                                              {
+                                                  phone: {
+                                                      contains: query?.search,
+                                                  },
+                                              },
+                                              !isNaN(parseInt(query?.search))
+                                                  ? {
+                                                        id: {
+                                                            gte: parseInt(
+                                                                query?.search,
+                                                            ),
+                                                        },
+                                                    }
+                                                  : {},
+                                          ],
+                                      },
+                                  },
+                              ],
+                          },
+                      }
+                    : {},
+            ],
         };
 
         const distribution = await Prisma.distribution.findMany({
@@ -145,7 +203,8 @@ export async function PATCH(req: Request) {
         const distribution = await Prisma.distribution.findFirst({
             where: {
                 orderId,
-                distributorId: session?.user?.staff?.id,
+                // distributorId: session?.user?.staff?.id,
+                distributorId: 2,
             },
         });
 

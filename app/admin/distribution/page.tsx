@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { QueryParams } from "@/types/types";
 import { Check, Loader2, MapPin, Package, User } from "lucide-react";
 import React from "react";
+import { CustomerFilterforDistributor } from "./components/filter";
 
 export default function Distribution({
     searchParams,
@@ -46,16 +47,7 @@ export default function Distribution({
                         Distribution Management
                     </h1>
                 </div>
-                {/* <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm">
-                    <Truck className="w-4 h-4 mr-2" />
-                    Export
-                </Button>
-                <Button size="sm">
-                    <Package className="w-4 h-4 mr-2" />
-                    New Dispatch
-                </Button>
-            </div> */}
+                <CustomerFilterforDistributor filters={filters} />
             </div>
 
             <Card className="border-primary/5">
@@ -74,6 +66,9 @@ export default function Distribution({
                                         Customer
                                     </TableHead>
                                     <TableHead className="font-medium">
+                                        Phone
+                                    </TableHead>
+                                    <TableHead className="font-medium">
                                         Product
                                     </TableHead>
                                     <TableHead className="font-medium">
@@ -88,13 +83,13 @@ export default function Distribution({
                             <TableBody>
                                 {isLoading ? (
                                     <LoadingRow
-                                        colSpan={5}
+                                        colSpan={6}
                                         text="Loading orders..."
                                     />
                                 ) : distributionOrders?.length === 0 ? (
                                     <TableRow>
                                         <TableCell
-                                            colSpan={5}
+                                            colSpan={6}
                                             className="h-24 text-center"
                                         >
                                             <div className="flex flex-col items-center justify-center text-muted-foreground">
@@ -161,6 +156,9 @@ export default function Distribution({
                                                         }
                                                     </span>
                                                 </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                {dist?.order?.customer?.phone}
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex flex-col">
@@ -246,6 +244,9 @@ export default function Distribution({
                                         Customer
                                     </TableHead>
                                     <TableHead className="font-medium">
+                                        Phone
+                                    </TableHead>
+                                    <TableHead className="font-medium">
                                         Product
                                     </TableHead>
                                     <TableHead className="font-medium">
@@ -257,13 +258,13 @@ export default function Distribution({
                             <TableBody>
                                 {isLoadingDistributedOrders ? (
                                     <LoadingRow
-                                        colSpan={4}
+                                        colSpan={5}
                                         text="Loading orders..."
                                     />
                                 ) : distributedOrders?.length === 0 ? (
                                     <TableRow>
                                         <TableCell
-                                            colSpan={4}
+                                            colSpan={5}
                                             className="h-24 text-center"
                                         >
                                             <div className="flex flex-col items-center justify-center text-muted-foreground">
@@ -330,6 +331,9 @@ export default function Distribution({
                                                         }
                                                     </span>
                                                 </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                {dist?.order?.customer?.phone}
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex flex-col">
