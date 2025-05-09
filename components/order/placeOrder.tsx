@@ -52,7 +52,7 @@ export default function PlaceOrder({
 }) {
     const [uploadType, setUploadType] = useState<UPLOADVIA>("UPLOAD");
     const [qty, setQty] = useState(product.qty);
-    const [file, setFile] = useState<File | null>(null);
+    const [files, setFiles] = useState<File[] | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const { refetch } = useWallet();
     const router = useRouter();
@@ -71,7 +71,7 @@ export default function PlaceOrder({
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            setFile(e.target.files[0]);
+            setFiles([...e.target.files]);
         }
     };
 
@@ -80,11 +80,13 @@ export default function PlaceOrder({
             setIsLoading(true);
             const formData = new FormData();
             if (uploadType === "UPLOAD") {
-                if (!file) {
+                if (!files) {
                     toast.warning("Please upload a required file");
                     return;
                 }
-                formData.append("file", file);
+                files.forEach((file) => {
+                    formData.append("file", file);
+                });
                 formData.delete("uploadType");
                 formData.append("uploadType", "UPLOAD");
             } else {
@@ -402,15 +404,28 @@ export default function PlaceOrder({
                                         <div className="bg-primary/10 p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
                                             <FileText className="w-8 h-8 text-primary" />
                                         </div>
-                                        <p className="text-sm text-gray-600 mb-4">
-                                            {file
-                                                ? file.name
-                                                : "Drag and drop your file here or click to browse"}
-                                        </p>
+
+                                        {files &&
+                                            files?.map((file, idx) => (
+                                                <p
+                                                    key={idx}
+                                                    className="text-sm text-gray-600 mb-4"
+                                                >
+                                                    {file.name}
+                                                </p>
+                                            ))}
+                                        {files?.length === 0 && (
+                                            <p className="text-sm text-gray-600 mb-4">
+                                                Drag and drop your file here or
+                                                click to browse
+                                            </p>
+                                        )}
+
                                         <Input
                                             type="file"
                                             onChange={handleFileChange}
                                             accept=".pdf"
+                                            multiple
                                             className="cursor-pointer bg-white hover:bg-gray-100 transition-colors"
                                             disabled={isLoading}
                                         />
@@ -504,7 +519,8 @@ export default function PlaceOrder({
                                 )}
                                 disabled={
                                     isLoading ||
-                                    (uploadType === "UPLOAD" && !file)
+                                    (uploadType === "UPLOAD" &&
+                                        files?.length === 0)
                                 }
                             >
                                 <div className="absolute inset-0 w-full h-full">
