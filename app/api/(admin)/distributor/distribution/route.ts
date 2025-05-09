@@ -33,8 +33,7 @@ export async function GET(req: Request) {
         const where: PrismaType.distributionWhereInput = {
             AND: [
                 {
-                    // distributorId: session?.user?.staff?.id,
-                    distributorId: 2,
+                    distributorId: session?.user?.staff?.id,
                     completed: Boolean(query.completed) || false,
                 },
                 query.search
@@ -203,8 +202,7 @@ export async function PATCH(req: Request) {
         const distribution = await Prisma.distribution.findFirst({
             where: {
                 orderId,
-                // distributorId: session?.user?.staff?.id,
-                distributorId: 2,
+                distributorId: session?.user?.staff?.id,
             },
         });
 
