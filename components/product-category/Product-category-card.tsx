@@ -1,17 +1,10 @@
 "use client";
-import { productCategory } from "@prisma/client";
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { ChevronRight, ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-
-type productCategoryType = productCategory & {
-    _count: {
-        subCategories: number;
-    };
-    parentCategory: productCategory | null;
-};
+import { productCategoryType } from "@/types/types";
 
 export const ProductCategoryCard = ({
     category,

@@ -3,16 +3,9 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useUrlFilters } from "@/hooks/useUrlFilter";
-import { productCategory } from "@prisma/client";
 import { ProductCategoryCard } from "./Product-category-card";
 import ProductCategoryHeader from "./product-category-header";
-
-type productCategoryType = productCategory & {
-    _count: {
-        subCategories: number;
-    };
-    parentCategory: productCategory | null;
-};
+import { productCategoryType } from "@/types/types";
 
 export const ProductCategoryList = ({
     categories,

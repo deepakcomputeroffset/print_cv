@@ -202,7 +202,7 @@ export default function ServicesSection() {
                     className="mt-20 text-center"
                 >
                     <div className="inline-block p-2 bg-gradient-to-r from-primary/5 to-cyan-500/5 rounded-xl">
-                        <Link href="/services">
+                        <Link href="/categories">
                             <Button
                                 size="lg"
                                 className="bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 text-white group px-8 py-6 h-auto text-lg"

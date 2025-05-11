@@ -11,7 +11,9 @@ import { productCategory } from "@prisma/client";
 export default function ProductCategoryHeader({
     category,
 }: {
-    category: productCategory & { parentCategory: productCategory | null };
+    category: Omit<productCategory, "createdAt" | "updatedAt"> & {
+        parentCategory: productCategory | null;
+    };
 }) {
     return (
         <motion.div
@@ -25,7 +27,7 @@ export default function ProductCategoryHeader({
             )}
         >
             {/* Decorative accent */}
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center mt-2 mb-6">
                 <div className="h-1 w-16 bg-gradient-to-r from-primary to-cyan-400 rounded-full opacity-80"></div>
             </div>
 

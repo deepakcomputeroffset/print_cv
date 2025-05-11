@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Prisma } from "@/lib/prisma";
 import { Footer } from "@/components/landingPage/footer";
 import RecentOrderList from "@/components/order/recentOrderList";
+import { unstable_cache } from "next/cache";
 
 export default async function ProductCategoryPage({
     params,
@@ -49,13 +50,19 @@ export default async function ProductCategoryPage({
             }),
         ]);
     }
-    // const cachedData = unstable_cache(getCategories, ["categories-orders"], {
-    //     revalidate: 60 * 60,
-    //     tags: ["categories-orders"],
-    // });
-    const [categories, orders] = await getCategories();
+    const cachedData = unstable_cache(getCategories, ["categories-orders"], {
+        revalidate: 60 * 60,
+        tags: ["categories-orders"],
+    });
 
-    if (!categories || categories?.length === 0) {
+    const [categories, orders] = await cachedData();
+    const sortedCategories = categories.sort((a, b) => {
+        if (a.isAvailable !== b.isAvailable) {
+            return a.isAvailable ? -1 : 1;
+        }
+        return a.id - b.id;
+    });
+    if (!sortedCategories || sortedCategories?.length === 0) {
         return (
             <div>
                 <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-6">
@@ -85,7 +92,6 @@ export default async function ProductCategoryPage({
             </div>
         );
     }
-
     return (
         <Suspense
             fallback={
@@ -103,7 +109,7 @@ export default async function ProductCategoryPage({
         >
             <div>
                 <div className="mx-auto px-[5vw] space-y-7">
-                    <ProductCategoryList categories={categories} />
+                    <ProductCategoryList categories={sortedCategories} />
                     {session?.user?.userType === "customer" && (
                         <RecentOrderList orders={orders} />
                     )}

@@ -102,6 +102,16 @@ export interface orderType extends order {
     };
 }
 
+export type productCategoryType = Omit<
+    productCategory,
+    "createdAt" | "updatedAt"
+> & {
+    _count: {
+        subCategories: number;
+    };
+    parentCategory: productCategory | null;
+};
+
 export type FileLike = {
     size: number;
     type: string;
