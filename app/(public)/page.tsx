@@ -8,6 +8,7 @@ import StatsSection from "@/components/landingPage/statsSection";
 import FaqSection from "@/components/landingPage/faqSection";
 import ServiceCategories from "@/components/landingPage/serviceCategories";
 import { carouselSlides, Product_Categories } from "@/lib/home.assets";
+import { Suspense } from "react";
 
 // async function getCategories() {
 //     const categories = await Prisma?.productCategory.findMany({
@@ -42,16 +43,18 @@ export default async function HomePage() {
                 <ServiceCategories />
 
                 {/* Product Categories */}
-                <section className="py-16 bg-gradient-to-b from-background to-blue-50/30">
-                    <div className="container px-4 mx-auto">
-                        {Product_Categories &&
-                            Product_Categories?.length > 0 && (
-                                <ProductCategoryList
-                                    categories={Product_Categories}
-                                />
-                            )}
-                    </div>
-                </section>
+                <Suspense>
+                    <section className="py-16 bg-gradient-to-b from-background to-blue-50/30">
+                        <div className="container px-4 mx-auto">
+                            {Product_Categories &&
+                                Product_Categories?.length > 0 && (
+                                    <ProductCategoryList
+                                        categories={Product_Categories}
+                                    />
+                                )}
+                        </div>
+                    </section>
+                </Suspense>
 
                 {/* Stats Highlights */}
                 <StatsSection />
