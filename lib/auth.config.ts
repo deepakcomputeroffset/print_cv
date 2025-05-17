@@ -74,6 +74,10 @@ export const authConfig: AuthOptions = {
                             throw new Error("Invalid Creadentials!!");
                         }
 
+                        if (customer.isBanned) {
+                            throw new Error("Your account is not active.");
+                        }
+
                         return {
                             userType,
                             customer: {

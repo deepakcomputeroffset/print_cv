@@ -11,7 +11,7 @@ model customer {
     id                 Int     @id @default(autoincrement())
     name               String
     businessName       String
-    isBanned           Boolean @default(false)
+    isBanned           Boolean @default(true)
     email              String
     phone              String  @unique
     password           String
