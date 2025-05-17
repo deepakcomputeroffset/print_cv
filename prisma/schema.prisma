@@ -11,12 +11,13 @@ model customer {
     id                 Int     @id @default(autoincrement())
     name               String
     businessName       String
-    isBanned           Boolean @default(true)
+    isBanned           Boolean @default(false)
     email              String
     phone              String  @unique
     password           String
     wallet             wallet?
     gstNumber          String?
+    isVerifed          Boolean @default(false)
     customerCategoryId Int?
 
     orders order[]
