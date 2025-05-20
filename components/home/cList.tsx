@@ -3,8 +3,8 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useUrlFilters } from "@/hooks/useUrlFilter";
-import { ProductCategoryCard } from "./Product-category-card";
-import ProductCategoryHeader from "./product-category-header";
+import { ProductCategoryCard } from "./cCard";
+import ProductCategoryHeader from "./cHeader";
 import { productCategoryType } from "@/types/types";
 
 export const ProductCategoryList = ({

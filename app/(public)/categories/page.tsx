@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { ProductCategoryList } from "@/components/product-category/product-category-list";
+import { List } from "@/components/category/list";
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 import { auth } from "@/lib/auth";
@@ -95,7 +95,7 @@ export default async function ProductCategoryPage({
     return (
         <Suspense
             fallback={
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 px-3 w-full h-full mx-auto py-10">
+                <div className="container grid grid-cols-3 lg:grid-cols-5 gap-4 px-3 w-full h-full mx-auto py-10">
                     {Array.from({ length: 15 })
                         .fill(null)
                         .map((_, index) => (
@@ -108,8 +108,8 @@ export default async function ProductCategoryPage({
             }
         >
             <div>
-                <div className="mx-auto px-[5vw] space-y-7">
-                    <ProductCategoryList categories={sortedCategories} />
+                <div className="mx-auto px-[5vw] container space-y-7">
+                    <List categories={sortedCategories} />
                     {session?.user?.userType === "customer" && (
                         <RecentOrderList orders={orders} />
                     )}

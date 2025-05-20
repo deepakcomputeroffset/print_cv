@@ -1,7 +1,7 @@
 import HomeCarousel from "@/components/landingPage/carousel";
 import { Footer } from "@/components/landingPage/footer";
 import ServicesSection from "@/components/landingPage/servicesSection";
-import { ProductCategoryList } from "@/components/product-category/product-category-list";
+import { ProductCategoryList } from "@/components/home/cList";
 import TestimonialsSection from "@/components/landingPage/testimonialsSection";
 import CtaSection from "@/components/landingPage/ctaSection";
 import StatsSection from "@/components/landingPage/statsSection";

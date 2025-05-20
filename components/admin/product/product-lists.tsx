@@ -10,7 +10,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Check, Eye, Pencil, Trash2, X } from "lucide-react";
+import { Check, Pencil, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import { useProducts } from "@/hooks/use-product";
 import { LoadingRow } from "@/components/loading-row";
@@ -106,9 +106,9 @@ export const ProductLists = ({ filters }: { filters: QueryParams }) => {
                                                 <Check className="h-4 w-4 text-green-600" />
                                             )}
                                         </Button>
-                                        <Button variant="ghost" size="icon">
+                                        {/* <Button variant="ghost" size="icon">
                                             <Eye className="h-4 w-4" />
-                                        </Button>
+                                        </Button> */}
                                         <Button
                                             variant="ghost"
                                             size="icon"
