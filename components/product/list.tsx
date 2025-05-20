@@ -120,7 +120,11 @@ export default function PList({
                             className="block h-full"
                         >
                             <PCard
-                                imageUrl={product?.imageUrl?.[0]}
+                                imageUrl={
+                                    product?.imageUrl?.[
+                                        product?.imageUrl?.length - 1
+                                    ]
+                                }
                                 productName={product.name}
                             />
                         </Link>

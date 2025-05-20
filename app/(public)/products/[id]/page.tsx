@@ -14,9 +14,7 @@ export default async function ProductPage({
         return redirect("/products");
     }
     const session = await auth();
-    console.log(session);
     const customerCategory = session?.user?.customer?.customerCategory;
-    console.log(customerCategory);
     if (!customerCategory) return redirect("/products");
 
     const product = await Prisma.product.findUnique({

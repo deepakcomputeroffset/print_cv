@@ -106,19 +106,16 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     };
 
     return (
-        <div className="embla-premium relative">
+        <div className="embla relative">
             {/* Main Carousel */}
-            <div
-                className="embla-premium__viewport relative"
-                ref={emblaMainRef}
-            >
+            <div className="embla__viewport relative" ref={emblaMainRef}>
                 <div
-                    className="embla-premium__container p-2"
+                    className="embla__container p-2"
                     ref={imageContainerRef}
                     onMouseMove={handleMouseMove}
                 >
                     {slides.map((slide, index) => (
-                        <div className="embla-premium__slide px-2" key={index}>
+                        <div className="embla__slide px-2" key={index}>
                             <div className="relative rounded-lg overflow-hidden aspect-[4/3]">
                                 <motion.div
                                     className="h-full w-full"
@@ -161,7 +158,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                 {/* Premium Navigation Controls - Fixed position on hover */}
                 <button
                     onClick={scrollPrev}
-                    className="embla-premium__prev absolute top-1/2 -translate-y-1/2 left-4 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white transition-all duration-300 shadow-md border border-white/10 opacity-0 lg:opacity-70 group-hover:opacity-100"
+                    className="absolute top-1/2 -translate-y-1/2 left-4 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white transition-all duration-300 shadow-md border border-white/10 opacity-0 lg:opacity-70 group-hover:opacity-100"
                     aria-label="Previous slide"
                 >
                     <ChevronLeft className="w-5 h-5" />
@@ -169,7 +166,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 
                 <button
                     onClick={scrollNext}
-                    className="embla-premium__next absolute top-1/2 -translate-y-1/2 right-4 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white transition-all duration-300 shadow-md border border-white/10 opacity-0 lg:opacity-70 group-hover:opacity-100"
+                    className="absolute top-1/2 -translate-y-1/2 right-4 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white transition-all duration-300 shadow-md border border-white/10 opacity-0 lg:opacity-70 group-hover:opacity-100"
                     aria-label="Next slide"
                 >
                     <ChevronRight className="w-5 h-5" />
@@ -192,7 +189,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
             {/* Enhanced Thumbnails */}
             <div className="embla-thumbs mt-4">
                 <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
-                    <div className="embla-thumbs__container py-2">
+                    <div className="embla-thumbs__container py-2 space-x-3">
                         {slides.map((slide, index) => (
                             <div
                                 key={index}
