@@ -44,6 +44,17 @@ export function useCustomers(props: QueryParams = {}) {
             toast.error("Failed to update customer status");
         },
     });
+    // Toggle verify status mutation
+    const toggleVerifyMutation = useMutation({
+        mutationFn: api.toggleCustomerVerifyStatus,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey });
+            toast.success("Customer verification status updated successfully");
+        },
+        onError: () => {
+            toast.error("Failed to update customer status");
+        },
+    });
 
     // Delete customer mutation
     const deleteMutation = useMutation({
@@ -66,6 +77,7 @@ export function useCustomers(props: QueryParams = {}) {
         refetch,
         updateCustomer: updateMutation,
         toggleBanStatus: (id: number) => toggleBanMutation.mutate(id),
+        toggleVerifyStatus: (id: number) => toggleVerifyMutation.mutate(id),
         deleteCustomer: (id: number) => deleteMutation.mutate(id),
     };
 }

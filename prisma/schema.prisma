@@ -288,7 +288,7 @@ model distribution {
     distributorId Int
     completed     Boolean   @default(false)
     completedTime DateTime?
-    order         order     @relation(fields: [orderId], references: [id], onDelete: Restrict)
+    order         order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
     distributor   staff     @relation(fields: [distributorId], references: [id], onDelete: Restrict)
     createdAt     DateTime  @default(now())
     updatedAt     DateTime  @updatedAt

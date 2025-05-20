@@ -13,10 +13,12 @@ import { LoadingRow } from "../../loading-row";
 export const CustomerListTable = ({
     customers,
     toggleBanStatus,
+    toggleVerifyStatus,
     isLoading,
 }: {
     customers: customerType[];
     toggleBanStatus: (id: number) => void;
+    toggleVerifyStatus: (id: number) => void;
     isLoading: boolean;
 }) => {
     return (
@@ -43,6 +45,7 @@ export const CustomerListTable = ({
                             customer={customer}
                             key={customer?.id}
                             toggleBanStatus={toggleBanStatus}
+                            toggleVerifyStatus={toggleVerifyStatus}
                         />
                     ))
                 )}

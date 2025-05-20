@@ -44,6 +44,11 @@ export async function toggleCustomerBan(id: number) {
     const { data } = await axios.post<ServerResponseType<customer>>(url);
     return data;
 }
+export async function toggleCustomerVerifyStatus(id: number) {
+    const url = `${customerBaseUrl}/${id}/verify`;
+    const { data } = await axios.post<ServerResponseType<customer>>(url);
+    return data;
+}
 
 export async function deleteCustomer(id: number) {
     const url = `${customerBaseUrl}/${id}`;

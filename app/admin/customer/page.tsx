@@ -20,13 +20,19 @@ export default function CustomersPage({
 }) {
     const filters = React.use(searchParams);
 
-    const { customers, totalPages, isLoading, error, toggleBanStatus } =
-        useCustomers({
-            ...filters,
-            sortorder:
-                filters?.sortorder !== undefined ? filters?.sortorder : "asc",
-            perpage: filters?.perpage || defaultCustomerPerPage,
-        });
+    const {
+        customers,
+        totalPages,
+        isLoading,
+        error,
+        toggleBanStatus,
+        toggleVerifyStatus,
+    } = useCustomers({
+        ...filters,
+        sortorder:
+            filters?.sortorder !== undefined ? filters?.sortorder : "asc",
+        perpage: filters?.perpage || defaultCustomerPerPage,
+    });
 
     if (error) {
         return (
@@ -60,6 +66,7 @@ export default function CustomersPage({
                             customers={customers}
                             isLoading={isLoading}
                             toggleBanStatus={toggleBanStatus}
+                            toggleVerifyStatus={toggleVerifyStatus}
                         />
                     </div>
 

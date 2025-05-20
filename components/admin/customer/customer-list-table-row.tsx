@@ -1,16 +1,26 @@
 import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { UserX, UserCheck, Eye, Pencil, Trash } from "lucide-react";
+import {
+    UserX,
+    UserCheck,
+    Eye,
+    Pencil,
+    Trash,
+    BadgeCheck,
+    BadgeX,
+} from "lucide-react";
 import { useModal } from "@/hooks/use-modal";
 import { customerType } from "@/types/types";
 
 export const CustomerTableRow = ({
     customer,
     toggleBanStatus,
+    toggleVerifyStatus,
 }: {
     customer: customerType;
     toggleBanStatus: (id: number) => void;
+    toggleVerifyStatus: (id: number) => void;
 }) => {
     const { onOpen } = useModal();
     return (
@@ -52,15 +62,27 @@ export const CustomerTableRow = ({
                 )}
             </TableCell>
             <TableCell>
-                <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                {customer.isBanned && (
+                    <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                             ${
                                 customer.isBanned
                                     ? "bg-red-100 text-red-800"
                                     : "bg-green-100 text-green-800"
                             }`}
+                    >
+                        {"Banned"}
+                    </span>
+                )}
+                <span
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                            ${
+                                customer.isVerifed
+                                    ? "bg-red-100 text-red-800"
+                                    : "bg-green-100 text-green-800"
+                            }`}
                 >
-                    {customer.isBanned ? "Banned" : "Active"}
+                    {customer.isVerifed ? "Verified" : "UnVerified"}
                 </span>
             </TableCell>
             <TableCell>
@@ -76,6 +98,18 @@ export const CustomerTableRow = ({
                             <UserX className="h-4 w-4 text-red-600" />
                         )}
                     </Button>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => toggleVerifyStatus(customer.id)}
+                    >
+                        {customer.isVerifed ? (
+                            <BadgeCheck className="h-4 w-4 text-green-600" />
+                        ) : (
+                            <BadgeX className="h-4 w-4 text-red-600" />
+                        )}
+                    </Button>
+
                     <Button
                         variant="ghost"
                         size="icon"
