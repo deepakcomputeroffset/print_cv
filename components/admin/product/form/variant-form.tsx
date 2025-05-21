@@ -86,7 +86,7 @@ export function VariantForm({ form, index }: VariantFormProps) {
                 name={`productItems.${index}.price`}
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Minimum Price</FormLabel>
+                        <FormLabel>Price</FormLabel>
                         <FormControl>
                             <Input
                                 type="number"

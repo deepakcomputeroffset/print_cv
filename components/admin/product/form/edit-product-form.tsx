@@ -521,7 +521,7 @@ export function EditProductForm({
                         name="price"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Minimum Price</FormLabel>
+                                <FormLabel>Price</FormLabel>
                                 <FormControl>
                                     <Input
                                         {...field}
