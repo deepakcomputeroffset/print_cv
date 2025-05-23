@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
 import { allowedRoleForCategoryAndProductManagement } from "@/lib/constants";
 import { ROLE } from "@prisma/client";
+import { deleteFiles } from "@/lib/storage";
 
 export async function GET(
     req: Request,
@@ -212,9 +213,10 @@ export async function DELETE(
                 message: "Invalid ProductIc",
             });
         }
-        await Prisma.product.delete({
+        const product = await Prisma.product.delete({
             where: { id: parseInt(id) },
         });
+        await deleteFiles(product.imageUrl);
 
         return serverResponse({
             status: 200,

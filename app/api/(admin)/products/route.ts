@@ -164,6 +164,20 @@ export async function POST(req: Request) {
             });
         }
 
+        const isSkuExit = await Prisma.product.findUnique({
+            where: {
+                sku: safeData.sku,
+            },
+        });
+
+        if (isSkuExit) {
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "SKU already exists",
+            });
+        }
+
         const newProduct = await Prisma?.product.create({
             data: {
                 name: safeData.name,
