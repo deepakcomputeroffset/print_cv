@@ -20,11 +20,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { signOut } from "next-auth/react";
 import { Lock, LogOut, Pen, Menu, X } from "lucide-react";
 import dynamic from "next/dynamic";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 const NAV_LINKS = [
     { name: "Home", url: "/" },
-    { name: "Services", url: "/categories" },
+    { name: "Add Order", url: "/categories" },
     { name: "Contact us", url: "/#connect" },
 ];
 
