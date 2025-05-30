@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -14,13 +13,17 @@ import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 import { product } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { PCard } from "./card";
 
 export default function PList({
     products,
     category,
 }: {
-    products: Pick<product, "name" | "description" | "id" | "imageUrl">[];
+    products: Pick<
+        product,
+        "name" | "description" | "id" | "imageUrl" | "isAvailable"
+    >[];
     category: {
         name: string;
         parentCategory: {
@@ -28,6 +31,7 @@ export default function PList({
         } | null;
     } | null;
 }) {
+    const router = useRouter();
     return (
         <div className="py-4 px-4 md:px-8 lg:container mx-auto">
             <motion.div
@@ -115,19 +119,12 @@ export default function PList({
                         }}
                         viewport={{ once: true }}
                     >
-                        <Link
-                            href={`/products/${product?.id}`}
-                            className="block h-full"
-                        >
-                            <PCard
-                                imageUrl={
-                                    product?.imageUrl?.[
-                                        product?.imageUrl?.length - 1
-                                    ]
-                                }
-                                productName={product.name}
-                            />
-                        </Link>
+                        <PCard
+                            product={product}
+                            onClickHandler={() =>
+                                router.push(`/products/${product.id}`)
+                            }
+                        />
                     </motion.div>
                 ))}
             </div>

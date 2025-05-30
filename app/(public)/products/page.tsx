@@ -26,7 +26,6 @@ export default async function ProductPage({
         where: params?.categoryId
             ? {
                   categoryId: parseInt(params?.categoryId),
-                  isAvailable: true,
                   productItems: { some: {} },
               }
             : {},
@@ -35,6 +34,7 @@ export default async function ProductPage({
             name: true,
             description: true,
             imageUrl: true,
+            isAvailable: true,
         },
     });
 

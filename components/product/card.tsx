@@ -1,18 +1,38 @@
 import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { product } from "@prisma/client";
 import { ChevronRight } from "lucide-react";
 
 export const PCard = ({
-    imageUrl,
-    productName,
+    product,
+    onClickHandler,
 }: {
-    imageUrl: string;
-    productName: string;
+    product: Pick<
+        product,
+        "name" | "description" | "id" | "imageUrl" | "isAvailable"
+    >;
+    onClickHandler: (id: number) => void;
 }) => {
     return (
-        <Card className="overflow-hidden h-full bg-white transition-all duration-300 border-0 rounded-xl shadow-md hover:shadow-xl group hover:-translate-y-2">
+        <Card
+            className={cn(
+                "bg-white transition-all duration-300 overflow-hidden relative h-full border-0 rounded-2xl shadow-md hover:shadow-xl",
+                product.isAvailable
+                    ? "cursor-pointer group hover:-translate-y-2"
+                    : "cursor-not-allowed opacity-80",
+            )}
+            onClick={
+                product.isAvailable
+                    ? () => onClickHandler(product.id)
+                    : undefined
+            }
+        >
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-cyan-400 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
             <div className="relative h-32 sm:h-40 md:h-44 w-full overflow-hidden">
                 {/* Premium gradient overlay for depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent z-10 opacity-50 group-hover:opacity-30 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/5 z-10 opacity-70 group-hover:opacity-40 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-black/10 z-10 opacity-80 group-hover:opacity-40 transition-opacity duration-300"></div>
 
                 {/* Top accent line */}
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-cyan-400 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"></div>
@@ -20,40 +40,38 @@ export const PCard = ({
                 <div
                     className="h-full w-full bg-cover bg-center transition-transform duration-500 ease-out group-hover:scale-105"
                     style={{
-                        backgroundImage: `url(${imageUrl})`,
+                        backgroundImage: `url(${product.imageUrl || "/placeholder-image.jpg"})`,
                         transformOrigin: "center",
                     }}
                 />
 
-                {/* Interactive accent element */}
-                <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <ChevronRight className="h-4 w-4 text-white" />
-                </div>
-
+                {/* Category name overlay on image */}
                 <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6 z-20">
-                    <h3 className="text-xs sm:text-base font-semibold text-white drop-shadow-md mb-1 transition-transform duration-300 ease-out group-hover:-translate-y-1">
-                        {productName}
+                    <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-white drop-shadow-md mb-1 transition-transform duration-300 ease-out group-hover:-translate-y-1">
+                        {product.name}
                     </h3>
                 </div>
+
+                {/* Interactive accent elements */}
+                {product.isAvailable && (
+                    <>
+                        <div className="absolute top-3 sm:top-4 md:top-5 right-3 sm:right-4 md:right-5 w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 text-white" />
+                        </div>
+                        <div className="absolute inset-0 border-2 border-white/0 group-hover:border-white/10 transition-all duration-300 z-10 rounded-2xl"></div>
+                    </>
+                )}
             </div>
 
-            {/* <div className="p-5">
-                                    <div className="flex items-center space-x-2 mb-2">
-                                        <div className="h-1 w-6 bg-gradient-to-r from-primary to-cyan-400 rounded-full"></div>
-                                        <span className="text-sm text-gray-500 font-medium">
-                                            Product
-                                        </span>
-                                    </div>
-
-                                    <h3 className="text-xl font-bold text-gray-800 group-hover:text-primary transition-colors duration-300 mb-2">
-                                        {product.name}
-                                    </h3>
-
-                                    <p className="text-gray-600 text-sm line-clamp-2">
-                                        {product.description ||
-                                            "Premium quality printing product"}
-                                    </p>
-                                </div> */}
+            {!product.isAvailable && (
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-20">
+                    <div className="p-2 sm:px-6 sm:py-3 rounded-full bg-white/10 border border-white/20 shadow-lg">
+                        <span className="text-[10px] sm:text-sm text-white font-semibold tracking-wide">
+                            Coming Soon
+                        </span>
+                    </div>
+                </div>
+            )}
         </Card>
     );
 };
