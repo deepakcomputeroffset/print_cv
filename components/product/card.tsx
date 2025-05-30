@@ -40,7 +40,7 @@ export const PCard = ({
                 <div
                     className="h-full w-full bg-cover bg-center transition-transform duration-500 ease-out group-hover:scale-105"
                     style={{
-                        backgroundImage: `url(${product.imageUrl || "/placeholder-image.jpg"})`,
+                        backgroundImage: `url(${product.imageUrl[0] || "/placeholder-image.jpg"})`,
                         transformOrigin: "center",
                     }}
                 />
