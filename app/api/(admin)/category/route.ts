@@ -126,6 +126,7 @@ export async function POST(req: Request) {
 
         const data = await req.formData();
         const safeData = parseFormData(data, getProductCategorySchema());
+        console.log(safeData);
 
         if (!safeData.success) {
             return serverResponse({
@@ -173,13 +174,16 @@ export async function POST(req: Request) {
             : null;
 
         // Create productCategory
+        const dataToCreate = {
+            name: safeData.data.name,
+            description: safeData.data.description,
+            imageUrl,
+        };
+        console.log(dataToCreate);
         const productCategory = await Prisma.productCategory.create({
-            data: {
-                name: safeData.data.name,
-                description: safeData.data.description,
-                imageUrl,
-                parentCategoryId: parentCategoryId,
-            },
+            data: !!parentCategoryId
+                ? { ...dataToCreate, parentCategoryId: parentCategoryId }
+                : dataToCreate,
         });
 
         return serverResponse({

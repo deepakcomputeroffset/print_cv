@@ -110,7 +110,9 @@ export function EditProductForm({
         },
     });
 
-    const { productCategories, isLoading } = useProductCategory();
+    const { productCategories, isLoading } = useProductCategory({
+        perpage: 100,
+    });
 
     const { updateproduct } = useProducts();
 
