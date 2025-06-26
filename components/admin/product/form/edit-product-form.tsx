@@ -38,7 +38,7 @@ import { Loader2, X } from "lucide-react";
 import { Dropzone } from "@/components/ui/dropzone";
 import { useProducts } from "@/hooks/use-product";
 import {
-    Pricing,
+    pricing,
     product,
     productAttributeType,
     productAttributeValue,
@@ -51,7 +51,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 type productItemType = productItem & {
-    pricing?: Pricing[];
+    pricing?: pricing[];
     productAttributeOptions?: (productAttributeValue & {
         productAttributeType?: productAttributeType;
     })[];

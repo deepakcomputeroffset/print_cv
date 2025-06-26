@@ -6,40 +6,44 @@ export async function PrepareProduct() {
         const filePath = path.join(
             process.cwd(),
             "prisma",
-            "data",
+            "scripts",
             "products.json",
         );
 
         const fileData = await fs.readFile(filePath, "utf8");
-        const categories = JSON.parse(fileData);
+        const products = JSON.parse(fileData);
 
         const data = [];
-        for (const category of categories) {
-            const temp = {
-                ...category,
-            };
-            temp.price = category.minPrice;
-            delete temp.minPrice;
-            delete temp.avgPrice;
-            delete temp.maxPrice;
-            delete temp.category;
-
-            const productItems = [];
-            for (const productItem of category.productItems) {
-                const temp2 = { ...productItem };
-                temp2.price = productItem.minPrice;
-                delete temp2.minPrice;
-                delete temp2.avgPrice;
-                delete temp2.maxPrice;
-                console.log(temp2);
-                productItems.push(temp2);
+        for (const product of products) {
+            for (const productItem of product.productItems) {
+                const temp2 = {
+                    id: productItem.id,
+                    productId: productItem.productId,
+                    isAvailable: productItem.isAvailable,
+                    pricing: [
+                        {
+                            qty: productItem.minQty,
+                            price: productItem.price,
+                        },
+                    ],
+                    createdAt: productItem.createdAt,
+                    updatedAt: productItem.updatedAt,
+                    productAttributeOptions:
+                        productItem.productAttributeOptions,
+                };
+                data.push(temp2);
             }
-            temp.productItems = productItems;
-            data.push(temp);
+            // temp.productItems = productItems;
+            // data.push(temp);
         }
 
         fs.writeFile(
-            path.join(process.cwd(), "prisma", "data", "newProducts.json"),
+            path.join(
+                process.cwd(),
+                "prisma",
+                "scripts",
+                "newProductsItems.json",
+            ),
             JSON.stringify(data, null, 2),
             {
                 flag: "w",
@@ -50,3 +54,5 @@ export async function PrepareProduct() {
         console.log(e);
     }
 }
+
+PrepareProduct();

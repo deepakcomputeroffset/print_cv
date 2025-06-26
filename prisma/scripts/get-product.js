@@ -41,3 +41,5 @@ async function getProductsWithItems() {
         console.error("Error in getProductsWithItems:", error);
     }
 }
+
+getProductsWithItems();

@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import {
     cityDiscount,
     customerCategory,
-    Pricing,
+    pricing,
     product,
     productAttributeValue,
     productItem,
@@ -55,7 +55,7 @@ export default function PlaceOrder({
     customerCategory,
 }: {
     product: productItem & {
-        pricing: Pricing[];
+        pricing: pricing[];
         productAttributeOptions: productAttributeValue[];
         product: Pick<
             product,

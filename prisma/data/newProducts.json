@@ -9,19 +9,19 @@
         "categoryId": 1,
         "isAvailable": true,
         "sku": "VC_MGD",
-        "minQty": 500,
-        "ogPrice": 640,
         "createdAt": "2025-04-30T09:40:54.466Z",
         "updatedAt": "2025-04-30T09:40:54.466Z",
         "productItems": [
             {
                 "id": 27,
                 "productId": 1,
-                "sku": "VC_MGD-1",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:15.830Z",
                 "updatedAt": "2025-04-30T11:00:15.830Z",
                 "productAttributeOptions": [
@@ -81,17 +81,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 28,
                 "productId": 1,
-                "sku": "VC_MGD-2",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:15.830Z",
                 "updatedAt": "2025-04-30T11:00:15.830Z",
                 "productAttributeOptions": [
@@ -151,17 +152,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 29,
                 "productId": 1,
-                "sku": "VC_MGD-3",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:15.830Z",
                 "updatedAt": "2025-04-30T11:00:15.830Z",
                 "productAttributeOptions": [
@@ -221,17 +223,18 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 30,
                 "productId": 1,
-                "sku": "VC_MGD-4",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:15.830Z",
                 "updatedAt": "2025-04-30T11:00:15.830Z",
                 "productAttributeOptions": [
@@ -291,17 +294,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 31,
                 "productId": 1,
-                "sku": "VC_MGD-5",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:15.830Z",
                 "updatedAt": "2025-04-30T11:00:15.830Z",
                 "productAttributeOptions": [
@@ -361,17 +365,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 32,
                 "productId": 1,
-                "sku": "VC_MGD-6",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:15.830Z",
                 "updatedAt": "2025-04-30T11:00:15.830Z",
                 "productAttributeOptions": [
@@ -431,17 +436,18 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 33,
                 "productId": 1,
-                "sku": "VC_MGD-7",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:15.830Z",
                 "updatedAt": "2025-04-30T11:00:15.830Z",
                 "productAttributeOptions": [
@@ -501,17 +507,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 34,
                 "productId": 1,
-                "sku": "VC_MGD-8",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:15.830Z",
                 "updatedAt": "2025-04-30T11:00:15.830Z",
                 "productAttributeOptions": [
@@ -571,17 +578,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 35,
                 "productId": 1,
-                "sku": "VC_MGD-9",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:15.830Z",
                 "updatedAt": "2025-04-30T11:00:15.830Z",
                 "productAttributeOptions": [
@@ -641,17 +649,18 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 36,
                 "productId": 1,
-                "sku": "VC_MGD-10",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:15.830Z",
                 "updatedAt": "2025-04-30T11:00:15.830Z",
                 "productAttributeOptions": [
@@ -711,17 +720,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 37,
                 "productId": 1,
-                "sku": "VC_MGD-11",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:15.830Z",
                 "updatedAt": "2025-04-30T11:00:15.830Z",
                 "productAttributeOptions": [
@@ -781,17 +791,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 38,
                 "productId": 1,
-                "sku": "VC_MGD-12",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:15.830Z",
                 "updatedAt": "2025-04-30T11:00:15.830Z",
                 "productAttributeOptions": [
@@ -851,11 +862,9 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             }
-        ],
-        "price": 645
+        ]
     },
     {
         "id": 2,
@@ -867,19 +876,19 @@
         "categoryId": 1,
         "isAvailable": true,
         "sku": "VC_PVC",
-        "minQty": 500,
-        "ogPrice": 600,
         "createdAt": "2025-04-30T09:49:12.042Z",
         "updatedAt": "2025-04-30T10:58:58.652Z",
         "productItems": [
             {
                 "id": 13,
                 "productId": 2,
-                "sku": "VC_PVC-1",
-                "minQty": 500,
-                "ogPrice": 600,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 605
+                    }
+                ],
                 "createdAt": "2025-04-30T09:49:12.042Z",
                 "updatedAt": "2025-04-30T09:49:12.042Z",
                 "productAttributeOptions": [
@@ -897,17 +906,18 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 605
+                ]
             },
             {
                 "id": 14,
                 "productId": 2,
-                "sku": "VC_PVC-2",
-                "minQty": 500,
-                "ogPrice": 600,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 605
+                    }
+                ],
                 "createdAt": "2025-04-30T09:49:12.042Z",
                 "updatedAt": "2025-04-30T09:49:12.042Z",
                 "productAttributeOptions": [
@@ -925,11 +935,9 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 605
+                ]
             }
-        ],
-        "price": 605
+        ]
     },
     {
         "id": 3,
@@ -941,19 +949,19 @@
         "categoryId": 1,
         "isAvailable": true,
         "sku": "VC_VGD",
-        "minQty": 500,
-        "ogPrice": 540,
         "createdAt": "2025-04-30T09:54:02.651Z",
         "updatedAt": "2025-04-30T10:59:00.497Z",
         "productItems": [
             {
                 "id": 39,
                 "productId": 3,
-                "sku": "VC_VGD-1",
-                "minQty": 500,
-                "ogPrice": 540,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:57.000Z",
                 "updatedAt": "2025-04-30T11:00:57.000Z",
                 "productAttributeOptions": [
@@ -999,17 +1007,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 40,
                 "productId": 3,
-                "sku": "VC_VGD-2",
-                "minQty": 500,
-                "ogPrice": 540,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:57.000Z",
                 "updatedAt": "2025-04-30T11:00:57.000Z",
                 "productAttributeOptions": [
@@ -1055,17 +1064,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 41,
                 "productId": 3,
-                "sku": "VC_VGD-3",
-                "minQty": 500,
-                "ogPrice": 540,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:57.000Z",
                 "updatedAt": "2025-04-30T11:00:57.000Z",
                 "productAttributeOptions": [
@@ -1111,17 +1121,18 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 42,
                 "productId": 3,
-                "sku": "VC_VGD-4",
-                "minQty": 500,
-                "ogPrice": 540,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:57.000Z",
                 "updatedAt": "2025-04-30T11:00:57.000Z",
                 "productAttributeOptions": [
@@ -1167,17 +1178,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 43,
                 "productId": 3,
-                "sku": "VC_VGD-5",
-                "minQty": 500,
-                "ogPrice": 540,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:57.000Z",
                 "updatedAt": "2025-04-30T11:00:57.000Z",
                 "productAttributeOptions": [
@@ -1223,17 +1235,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 44,
                 "productId": 3,
-                "sku": "VC_VGD-6",
-                "minQty": 500,
-                "ogPrice": 540,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:00:57.000Z",
                 "updatedAt": "2025-04-30T11:00:57.000Z",
                 "productAttributeOptions": [
@@ -1279,11 +1292,9 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             }
-        ],
-        "price": 645
+        ]
     },
     {
         "id": 4,
@@ -1295,19 +1306,19 @@
         "categoryId": 1,
         "isAvailable": true,
         "sku": "VS_VG",
-        "minQty": 500,
-        "ogPrice": 640,
         "createdAt": "2025-04-30T10:37:19.400Z",
         "updatedAt": "2025-04-30T10:59:02.524Z",
         "productItems": [
             {
                 "id": 21,
                 "productId": 4,
-                "sku": "VS_VG-1",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T10:37:19.400Z",
                 "updatedAt": "2025-04-30T10:37:19.400Z",
                 "productAttributeOptions": [
@@ -1353,17 +1364,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 22,
                 "productId": 4,
-                "sku": "VS_VG-2",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T10:37:19.400Z",
                 "updatedAt": "2025-04-30T10:37:19.400Z",
                 "productAttributeOptions": [
@@ -1409,17 +1421,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 23,
                 "productId": 4,
-                "sku": "VS_VG-3",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T10:37:19.400Z",
                 "updatedAt": "2025-04-30T10:37:19.400Z",
                 "productAttributeOptions": [
@@ -1465,17 +1478,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 24,
                 "productId": 4,
-                "sku": "VS_VG-4",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T10:37:19.400Z",
                 "updatedAt": "2025-04-30T10:37:19.400Z",
                 "productAttributeOptions": [
@@ -1521,17 +1535,18 @@
                             "updatedAt": "2025-04-30T09:32:35.593Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 25,
                 "productId": 4,
-                "sku": "VS_VG-5",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T10:37:19.400Z",
                 "updatedAt": "2025-04-30T10:37:19.400Z",
                 "productAttributeOptions": [
@@ -1577,17 +1592,18 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 26,
                 "productId": 4,
-                "sku": "VS_VG-6",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T10:37:19.400Z",
                 "updatedAt": "2025-04-30T10:37:19.400Z",
                 "productAttributeOptions": [
@@ -1633,11 +1649,9 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             }
-        ],
-        "price": 645
+        ]
     },
     {
         "id": 5,
@@ -1649,19 +1663,19 @@
         "categoryId": 1,
         "isAvailable": true,
         "sku": "VC_MG",
-        "minQty": 500,
-        "ogPrice": 640,
         "createdAt": "2025-04-30T11:05:04.694Z",
         "updatedAt": "2025-04-30T11:05:04.694Z",
         "productItems": [
             {
                 "id": 45,
                 "productId": 5,
-                "sku": "VC_MG-1",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:05:04.694Z",
                 "updatedAt": "2025-04-30T11:05:04.694Z",
                 "productAttributeOptions": [
@@ -1693,17 +1707,18 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 46,
                 "productId": 5,
-                "sku": "VC_MG-2",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:05:04.694Z",
                 "updatedAt": "2025-04-30T11:05:04.694Z",
                 "productAttributeOptions": [
@@ -1735,17 +1750,18 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 47,
                 "productId": 5,
-                "sku": "VC_MG-3",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-04-30T11:05:04.694Z",
                 "updatedAt": "2025-04-30T11:05:04.694Z",
                 "productAttributeOptions": [
@@ -1777,11 +1793,9 @@
                             "updatedAt": "2025-04-30T09:32:10.503Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             }
-        ],
-        "price": 645
+        ]
     },
     {
         "id": 6,
@@ -1793,19 +1807,19 @@
         "categoryId": 3,
         "isAvailable": true,
         "sku": "PS",
-        "minQty": 500,
-        "ogPrice": 640,
         "createdAt": "2025-05-01T04:08:59.510Z",
         "updatedAt": "2025-05-01T04:08:59.510Z",
         "productItems": [
             {
                 "id": 48,
                 "productId": 6,
-                "sku": "PS-1",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -1851,17 +1865,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 49,
                 "productId": 6,
-                "sku": "PS-2",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -1907,17 +1922,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 50,
                 "productId": 6,
-                "sku": "PS-3",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -1963,17 +1979,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 51,
                 "productId": 6,
-                "sku": "PS-4",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2019,17 +2036,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 52,
                 "productId": 6,
-                "sku": "PS-5",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2075,17 +2093,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 53,
                 "productId": 6,
-                "sku": "PS-6",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2131,17 +2150,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 54,
                 "productId": 6,
-                "sku": "PS-7",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2187,17 +2207,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 55,
                 "productId": 6,
-                "sku": "PS-8",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2243,17 +2264,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 56,
                 "productId": 6,
-                "sku": "PS-9",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2299,17 +2321,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 57,
                 "productId": 6,
-                "sku": "PS-10",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2355,17 +2378,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 58,
                 "productId": 6,
-                "sku": "PS-11",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2411,17 +2435,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 59,
                 "productId": 6,
-                "sku": "PS-12",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2467,17 +2492,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 60,
                 "productId": 6,
-                "sku": "PS-13",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2523,17 +2549,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 61,
                 "productId": 6,
-                "sku": "PS-14",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2579,17 +2606,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 62,
                 "productId": 6,
-                "sku": "PS-15",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2635,17 +2663,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 63,
                 "productId": 6,
-                "sku": "PS-16",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2691,17 +2720,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 64,
                 "productId": 6,
-                "sku": "PS-17",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2747,17 +2777,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 65,
                 "productId": 6,
-                "sku": "PS-18",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2803,17 +2834,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 66,
                 "productId": 6,
-                "sku": "PS-19",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2859,17 +2891,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 67,
                 "productId": 6,
-                "sku": "PS-20",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2915,17 +2948,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 68,
                 "productId": 6,
-                "sku": "PS-21",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -2971,17 +3005,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 69,
                 "productId": 6,
-                "sku": "PS-22",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -3027,17 +3062,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 70,
                 "productId": 6,
-                "sku": "PS-23",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -3083,17 +3119,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 71,
                 "productId": 6,
-                "sku": "PS-24",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:08:59.510Z",
                 "updatedAt": "2025-05-01T04:08:59.510Z",
                 "productAttributeOptions": [
@@ -3139,11 +3176,9 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             }
-        ],
-        "price": 645
+        ]
     },
     {
         "id": 7,
@@ -3155,19 +3190,19 @@
         "categoryId": 3,
         "isAvailable": true,
         "sku": "PM",
-        "minQty": 500,
-        "ogPrice": 640,
         "createdAt": "2025-05-01T04:16:08.847Z",
         "updatedAt": "2025-05-01T04:16:08.847Z",
         "productItems": [
             {
                 "id": 72,
                 "productId": 7,
-                "sku": "PM-1",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:16:08.847Z",
                 "updatedAt": "2025-05-01T04:16:08.847Z",
                 "productAttributeOptions": [
@@ -3185,17 +3220,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 73,
                 "productId": 7,
-                "sku": "PM-2",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:16:08.847Z",
                 "updatedAt": "2025-05-01T04:16:08.847Z",
                 "productAttributeOptions": [
@@ -3213,17 +3249,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 74,
                 "productId": 7,
-                "sku": "PM-3",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:16:08.847Z",
                 "updatedAt": "2025-05-01T04:16:08.847Z",
                 "productAttributeOptions": [
@@ -3241,17 +3278,18 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 75,
                 "productId": 7,
-                "sku": "PM-4",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:16:08.847Z",
                 "updatedAt": "2025-05-01T04:16:08.847Z",
                 "productAttributeOptions": [
@@ -3269,11 +3307,9 @@
                             "updatedAt": "2025-05-01T04:06:43.989Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             }
-        ],
-        "price": 645
+        ]
     },
     {
         "id": 8,
@@ -3287,19 +3323,19 @@
         "categoryId": 2,
         "isAvailable": true,
         "sku": "TGS",
-        "minQty": 498,
-        "ogPrice": 640,
         "createdAt": "2025-05-01T04:23:41.133Z",
         "updatedAt": "2025-05-01T04:23:41.133Z",
         "productItems": [
             {
                 "id": 76,
                 "productId": 8,
-                "sku": "TGS-1",
-                "minQty": 498,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 498,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:23:41.133Z",
                 "updatedAt": "2025-05-01T04:23:41.133Z",
                 "productAttributeOptions": [
@@ -3331,17 +3367,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 77,
                 "productId": 8,
-                "sku": "TGS-2",
-                "minQty": 498,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 498,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:23:41.133Z",
                 "updatedAt": "2025-05-01T04:23:41.133Z",
                 "productAttributeOptions": [
@@ -3373,17 +3410,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 78,
                 "productId": 8,
-                "sku": "TGS-3",
-                "minQty": 498,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 498,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:23:41.133Z",
                 "updatedAt": "2025-05-01T04:23:41.133Z",
                 "productAttributeOptions": [
@@ -3415,17 +3453,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 79,
                 "productId": 8,
-                "sku": "TGS-4",
-                "minQty": 498,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 498,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:23:41.133Z",
                 "updatedAt": "2025-05-01T04:23:41.133Z",
                 "productAttributeOptions": [
@@ -3457,17 +3496,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 80,
                 "productId": 8,
-                "sku": "TGS-5",
-                "minQty": 498,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 498,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:23:41.133Z",
                 "updatedAt": "2025-05-01T04:23:41.133Z",
                 "productAttributeOptions": [
@@ -3499,17 +3539,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 81,
                 "productId": 8,
-                "sku": "TGS-6",
-                "minQty": 498,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 498,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:23:41.133Z",
                 "updatedAt": "2025-05-01T04:23:41.133Z",
                 "productAttributeOptions": [
@@ -3541,17 +3582,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 82,
                 "productId": 8,
-                "sku": "TGS-7",
-                "minQty": 498,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 498,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:23:41.133Z",
                 "updatedAt": "2025-05-01T04:23:41.133Z",
                 "productAttributeOptions": [
@@ -3583,17 +3625,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 83,
                 "productId": 8,
-                "sku": "TGS-8",
-                "minQty": 498,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 498,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:23:41.133Z",
                 "updatedAt": "2025-05-01T04:23:41.133Z",
                 "productAttributeOptions": [
@@ -3625,17 +3668,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 84,
                 "productId": 8,
-                "sku": "TGS-9",
-                "minQty": 498,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 498,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:23:41.133Z",
                 "updatedAt": "2025-05-01T04:23:41.133Z",
                 "productAttributeOptions": [
@@ -3667,11 +3711,9 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             }
-        ],
-        "price": 645
+        ]
     },
     {
         "id": 9,
@@ -3683,19 +3725,19 @@
         "categoryId": 2,
         "isAvailable": true,
         "sku": "TMT",
-        "minQty": 500,
-        "ogPrice": 640,
         "createdAt": "2025-05-01T04:28:53.228Z",
         "updatedAt": "2025-05-01T04:28:53.228Z",
         "productItems": [
             {
                 "id": 85,
                 "productId": 9,
-                "sku": "TMT-1",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:28:53.228Z",
                 "updatedAt": "2025-05-01T04:28:53.228Z",
                 "productAttributeOptions": [
@@ -3727,17 +3769,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 86,
                 "productId": 9,
-                "sku": "TMT-2",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:28:53.228Z",
                 "updatedAt": "2025-05-01T04:28:53.228Z",
                 "productAttributeOptions": [
@@ -3769,17 +3812,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 87,
                 "productId": 9,
-                "sku": "TMT-3",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:28:53.228Z",
                 "updatedAt": "2025-05-01T04:28:53.228Z",
                 "productAttributeOptions": [
@@ -3811,17 +3855,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 88,
                 "productId": 9,
-                "sku": "TMT-4",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:28:53.228Z",
                 "updatedAt": "2025-05-01T04:28:53.228Z",
                 "productAttributeOptions": [
@@ -3853,17 +3898,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 89,
                 "productId": 9,
-                "sku": "TMT-5",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:28:53.228Z",
                 "updatedAt": "2025-05-01T04:28:53.228Z",
                 "productAttributeOptions": [
@@ -3895,17 +3941,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 90,
                 "productId": 9,
-                "sku": "TMT-6",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:28:53.228Z",
                 "updatedAt": "2025-05-01T04:28:53.228Z",
                 "productAttributeOptions": [
@@ -3937,17 +3984,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 91,
                 "productId": 9,
-                "sku": "TMT-7",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:28:53.228Z",
                 "updatedAt": "2025-05-01T04:28:53.228Z",
                 "productAttributeOptions": [
@@ -3979,17 +4027,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 92,
                 "productId": 9,
-                "sku": "TMT-8",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:28:53.228Z",
                 "updatedAt": "2025-05-01T04:28:53.228Z",
                 "productAttributeOptions": [
@@ -4021,17 +4070,18 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 93,
                 "productId": 9,
-                "sku": "TMT-9",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:28:53.228Z",
                 "updatedAt": "2025-05-01T04:28:53.228Z",
                 "productAttributeOptions": [
@@ -4063,11 +4113,9 @@
                             "updatedAt": "2025-05-01T04:22:09.038Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             }
-        ],
-        "price": 645
+        ]
     },
     {
         "id": 10,
@@ -4079,19 +4127,19 @@
         "categoryId": 2,
         "isAvailable": true,
         "sku": "TMU",
-        "minQty": 500,
-        "ogPrice": 640,
         "createdAt": "2025-05-01T04:35:26.404Z",
         "updatedAt": "2025-05-01T04:35:26.404Z",
         "productItems": [
             {
                 "id": 94,
                 "productId": 10,
-                "sku": "TMU-1",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4137,17 +4185,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 95,
                 "productId": 10,
-                "sku": "TMU-2",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4193,17 +4242,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 96,
                 "productId": 10,
-                "sku": "TMU-3",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4249,17 +4299,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 97,
                 "productId": 10,
-                "sku": "TMU-4",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4305,17 +4356,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 98,
                 "productId": 10,
-                "sku": "TMU-5",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4361,17 +4413,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 99,
                 "productId": 10,
-                "sku": "TMU-6",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4417,17 +4470,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 100,
                 "productId": 10,
-                "sku": "TMU-7",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4473,17 +4527,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 101,
                 "productId": 10,
-                "sku": "TMU-8",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4529,17 +4584,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 102,
                 "productId": 10,
-                "sku": "TMU-9",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4585,17 +4641,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 103,
                 "productId": 10,
-                "sku": "TMU-10",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4641,17 +4698,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 104,
                 "productId": 10,
-                "sku": "TMU-11",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4697,17 +4755,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 105,
                 "productId": 10,
-                "sku": "TMU-12",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4753,17 +4812,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 106,
                 "productId": 10,
-                "sku": "TMU-13",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4809,17 +4869,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 107,
                 "productId": 10,
-                "sku": "TMU-14",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4865,17 +4926,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 108,
                 "productId": 10,
-                "sku": "TMU-15",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4921,17 +4983,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 109,
                 "productId": 10,
-                "sku": "TMU-16",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -4977,17 +5040,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 110,
                 "productId": 10,
-                "sku": "TMU-17",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -5033,17 +5097,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 111,
                 "productId": 10,
-                "sku": "TMU-18",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -5089,17 +5154,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 112,
                 "productId": 10,
-                "sku": "TMU-19",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -5145,17 +5211,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 113,
                 "productId": 10,
-                "sku": "TMU-20",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -5201,17 +5268,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 114,
                 "productId": 10,
-                "sku": "TMU-21",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -5257,17 +5325,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 115,
                 "productId": 10,
-                "sku": "TMU-22",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -5313,17 +5382,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 116,
                 "productId": 10,
-                "sku": "TMU-23",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -5369,17 +5439,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 117,
                 "productId": 10,
-                "sku": "TMU-24",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -5425,17 +5496,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 118,
                 "productId": 10,
-                "sku": "TMU-25",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -5481,17 +5553,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 119,
                 "productId": 10,
-                "sku": "TMU-26",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -5537,17 +5610,18 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 120,
                 "productId": 10,
-                "sku": "TMU-27",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:35:26.404Z",
                 "updatedAt": "2025-05-01T04:35:26.404Z",
                 "productAttributeOptions": [
@@ -5593,11 +5667,9 @@
                             "updatedAt": "2025-05-01T04:33:16.116Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             }
-        ],
-        "price": 645
+        ]
     },
     {
         "id": 11,
@@ -5609,19 +5681,19 @@
         "categoryId": 6,
         "isAvailable": true,
         "sku": "EM9.7x4.2",
-        "minQty": 500,
-        "ogPrice": 640,
         "createdAt": "2025-05-01T04:53:50.243Z",
         "updatedAt": "2025-05-01T04:53:50.243Z",
         "productItems": [
             {
                 "id": 121,
                 "productId": 11,
-                "sku": "EM9.7x4.2-1",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:53:50.243Z",
                 "updatedAt": "2025-05-01T04:53:50.243Z",
                 "productAttributeOptions": [
@@ -5667,17 +5739,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 122,
                 "productId": 11,
-                "sku": "EM9.7x4.2-2",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:53:50.243Z",
                 "updatedAt": "2025-05-01T04:53:50.243Z",
                 "productAttributeOptions": [
@@ -5723,17 +5796,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 123,
                 "productId": 11,
-                "sku": "EM9.7x4.2-3",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:53:50.243Z",
                 "updatedAt": "2025-05-01T04:53:50.243Z",
                 "productAttributeOptions": [
@@ -5779,17 +5853,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 124,
                 "productId": 11,
-                "sku": "EM9.7x4.2-4",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:53:50.243Z",
                 "updatedAt": "2025-05-01T04:53:50.243Z",
                 "productAttributeOptions": [
@@ -5835,17 +5910,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 125,
                 "productId": 11,
-                "sku": "EM9.7x4.2-5",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:53:50.243Z",
                 "updatedAt": "2025-05-01T04:53:50.243Z",
                 "productAttributeOptions": [
@@ -5891,17 +5967,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 126,
                 "productId": 11,
-                "sku": "EM9.7x4.2-6",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:53:50.243Z",
                 "updatedAt": "2025-05-01T04:53:50.243Z",
                 "productAttributeOptions": [
@@ -5947,17 +6024,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 127,
                 "productId": 11,
-                "sku": "EM9.7x4.2-7",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:53:50.243Z",
                 "updatedAt": "2025-05-01T04:53:50.243Z",
                 "productAttributeOptions": [
@@ -6003,17 +6081,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 128,
                 "productId": 11,
-                "sku": "EM9.7x4.2-8",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:53:50.243Z",
                 "updatedAt": "2025-05-01T04:53:50.243Z",
                 "productAttributeOptions": [
@@ -6059,17 +6138,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 129,
                 "productId": 11,
-                "sku": "EM9.7x4.2-9",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:53:50.243Z",
                 "updatedAt": "2025-05-01T04:53:50.243Z",
                 "productAttributeOptions": [
@@ -6115,17 +6195,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 130,
                 "productId": 11,
-                "sku": "EM9.7x4.2-10",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:53:50.243Z",
                 "updatedAt": "2025-05-01T04:53:50.243Z",
                 "productAttributeOptions": [
@@ -6171,17 +6252,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 131,
                 "productId": 11,
-                "sku": "EM9.7x4.2-11",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:53:50.243Z",
                 "updatedAt": "2025-05-01T04:53:50.243Z",
                 "productAttributeOptions": [
@@ -6227,17 +6309,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 132,
                 "productId": 11,
-                "sku": "EM9.7x4.2-12",
-                "minQty": 500,
-                "ogPrice": 640,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:53:50.243Z",
                 "updatedAt": "2025-05-01T04:53:50.243Z",
                 "productAttributeOptions": [
@@ -6283,11 +6366,9 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             }
-        ],
-        "price": 645
+        ]
     },
     {
         "id": 12,
@@ -6299,19 +6380,19 @@
         "categoryId": 6,
         "isAvailable": true,
         "sku": "EM9.75x4.25",
-        "minQty": 500,
-        "ogPrice": 640,
         "createdAt": "2025-05-01T04:58:34.569Z",
         "updatedAt": "2025-05-01T04:58:34.569Z",
         "productItems": [
             {
                 "id": 133,
                 "productId": 12,
-                "sku": "EM9.75x4.25-1",
-                "minQty": 500,
-                "ogPrice": 623,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:58:34.569Z",
                 "updatedAt": "2025-05-01T04:58:34.569Z",
                 "productAttributeOptions": [
@@ -6357,17 +6438,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 134,
                 "productId": 12,
-                "sku": "EM9.75x4.25-2",
-                "minQty": 500,
-                "ogPrice": 623,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:58:34.569Z",
                 "updatedAt": "2025-05-01T04:58:34.569Z",
                 "productAttributeOptions": [
@@ -6413,17 +6495,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 135,
                 "productId": 12,
-                "sku": "EM9.75x4.25-3",
-                "minQty": 500,
-                "ogPrice": 623,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:58:34.569Z",
                 "updatedAt": "2025-05-01T04:58:34.569Z",
                 "productAttributeOptions": [
@@ -6469,17 +6552,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 136,
                 "productId": 12,
-                "sku": "EM9.75x4.25-4",
-                "minQty": 500,
-                "ogPrice": 623,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:58:34.569Z",
                 "updatedAt": "2025-05-01T04:58:34.569Z",
                 "productAttributeOptions": [
@@ -6525,17 +6609,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 137,
                 "productId": 12,
-                "sku": "EM9.75x4.25-5",
-                "minQty": 500,
-                "ogPrice": 623,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:58:34.569Z",
                 "updatedAt": "2025-05-01T04:58:34.569Z",
                 "productAttributeOptions": [
@@ -6581,17 +6666,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 138,
                 "productId": 12,
-                "sku": "EM9.75x4.25-6",
-                "minQty": 500,
-                "ogPrice": 623,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:58:34.569Z",
                 "updatedAt": "2025-05-01T04:58:34.569Z",
                 "productAttributeOptions": [
@@ -6637,17 +6723,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 139,
                 "productId": 12,
-                "sku": "EM9.75x4.25-7",
-                "minQty": 500,
-                "ogPrice": 623,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:58:34.569Z",
                 "updatedAt": "2025-05-01T04:58:34.569Z",
                 "productAttributeOptions": [
@@ -6693,17 +6780,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 140,
                 "productId": 12,
-                "sku": "EM9.75x4.25-8",
-                "minQty": 500,
-                "ogPrice": 623,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:58:34.569Z",
                 "updatedAt": "2025-05-01T04:58:34.569Z",
                 "productAttributeOptions": [
@@ -6749,17 +6837,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 141,
                 "productId": 12,
-                "sku": "EM9.75x4.25-9",
-                "minQty": 500,
-                "ogPrice": 623,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:58:34.569Z",
                 "updatedAt": "2025-05-01T04:58:34.569Z",
                 "productAttributeOptions": [
@@ -6805,17 +6894,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 142,
                 "productId": 12,
-                "sku": "EM9.75x4.25-10",
-                "minQty": 500,
-                "ogPrice": 623,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:58:34.569Z",
                 "updatedAt": "2025-05-01T04:58:34.569Z",
                 "productAttributeOptions": [
@@ -6861,17 +6951,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 143,
                 "productId": 12,
-                "sku": "EM9.75x4.25-11",
-                "minQty": 500,
-                "ogPrice": 623,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:58:34.569Z",
                 "updatedAt": "2025-05-01T04:58:34.569Z",
                 "productAttributeOptions": [
@@ -6917,17 +7008,18 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             },
             {
                 "id": 144,
                 "productId": 12,
-                "sku": "EM9.75x4.25-12",
-                "minQty": 500,
-                "ogPrice": 623,
-                "imageUrl": [],
                 "isAvailable": false,
+                "pricing": [
+                    {
+                        "qty": 500,
+                        "price": 645
+                    }
+                ],
                 "createdAt": "2025-05-01T04:58:34.569Z",
                 "updatedAt": "2025-05-01T04:58:34.569Z",
                 "productAttributeOptions": [
@@ -6973,10 +7065,8 @@
                             "updatedAt": "2025-05-01T04:52:01.106Z"
                         }
                     }
-                ],
-                "price": 645
+                ]
             }
-        ],
-        "price": 645
+        ]
     }
 ]

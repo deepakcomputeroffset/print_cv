@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import {
     attachment,
     order,
-    Pricing,
+    pricing,
     product,
     productItem,
     UPLOADVIA,
@@ -16,7 +16,7 @@ import { InvoiceButton } from "../../InvoiceButton";
 interface ProductDetailsProps {
     order: order & {
         productItem: productItem & {
-            pricing: Pricing[];
+            pricing: pricing[];
             product: product;
         };
         customer: {

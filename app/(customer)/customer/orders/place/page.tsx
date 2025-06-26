@@ -1,7 +1,7 @@
 import PlaceOrder from "@/components/order/placeOrder";
 import { auth } from "@/lib/auth";
 import {
-    Pricing,
+    pricing,
     product,
     productAttributeValue,
     productItem,
@@ -94,7 +94,7 @@ export default async function PlaceOrderPage({
         }
 
         const transformedProductItem: productItem & {
-            pricing: Pricing[];
+            pricing: pricing[];
             productAttributeOptions: productAttributeValue[];
             product: Pick<
                 product,

@@ -16,7 +16,7 @@ import {
     task,
     customerCategory,
     staff,
-    Pricing,
+    pricing,
 } from "@prisma/client";
 import { z, ZodIssue } from "zod";
 
@@ -54,7 +54,7 @@ export interface ProductVariantType
 export interface QueryParams extends z.infer<typeof QuerySchema> {}
 
 export type ProductItemTypeWithAttribute = productItem & {
-    pricing: Pricing[];
+    pricing: pricing[];
     productAttributeOptions: (productAttributeValue & {
         productAttributeType: productAttributeType;
     })[];
@@ -80,7 +80,7 @@ export interface orderType extends order {
     attachment: attachment;
     job: job & { tasks: task[] };
     productItem: productItem & {
-        pricing: Pricing[];
+        pricing: pricing[];
         product: product & {
             category: productCategory;
         };

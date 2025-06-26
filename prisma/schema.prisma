@@ -169,7 +169,7 @@ model productItem {
     id                      Int                     @id @default(autoincrement())
     productId               Int
     sku                     String                  @unique
-    pricing                 Pricing[]
+    pricing                 pricing[]
     isAvailable             Boolean                 @default(false)
     productAttributeOptions productAttributeValue[]
     orders                  order[]
@@ -179,7 +179,7 @@ model productItem {
     updatedAt DateTime @updatedAt
 }
 
-model Pricing {
+model pricing {
     id            Int @id @default(autoincrement())
     productItemId Int
     qty           Int
