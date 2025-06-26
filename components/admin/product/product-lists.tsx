@@ -36,9 +36,9 @@ export const ProductLists = ({ filters }: { filters: QueryParams }) => {
                         <TableHead>Image</TableHead>
                         <TableHead>Name</TableHead>
                         <TableHead>Category</TableHead>
-                        <TableHead className="text-nowrap">
+                        {/* <TableHead className="text-nowrap">
                             Price Range
-                        </TableHead>
+                        </TableHead> */}
                         <TableHead>Status</TableHead>
                         <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
@@ -73,9 +73,9 @@ export const ProductLists = ({ filters }: { filters: QueryParams }) => {
                                         </span>
                                     </div>
                                 </TableCell>
-                                <TableCell className="text-nowrap">
+                                {/* <TableCell className="text-nowrap">
                                     ₹{product?.price}
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell>
                                     <Badge
                                         variant={

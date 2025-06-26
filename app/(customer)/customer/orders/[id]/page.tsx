@@ -28,6 +28,7 @@ export default async function OrderPage({
                 },
                 productItem: {
                     include: {
+                        pricing: true,
                         product: true,
                     },
                 },

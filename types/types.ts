@@ -80,6 +80,7 @@ export interface orderType extends order {
     attachment: attachment;
     job: job & { tasks: task[] };
     productItem: productItem & {
+        pricing: Pricing[];
         product: product & {
             category: productCategory;
         };

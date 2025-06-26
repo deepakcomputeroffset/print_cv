@@ -289,8 +289,8 @@ export default async function OrderDetail({
                                 {order.productItem.product.category.name}
                             </p>
                         </div>
-                        {order.productItem.imageUrl &&
-                            order.productItem.imageUrl.length > 0 && (
+                        {order.productItem.product.imageUrl &&
+                            order.productItem.product.imageUrl.length > 0 && (
                                 <div>
                                     <p className="text-sm text-muted-foreground mb-2">
                                         Product Image
@@ -298,7 +298,10 @@ export default async function OrderDetail({
                                     <div className="rounded-md overflow-hidden w-32 h-32">
                                         <Image
                                             fill
-                                            src={order.productItem.imageUrl[0]}
+                                            src={
+                                                order.productItem.product
+                                                    .imageUrl[0]
+                                            }
                                             alt={order.productItem.product.name}
                                             className="object-cover w-full h-full"
                                         />

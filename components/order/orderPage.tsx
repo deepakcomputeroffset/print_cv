@@ -22,6 +22,7 @@ import {
     product,
     productItem,
     orderComment,
+    Pricing,
 } from "@prisma/client";
 import { MotionDiv } from "../motionDiv";
 import { CancellationModal } from "./components/CancellationModal";
@@ -32,6 +33,7 @@ import { addressType } from "@/types/types";
 interface OrderDetailsPageProps {
     order: order & {
         productItem: productItem & {
+            pricing: Pricing[];
             product: product;
         };
         customer: {

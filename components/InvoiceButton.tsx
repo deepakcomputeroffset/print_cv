@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { FileDown, Check } from "lucide-react";
-import { order, product, productItem } from "@prisma/client";
+import { order, Pricing, product, productItem } from "@prisma/client";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -10,6 +10,7 @@ import { toast } from "sonner";
 interface InvoiceButtonProps {
     order: order & {
         productItem: productItem & {
+            pricing: Pricing[];
             product: product;
         };
         customer?: {

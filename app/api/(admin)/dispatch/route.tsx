@@ -122,6 +122,7 @@ export async function GET(request: Request) {
                 include: {
                     productItem: {
                         include: {
+                            pricing: true,
                             product: true,
                         },
                     },

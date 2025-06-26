@@ -1,11 +1,12 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import { order, product, productItem } from "@prisma/client";
+import { order, Pricing, product, productItem } from "@prisma/client";
 import qrcode from "qrcode";
 import { IGST_TAX_IN_PERCENTAGE } from "../constants";
 
 interface InvoiceOrder extends order {
     productItem: productItem & {
+        pricing: Pricing[];
         product: product;
     };
     customer?: {
@@ -230,6 +231,14 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     }
 
     // ITEMS TABLE - Fix product details spacing
+    const findPrice = () => {
+        const isTieredPricing = order.productItem.product?.isTieredPricing;
+        if (isTieredPricing)
+            return order?.productItem?.pricing?.find(
+                (v) => v.qty === order.qty,
+            );
+        return order?.productItem?.pricing?.[0];
+    };
     autoTable(doc, {
         startY: 110,
         head: [
@@ -244,7 +253,7 @@ export const generateInvoice = async (order: InvoiceOrder) => {
                     styles: { cellWidth: "auto", minCellWidth: 70 },
                 },
                 order.qty.toString(),
-                `Rs. ${(order.price / (order.qty / order?.productItem?.minQty)).toFixed(2)}`,
+                `Rs. ${(order.price / (order.qty / (findPrice()?.qty ?? 0))).toFixed(2)}`,
                 `Rs. ${(order.price || 0).toFixed(2)}`,
             ],
         ],
