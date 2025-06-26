@@ -63,7 +63,7 @@ export const generateLabel = async (
 
         const orderId = order?.id.toString().padStart(5, "0");
         const customerId = order?.customerId?.toString().padStart(4, "0");
-        const orderRef = `${orderId}/${order?.jobId}`;
+        const orderRef = `${orderId}/${order?.jobId ?? "_"}`;
 
         // Constants for calculating positions - adjusted for smaller size
         const rowHeights = [55, 25, 25, 25, 25, 25]; // Heights of each row - scaled down
@@ -88,7 +88,7 @@ export const generateLabel = async (
         ctx.stroke();
 
         // Draw order reference and ID in first cell - smaller font
-        ctx.font = "bold 18px Arial";
+        ctx.font = "bold 14px Arial";
         ctx.fillStyle = "red";
         ctx.textAlign = "left";
         ctx.fillText(orderRef, 10, 25);

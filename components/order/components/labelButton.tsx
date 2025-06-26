@@ -47,8 +47,11 @@ export function LabelButton({ order }: LabelButtonProps) {
                 );
                 return;
             }
-            await generateLabel(order);
-
+            const labelurl = await generateLabel(order);
+            const a = document.createElement("a");
+            a.href = labelurl;
+            a.download = "label.png";
+            a.click();
             // Show success state for 2 seconds
             setIsSuccess(true);
             toast.success("Shipping label generated successfully!");
