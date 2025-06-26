@@ -150,17 +150,15 @@ model productCategory {
 }
 
 model product {
-    id           Int           @id @default(autoincrement())
-    name         String
-    description  String
-    imageUrl     String[]
-    categoryId   Int
-    isAvailable  Boolean       @default(false)
-    sku          String        @unique
-    minQty       Int
-    ogPrice      Int
-    price        Int
-    productItems productItem[]
+    id              Int           @id @default(autoincrement())
+    name            String
+    description     String
+    imageUrl        String[]
+    categoryId      Int
+    isAvailable     Boolean       @default(false)
+    sku             String        @unique
+    isTieredPricing Boolean       @default(false)
+    productItems    productItem[]
 
     category  productCategory @relation(fields: [categoryId], references: [id])
     createdAt DateTime        @default(now())
@@ -170,11 +168,8 @@ model product {
 model productItem {
     id                      Int                     @id @default(autoincrement())
     productId               Int
-    sku                     String
-    minQty                  Int
-    ogPrice                 Int
-    price                   Int
-    imageUrl                String[]
+    sku                     String                  @unique
+    pricing                 Pricing[]
     isAvailable             Boolean                 @default(false)
     productAttributeOptions productAttributeValue[]
     orders                  order[]
@@ -182,6 +177,20 @@ model productItem {
     product   product  @relation(fields: [productId], references: [id], onDelete: Cascade)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+}
+
+model Pricing {
+    id            Int @id @default(autoincrement())
+    productItemId Int
+    qty           Int
+    price         Int
+
+    productItem productItem @relation(fields: [productItemId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([productItemId, qty]) // Prevent duplicate entries for the same qty
 }
 
 model productAttributeValue {

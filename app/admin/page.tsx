@@ -19,7 +19,6 @@ import {
     Briefcase,
     BarChart2,
     Star,
-    Tag,
     ShoppingBag,
     // UserPlus,
     // Activity,
@@ -69,11 +68,11 @@ interface AdminStats {
     }[];
     monthlyRevenue: { _sum: { total: number | null } };
     dailyRevenue: { _sum: { total: number | null } };
-    productPriceStats: {
-        _avg: {
-            price: number | null;
-        };
-    };
+    // productPriceStats: {
+    //     _avg: {
+    //         price: number | null;
+    //     };
+    // };
     availableProducts: number;
     customerCategories: {
         // customerCategory: string;
@@ -173,7 +172,7 @@ export default async function AdminDashboard() {
                 monthlyOrders,
                 monthlyRevenue,
                 dailyRevenue,
-                productPriceStats,
+                // productPriceStats,
                 availableProducts,
                 customerCategories,
                 bannedCustomers,
@@ -251,11 +250,11 @@ export default async function AdminDashboard() {
                     },
                 }),
                 // Product Price Statistics
-                Prisma.product.aggregate({
-                    _avg: {
-                        price: true,
-                    },
-                }),
+                // Prisma.product.aggregate({
+                //     _avg: {
+                //         price: true,
+                //     },
+                // }),
                 // Available Products Count
                 Prisma.product.count({
                     where: {
@@ -348,7 +347,7 @@ export default async function AdminDashboard() {
                 monthlyOrders,
                 monthlyRevenue,
                 dailyRevenue,
-                productPriceStats,
+                // productPriceStats,
                 availableProducts,
                 customerCategories,
                 bannedCustomers,
@@ -609,7 +608,7 @@ export default async function AdminDashboard() {
                                 Product Analytics
                             </h2>
                             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                                <Card className="bg-blue-50 hover:bg-blue-100 transition-all duration-300 hover:shadow-lg">
+                                {/* <Card className="bg-blue-50 hover:bg-blue-100 transition-all duration-300 hover:shadow-lg">
                                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                         <CardTitle className="text-sm font-medium text-gray-600">
                                             Average Price
@@ -626,7 +625,7 @@ export default async function AdminDashboard() {
                                             Average product price
                                         </p>
                                     </CardContent>
-                                </Card>
+                                </Card> */}
 
                                 <Card className="bg-green-50 hover:bg-green-100 transition-all duration-300 hover:shadow-lg">
                                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

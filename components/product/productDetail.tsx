@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -14,8 +14,6 @@ import {
 import { Input } from "@/components/ui/input";
 import {
     ShoppingCart,
-    Heart,
-    Share2,
     Package,
     Truck,
     Shield,
@@ -25,14 +23,13 @@ import {
     Clock,
     Sparkles,
     ThumbsUp,
-    Info,
 } from "lucide-react";
 import EmblaCarousel from "@/components/ui/embla-carousel/js/EmblaCarousel";
 import getDistinctOptionsWithDetails from "@/components/product/getAttributeWithOptions";
 import { useRouter } from "next/navigation";
 import { getBaseVarient } from "@/components/product/getBaseVarient";
 import Markdown from "react-markdown";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 import {
@@ -43,21 +40,21 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { product } from "@prisma/client";
+import { cityDiscount, customerCategory, product } from "@prisma/client";
 import { ProductItemTypeWithAttribute } from "@/types/types";
+import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
+import { toast } from "sonner";
 
 export default function ProductDetails({
     product,
+    cityDiscount,
+    customerCategory,
 }: {
-    product: Omit<product, "ogPrice"> & {
+    product: product & {
         productItems: ProductItemTypeWithAttribute[];
     };
+    cityDiscount: cityDiscount | null;
+    customerCategory: customerCategory;
 }) {
     const distinctAttributeWithOptions = getDistinctOptionsWithDetails(product);
 
@@ -67,19 +64,7 @@ export default function ProductDetails({
     const [selectedVariant, setSelectedVariant] =
         useState<ProductItemTypeWithAttribute | null>(null);
     const router = useRouter();
-    const [qty, setQty] = useState<number>(product.minQty);
-
-    // Ref for sticky product info
-    const productHeaderRef = useRef<HTMLDivElement>(null);
-    const productSectionRef = useRef<HTMLDivElement>(null);
-
-    // Scroll animations
-    const { scrollYProgress } = useScroll({
-        target: productSectionRef,
-        offset: ["start start", "end start"],
-    });
-
-    const backgroundOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+    const [qty, setQty] = useState<number | null>(null);
 
     const findVariant = useCallback(() => {
         return product.productItems.find((item) =>
@@ -93,11 +78,21 @@ export default function ProductDetails({
         );
     }, [selectedAttributes, product]);
 
+    const findPrice = useCallback(() => {
+        const isTieredPricing = product?.isTieredPricing;
+        if (selectedVariant) {
+            if (isTieredPricing)
+                return selectedVariant?.pricing?.find((v) => v.qty === qty);
+            return selectedVariant?.pricing?.[0];
+        }
+        return null;
+    }, [selectedVariant, qty]);
+
     useEffect(() => {
         const variant = findVariant();
-        setSelectedVariant(variant || null);
-
-        if (variant) setQty(Math.max(qty, variant.minQty));
+        if (variant) {
+            setSelectedVariant(variant);
+        }
     }, [selectedAttributes, findVariant, qty]);
 
     const handleAttributeChange = (typeId: number, valueId: number) => {
@@ -105,58 +100,15 @@ export default function ProductDetails({
     };
 
     const handleBuy = async () => {
-        if (!selectedVariant) return;
+        if (!selectedVariant) return toast.message("Select all options.");
+        if (!qty) return toast.message("Select Quantity.");
         router.push(
-            `/customer/orders/place?productItemId=${selectedVariant?.id}&qty=${Math.max(qty, selectedVariant?.minQty)}`,
+            `/customer/orders/place?productItemId=${selectedVariant?.id}&qty=${qty ?? 0}`,
         );
     };
 
-    // Calculate discount percentage correctly
-    const calculateDiscount = () => {
-        const originalPrice = selectedVariant
-            ? selectedVariant.price
-            : product.price;
-        console.log(originalPrice);
-        // Assuming there's a discount logic - if not, you can remove this function
-        return 10; // Default 10% discount for display
-    };
-
     return (
-        <div
-            ref={productSectionRef}
-            className="relative bg-gradient-to-b from-background to-blue-50/30 py-4"
-        >
-            <motion.div
-                style={{ opacity: backgroundOpacity }}
-                className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-white/80 border-b border-primary/10 shadow-sm"
-            >
-                <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-                    <div className="flex items-center">
-                        <div className="h-8 w-1 bg-gradient-to-b from-primary to-cyan-500 rounded-full mr-3"></div>
-                        <h3 className="text-lg font-medium text-gray-800 truncate max-w-md">
-                            {product.name}
-                        </h3>
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <span className="text-lg font-bold text-primary">
-                            ₹
-                            {selectedVariant
-                                ? selectedVariant.price
-                                : product.price}
-                        </span>
-                        <Button
-                            size="sm"
-                            onClick={handleBuy}
-                            disabled={!selectedVariant}
-                            className="bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600"
-                        >
-                            <ShoppingCart className="w-4 h-4 mr-2" />
-                            Buy Now
-                        </Button>
-                    </div>
-                </div>
-            </motion.div>
-
+        <div className="relative bg-gradient-to-b from-background to-blue-50/30 py-4">
             <div className="container mx-auto px-4 md:px-8">
                 {/* Breadcrumb Navigation */}
                 <motion.div
@@ -201,43 +153,6 @@ export default function ProductDetails({
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
-
-                    {/* <div className="flex items-center justify-between">
-                        <Link
-                            href={`/products?categoryId=${product.categoryId}`}
-                            className="flex items-center text-primary bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-full transition-colors group"
-                        >
-                            <ArrowLeft className="h-3.5 w-3.5 mr-1.5 group-hover:-translate-x-1 transition-transform" />
-                            <span className="text-sm font-medium">
-                                Back to Products
-                            </span>
-                        </Link>
-
-                        <div className="flex items-center bg-white rounded-full px-3 py-1.5 shadow-sm border border-primary/10">
-                            <div className="flex items-center mr-2">
-                                {[...Array(5)].map((_, i) => (
-                                    <Star
-                                        key={i}
-                                        className={cn(
-                                            "w-3.5 h-3.5",
-                                            i < Math.floor(productRating)
-                                                ? "text-yellow-400 fill-yellow-400"
-                                                : i < productRating
-                                                  ? "text-yellow-400 fill-yellow-400 opacity-50"
-                                                  : "text-gray-300",
-                                        )}
-                                    />
-                                ))}
-                            </div>
-                            <span className="text-sm font-medium text-gray-700">
-                                {productRating}
-                            </span>
-                            <span className="mx-1.5 text-gray-300">|</span>
-                            <span className="text-xs text-gray-500">
-                                {reviewCount} reviews
-                            </span>
-                        </div>
-                    </div> */}
                 </motion.div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -258,44 +173,10 @@ export default function ProductDetails({
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-cyan-400 to-primary z-10"></div>
                             <EmblaCarousel slides={product.imageUrl} />
                         </div>
-
-                        {/* Thumbnail gallery */}
-                        {/* <div className="grid grid-cols-5 gap-2">
-                            {product.imageUrl
-                                .slice(0, 5)
-                                .map((image, index) => (
-                                    <div
-                                        key={index}
-                                        className={cn(
-                                            "relative rounded-lg overflow-hidden border cursor-pointer transition-all duration-200",
-                                            hoveredImage === index
-                                                ? "border-primary ring-2 ring-primary/20 shadow-md"
-                                                : "border-gray-200 hover:border-primary/50",
-                                        )}
-                                        onMouseEnter={() =>
-                                            setHoveredImage(index)
-                                        }
-                                        onMouseLeave={() =>
-                                            setHoveredImage(null)
-                                        }
-                                    >
-                                        <div
-                                            className="h-16 w-full bg-cover bg-center"
-                                            style={{
-                                                backgroundImage: `url(${image})`,
-                                            }}
-                                        />
-                                        {hoveredImage === index && (
-                                            <div className="absolute inset-0 bg-primary/10 backdrop-blur-[1px]"></div>
-                                        )}
-                                    </div>
-                                ))}
-                        </div> */}
                     </motion.div>
 
                     {/* Product Details */}
                     <motion.div
-                        ref={productHeaderRef}
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -343,58 +224,6 @@ export default function ProductDetails({
                                 >
                                     <Check className="w-3 h-3 mr-1" /> In Stock
                                 </Badge>
-                            </div>
-                        </div>
-
-                        {/* Price */}
-                        <div className="bg-gradient-to-r from-primary/5 to-cyan-500/5 p-5 rounded-xl border border-primary/10 relative">
-                            <div className="absolute top-0 right-0 -mt-3 -mr-2">
-                                <div className="bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold py-1 px-3 rounded-full shadow-md transform rotate-3">
-                                    SALE
-                                </div>
-                            </div>
-
-                            <div className="flex items-baseline gap-4 mb-2">
-                                <span className="text-3xl font-bold text-gray-800">
-                                    ₹
-                                    {selectedVariant
-                                        ? selectedVariant.price *
-                                          (qty / selectedVariant?.minQty)
-                                        : product.price}
-                                </span>
-
-                                <span className="text-xl text-gray-400 line-through">
-                                    ₹
-                                    {Math.round(
-                                        (selectedVariant?.price ||
-                                            product.price) * 1.1,
-                                    )}
-                                </span>
-
-                                <Badge className="bg-gradient-to-r from-primary to-cyan-500 text-white font-medium py-1.5">
-                                    {calculateDiscount()}% OFF
-                                </Badge>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <p className="text-sm text-gray-500">
-                                    Includes all taxes and duties
-                                </p>
-                                <TooltipProvider>
-                                    <Tooltip>
-                                        <TooltipTrigger className="flex items-center text-xs text-primary hover:underline">
-                                            <Info className="h-3 w-3 mr-1" />
-                                            Price guarantee
-                                        </TooltipTrigger>
-                                        <TooltipContent className="bg-white border border-primary/10 shadow-lg p-3 max-w-xs">
-                                            <p className="text-sm text-gray-700">
-                                                If you find this product at a
-                                                lower price elsewhere,
-                                                we&apos;ll match it plus give
-                                                you 5% off!
-                                            </p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
                             </div>
                         </div>
 
@@ -448,37 +277,60 @@ export default function ProductDetails({
                                 <label className="text-sm font-medium mb-2 block text-gray-700">
                                     Quantity
                                 </label>
-                                <div className="flex items-center gap-3">
-                                    <Input
-                                        type="number"
-                                        min={
-                                            selectedVariant?.minQty ||
-                                            product.minQty
-                                        }
-                                        value={qty}
-                                        step={
-                                            selectedVariant?.minQty ||
-                                            product.minQty
-                                        }
-                                        onChange={(e) =>
-                                            setQty(
-                                                Math.max(
-                                                    parseInt(e.target.value) ||
-                                                        product.minQty,
-                                                    selectedVariant?.minQty ||
-                                                        product.minQty,
-                                                ),
-                                            )
-                                        }
-                                        className="w-32 border-primary/20 focus:ring-primary/30 focus:border-primary/40 bg-white"
-                                    />
-                                    <p className="text-sm text-gray-500">
-                                        Minimum:{" "}
-                                        {selectedVariant?.minQty ||
-                                            product.minQty}{" "}
-                                        units
-                                    </p>
-                                </div>
+                                {product?.isTieredPricing ? (
+                                    // When tiered pricing
+                                    <div className="flex items-center gap-3">
+                                        <Select
+                                            value={qty?.toString() ?? ""}
+                                            onValueChange={(value) =>
+                                                setQty(Number(value))
+                                            }
+                                        >
+                                            <SelectTrigger className="w-full border-primary/20 focus:ring-primary/30 focus:border-primary/40 bg-white">
+                                                <SelectValue
+                                                    placeholder={`Select Qty`}
+                                                />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {product?.productItems?.[0]?.pricing?.map(
+                                                    (pricing) => (
+                                                        <SelectItem
+                                                            key={pricing.id}
+                                                            value={pricing?.qty?.toString()}
+                                                        >
+                                                            {pricing?.qty}
+                                                        </SelectItem>
+                                                    ),
+                                                )}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                ) : (
+                                    // When single pricing
+                                    <div className="flex items-center gap-3">
+                                        <Input
+                                            type="number"
+                                            min={
+                                                selectedVariant?.pricing?.[0]
+                                                    ?.qty
+                                            }
+                                            value={qty ?? 0}
+                                            step={
+                                                selectedVariant?.pricing?.[0]
+                                                    ?.qty
+                                            }
+                                            onChange={(e) =>
+                                                setQty(parseInt(e.target.value))
+                                            }
+                                            className="w-32 border-primary/20 focus:ring-primary/30 focus:border-primary/40 bg-white"
+                                        />
+                                        <p className="text-sm text-gray-500">
+                                            Minimum:{" "}
+                                            {selectedVariant?.pricing?.[0]?.qty}{" "}
+                                            quantity
+                                        </p>
+                                    </div>
+                                )}
                             </div>
 
                             {/* Action Buttons */}
@@ -492,7 +344,7 @@ export default function ProductDetails({
                                     <ShoppingCart className="w-4 h-4 mr-2" />
                                     Buy Now
                                 </Button>
-                                <Button
+                                {/* <Button
                                     size="lg"
                                     variant="outline"
                                     className="border-primary/20 hover:bg-primary/5 hover:text-primary transition-colors"
@@ -506,7 +358,43 @@ export default function ProductDetails({
                                     className="hidden sm:block border-primary/20 hover:bg-primary/5 hover:text-primary transition-colors"
                                 >
                                     <Share2 className="w-4 h-4" />
-                                </Button>
+                                </Button> */}
+                            </div>
+                        </div>
+
+                        {/* Price */}
+                        <div className="bg-gradient-to-r from-primary/5 to-cyan-500/5 p-5 rounded-xl border border-primary/10 relative">
+                            <div className="absolute top-0 right-0 -mt-3 -mr-2">
+                                <div className="bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold py-1 px-3 rounded-full shadow-md transform rotate-3">
+                                    SALE
+                                </div>
+                            </div>
+
+                            <div className="flex items-baseline gap-4 mb-2">
+                                <span className="text-3xl font-bold text-gray-800">
+                                    ₹
+                                    {selectedVariant &&
+                                        (product?.isTieredPricing
+                                            ? getPriceAccordingToCategoryOfCustomer(
+                                                  customerCategory,
+                                                  cityDiscount,
+                                                  findPrice()?.price as number,
+                                              ) || 0
+                                            : findPrice()?.qty &&
+                                              qty &&
+                                              getPriceAccordingToCategoryOfCustomer(
+                                                  customerCategory,
+                                                  cityDiscount,
+                                                  findPrice()?.price as number,
+                                              ) *
+                                                  (qty /
+                                                      (findPrice()?.qty ?? 0)))}
+                                </span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <p className="text-sm text-gray-500">
+                                    Includes all taxes and duties
+                                </p>
                             </div>
                         </div>
 

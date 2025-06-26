@@ -68,20 +68,20 @@ export async function GET(request: Request) {
                           isAvailable: query?.status === "true",
                       }
                     : {},
-                query?.minPrice && Number(query?.minPrice) != 0
-                    ? {
-                          price: {
-                              gte: Number(query?.minPrice),
-                          },
-                      }
-                    : {},
-                query?.maxPrice && Number(query?.maxPrice) != 0
-                    ? {
-                          price: {
-                              lte: Number(query?.maxPrice),
-                          },
-                      }
-                    : {},
+                // query?.minPrice && Number(query?.minPrice) != 0
+                //     ? {
+                //           price: {
+                //               gte: Number(query?.minPrice),
+                //           },
+                //       }
+                //     : {},
+                // query?.maxPrice && Number(query?.maxPrice) != 0
+                //     ? {
+                //           price: {
+                //               lte: Number(query?.maxPrice),
+                //           },
+                //       }
+                //     : {},
             ],
         };
 
@@ -90,7 +90,7 @@ export async function GET(request: Request) {
             Prisma.product.findMany({
                 where,
                 include: {
-                    productItems: true,
+                    productItems: { include: { pricing: true } },
                     category: true,
                 },
                 orderBy: {
@@ -185,18 +185,18 @@ export async function POST(req: Request) {
                 imageUrl: safeData.imageUrl,
                 categoryId: parseInt(safeData.categoryId, 10), // Convert to integer
                 isAvailable: safeData.isAvailable,
+                isTieredPricing: safeData.isTieredPricing,
                 sku: safeData.sku,
-                minQty: safeData.minQty,
-                ogPrice: safeData.ogPrice,
-                price: safeData.price,
                 productItems: {
                     create: safeData.productItems.map((item) => ({
                         sku: item.sku,
-                        minQty: item.minQty,
-                        ogPrice: item.ogPrice,
-                        price: item.price,
-                        imageUrl: item.imageUrl,
                         isAvailable: item.isAvailable,
+                        pricing: {
+                            create: item.pricing.map((qp) => ({
+                                qty: qp.qty,
+                                price: qp.price,
+                            })),
+                        },
                         productAttributeOptions: {
                             connect: item.productAttributeOptions.map(
                                 (option) => ({

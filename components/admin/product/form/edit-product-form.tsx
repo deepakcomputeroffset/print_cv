@@ -22,10 +22,14 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { useCallback, useEffect, useState } from "react";
-import { ProductAttributes } from "../../attribute/product-attribute";
-import { ProductVariants } from "../product-variants";
+import { ProductAttributes } from "@/components/admin/attribute/product-attribute";
+import { ProductVariants } from "@/components/admin/product/product-variants";
+import ProductQtyPrice from "@/components/admin/product/modal/product-qtyPrice-modal";
 import { useProductCategory } from "@/hooks/useProductCategory";
-import { productFormSchema } from "@/schemas/product.form.schema";
+import {
+    productFormSchema,
+    productPriceSchema,
+} from "@/schemas/product.form.schema";
 import { ProductVariantType, ServerResponseType } from "@/types/types";
 import { toast } from "sonner";
 import { maxImageSize } from "@/lib/constants";
@@ -34,6 +38,7 @@ import { Loader2, X } from "lucide-react";
 import { Dropzone } from "@/components/ui/dropzone";
 import { useProducts } from "@/hooks/use-product";
 import {
+    Pricing,
     product,
     productAttributeType,
     productAttributeValue,
@@ -45,7 +50,8 @@ import { useMount } from "@/hooks/use-mount";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-type productItemWithOptions = productItem & {
+type productItemType = productItem & {
+    pricing?: Pricing[];
     productAttributeOptions?: (productAttributeValue & {
         productAttributeType?: productAttributeType;
     })[];
@@ -55,7 +61,7 @@ export function EditProductForm({
     product,
 }: {
     product?: product & {
-        productItems?: productItemWithOptions[];
+        productItems?: productItemType[];
     };
 }) {
     const [uploading, setUploading] = useState(false);
@@ -81,7 +87,7 @@ export function EditProductForm({
         );
 
     const [variants, setVariants] = useState<
-        ProductVariantType[] | productItemWithOptions[]
+        ProductVariantType[] | productItemType[]
     >(product?.productItems ?? []);
 
     const [selectedAttributes, setSelectedAttributes] = useState<
@@ -91,7 +97,14 @@ export function EditProductForm({
     const [selectedOptions, setSelectedOptions] = useState<
         productAttributeValue[]
     >(options ?? []);
-
+    const [pricing, setPricing] = useState<
+        z.infer<typeof productPriceSchema>[]
+    >(
+        product?.productItems?.[0].pricing?.map((qtyPr) => ({
+            qty: qtyPr.qty,
+            price: qtyPr.price,
+        })) || [],
+    );
     const router = useRouter();
 
     const form = useForm<z.infer<typeof productFormSchema>>({
@@ -102,10 +115,8 @@ export function EditProductForm({
             imageUrl: product?.imageUrl || [],
             categoryId: product?.categoryId.toString(),
             productItems: product?.productItems,
-            price: product?.price,
+            isTieredPricing: product?.isTieredPricing,
             isAvailable: product?.isAvailable,
-            minQty: product?.minQty,
-            ogPrice: product?.ogPrice,
             sku: product?.sku,
         },
     });
@@ -229,16 +240,17 @@ export function EditProductForm({
         const newVariants = combinations.map((combination, index) => ({
             productAttributeOptions: combination,
             sku: `${form.getValues("sku")}-${index + 1}`,
-            minQty: form?.getValues("minQty"),
-            ogPrice: form?.getValues("ogPrice"),
-            price: form?.getValues("price"),
+            // minQty: form?.getValues("minQty"),
+            // ogPrice: form?.getValues("ogPrice"),
+            // price: form?.getValues("price"),
+            pricing: pricing,
             imageUrl: [],
-            isAvailable: false,
+            isAvailable: form?.getValues("isAvailable"),
         }));
 
         setVariants(newVariants);
         form.setValue("productItems", newVariants, { shouldDirty: true });
-    }, [selectedAttributes, selectedOptions]);
+    }, [selectedAttributes, selectedOptions, pricing]);
 
     const dirtyFields = form.formState.dirtyFields;
     const dirtyFieldsWithValues = getDirtyFieldsWithValues(
@@ -251,7 +263,7 @@ export function EditProductForm({
             if (dirtyFields?.productItems)
                 dirtyFieldsWithValues.productItems =
                     form?.getValues("productItems");
-
+            console.log(dirtyFieldsWithValues);
             await updateproduct.mutateAsync({
                 id: product?.id as number,
                 data: dirtyFieldsWithValues,
@@ -280,6 +292,23 @@ export function EditProductForm({
             generateVariants();
         }
     }, [selectedAttributes, selectedOptions]);
+
+    const addQtyPriceHandler = ({
+        qty,
+        price,
+    }: {
+        qty: number;
+        price: number;
+    }) => {
+        if (!qty || !price) return toast.error("Invalid qty and price.");
+        if (!!pricing.find((pr) => pr.qty === qty))
+            return toast.error("Already qty exists");
+        setPricing([...pricing, { qty, price }].sort((a, b) => a.qty - b.qty));
+        toast.error("added successfully.");
+    };
+    const removeQtyPriceHandler = (qty: number) => {
+        setPricing(pricing.filter((v) => v.qty !== qty));
+    };
 
     return (
         <Form {...form}>
@@ -454,6 +483,40 @@ export function EditProductForm({
                             </FormItem>
                         )}
                     />
+                    <FormField
+                        control={form.control}
+                        name="isTieredPricing"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Tiered Price</FormLabel>
+                                <Select
+                                    {...field}
+                                    onValueChange={(v) =>
+                                        field.onChange(
+                                            v === "true" ? true : false,
+                                        )
+                                    }
+                                    value={
+                                        field.value === true ? "true" : "false"
+                                    }
+                                    defaultValue="false"
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="has product tiered pricing ?" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value={"false"}>
+                                            No
+                                        </SelectItem>
+                                        <SelectItem value={"true"}>
+                                            Yes
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
                     <FormField
                         control={form.control}
@@ -471,77 +534,15 @@ export function EditProductForm({
                             </FormItem>
                         )}
                     />
-
-                    <FormField
-                        control={form.control}
-                        name="minQty"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Minimum Quantity</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="number"
-                                        placeholder="Enter Minimum Quantity"
-                                        {...field}
-                                        onChange={(e) =>
-                                            field.onChange(
-                                                parseInt(e.target.value),
-                                            )
-                                        }
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="ogPrice"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Original Price</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                        type="number"
-                                        placeholder="Enter Original Price"
-                                        onChange={(e) =>
-                                            field.onChange(
-                                                parseInt(e.target.value),
-                                            )
-                                        }
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="price"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Price</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                        type="number"
-                                        placeholder="Enter Minimum Price"
-                                        onChange={(e) =>
-                                            field.onChange(
-                                                parseInt(e.target.value),
-                                            )
-                                        }
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
                 </div>
 
+                {form.getValues("isTieredPricing") && (
+                    <ProductQtyPrice
+                        pricing={pricing}
+                        addQtyPriceHandler={addQtyPriceHandler}
+                        removeQtyPriceHandler={removeQtyPriceHandler}
+                    />
+                )}
                 <ProductAttributes
                     isLoading={isLoading}
                     productCategoryId={Number(form?.watch().categoryId)}
@@ -556,6 +557,7 @@ export function EditProductForm({
                         variants={variants as ProductVariantType[]}
                         form={form}
                         getAttributeNameById={getAttributeNameById}
+                        pricing={pricing}
                     />
                 )}
 

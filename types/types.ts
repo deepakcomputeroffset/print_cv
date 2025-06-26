@@ -16,6 +16,7 @@ import {
     task,
     customerCategory,
     staff,
+    Pricing,
 } from "@prisma/client";
 import { z, ZodIssue } from "zod";
 
@@ -52,7 +53,8 @@ export interface ProductVariantType
 
 export interface QueryParams extends z.infer<typeof QuerySchema> {}
 
-export type ProductItemTypeWithAttribute = Omit<productItem, "ogPrice"> & {
+export type ProductItemTypeWithAttribute = productItem & {
+    pricing: Pricing[];
     productAttributeOptions: (productAttributeValue & {
         productAttributeType: productAttributeType;
     })[];

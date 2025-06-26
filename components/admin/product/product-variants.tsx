@@ -8,18 +8,23 @@ import { useState } from "react";
 import { VariantForm } from "./form/variant-form";
 import { ProductVariantType } from "@/types/types";
 import { z } from "zod";
-import { productFormSchema } from "@/schemas/product.form.schema";
+import {
+    productFormSchema,
+    productPriceSchema,
+} from "@/schemas/product.form.schema";
 
 interface ProductVariantsProps {
     variants: ProductVariantType[];
     form: UseFormReturn<z.infer<typeof productFormSchema>>;
     getAttributeNameById: (id: number) => string;
+    pricing: z.infer<typeof productPriceSchema>[];
 }
 
 export function ProductVariants({
     variants,
     form,
     getAttributeNameById,
+    pricing,
 }: ProductVariantsProps) {
     const [expandedVariant, setExpandedVariant] = useState<number | null>(null);
 
@@ -67,7 +72,11 @@ export function ProductVariants({
                         </div>
 
                         {expandedVariant === index && (
-                            <VariantForm form={form} index={index} />
+                            <VariantForm
+                                form={form}
+                                index={index}
+                                pricing={pricing}
+                            />
                         )}
                     </CardContent>
                 </Card>

@@ -39,6 +39,7 @@ export async function GET(
             where: { id: parseInt(id) },
             include: {
                 category: true,
+                productItems: { include: { pricing: true } },
             },
         });
 
@@ -127,25 +128,24 @@ export async function PATCH(
         if (validatedData?.name) updateData.name = validatedData.name;
         if (validatedData?.description)
             updateData.description = validatedData.description;
-        if (validatedData?.imageUrl)
-            updateData.imageUrl = validatedData.imageUrl;
         if (validatedData?.isAvailable)
             updateData.isAvailable = validatedData.isAvailable;
         if (validatedData?.sku) updateData.sku = validatedData.sku;
-        if (validatedData.minQty) updateData.minQty = validatedData.minQty;
-        if (validatedData.price) updateData.price = validatedData.price;
-        if (validatedData.ogPrice) updateData.ogPrice = validatedData.ogPrice;
+        if (validatedData.isTieredPricing)
+            updateData.isTieredPricing = validatedData.isTieredPricing;
         if (validatedData.categoryId)
             updateData.categoryId = parseInt(validatedData.categoryId);
         if (validatedData?.productItems)
             updateData.productItems = {
                 create: validatedData.productItems.map((item) => ({
                     sku: item.sku,
-                    minQty: item.minQty,
-                    ogPrice: item.ogPrice,
-                    price: item.price,
-                    imageUrl: item.imageUrl,
                     isAvailable: item.isAvailable,
+                    pricing: {
+                        create: item.pricing.map((qtyPrice) => ({
+                            qty: qtyPrice.qty,
+                            price: qtyPrice.price,
+                        })),
+                    },
                     productAttributeOptions: {
                         connect: item.productAttributeOptions.map((option) => ({
                             id: option.id, // Connect using the existing ID
@@ -175,6 +175,7 @@ export async function PATCH(
             message: "Product updated successfully",
         });
     } catch (error) {
+        console.log(error);
         return serverResponse({
             status: 500,
             success: false,

@@ -10,7 +10,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { z } from "zod";
-import { productFormSchema } from "@/schemas/product.form.schema";
+import {
+    productFormSchema,
+    productPriceSchema,
+} from "@/schemas/product.form.schema";
 import {
     Select,
     SelectContent,
@@ -22,9 +25,10 @@ import {
 interface VariantFormProps {
     form: UseFormReturn<z.infer<typeof productFormSchema>>;
     index: number;
+    pricing: z.infer<typeof productPriceSchema>[];
 }
 
-export function VariantForm({ form, index }: VariantFormProps) {
+export function VariantForm({ form, index, pricing }: VariantFormProps) {
     return (
         <div className="grid grid-cols-2 gap-4 mt-4">
             <FormField
@@ -35,66 +39,6 @@ export function VariantForm({ form, index }: VariantFormProps) {
                         <FormLabel>Product Code</FormLabel>
                         <FormControl>
                             <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-
-            <FormField
-                control={form.control}
-                name={`productItems.${index}.minQty`}
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Minimum Quantity</FormLabel>
-                        <FormControl>
-                            <Input
-                                {...field}
-                                type="number"
-                                onChange={(e) =>
-                                    field.onChange(parseInt(e.target.value))
-                                }
-                            />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-
-            <FormField
-                control={form.control}
-                name={`productItems.${index}.ogPrice`}
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Original Price</FormLabel>
-                        <FormControl>
-                            <Input
-                                type="number"
-                                {...field}
-                                onChange={(e) =>
-                                    field.onChange(parseInt(e.target.value))
-                                }
-                            />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-
-            <FormField
-                control={form.control}
-                name={`productItems.${index}.price`}
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Price</FormLabel>
-                        <FormControl>
-                            <Input
-                                type="number"
-                                {...field}
-                                onChange={(e) =>
-                                    field.onChange(parseInt(e.target.value))
-                                }
-                            />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -127,6 +71,29 @@ export function VariantForm({ form, index }: VariantFormProps) {
                     </FormItem>
                 )}
             />
+
+            {pricing.map((price, idx) => (
+                <FormField
+                    key={price.qty}
+                    control={form.control}
+                    name={`productItems.${index}.pricing.${idx}.price`}
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Qty: {price.qty}</FormLabel>
+                            <FormControl>
+                                <Input
+                                    {...field}
+                                    type="number"
+                                    onChange={(e) =>
+                                        field.onChange(parseInt(e.target.value))
+                                    }
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            ))}
         </div>
     );
 }

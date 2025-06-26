@@ -1,6 +1,5 @@
 import ProductDetails from "@/components/product/productDetail";
 import { auth } from "@/lib/auth";
-import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
 import { Prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
@@ -30,6 +29,7 @@ export default async function ProductPage({
                             productAttributeType: true,
                         },
                     },
+                    pricing: true,
                 },
             },
         },
@@ -57,32 +57,38 @@ export default async function ProductPage({
         description: product.description,
         imageUrl: product.imageUrl,
         isAvailable: product.isAvailable,
+        isTieredPricing: product.isTieredPricing,
         sku: product.sku,
-        minQty: product.minQty,
-        price: getPriceAccordingToCategoryOfCustomer(
-            customerCategory,
-            cityDiscount,
-            product.price,
-        ),
+        // price: getPriceAccordingToCategoryOfCustomer(
+        //     customerCategory,
+        //     cityDiscount,
+        //     product.price,
+        // ),
         createdAt: product.createdAt,
         updatedAt: product.updatedAt,
         productItems: product.productItems.map((item) => ({
             id: item.id,
             productId: item.productId,
-            imageUrl: item.imageUrl,
             isAvailable: item.isAvailable,
-            minQty: item.minQty,
             productAttributeOptions: item.productAttributeOptions,
             sku: item.sku,
             createdAt: item.createdAt,
             updatedAt: item.updatedAt,
-            price: getPriceAccordingToCategoryOfCustomer(
-                customerCategory,
-                cityDiscount,
-                item.price,
-            ),
+            pricing: item.pricing,
+
+            // price: getPriceAccordingToCategoryOfCustomer(
+            //     customerCategory,
+            //     cityDiscount,
+            //     item.price,
+            // ),
         })),
     };
 
-    return <ProductDetails product={transformedProduct} />;
+    return (
+        <ProductDetails
+            product={transformedProduct}
+            cityDiscount={cityDiscount}
+            customerCategory={customerCategory}
+        />
+    );
 }

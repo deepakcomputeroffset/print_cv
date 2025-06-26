@@ -7,20 +7,26 @@ export async function placeOrder(
     productItemId: number,
     sku: string,
     qty: number,
-    minQty: number,
-    price: number,
+    basePrice: number,
     uploadType: UPLOADVIA,
     fileUrls?: string[],
 ) {
     return await Prisma.$transaction(
         async (tx) => {
-            const totalProductPrice = (price * Math.max(qty, minQty)) / minQty;
+            if (
+                !basePrice ||
+                !customerId ||
+                !productItemId ||
+                !sku ||
+                !uploadType
+            )
+                throw new Error("Bad order request!!");
 
-            const charge = totalProductPrice * IGST_TAX_IN_PERCENTAGE;
+            const charge = basePrice * IGST_TAX_IN_PERCENTAGE;
             const uploadCharge =
                 uploadType === "EMAIL" ? FILE_UPLOAD_EMAIL_CHARGE : 0;
 
-            const totalPrice = totalProductPrice + charge + uploadCharge;
+            const totalPrice = basePrice + charge + uploadCharge;
 
             // Get customer wallet
             const wallet = await tx.wallet.findFirst({
@@ -60,7 +66,7 @@ export async function placeOrder(
                     productItemId,
                     qty,
                     igst: IGST_TAX_IN_PERCENTAGE,
-                    price: totalProductPrice,
+                    price: basePrice,
                     uploadCharge: uploadCharge,
                     total: totalPrice,
                     status: STATUS.PENDING, // Default status

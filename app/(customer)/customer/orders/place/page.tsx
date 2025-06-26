@@ -1,7 +1,11 @@
 import PlaceOrder from "@/components/order/placeOrder";
 import { auth } from "@/lib/auth";
-import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
-import { product, productAttributeValue, productItem } from "@prisma/client";
+import {
+    Pricing,
+    product,
+    productAttributeValue,
+    productItem,
+} from "@prisma/client";
 import { redirect } from "next/navigation";
 import { Prisma } from "@/lib/prisma";
 import Button from "./components/button";
@@ -46,8 +50,11 @@ export default async function PlaceOrderPage({
                         categoryId: true,
                         description: true,
                         imageUrl: true,
+                        isTieredPricing: true,
+                        isAvailable: true,
                     },
                 },
+                pricing: true,
             },
         });
 
@@ -86,28 +93,33 @@ export default async function PlaceOrderPage({
             );
         }
 
-        const transformedProductItem: Omit<productItem, "ogPrice"> & {
+        const transformedProductItem: productItem & {
+            pricing: Pricing[];
             productAttributeOptions: productAttributeValue[];
             product: Pick<
                 product,
-                "categoryId" | "name" | "description" | "imageUrl"
+                | "categoryId"
+                | "name"
+                | "description"
+                | "imageUrl"
+                | "isTieredPricing"
+                | "isAvailable"
             >;
             qty: number;
         } = {
             id: productItem.id,
             productId: productItem.productId,
-            imageUrl: productItem.imageUrl,
             isAvailable: productItem.isAvailable,
-            minQty: productItem.minQty,
             productAttributeOptions: productItem.productAttributeOptions,
             sku: productItem.sku,
             createdAt: productItem.createdAt,
             updatedAt: productItem.updatedAt,
-            price: getPriceAccordingToCategoryOfCustomer(
-                customerCategory,
-                cityDiscount,
-                productItem.price,
-            ),
+            pricing: productItem.pricing,
+            // price: getPriceAccordingToCategoryOfCustomer(
+            //     customerCategory,
+            //     cityDiscount,
+            //     productItem.price,
+            // ),
             product: productItem.product,
             qty: parseInt(params.qty),
         };
@@ -120,7 +132,11 @@ export default async function PlaceOrderPage({
                         <span className="text-blue-600">Premium</span> Order
                     </h1>
                     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-2 rounded-2xl shadow-lg">
-                        <PlaceOrder product={transformedProductItem} />
+                        <PlaceOrder
+                            product={transformedProductItem}
+                            cityDiscount={cityDiscount}
+                            customerCategory={customerCategory}
+                        />
                     </div>
                 </div>
             </div>

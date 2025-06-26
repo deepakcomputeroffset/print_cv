@@ -1,13 +1,16 @@
 import { z } from "zod";
 
-// Define the schema for product items
-const productItemSchema = z.object({
-    sku: z.string(),
-    minQty: z.number().min(1),
-    ogPrice: z.number().min(0),
+export const productPriceSchema = z.object({
+    qty: z.number().min(0),
     price: z.number().min(0),
+});
+
+// Define the schema for product items
+export const productItemSchema = z.object({
+    sku: z.string(),
     imageUrl: z.array(z.string()),
     isAvailable: z.boolean().default(true),
+    pricing: z.array(productPriceSchema),
     productAttributeOptions: z.array(
         z.object({
             id: z.number(),
@@ -27,9 +30,7 @@ export const productFormSchema = z.object({
     categoryId: z.string().refine((v) => v !== "0", "Select Category"),
     imageUrl: z.array(z.string()),
     sku: z.string(),
-    minQty: z.number().min(1),
-    ogPrice: z.number().min(0),
-    price: z.number().min(0),
+    isTieredPricing: z.boolean().default(true),
     productItems: z.array(productItemSchema), // Nested product items
 });
 

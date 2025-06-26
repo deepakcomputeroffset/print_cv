@@ -154,9 +154,17 @@ export async function POST(request: Request) {
             where: {
                 id: productItemId,
             },
+            include: {
+                pricing: true,
+                product: {
+                    select: {
+                        isTieredPricing: true,
+                    },
+                },
+            },
         });
 
-        if (!productItem) {
+        if (!productItem || !productItem.isAvailable) {
             return serverResponse({
                 status: 404,
                 success: false,
@@ -177,11 +185,26 @@ export async function POST(request: Request) {
                     .customerCategoryId as number,
             },
         });
-        const price = getPriceAccordingToCategoryOfCustomer(
-            session.user.customer.customerCategory as customerCategory,
-            cityDiscount,
-            productItem.price,
-        );
+        const findPrice = () => {
+            if (productItem?.product?.isTieredPricing)
+                return productItem?.pricing?.find((v) => v.qty === qty);
+            return productItem?.pricing?.[0];
+        };
+
+        const basePrice = productItem?.product?.isTieredPricing
+            ? getPriceAccordingToCategoryOfCustomer(
+                  session.user.customer.customerCategory as customerCategory,
+                  cityDiscount,
+                  findPrice()?.price as number,
+              ) || 0
+            : findPrice()?.qty &&
+              qty &&
+              getPriceAccordingToCategoryOfCustomer(
+                  session.user.customer.customerCategory as customerCategory,
+                  cityDiscount,
+                  findPrice()?.price as number,
+              ) *
+                  (qty / (findPrice()?.qty ?? 0));
 
         let fileUrls: string[] | undefined = undefined;
         if (uploadType === "UPLOAD") {
@@ -215,13 +238,19 @@ export async function POST(request: Request) {
         }
 
         try {
+            if (!basePrice)
+                return serverResponse({
+                    status: 500,
+                    success: false,
+                    message: "Order not completed due to some error.",
+                });
+
             const { order } = await placeOrder(
                 session?.user?.customer?.id,
                 productItem?.id,
                 productItem.sku,
-                Math.max(qty, productItem?.minQty),
-                productItem?.minQty,
-                price,
+                qty,
+                basePrice,
                 uploadType === "UPLOAD" ? "UPLOAD" : "EMAIL",
                 fileUrls,
             );

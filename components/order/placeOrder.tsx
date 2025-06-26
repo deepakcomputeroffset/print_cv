@@ -1,11 +1,14 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
+    cityDiscount,
+    customerCategory,
+    Pricing,
     product,
     productAttributeValue,
     productItem,
@@ -26,10 +29,17 @@ import {
     Truck,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { AxiosError } from "axios";
-import { Label } from "../ui/label";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Separator } from "../ui/separator";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Separator } from "@/components/ui/separator";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import {
@@ -37,18 +47,29 @@ import {
     IGST_TAX_IN_PERCENTAGE,
 } from "@/lib/constants";
 import Image from "next/image";
+import { getPriceAccordingToCategoryOfCustomer } from "@/lib/getPriceOfProductItem";
 
 export default function PlaceOrder({
     product,
+    cityDiscount,
+    customerCategory,
 }: {
-    product: Omit<productItem, "ogPrice"> & {
+    product: productItem & {
+        pricing: Pricing[];
         productAttributeOptions: productAttributeValue[];
         product: Pick<
             product,
-            "categoryId" | "name" | "description" | "imageUrl"
+            | "categoryId"
+            | "name"
+            | "description"
+            | "imageUrl"
+            | "isTieredPricing"
+            | "isAvailable"
         >;
         qty: number;
     };
+    cityDiscount: cityDiscount | null;
+    customerCategory: customerCategory;
 }) {
     const [uploadType, setUploadType] = useState<UPLOADVIA>("UPLOAD");
     const [qty, setQty] = useState(product.qty);
@@ -57,16 +78,42 @@ export default function PlaceOrder({
     const { refetch } = useWallet();
     const router = useRouter();
 
+    const findPrice = useCallback(() => {
+        const isTieredPricing = product?.product?.isTieredPricing;
+        if (isTieredPricing)
+            return product?.pricing?.find((v) => v.qty === qty);
+        return product?.pricing?.[0];
+    }, [product, qty]);
+
     // Price calculations with taxes
-    const basePrice = product.price * (qty / product?.minQty);
+    const basePrice = product?.product?.isTieredPricing
+        ? getPriceAccordingToCategoryOfCustomer(
+              customerCategory,
+              cityDiscount,
+              findPrice()?.price as number,
+          ) || 0
+        : findPrice()?.qty &&
+          qty &&
+          getPriceAccordingToCategoryOfCustomer(
+              customerCategory,
+              cityDiscount,
+              findPrice()?.price as number,
+          ) *
+              (qty / (findPrice()?.qty ?? 0));
+    // const basePrice =
+    //     product.pricing?.[0]?.price * (qty / product.pricing?.[0]?.qty);
     const emailUploadCharge =
         uploadType === "EMAIL" ? FILE_UPLOAD_EMAIL_CHARGE : 0;
-    const igstAmount = basePrice * IGST_TAX_IN_PERCENTAGE;
-    const totalPrice = basePrice + emailUploadCharge + igstAmount;
+    const igstAmount = (basePrice ?? 0) * IGST_TAX_IN_PERCENTAGE;
+    const totalPrice = (basePrice ?? 0) + emailUploadCharge + igstAmount;
 
-    const handleIncrease = () => setQty(qty + product.minQty);
+    const handleIncrease = () => {
+        if (!product.product.isTieredPricing)
+            setQty(qty + product.pricing?.[0]?.qty);
+    };
     const handleDecrease = () => {
-        if (qty > product.minQty) setQty(qty - product.minQty);
+        if (!product.product.isTieredPricing && qty > product.pricing?.[0]?.qty)
+            setQty(qty - product.pricing?.[0]?.qty);
     };
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -282,37 +329,76 @@ export default function PlaceOrder({
                                     <div className="h-1 w-5 mr-2 bg-gradient-to-r from-primary to-cyan-400 rounded-full"></div>
                                     Quantity
                                 </Label>
-                                <div className="flex items-center gap-4">
-                                    <Button
-                                        onClick={handleDecrease}
-                                        className={cn(
-                                            "h-12 w-12 rounded-xl border-2",
-                                            qty <= product.minQty
-                                                ? "border-gray-200 text-gray-400"
-                                                : "border-primary/20 hover:border-primary text-primary bg-primary/5 hover:bg-primary/10",
-                                        )}
-                                        variant="outline"
-                                        disabled={
-                                            isLoading || qty <= product.minQty
-                                        }
-                                    >
-                                        -
-                                    </Button>
-                                    <span className="text-2xl font-bold text-gray-800 min-w-[3rem] text-center">
-                                        {qty}
-                                    </span>
-                                    <Button
-                                        onClick={handleIncrease}
-                                        className="h-12 w-12 rounded-xl border-2 border-primary/20 hover:border-primary text-primary bg-primary/5 hover:bg-primary/10"
-                                        variant="outline"
-                                        disabled={isLoading}
-                                    >
-                                        +
-                                    </Button>
-                                    <span className="text-sm text-gray-500 ml-2">
-                                        Min: {product.minQty} units
-                                    </span>
-                                </div>
+                                {product?.product?.isTieredPricing ? (
+                                    // When tiered pricing
+                                    <div className="flex items-center gap-3">
+                                        <Select
+                                            value={qty?.toString() ?? ""}
+                                            onValueChange={(value) =>
+                                                setQty(Number(value))
+                                            }
+                                        >
+                                            <SelectTrigger className="w-full border-primary/20 focus:ring-primary/30 focus:border-primary/40 bg-white">
+                                                <SelectValue
+                                                    placeholder={`Select Qty`}
+                                                />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {product?.pricing?.map(
+                                                    (pricing) => (
+                                                        <SelectItem
+                                                            key={pricing.id}
+                                                            value={pricing?.qty?.toString()}
+                                                        >
+                                                            {pricing?.qty}
+                                                        </SelectItem>
+                                                    ),
+                                                )}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center gap-4">
+                                        <Button
+                                            onClick={handleDecrease}
+                                            className={cn(
+                                                "h-12 w-12 rounded-xl border-2",
+                                                qty <= product.pricing?.[0]?.qty
+                                                    ? "border-gray-200 text-gray-400"
+                                                    : "border-primary/20 hover:border-primary text-primary bg-primary/5 hover:bg-primary/10",
+                                            )}
+                                            variant="outline"
+                                            disabled={
+                                                isLoading ||
+                                                qty <=
+                                                    product.pricing?.[0]?.qty ||
+                                                product?.product
+                                                    ?.isTieredPricing
+                                            }
+                                        >
+                                            -
+                                        </Button>
+                                        <span className="text-2xl font-bold text-gray-800 min-w-[3rem] text-center">
+                                            {qty}
+                                        </span>
+                                        <Button
+                                            onClick={handleIncrease}
+                                            className="h-12 w-12 rounded-xl border-2 border-primary/20 hover:border-primary text-primary bg-primary/5 hover:bg-primary/10"
+                                            variant="outline"
+                                            disabled={
+                                                isLoading ||
+                                                product?.product
+                                                    ?.isTieredPricing
+                                            }
+                                        >
+                                            +
+                                        </Button>
+                                        <span className="text-sm text-gray-500 ml-2">
+                                            Min: {product.pricing?.[0]?.qty}{" "}
+                                            units
+                                        </span>
+                                    </div>
+                                )}
                             </motion.div>
 
                             {/* Upload Method */}
@@ -460,7 +546,7 @@ export default function PlaceOrder({
                                     <span>Base Price</span>
                                     <span className="flex items-center">
                                         <IndianRupee className="w-3.5 h-3.5 mr-1" />
-                                        {basePrice.toFixed(2)}
+                                        {basePrice?.toFixed(2)}
                                     </span>
                                 </div>
                                 <div className="flex justify-between text-gray-600">
