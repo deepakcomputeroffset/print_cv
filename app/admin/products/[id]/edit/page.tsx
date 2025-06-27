@@ -21,7 +21,9 @@ export default async function EditProductPage({
                                 productAttributeType: true,
                             },
                         },
-                        pricing: true,
+                        pricing: {
+                            orderBy: { qty: "asc" },
+                        },
                     },
                 },
             },

@@ -79,7 +79,12 @@ export function VariantForm({ form, index, pricing }: VariantFormProps) {
                     name={`productItems.${index}.pricing.${idx}.price`}
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Qty: {price.qty}</FormLabel>
+                            <FormLabel>
+                                Qty:{" "}
+                                {form.getValues(
+                                    `productItems.${index}.pricing.${idx}.qty`,
+                                )}
+                            </FormLabel>
                             <FormControl>
                                 <Input
                                     {...field}
