@@ -38,7 +38,7 @@ export const CCard = ({
             >
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-cyan-400 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                <div className="relative h-32 sm:h-40 md:h-44 w-full overflow-hidden">
+                <div className="relative h-28 sm:h-40 md:h-44 w-full overflow-hidden">
                     {/* Premium gradient overlay for depth */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/5 z-10 opacity-70 group-hover:opacity-40 transition-opacity duration-300"></div>
                     <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-black/10 z-10 opacity-80 group-hover:opacity-40 transition-opacity duration-300"></div>

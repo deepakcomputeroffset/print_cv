@@ -9,6 +9,8 @@ import FaqSection from "@/components/landingPage/faqSection";
 import ServiceCategories from "@/components/landingPage/serviceCategories";
 import { carouselSlides, Product_Categories } from "@/lib/home.assets";
 import { Suspense } from "react";
+import { cn } from "@/lib/utils";
+import { sourceSerif4 } from "@/lib/font";
 
 // async function getCategories() {
 //     const categories = await Prisma?.productCategory.findMany({
@@ -30,7 +32,9 @@ import { Suspense } from "react";
 
 export default async function HomePage() {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div
+            className={cn("flex flex-col min-h-screen", sourceSerif4.className)}
+        >
             {/* Hero Carousel Section */}
             <HomeCarousel slides={carouselSlides} />
 
@@ -39,12 +43,9 @@ export default async function HomePage() {
                 {/* Introduction Section */}
                 {/* <HeroSection /> */}
 
-                {/* Visual Service Categories */}
-                <ServiceCategories />
-
                 {/* Product Categories */}
                 <Suspense>
-                    <section className="py-16 bg-gradient-to-b from-background to-blue-50/30">
+                    <section className="pt-16 bg-gradient-to-b from-background to-blue-50/30">
                         <div className="container px-4 mx-auto">
                             {Product_Categories &&
                                 Product_Categories?.length > 0 && (
@@ -58,6 +59,9 @@ export default async function HomePage() {
 
                 {/* Stats Highlights */}
                 <StatsSection />
+
+                {/* Visual Service Categories */}
+                <ServiceCategories />
 
                 {/* Detailed Services */}
                 <ServicesSection />

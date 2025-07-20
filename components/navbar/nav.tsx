@@ -33,40 +33,29 @@ const CUSTOMER_LINKS = [
         name: "Orders",
         url: "/customer/orders?search=&sortorder=desc&perpage=100",
     },
-    {
-        name: "Wallet",
-        url: "/customer/wallet",
-    },
+    { name: "Wallet", url: "/customer/wallet" },
 ];
 
-const Wallet = dynamic(() => import("@/components/wallet"), {
-    ssr: false,
-});
+const Wallet = dynamic(() => import("@/components/wallet"), { ssr: false });
 
 export default function NavbarLinks({ session }: { session: Session | null }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [menuScope, menuAnimate] = useAnimate();
     const pathname = usePathname();
 
-    // Mobile menu animation
     const toggleMobileMenu = () => {
         if (isMobileMenuOpen) {
-            // Closing animation
             if (menuScope.current) {
                 menuAnimate(
                     menuScope.current,
                     { opacity: 0, x: 20 },
                     { duration: 0.3, ease: "easeOut" },
-                ).then(() => {
-                    setIsMobileMenuOpen(false);
-                });
+                ).then(() => setIsMobileMenuOpen(false));
             } else {
                 setIsMobileMenuOpen(false);
             }
         } else {
-            // Opening animation
             setIsMobileMenuOpen(true);
-            // We need to wait for the next render cycle when the menu is in the DOM
             setTimeout(() => {
                 if (menuScope.current) {
                     menuAnimate(
@@ -79,54 +68,73 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
         }
     };
 
-    // Check if a link is active
-    const isActiveLink = (url: string) => {
-        if (url === "/") {
-            return pathname === "/";
-        }
-        return pathname.startsWith(url);
-    };
+    const isActiveLink = (url: string) =>
+        url === "/" ? pathname === "/" : pathname.startsWith(url);
 
     return (
         <nav
             className={cn(
                 "transition-all duration-300 font-medium w-full z-50",
                 sourceSerif4.className,
-                "",
             )}
         >
-            <div className="w-full relative px-4 md:px-8 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 shadow-sm border-b border-primary/5">
-                <div className="w-full relative container mx-auto flex items-center justify-between py-3">
-                    <div className="flex items-center space-x-4 lg:space-x-10">
+            <div className="w-full relative px-3 md:px-6 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 shadow-sm border-b border-primary/5">
+                <div className="w-full relative container mx-auto flex items-center justify-between py-2">
+                    {/* Logo Section */}
+                    <div className="flex items-center space-x-3 lg:space-x-6">
                         <Link
                             href="/"
-                            className="flex-shrink-0 flex items-center space-x-3 group"
+                            className="flex-shrink-0 flex items-center space-x-2 group"
                         >
-                            <div className="relative overflow-hidden rounded-lg shadow-md bg-gradient-to-br from-primary/80 to-cyan-600 h-10 w-10 p-1 transition-all group-hover:scale-105">
+                            <div className="relative overflow-hidden rounded-lg shadow-md bg-gradient-to-br from-primary/80 to-cyan-600 h-8 w-8 p-1 transition-all group-hover:scale-105">
                                 <Image
                                     src="/logo.avif"
-                                    width={32}
-                                    height={32}
+                                    width={24}
+                                    height={24}
                                     alt="Printify Logo"
                                     className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-300"
                                 />
                             </div>
-
                             <span
                                 suppressHydrationWarning
-                                className="font-bold text-2xl tracking-tight group-hover:text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500 transition-all duration-300"
+                                className="font-bold text-xl tracking-tight group-hover:text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500 transition-all duration-300"
                             >
                                 Printify
                             </span>
                         </Link>
 
+                        {/* Desktop Navigation */}
                         <div className="hidden lg:flex items-center space-x-1">
                             {NAV_LINKS.map((link) => (
-                                <div key={link.name} className="px-2">
+                                <Link
+                                    key={link.name}
+                                    href={link.url}
+                                    className={cn(
+                                        "relative group py-1.5 px-2 rounded-md text-sm transition-all duration-300 flex items-center",
+                                        isActiveLink(link.url)
+                                            ? "text-primary font-medium"
+                                            : "text-foreground/80 hover:text-primary",
+                                    )}
+                                >
+                                    {link.name}
+                                    <span
+                                        className={cn(
+                                            "absolute bottom-0 left-2 right-2 h-0.5 rounded-full transition-all duration-300",
+                                            isActiveLink(link.url)
+                                                ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-16px)]"
+                                                : "bg-transparent w-0 group-hover:w-[calc(100%-16px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
+                                        )}
+                                    />
+                                </Link>
+                            ))}
+
+                            {session?.user?.userType === "customer" &&
+                                CUSTOMER_LINKS.map((link) => (
                                     <Link
+                                        key={link.name}
                                         href={link.url}
                                         className={cn(
-                                            "relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center",
+                                            "relative group py-1.5 px-2 rounded-md text-sm transition-all duration-300 flex items-center",
                                             isActiveLink(link.url)
                                                 ? "text-primary font-medium"
                                                 : "text-foreground/80 hover:text-primary",
@@ -135,145 +143,109 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                         {link.name}
                                         <span
                                             className={cn(
-                                                "absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300",
+                                                "absolute bottom-0 left-2 right-2 h-0.5 rounded-full transition-all duration-300",
                                                 isActiveLink(link.url)
-                                                    ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-24px)]"
-                                                    : "bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
+                                                    ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-16px)]"
+                                                    : "bg-transparent w-0 group-hover:w-[calc(100%-16px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
                                             )}
                                         />
                                     </Link>
-                                </div>
-                            ))}
-
-                            {!!session &&
-                                session?.user?.userType === "customer" &&
-                                CUSTOMER_LINKS.map((link) => (
-                                    <div key={link.name} className="px-2">
-                                        <Link
-                                            href={link.url}
-                                            className={cn(
-                                                "relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center",
-                                                isActiveLink(link.url)
-                                                    ? "text-primary font-medium"
-                                                    : "text-foreground/80 hover:text-primary",
-                                            )}
-                                        >
-                                            {link.name}
-                                            <span
-                                                className={cn(
-                                                    "absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300",
-                                                    isActiveLink(link.url)
-                                                        ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-24px)]"
-                                                        : "bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
-                                                )}
-                                            />
-                                        </Link>
-                                    </div>
                                 ))}
 
                             {!session && (
-                                <div className="px-2">
-                                    <Link
-                                        href="/login"
-                                        className="relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center text-foreground/80 hover:text-primary"
-                                    >
-                                        Login
-                                        <span className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300 bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60" />
-                                    </Link>
-                                </div>
+                                <Link
+                                    href="/login"
+                                    className="relative group py-1.5 px-2 rounded-md text-sm transition-all duration-300 flex items-center text-foreground/80 hover:text-primary"
+                                >
+                                    Login
+                                    <span className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full transition-all duration-300 bg-transparent w-0 group-hover:w-[calc(100%-16px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60" />
+                                </Link>
                             )}
                         </div>
                     </div>
 
-                    <div className="hidden lg:flex items-center justify-center gap-4">
-                        {/* Get Started */}
+                    {/* Right Section */}
+                    <div className="hidden lg:flex items-center justify-center gap-3">
                         {!session && (
-                            <div className="box-border justify-end items-center">
-                                <Link href="/register">
-                                    <Button className="bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 transition-all text-white shadow-sm hover:shadow">
-                                        Get Started
-                                    </Button>
-                                </Link>
-                            </div>
-                        )}
-
-                        {/* Customer Dashboard */}
-                        {!!session &&
-                            session?.user?.userType === "customer" && (
-                                <div>
-                                    <Link
-                                        href="/customer"
-                                        className={cn(
-                                            "relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center",
-                                            pathname.startsWith("/customer")
-                                                ? "text-primary font-medium"
-                                                : "text-foreground/80 hover:text-primary",
-                                        )}
-                                    >
-                                        Dashboard
-                                        <span
-                                            className={cn(
-                                                "absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300",
-                                                pathname.startsWith("/customer")
-                                                    ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-24px)]"
-                                                    : "bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
-                                            )}
-                                        />
-                                    </Link>
-                                </div>
-                            )}
-
-                        {/* Staff Dashboard */}
-                        {!!session && session?.user?.userType === "staff" && (
-                            <div>
-                                <Link
-                                    href="/admin"
-                                    className={cn(
-                                        "relative group py-2 px-3 rounded-md text-base transition-all duration-300 flex items-center",
-                                        pathname.startsWith("/admin")
-                                            ? "text-primary font-medium"
-                                            : "text-foreground/80 hover:text-primary",
-                                    )}
+                            <Link href="/register">
+                                <Button
+                                    size="sm"
+                                    className="bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 transition-all text-white shadow-sm hover:shadow text-sm px-4 py-1.5"
                                 >
-                                    Dashboard
-                                    <span
-                                        className={cn(
-                                            "absolute bottom-0 left-3 right-3 h-0.5 rounded-full transition-all duration-300",
-                                            pathname.startsWith("/admin")
-                                                ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-24px)]"
-                                                : "bg-transparent w-0 group-hover:w-[calc(100%-24px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
-                                        )}
-                                    />
-                                </Link>
-                            </div>
+                                    Get Started
+                                </Button>
+                            </Link>
                         )}
 
-                        {/* User Dropdown */}
-                        {!!session && (
+                        {/* Dashboard Links */}
+                        {session?.user?.userType === "customer" && (
+                            <Link
+                                href="/customer"
+                                className={cn(
+                                    "relative group py-1.5 px-2 rounded-md text-sm transition-all duration-300 flex items-center",
+                                    pathname.startsWith("/customer")
+                                        ? "text-primary font-medium"
+                                        : "text-foreground/80 hover:text-primary",
+                                )}
+                            >
+                                Dashboard
+                                <span
+                                    className={cn(
+                                        "absolute bottom-0 left-2 right-2 h-0.5 rounded-full transition-all duration-300",
+                                        pathname.startsWith("/customer")
+                                            ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-16px)]"
+                                            : "bg-transparent w-0 group-hover:w-[calc(100%-16px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
+                                    )}
+                                />
+                            </Link>
+                        )}
+
+                        {session?.user?.userType === "staff" && (
+                            <Link
+                                href="/admin"
+                                className={cn(
+                                    "relative group py-1.5 px-2 rounded-md text-sm transition-all duration-300 flex items-center",
+                                    pathname.startsWith("/admin")
+                                        ? "text-primary font-medium"
+                                        : "text-foreground/80 hover:text-primary",
+                                )}
+                            >
+                                Dashboard
+                                <span
+                                    className={cn(
+                                        "absolute bottom-0 left-2 right-2 h-0.5 rounded-full transition-all duration-300",
+                                        pathname.startsWith("/admin")
+                                            ? "bg-gradient-to-r from-primary to-cyan-500 w-[calc(100%-16px)]"
+                                            : "bg-transparent w-0 group-hover:w-[calc(100%-16px)] group-hover:bg-gradient-to-r group-hover:from-primary/60 group-hover:to-cyan-500/60",
+                                    )}
+                                />
+                            </Link>
+                        )}
+
+                        {/* User Avatar */}
+                        {session && (
                             <DropdownMenu modal={false}>
                                 <DropdownMenuTrigger asChild>
                                     <Button
                                         variant="ghost"
-                                        className="rounded-full p-0 h-10 w-10 hover:bg-primary/10"
+                                        className="rounded-full p-0 h-8 w-8 hover:bg-primary/10"
                                     >
-                                        <Avatar className="h-8 w-8 rounded-full cursor-pointer border-2 border-primary/20 hover:border-primary/50 transition-all">
+                                        <Avatar className="h-7 w-7 rounded-full cursor-pointer border-2 border-primary/20 hover:border-primary/50 transition-all">
                                             <AvatarImage
                                                 alt={
                                                     session?.user.customer
-                                                        ? session?.user
-                                                              ?.customer?.name
-                                                        : session?.user?.staff
-                                                              ?.name
+                                                        ?.name ||
+                                                    session?.user?.staff?.name
                                                 }
                                             />
-                                            <AvatarFallback className="text-black bg-gradient-to-br from-primary/20 to-cyan-600/20 rounded-full">
-                                                {session?.user.customer
-                                                    ? session?.user?.customer?.name
-                                                          .substring(0, 1)
-                                                          .toUpperCase()
-                                                    : session?.user?.staff?.name
-                                                          .substring(0, 1)
-                                                          .toUpperCase()}
+                                            <AvatarFallback className="text-xs bg-gradient-to-br from-primary/20 to-cyan-600/20 rounded-full">
+                                                {(
+                                                    session?.user.customer
+                                                        ?.name ||
+                                                    session?.user?.staff?.name
+                                                )
+                                                    ?.substring(0, 1)
+                                                    .toUpperCase()}
                                             </AvatarFallback>
                                         </Avatar>
                                     </Button>
@@ -283,33 +255,31 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                         )}
                     </div>
 
-                    {/* Mobile Menu Button */}
+                    {/* Mobile Menu */}
                     <div className="lg:hidden flex items-center">
-                        {!!session && (
+                        {session && (
                             <DropdownMenu modal={false}>
                                 <DropdownMenuTrigger asChild>
                                     <Button
                                         variant="ghost"
-                                        className="rounded-full p-0 h-10 w-10 mr-2 hover:bg-primary/10"
+                                        className="rounded-full p-0 h-8 w-8 mr-2 hover:bg-primary/10"
                                     >
-                                        <Avatar className="h-8 w-8 rounded-full cursor-pointer border-2 border-primary/20">
+                                        <Avatar className="h-7 w-7 rounded-full cursor-pointer border-2 border-primary/20">
                                             <AvatarImage
                                                 alt={
                                                     session?.user.customer
-                                                        ? session?.user
-                                                              ?.customer?.name
-                                                        : session?.user?.staff
-                                                              ?.name
+                                                        ?.name ||
+                                                    session?.user?.staff?.name
                                                 }
                                             />
-                                            <AvatarFallback className="text-black bg-gradient-to-br from-primary/20 to-cyan-600/20 rounded-full">
-                                                {session?.user.customer
-                                                    ? session?.user?.customer?.name
-                                                          .substring(0, 1)
-                                                          .toUpperCase()
-                                                    : session?.user?.staff?.name
-                                                          .substring(0, 1)
-                                                          .toUpperCase()}
+                                            <AvatarFallback className="text-xs bg-gradient-to-br from-primary/20 to-cyan-600/20 rounded-full">
+                                                {(
+                                                    session?.user.customer
+                                                        ?.name ||
+                                                    session?.user?.staff?.name
+                                                )
+                                                    ?.substring(0, 1)
+                                                    .toUpperCase()}
                                             </AvatarFallback>
                                         </Avatar>
                                     </Button>
@@ -322,34 +292,34 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                             variant="ghost"
                             size="icon"
                             onClick={toggleMobileMenu}
-                            className="text-foreground"
+                            className="text-foreground h-8 w-8"
                         >
                             {isMobileMenuOpen ? (
-                                <X size={24} />
+                                <X size={20} />
                             ) : (
-                                <Menu size={24} />
+                                <Menu size={20} />
                             )}
                         </Button>
                     </div>
                 </div>
             </div>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu Overlay */}
             {isMobileMenuOpen && (
                 <div
                     ref={menuScope}
-                    className="lg:hidden fixed inset-0 top-[73px] z-50 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 shadow-sm border-b border-primary/5shadow-lg"
+                    className="lg:hidden fixed inset-0 top-[57px] z-50 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 shadow-sm border-b border-primary/5"
                     style={{ opacity: 0, transform: "translateX(20px)" }}
                 >
-                    <div className="p-6 flex flex-col h-full">
-                        <div className="space-y-2 mb-6">
+                    <div className="p-4 flex flex-col h-full">
+                        <div className="space-y-1 mb-4">
                             {NAV_LINKS?.map((link) => (
                                 <Link
                                     key={link?.name}
                                     href={link?.url}
                                     onClick={toggleMobileMenu}
                                     className={cn(
-                                        "block w-full p-3 rounded-lg text-lg transition-all",
+                                        "block w-full p-2.5 rounded-lg text-base transition-all",
                                         isActiveLink(link?.url)
                                             ? "bg-gradient-to-r from-primary/10 to-cyan-500/10 border border-primary/10 text-primary font-medium"
                                             : "text-foreground",
@@ -359,15 +329,14 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                 </Link>
                             ))}
 
-                            {!!session &&
-                                session?.user?.userType === "customer" &&
+                            {session?.user?.userType === "customer" &&
                                 CUSTOMER_LINKS.map((link) => (
                                     <Link
                                         key={link?.name}
                                         href={link?.url}
                                         onClick={toggleMobileMenu}
                                         className={cn(
-                                            "block w-full p-3 rounded-lg text-lg transition-all",
+                                            "block w-full p-2.5 rounded-lg text-base transition-all",
                                             isActiveLink(link?.url)
                                                 ? "bg-gradient-to-r from-primary/10 to-cyan-500/10 border border-primary/10 text-primary font-medium"
                                                 : "text-foreground",
@@ -381,55 +350,50 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                 <Link
                                     href="/login"
                                     onClick={toggleMobileMenu}
-                                    className="block w-full p-3 rounded-lg text-lg transition-all text-foreground"
+                                    className="block w-full p-2.5 rounded-lg text-base transition-all text-foreground"
                                 >
                                     Login
                                 </Link>
                             )}
 
-                            {/* Customer Dashboard */}
-                            {!!session &&
-                                session?.user?.userType === "customer" && (
-                                    <Link
-                                        href="/customer"
-                                        onClick={toggleMobileMenu}
-                                        className={cn(
-                                            "block w-full p-3 rounded-lg text-lg transition-all",
-                                            pathname.startsWith("/customer")
-                                                ? "bg-gradient-to-r from-primary/10 to-cyan-500/10 border border-primary/10 text-primary font-medium"
-                                                : "text-foreground",
-                                        )}
-                                    >
-                                        Dashboard
-                                    </Link>
-                                )}
+                            {session?.user?.userType === "customer" && (
+                                <Link
+                                    href="/customer"
+                                    onClick={toggleMobileMenu}
+                                    className={cn(
+                                        "block w-full p-2.5 rounded-lg text-base transition-all",
+                                        pathname.startsWith("/customer")
+                                            ? "bg-gradient-to-r from-primary/10 to-cyan-500/10 border border-primary/10 text-primary font-medium"
+                                            : "text-foreground",
+                                    )}
+                                >
+                                    Dashboard
+                                </Link>
+                            )}
 
-                            {/* Staff Dashboard */}
-                            {!!session &&
-                                session?.user?.userType === "staff" && (
-                                    <Link
-                                        href="/admin"
-                                        onClick={toggleMobileMenu}
-                                        className={cn(
-                                            "block w-full p-3 rounded-lg text-lg transition-all",
-                                            pathname.startsWith("/admin")
-                                                ? "bg-gradient-to-r from-primary/10 to-cyan-500/10 border border-primary/10 text-primary font-medium"
-                                                : "text-foreground",
-                                        )}
-                                    >
-                                        Dashboard
-                                    </Link>
-                                )}
+                            {session?.user?.userType === "staff" && (
+                                <Link
+                                    href="/admin"
+                                    onClick={toggleMobileMenu}
+                                    className={cn(
+                                        "block w-full p-2.5 rounded-lg text-base transition-all",
+                                        pathname.startsWith("/admin")
+                                            ? "bg-gradient-to-r from-primary/10 to-cyan-500/10 border border-primary/10 text-primary font-medium"
+                                            : "text-foreground",
+                                    )}
+                                >
+                                    Dashboard
+                                </Link>
+                            )}
                         </div>
 
-                        {/* Get Started */}
                         {!session && (
-                            <div className="mt-4">
+                            <div className="mt-3">
                                 <Link
                                     href="/register"
                                     onClick={toggleMobileMenu}
                                 >
-                                    <Button className="w-full bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 py-6 text-lg">
+                                    <Button className="w-full bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 py-5 text-base">
                                         Get Started
                                     </Button>
                                 </Link>
@@ -437,11 +401,11 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                         )}
 
                         <div className="mt-auto">
-                            <div className="p-4 rounded-lg bg-gradient-to-r from-primary/5 to-cyan-500/5 border border-primary/10">
-                                <p className="text-sm text-muted-foreground mb-2">
+                            <div className="p-3 rounded-lg bg-gradient-to-r from-primary/5 to-cyan-500/5 border border-primary/10">
+                                <p className="text-xs text-muted-foreground mb-1.5">
                                     Need assistance with your printing needs?
                                 </p>
-                                <p className="text-sm font-medium">
+                                <p className="text-xs font-medium">
                                     Contact us at{" "}
                                     <a
                                         href="mailto:support@printify.com"
@@ -459,109 +423,104 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
     );
 }
 
-// User dropdown content extracted to a separate component for reuse
 function UserDropdownContent({ session }: { session: Session }) {
     return (
         <DropdownMenuContent
-            className="min-w-56 rounded-lg mt-2 border-primary/10 shadow-md"
+            className="min-w-52 rounded-lg mt-2 border-primary/10 shadow-md"
             side="bottom"
             align="end"
             sideOffset={4}
         >
             <DropdownMenuLabel className="p-0 font-normal">
-                <div className="flex items-center gap-3 p-3 text-left border-b border-primary/5 pb-3">
-                    <Avatar className="h-10 w-10 rounded-lg shadow-sm">
+                <div className="flex items-center gap-2.5 p-2.5 text-left border-b border-primary/5 pb-2.5">
+                    <Avatar className="h-8 w-8 rounded-lg shadow-sm">
                         <AvatarImage
                             alt={
-                                session?.user.customer
-                                    ? session?.user?.customer?.name
-                                    : session?.user?.staff?.name
+                                session?.user.customer?.name ||
+                                session?.user?.staff?.name
                             }
                         />
-                        <AvatarFallback className="rounded-lg bg-gradient-to-br from-primary/20 to-cyan-600/20">
-                            {session?.user.customer
-                                ? session?.user?.customer?.name
-                                      .substring(0, 1)
-                                      .toUpperCase()
-                                : session?.user?.staff?.name
-                                      .substring(0, 1)
-                                      .toUpperCase()}
+                        <AvatarFallback className="rounded-lg bg-gradient-to-br from-primary/20 to-cyan-600/20 text-xs">
+                            {(
+                                session?.user.customer?.name ||
+                                session?.user?.staff?.name
+                            )
+                                ?.substring(0, 1)
+                                .toUpperCase()}
                         </AvatarFallback>
                     </Avatar>
-                    <div className="grid flex-1 text-left text-sm leading-tight">
-                        <span className="truncate font-semibold text-base">
-                            {session?.user.customer
-                                ? session?.user?.customer?.name
-                                : session?.user?.staff?.name}
+                    <div className="grid flex-1 text-left text-xs leading-tight">
+                        <span className="truncate font-semibold text-sm">
+                            {session?.user.customer?.name ||
+                                session?.user?.staff?.name}
                         </span>
                         <span className="truncate text-xs text-muted-foreground">
-                            {session?.user.customer
-                                ? session?.user?.customer?.email
-                                : session?.user?.staff?.email}
+                            {session?.user.customer?.email ||
+                                session?.user?.staff?.email}
                         </span>
                     </div>
                 </div>
             </DropdownMenuLabel>
 
-            {/* Wallet */}
-            {!!session && session.user.userType === "customer" && (
+            {session.user.userType === "customer" && (
+                <DropdownMenuLabel className="bg-gradient-to-r from-primary/5 to-cyan-500/5 rounded-md mx-1.5 my-1.5">
+                    <Wallet session={session} />
+                </DropdownMenuLabel>
+            )}
+
+            {session.user.userType === "customer" && (
                 <>
-                    <DropdownMenuLabel className="bg-gradient-to-r from-primary/5 to-cyan-500/5 rounded-md mx-2 my-2">
-                        <Wallet session={session} />
-                    </DropdownMenuLabel>
+                    <DropdownMenuItem
+                        asChild
+                        className="p-0 focus:bg-transparent"
+                    >
+                        <div className="flex w-full items-center p-1.5 pl-2.5 gap-2 cursor-default hover:bg-transparent">
+                            <span className="text-xs font-medium">
+                                Edit Profile
+                            </span>
+                            <Link href="/customer/edit" className="ml-auto">
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="border-primary/20 hover:bg-primary/10 hover:text-primary h-7 w-7 p-0"
+                                >
+                                    <Pen className="h-3 w-3" />
+                                </Button>
+                            </Link>
+                        </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                        asChild
+                        className="p-0 focus:bg-transparent"
+                    >
+                        <div className="flex w-full items-center p-1.5 pl-2.5 gap-2 cursor-default hover:bg-transparent">
+                            <span className="text-xs font-medium">
+                                Change Password
+                            </span>
+                            <Link
+                                href="/customer/changePassword"
+                                className="ml-auto"
+                            >
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="border-primary/20 hover:bg-primary/10 hover:text-primary h-7 w-7 p-0"
+                                >
+                                    <Lock className="h-3 w-3" />
+                                </Button>
+                            </Link>
+                        </div>
+                    </DropdownMenuItem>
                 </>
             )}
 
-            {/* Edit Profile */}
-            {!!session && session.user.userType === "customer" && (
-                <DropdownMenuItem asChild className="p-0 focus:bg-transparent">
-                    <div className="flex w-full items-center p-2 pl-3 gap-2 cursor-default hover:bg-transparent">
-                        <span className="text-sm font-medium">
-                            Edit Profile
-                        </span>
-                        <Link href="/customer/edit" className="ml-auto">
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                className="border-primary/20 hover:bg-primary/10 hover:text-primary"
-                            >
-                                <Pen className="h-3.5 w-3.5" />
-                            </Button>
-                        </Link>
-                    </div>
-                </DropdownMenuItem>
-            )}
-
-            {/* Change Password */}
-            {!!session && session.user.userType === "customer" && (
-                <DropdownMenuItem asChild className="p-0 focus:bg-transparent">
-                    <div className="flex w-full items-center p-2 pl-3 gap-2 cursor-default hover:bg-transparent">
-                        <span className="text-sm font-medium">
-                            Change Password
-                        </span>
-                        <Link
-                            href="/customer/changePassword"
-                            className="ml-auto"
-                        >
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                className="border-primary/20 hover:bg-primary/10 hover:text-primary"
-                            >
-                                <Lock className="h-3.5 w-3.5" />
-                            </Button>
-                        </Link>
-                    </div>
-                </DropdownMenuItem>
-            )}
-
-            <DropdownMenuSeparator className="my-1.5" />
+            <DropdownMenuSeparator className="my-1" />
 
             <DropdownMenuItem
                 onClick={() => signOut()}
-                className="cursor-pointer mx-2 my-1 rounded-md hover:bg-destructive/10 hover:text-destructive"
+                className="cursor-pointer mx-1.5 my-1 rounded-md hover:bg-destructive/10 hover:text-destructive text-xs"
             >
-                <LogOut className="h-4 w-4 mr-2" />
+                <LogOut className="h-3.5 w-3.5 mr-2" />
                 Log out
             </DropdownMenuItem>
         </DropdownMenuContent>

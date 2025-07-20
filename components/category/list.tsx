@@ -20,7 +20,7 @@ export const List = ({ categories }: { categories: productCategoryType[] }) => {
     };
 
     return (
-        <div className="flex flex-col space-y-12 md:space-y-20">
+        <div className="flex flex-col space-y-12">
             <Header category={categories[0]} />
 
             <div className="grid grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-10">

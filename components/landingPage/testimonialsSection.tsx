@@ -60,31 +60,28 @@ const TestimonialCard = ({
             viewport={{ once: true, margin: "-100px" }}
         >
             <Card className="h-full border-primary/5 bg-gradient-to-b from-white to-blue-50/10 shadow-md hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-3 sm:p-4 md:p-6 flex flex-col h-full">
-                    <div className="text-primary/40 mb-2 sm:mb-3 md:mb-4">
-                        <Quote
-                            size={20}
-                            className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8"
-                        />
+                <CardContent className="p-3 sm:p-4 flex flex-col h-full">
+                    <div className="text-primary/40 mb-2">
+                        <Quote size={16} className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <p className="text-xs sm:text-sm md:text-base text-muted-foreground flex-grow mb-3 sm:mb-4 md:mb-6">
+                    <p className="text-xs sm:text-sm text-muted-foreground flex-grow mb-3">
                         {testimonial.content}
                     </p>
-                    <div className="flex items-center mt-auto pt-2 sm:pt-3 md:pt-4 border-t border-gray-100">
-                        <Avatar className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 border-2 border-primary/10">
+                    <div className="flex items-center mt-auto pt-2 border-t border-gray-100">
+                        <Avatar className="h-7 w-7 sm:h-8 sm:w-8 border-2 border-primary/10">
                             <AvatarImage
                                 src={testimonial.image}
                                 alt={testimonial.name}
                             />
-                            <AvatarFallback>
+                            <AvatarFallback className="text-xs">
                                 {testimonial.name.substring(0, 2)}
                             </AvatarFallback>
                         </Avatar>
-                        <div className="ml-2 sm:ml-3 md:ml-4">
-                            <h4 className="font-medium text-xs sm:text-sm md:text-base text-foreground">
+                        <div className="ml-2 sm:ml-3">
+                            <h4 className="font-medium text-xs sm:text-sm text-foreground">
                                 {testimonial.name}
                             </h4>
-                            <p className="text-xs sm:text-sm text-muted-foreground">
+                            <p className="text-xs text-muted-foreground">
                                 {testimonial.role}
                             </p>
                         </div>
@@ -99,18 +96,25 @@ export default function TestimonialsSection() {
     return (
         <section
             className={cn(
-                "py-12 sm:py-16 md:py-20 bg-gradient-to-b from-background to-blue-50/30",
+                "pt-12 bg-gradient-to-b from-background to-blue-50/30",
                 sourceSerif4.className,
             )}
         >
             <div className="container px-4 mx-auto">
                 <motion.div
-                    className="text-center mb-10 sm:mb-12 md:mb-16"
+                    className="text-center mb-10 sm:mb-12"
                     initial={{ opacity: 0, y: -10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
                 >
+                    <div className="flex items-center justify-center mb-5">
+                        <div className="h-px w-10 bg-primary/30"></div>
+                        <span className="mx-4 text-primary font-medium text-sm uppercase tracking-wider">
+                            Our Testimonial
+                        </span>
+                        <div className="h-px w-10 bg-primary/30"></div>
+                    </div>
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
                         What Our Customers Say
                     </h2>

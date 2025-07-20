@@ -44,39 +44,37 @@ function ServiceCard({
                 ease: [0.22, 1, 0.36, 1],
             }}
             viewport={{ once: true }}
-            className="bg-white rounded-xl shadow-[0_4px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 group relative overflow-hidden border border-gray-100"
+            className="bg-white rounded-lg shadow-[0_4px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 group relative overflow-hidden border border-gray-100"
         >
             <div
-                className={`h-2 w-full ${color} absolute top-0 left-0 right-0`}
+                className={`h-1.5 w-full ${color} absolute top-0 left-0 right-0`}
             />
 
-            <div className="p-4 sm:p-6 md:p-8 relative z-10">
+            <div className="p-3 sm:p-4 relative z-10">
                 <div
-                    className={`${color.replace("bg-", "text-").replace("/10", "")} mb-4 md:mb-6 flex items-center justify-between`}
+                    className={`${color.replace("bg-", "text-").replace("/10", "")} mb-3 flex items-center justify-between`}
                 >
-                    <div className={`${color} p-2 sm:p-3 md:p-4 rounded-lg`}>
-                        {icon}
-                    </div>
-                    <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                    <div className={`${color} p-2 rounded-lg`}>{icon}</div>
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <ChevronRight className="h-3 w-3" />
                     </div>
                 </div>
 
-                <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-2 md:mb-3 group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-sm sm:text-base font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
                     {title}
                 </h3>
 
-                <p className="text-gray-600 text-sm sm:text-base mb-4 md:mb-6 leading-relaxed">
+                <p className="text-gray-600 text-xs sm:text-sm mb-3 leading-relaxed">
                     {description}
                 </p>
 
-                <div className="pt-3 md:pt-4 border-t border-gray-100">
+                <div className="pt-2 border-t border-gray-100">
                     <Link
                         href={href}
-                        className="text-primary text-sm sm:text-base font-medium flex items-center group/link"
+                        className="text-primary text-xs sm:text-sm font-medium flex items-center group/link"
                     >
                         Learn more
-                        <ArrowRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4 group-hover/link:translate-x-1 transition-transform duration-300" />
+                        <ArrowRight className="ml-1 h-3 w-3 group-hover/link:translate-x-1 transition-transform duration-300" />
                     </Link>
                 </div>
             </div>
@@ -137,7 +135,7 @@ export default function ServicesSection() {
     ];
 
     return (
-        <section className="py-28 relative overflow-hidden">
+        <section className="pt-12 relative overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-0 inset-0 pointer-events-none">
                 <div className="absolute top-40 -left-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl opacity-70" />
@@ -151,10 +149,15 @@ export default function ServicesSection() {
                     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     viewport={{ once: true }}
                     className={cn(
-                        "text-center max-w-3xl mx-auto mb-20",
+                        "text-center max-w-3xl mx-auto mb-12",
                         sourceSerif4.className,
                     )}
                 >
+                    {/* Decorative accent */}
+                    <div className="flex justify-center mt-2 mb-5">
+                        <div className="h-1 w-16 bg-gradient-to-r from-primary to-cyan-400 rounded-full opacity-80"></div>
+                    </div>
+
                     <div className="inline-flex items-center justify-center mb-4">
                         <div className="h-px w-10 bg-primary/30"></div>
                         <span className="mx-3 text-primary font-medium text-sm uppercase tracking-wider">
@@ -162,21 +165,21 @@ export default function ServicesSection() {
                         </span>
                         <div className="h-px w-10 bg-primary/30"></div>
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 leading-tight">
                         Premium{" "}
                         <span className="text-primary relative inline-block">
                             Printing Services
                             <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary/30 to-cyan-500/30"></span>
                         </span>
                     </h2>
-                    <p className="text-gray-600 md:text-lg leading-relaxed">
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                         From concept to completion, our comprehensive printing
                         solutions deliver exceptional quality and craftsmanship
                         for businesses and individuals alike.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-12">
                     {services.map((service, index) => (
                         <ServiceCard
                             key={index}
@@ -194,24 +197,24 @@ export default function ServicesSection() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{
-                        duration: 0.7,
-                        delay: 0.6,
-                        ease: [0.22, 1, 0.36, 1],
+                        duration: 0.5,
+                        ease: "easeOut",
                     }}
-                    viewport={{ once: true }}
-                    className="mt-20 text-center"
+                    viewport={{ once: true, margin: "100px" }}
+                    className="flex justify-center"
                 >
-                    <div className="inline-block p-2 bg-gradient-to-r from-primary/5 to-cyan-500/5 rounded-xl">
-                        <Link href="/categories">
-                            <Button
-                                size="lg"
-                                className="bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 text-white group px-8 py-6 h-auto text-lg"
-                            >
-                                Explore All Services
-                                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                            </Button>
-                        </Link>
-                    </div>
+                    <Link href="/categories">
+                        <Button
+                            size="lg"
+                            className="rounded-xl bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl group px-8 py-6 h-auto text-lg transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-0.5 relative overflow-hidden"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                            <span className="relative z-10 flex items-center">
+                                Explore All Categories
+                                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-all duration-300" />
+                            </span>
+                        </Button>
+                    </Link>
                 </motion.div>
             </div>
         </section>

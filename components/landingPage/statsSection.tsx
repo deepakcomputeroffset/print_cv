@@ -36,9 +36,9 @@ const StatItem = ({
         <motion.div
             ref={ref}
             initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: delay }}
-            className="flex flex-col items-center p-3 sm:p-4 md:p-6 rounded-xl bg-gradient-to-br from-white to-blue-50/30 shadow-md hover:shadow-lg transition-all"
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ ease: "easeInOut", duration: 0.6, delay: delay }}
+            className="flex flex-col items-center p-3 sm:p-4 md:p-6 rounded-xl bg-gradient-to-br from-white to-blue-50/30 shadow-md hover:shadow-lg transition-shadow"
         >
             <div className="p-2 sm:p-3 md:p-4 rounded-full bg-primary/10 text-primary mb-2 sm:mb-3 md:mb-4">
                 {icon}
@@ -79,7 +79,7 @@ export default function StatsSection() {
             value: 15000,
             suffix: "+",
             text: "Happy Customers",
-            delay: 0.2,
+            delay: 0.3,
         },
         {
             icon: <Clock className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />,
@@ -87,24 +87,36 @@ export default function StatsSection() {
             suffix: "%",
             text: "On-time Delivery",
             decimals: 1,
-            delay: 0.3,
+            delay: 0.5,
         },
         {
             icon: <Award className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />,
             value: 10,
             suffix: "+",
             text: "Years of Excellence",
-            delay: 0.4,
+            delay: 0.7,
         },
     ];
 
     return (
         <section
             className={cn(
-                "py-12 sm:py-16 md:py-20 bg-gradient-to-b from-blue-50/30 to-background",
+                "py-12 bg-gradient-to-b from-blue-50/30 to-background",
                 sourceSerif4.className,
             )}
         >
+            {/* Decorative accent */}
+            <div className="flex justify-center mt-2 mb-5">
+                <div className="h-1 w-16 bg-gradient-to-r from-primary to-cyan-400 rounded-full opacity-80"></div>
+            </div>
+
+            <div className="flex items-center justify-center mb-5">
+                <div className="h-px w-10 bg-primary/30"></div>
+                <span className="mx-4 text-primary font-medium text-sm uppercase tracking-wider">
+                    Our Impact
+                </span>
+                <div className="h-px w-10 bg-primary/30"></div>
+            </div>
             <div className="container px-4 mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: -10 }}

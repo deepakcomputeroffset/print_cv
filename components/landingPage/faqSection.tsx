@@ -43,7 +43,7 @@ const faqs = [
 
 export default function FaqSection() {
     return (
-        <section className={cn("py-20 bg-white", sourceSerif4.className)}>
+        <section className={cn("pt-16 bg-white", sourceSerif4.className)}>
             <div className="container px-4 mx-auto">
                 <motion.div
                     className="text-center mb-12"

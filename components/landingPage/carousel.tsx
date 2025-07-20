@@ -13,6 +13,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { sourceSerif4 } from "@/lib/font";
 
 type CarouselSlide = {
     image: string;
@@ -49,12 +50,12 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
     }, [api]);
 
     return (
-        <div className="relative">
+        <div className={cn("relative", sourceSerif4.className)}>
             {/* Premium accent line */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-cyan-400 to-primary z-20"></div>
 
             <Carousel
-                className="w-full h-[650px] md:h-[600px] relative overflow-hidden shadow-2xl"
+                className="w-full h-[350px] md:h-[350px] 2xl:h-[600px] relative overflow-hidden shadow-2xl"
                 plugins={[
                     Autoplay({
                         delay: 6000,
@@ -71,7 +72,7 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                 <CarouselContent className="h-full">
                     {slides.map((slide, idx) => (
                         <CarouselItem key={idx} className="relative">
-                            <div className="relative w-full h-[650px] md:h-[600px] overflow-hidden">
+                            <div className="relative w-full h-[350px] md:h-[350px] 2xl:h-[600px] overflow-hidden">
                                 {/* Enhanced gradient overlay with multiple layers for depth */}
                                 <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10 opacity-70" />
@@ -113,7 +114,7 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                                         {slide.title && (
                                             <h1
                                                 className={cn(
-                                                    "text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-6 drop-shadow-xl",
+                                                    "text-2xl sm:text-3xl md:text-4xl font-bold text-white/85 tracking-tight leading-tight mb-6 drop-shadow-xl",
                                                     isLoaded &&
                                                         activeIndex === idx
                                                         ? "animate-slide-up opacity-100"
@@ -131,7 +132,7 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                                         {slide.subtitle && (
                                             <p
                                                 className={cn(
-                                                    "text-lg md:text-xl text-white/90 mb-8 max-w-xl drop-shadow-md font-medium",
+                                                    "text-lg text-white/75 mb-8 max-w-xl drop-shadow-md font-medium",
                                                     isLoaded &&
                                                         activeIndex === idx
                                                         ? "animate-slide-up opacity-100"
@@ -191,8 +192,8 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                     ))}
                 </div>
 
-                <CarouselPrevious className="left-6 h-10 w-10 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-none rounded-full shadow-lg hover:scale-110 transition-all" />
-                <CarouselNext className="right-6 h-10 w-10 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-none rounded-full shadow-lg hover:scale-110 transition-all" />
+                <CarouselPrevious className="left-6 h-10 w-10 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white hidden sm:flex border-none rounded-full shadow-lg hover:scale-110 transition-all" />
+                <CarouselNext className="right-6 h-10 w-10 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white hidden sm:flex border-none rounded-full shadow-lg hover:scale-110 transition-all" />
             </Carousel>
 
             {/* Premium bottom accent */}

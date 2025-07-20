@@ -27,11 +27,11 @@ export default function Header({
             )}
         >
             {/* Decorative accent */}
-            <div className="flex justify-center mt-2 mb-6">
+            {/* <div className="flex justify-center mt-2 mb-6">
                 <div className="h-1 w-16 bg-gradient-to-r from-primary to-cyan-400 rounded-full opacity-80"></div>
-            </div>
+            </div> */}
 
-            <div className="inline-flex items-center justify-center mb-5">
+            <div className="inline-flex items-center justify-center my-4">
                 <div className="h-px w-10 bg-primary/30"></div>
                 <span className="mx-4 text-primary font-medium text-sm uppercase tracking-wider">
                     {!!category?.parentCategory
@@ -41,7 +41,7 @@ export default function Header({
                 <div className="h-px w-10 bg-primary/30"></div>
             </div>
 
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-bold leading-tight">
                 {!!category?.parentCategory ? (
                     <span>
                         {category?.parentCategory.name}{" "}
@@ -61,11 +61,11 @@ export default function Header({
                 )}
             </h2>
 
-            <p className="text-gray-600 md:text-lg leading-relaxed max-w-2xl mx-auto mb-6">
+            {/* <p className="text-gray-600 md:text-lg leading-relaxed max-w-2xl mx-auto mb-6">
                 {!!category?.parentCategory
                     ? `Discover our specialized ${category.parentCategory.name.toLowerCase()} solutions tailored to meet your precise printing requirements.`
                     : "Explore our comprehensive range of professional printing services designed for businesses and individuals seeking exceptional quality."}
-            </p>
+            </p> */}
 
             {category?.parentCategory !== null && (
                 <motion.div
