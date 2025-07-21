@@ -78,7 +78,7 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="max-w-customHaf lg:max-w-custom mx-auto py-8"
+            className="container mx-auto py-8"
         >
             <div className="flex justify-between items-center mb-8">
                 <Link
