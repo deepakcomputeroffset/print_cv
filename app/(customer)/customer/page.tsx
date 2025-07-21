@@ -109,7 +109,7 @@ export default async function CustomerDashboard() {
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
             <div className="bg-gradient-to-r from-gray-900 to-purple-800 pb-16">
-                <div className="max-w-customHaf lg:max-w-custom mx-auto px-4 pt-10">
+                <div className="container mx-auto px-4 pt-10">
                     <div className="py-6">
                         <h1
                             className={cn(
@@ -128,7 +128,7 @@ export default async function CustomerDashboard() {
                 </div>
             </div>
 
-            <div className="max-w-customHaf lg:max-w-custom mx-auto px-4 -mt-10">
+            <div className="container mx-auto px-4 -mt-10">
                 {/* Stats Overview Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                     {/* Wallet Balance Card */}

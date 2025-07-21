@@ -52,7 +52,7 @@ export default async function CustomerEditPage() {
     } catch (error) {
         console.error(error);
         return (
-            <div className="max-w-customHaf lg:max-w-custom mx-auto py-8 px-4">
+            <div className="container mx-auto py-8 px-4">
                 <div className="bg-red-50 p-6 rounded-lg border border-red-200 text-center">
                     <h2 className="text-red-800 font-medium text-lg mb-2">
                         Error Loading Profile

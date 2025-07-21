@@ -38,8 +38,6 @@ import {
     Home,
     Save,
 } from "lucide-react";
-import { customerCategory } from "@prisma/client";
-import { useCustomerCategory } from "@/hooks/use-customer-category";
 
 export const CustomerEditForm = ({ customer }: { customer?: customerType }) => {
     const { data: states } = useStates();
@@ -47,7 +45,6 @@ export const CustomerEditForm = ({ customer }: { customer?: customerType }) => {
     const {
         updateCustomer: { isPending, mutateAsync },
     } = useCustomers();
-    const { customersCategory } = useCustomerCategory();
     const customerFormSchemaUpdated = customerFormSchema?.partial();
     const form = useForm<z.infer<typeof customerFormSchemaUpdated>>({
         resolver: zodResolver(customerFormSchemaUpdated),
@@ -403,7 +400,7 @@ export const CustomerEditForm = ({ customer }: { customer?: customerType }) => {
                     </div>
                 </div>
 
-                <FormField
+                {/* <FormField
                     control={form.control}
                     name="customerCategoryId"
                     render={({ field }) => (
@@ -442,7 +439,7 @@ export const CustomerEditForm = ({ customer }: { customer?: customerType }) => {
                             <FormMessage />
                         </FormItem>
                     )}
-                />
+                /> */}
 
                 <motion.div
                     className="pt-4"

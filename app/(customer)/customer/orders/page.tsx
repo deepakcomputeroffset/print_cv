@@ -66,7 +66,7 @@ export default function OrdersPage({
     };
 
     return (
-        <div className="max-w-customHaf lg:max-w-custom mx-auto py-10 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto py-10">
             <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}

@@ -20,7 +20,7 @@ export default function CustomerEditComponent({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-customHaf lg:max-w-custom mx-auto py-8 px-4"
+            className="container mx-auto py-8 px-4"
         >
             <div className="mb-8">
                 <div className="flex items-center">

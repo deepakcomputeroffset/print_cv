@@ -18,12 +18,61 @@ import {
     ArrowDownLeft,
     History,
     Info,
+    LucideIcon,
 } from "lucide-react";
 import UpiQrCode from "@/components/quCode";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { sourceSerif4 } from "@/lib/font";
 import Pagination from "@/components/pagination";
+
+const GradientBar = () => (
+    <div className="h-1 w-8 bg-gradient-to-r from-primary to-blue-500 rounded-full mr-3" />
+);
+
+const StatCard = ({
+    icon: Icon,
+    title,
+    amount,
+    count,
+    gradient,
+    border,
+    iconColor,
+}: {
+    icon: LucideIcon;
+    title: string;
+    amount: string;
+    count?: string;
+    gradient: string;
+    border: string;
+    iconColor: string;
+}) => (
+    <Card className={cn("shadow-md", gradient, border)}>
+        <CardContent className="p-4">
+            <div className="flex flex-col items-center text-center">
+                <Icon className={cn("h-10 w-10 mb-3", iconColor)} />
+                <h2 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                    {title}
+                </h2>
+                <div
+                    className={cn(
+                        "text-2xl font-bold mt-1",
+                        iconColor.includes("primary")
+                            ? "text-primary"
+                            : iconColor,
+                    )}
+                >
+                    {amount}
+                </div>
+                {count && (
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        {count}
+                    </p>
+                )}
+            </div>
+        </CardContent>
+    </Card>
+);
 
 export default async function CustomerWalletPage({
     searchParams,
@@ -36,158 +85,112 @@ export default async function CustomerWalletPage({
         redirect("/");
     }
 
-    // Parse pagination params
     const { page: pp, perpage } = await searchParams;
     const page = parseInt(pp || "1");
     const perPage = parseInt(perpage || "10");
 
-    // Get wallet and transaction data
     const [transactions, wallet, transactionsCount] = await Prisma.$transaction(
         [
-            // Get paginated transactions
             Prisma.transaction.findMany({
-                where: {
-                    walletId: session?.user?.customer?.wallet?.id,
-                },
+                where: { walletId: session?.user?.customer?.wallet?.id },
                 take: perPage,
                 skip: (page - 1) * perPage,
-                orderBy: {
-                    createdAt: "desc",
-                },
+                orderBy: { createdAt: "desc" },
             }),
-            // Get wallet balance
             Prisma.wallet.findUnique({
-                where: {
-                    customerId: session?.user?.customer?.id,
-                },
+                where: { customerId: session?.user?.customer?.id },
             }),
-            // Get total count for pagination
             Prisma.transaction.count({
-                where: {
-                    walletId: session?.user?.customer?.wallet?.id,
-                },
+                where: { walletId: session?.user?.customer?.wallet?.id },
             }),
         ],
     );
 
-    // Calculate transaction stats
-    const creditTransactions = transactions.filter(
-        (transaction) => transaction.type === "CREDIT",
-    );
-    const debitTransactions = transactions.filter(
-        (transaction) => transaction.type === "DEBIT",
-    );
-
+    const creditTransactions = transactions.filter((t) => t.type === "CREDIT");
+    const debitTransactions = transactions.filter((t) => t.type === "DEBIT");
     const totalPages = Math.ceil(transactionsCount / perPage);
 
+    const creditTotal = creditTransactions.reduce(
+        (sum, t) => sum + t.amount,
+        0,
+    );
+    const debitTotal = debitTransactions.reduce((sum, t) => sum + t.amount, 0);
+
     return (
-        <div className="max-w-customHaf lg:max-w-custom mx-auto py-10 px-4 sm:px-6 lg:px-8">
-            <div className="mb-8">
-                <div className="flex items-center mb-2">
-                    <div className="h-1 w-10 bg-gradient-to-r from-primary to-blue-500 rounded-full mr-3"></div>
+        <div className="container mx-auto py-6">
+            {/* Header */}
+            <div className="mb-6">
+                <div className="flex items-center mb-1">
+                    <GradientBar />
                     <h1
                         className={cn(
-                            "text-3xl font-bold text-gray-800 dark:text-gray-100",
+                            "text-2xl font-bold text-gray-800 dark:text-gray-100",
                             sourceSerif4.className,
                         )}
                     >
                         My Wallet
                     </h1>
                 </div>
-                <p className="text-gray-500 dark:text-gray-400 ml-14">
+                <p className="text-sm text-gray-500 dark:text-gray-400 ml-11">
                     Manage your wallet balance and view transaction history
                 </p>
             </div>
 
-            {/* Wallet Overview */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                {/* Balance Card */}
-                <Card className="shadow-md bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 border border-blue-100 dark:border-gray-600">
-                    <CardContent className="p-6">
-                        <div className="flex flex-col items-center text-center">
-                            <Wallet className="h-12 w-12 text-primary mb-4" />
-                            <h2 className="text-lg font-medium text-gray-700 dark:text-gray-200">
-                                Current Balance
-                            </h2>
-                            <div className="text-4xl font-bold text-primary mt-2">
-                                ₹{wallet?.balance.toFixed(2) || "0.00"}
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
-
-                {/* Credit Transactions */}
-                <Card className="shadow-md bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-700 border border-green-100 dark:border-gray-600">
-                    <CardContent className="p-6">
-                        <div className="flex flex-col items-center text-center">
-                            <ArrowDownLeft className="h-12 w-12 text-green-600 mb-4" />
-                            <h2 className="text-lg font-medium text-gray-700 dark:text-gray-200">
-                                Total Deposits
-                            </h2>
-                            <div className="text-3xl font-bold text-green-600 mt-2">
-                                ₹
-                                {creditTransactions
-                                    .reduce(
-                                        (sum, transaction) =>
-                                            sum + transaction.amount,
-                                        0,
-                                    )
-                                    .toFixed(2)}
-                            </div>
-                            <p className="text-gray-500 dark:text-gray-400 mt-1">
-                                {creditTransactions.length} transactions
-                            </p>
-                        </div>
-                    </CardContent>
-                </Card>
-
-                {/* Debit Transactions */}
-                <Card className="shadow-md bg-gradient-to-br from-red-50 to-orange-50 dark:from-gray-800 dark:to-gray-700 border border-red-100 dark:border-gray-600">
-                    <CardContent className="p-6">
-                        <div className="flex flex-col items-center text-center">
-                            <ArrowUpRight className="h-12 w-12 text-red-600 mb-4" />
-                            <h2 className="text-lg font-medium text-gray-700 dark:text-gray-200">
-                                Total Withdrawals
-                            </h2>
-                            <div className="text-3xl font-bold text-red-600 mt-2">
-                                ₹
-                                {debitTransactions
-                                    .reduce(
-                                        (sum, transaction) =>
-                                            sum + transaction.amount,
-                                        0,
-                                    )
-                                    .toFixed(2)}
-                            </div>
-                            <p className="text-gray-500 dark:text-gray-400 mt-1">
-                                {debitTransactions.length} transactions
-                            </p>
-                        </div>
-                    </CardContent>
-                </Card>
+            {/* Stats Overview */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+                <StatCard
+                    icon={Wallet}
+                    title="Current Balance"
+                    amount={`₹${wallet?.balance.toFixed(2) || "0.00"}`}
+                    gradient="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700"
+                    border="border border-blue-100 dark:border-gray-600"
+                    iconColor="text-primary"
+                />
+                <StatCard
+                    icon={ArrowDownLeft}
+                    title="Total Deposits"
+                    amount={`₹${creditTotal.toFixed(2)}`}
+                    count={`${creditTransactions.length} transactions`}
+                    gradient="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-700"
+                    border="border border-green-100 dark:border-gray-600"
+                    iconColor="text-green-600"
+                />
+                <StatCard
+                    icon={ArrowUpRight}
+                    title="Total Withdrawals"
+                    amount={`₹${debitTotal.toFixed(2)}`}
+                    count={`${debitTransactions.length} transactions`}
+                    gradient="bg-gradient-to-br from-red-50 to-orange-50 dark:from-gray-800 dark:to-gray-700"
+                    border="border border-red-100 dark:border-gray-600"
+                    iconColor="text-red-600"
+                />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Left Column: Transaction History */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                {/* Transaction History */}
                 <div className="lg:col-span-2">
                     <Card className="shadow-md">
-                        <CardHeader className="pb-3">
-                            <div className="flex items-center justify-between">
-                                <CardTitle className="text-xl font-semibold flex items-center">
-                                    <History className="h-5 w-5 mr-2 text-primary/70" />
-                                    Transaction History
-                                </CardTitle>
-                            </div>
+                        <CardHeader className="pb-2">
+                            <CardTitle className="text-lg font-semibold flex items-center">
+                                <History className="h-4 w-4 mr-2 text-primary/70" />
+                                Transaction History
+                            </CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="p-4">
                             <div className="rounded-md border">
                                 <Table>
                                     <TableHeader>
-                                        <TableRow>
-                                            <TableHead>Date</TableHead>
-                                            <TableHead>Type</TableHead>
-                                            <TableHead>Description</TableHead>
-                                            <TableHead className="text-right">
+                                        <TableRow className="text-sm">
+                                            <TableHead className="py-2">
+                                                Date
+                                            </TableHead>
+                                            <TableHead className="py-2">
+                                                Type
+                                            </TableHead>
+                                            <TableHead className="py-2">
+                                                Description
+                                            </TableHead>
+                                            <TableHead className="text-right py-2">
                                                 Amount
                                             </TableHead>
                                         </TableRow>
@@ -197,11 +200,11 @@ export default async function CustomerWalletPage({
                                             <TableRow>
                                                 <TableCell
                                                     colSpan={4}
-                                                    className="h-24 text-center"
+                                                    className="h-20 text-center"
                                                 >
                                                     <div className="flex flex-col items-center justify-center text-gray-500">
-                                                        <IndianRupee className="h-8 w-8 mb-2 text-gray-300" />
-                                                        <p>
+                                                        <IndianRupee className="h-6 w-6 mb-1 text-gray-300" />
+                                                        <p className="text-sm">
                                                             No transactions yet
                                                         </p>
                                                     </div>
@@ -209,10 +212,13 @@ export default async function CustomerWalletPage({
                                             </TableRow>
                                         ) : (
                                             transactions.map((transaction) => (
-                                                <TableRow key={transaction.id}>
-                                                    <TableCell className="font-medium">
+                                                <TableRow
+                                                    key={transaction.id}
+                                                    className="text-sm"
+                                                >
+                                                    <TableCell className="py-2">
                                                         <div className="flex flex-col">
-                                                            <span>
+                                                            <span className="text-xs font-medium">
                                                                 {format(
                                                                     new Date(
                                                                         transaction.createdAt,
@@ -230,20 +236,21 @@ export default async function CustomerWalletPage({
                                                             </span>
                                                         </div>
                                                     </TableCell>
-                                                    <TableCell>
+                                                    <TableCell className="py-2">
                                                         <Badge
-                                                            className={
+                                                            className={cn(
+                                                                "text-xs px-2 py-0.5",
                                                                 transaction.type ===
-                                                                "CREDIT"
+                                                                    "CREDIT"
                                                                     ? "bg-green-100 text-green-800 hover:bg-green-100 hover:text-green-800"
-                                                                    : "bg-red-100 text-red-800 hover:bg-red-100 hover:text-red-800"
-                                                            }
+                                                                    : "bg-red-100 text-red-800 hover:bg-red-100 hover:text-red-800",
+                                                            )}
                                                         >
                                                             {transaction.type}
                                                         </Badge>
                                                     </TableCell>
                                                     <TableCell
-                                                        className="max-w-[200px] truncate"
+                                                        className="max-w-[150px] truncate py-2 text-xs"
                                                         title={
                                                             transaction.description
                                                         }
@@ -252,10 +259,10 @@ export default async function CustomerWalletPage({
                                                             transaction.description
                                                         }
                                                     </TableCell>
-                                                    <TableCell className="text-right">
+                                                    <TableCell className="text-right py-2">
                                                         <div
                                                             className={cn(
-                                                                "flex items-center justify-end font-medium",
+                                                                "flex items-center justify-end font-medium text-xs",
                                                                 transaction.type ===
                                                                     "CREDIT"
                                                                     ? "text-green-600"
@@ -264,9 +271,9 @@ export default async function CustomerWalletPage({
                                                         >
                                                             {transaction.type ===
                                                             "CREDIT" ? (
-                                                                <ArrowDownLeft className="h-3.5 w-3.5 mr-1" />
+                                                                <ArrowDownLeft className="h-3 w-3 mr-1" />
                                                             ) : (
-                                                                <ArrowUpRight className="h-3.5 w-3.5 mr-1" />
+                                                                <ArrowUpRight className="h-3 w-3 mr-1" />
                                                             )}
                                                             ₹
                                                             {transaction.amount.toFixed(
@@ -281,7 +288,7 @@ export default async function CustomerWalletPage({
                                 </Table>
                             </div>
                             {transactionsCount > perPage && (
-                                <div className="mt-4">
+                                <div className="mt-3">
                                     <Pagination
                                         isLoading={false}
                                         totalPage={totalPages}
@@ -292,40 +299,34 @@ export default async function CustomerWalletPage({
                     </Card>
                 </div>
 
-                {/* Right Column: Add Money */}
+                {/* Add Money Section */}
                 <div>
                     <Card className="shadow-md">
-                        <CardHeader className="pb-3">
-                            <CardTitle className="text-xl font-semibold flex items-center">
-                                <IndianRupee className="h-5 w-5 mr-2 text-primary/70" />
-                                Add Money to Wallet
+                        <CardHeader className="pb-2">
+                            <CardTitle className="text-lg font-semibold flex items-center">
+                                <IndianRupee className="h-4 w-4 mr-2 text-primary/70" />
+                                Add Money
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="p-4">
                             <UpiQrCode />
-
-                            <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                                 <div className="flex items-start space-x-2">
-                                    <Info className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                                    <div className="text-sm text-gray-600 dark:text-gray-300">
+                                    <Info className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                                    <div className="text-xs text-gray-600 dark:text-gray-300">
                                         <p className="font-medium mb-1">
                                             How to add money:
                                         </p>
-                                        <ol className="list-decimal ml-5 space-y-1">
-                                            <li>
-                                                Enter the amount you want to add
-                                            </li>
+                                        <ol className="list-decimal ml-4 space-y-0.5">
+                                            <li>Enter amount to add</li>
                                             <li>
                                                 Click &quot;Generate QR
                                                 Code&quot;
                                             </li>
+                                            <li>Scan QR with UPI app</li>
+                                            <li>Complete payment</li>
                                             <li>
-                                                Scan the QR code with any UPI
-                                                app
-                                            </li>
-                                            <li>Complete the payment</li>
-                                            <li>
-                                                Balance will be updated after
+                                                Balance updates after
                                                 verification
                                             </li>
                                         </ol>
