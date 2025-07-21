@@ -1,5 +1,4 @@
 import HomeCarousel from "@/components/landingPage/carousel";
-import { Footer } from "@/components/landingPage/footer";
 import ServicesSection from "@/components/landingPage/servicesSection";
 import { ProductCategoryList } from "@/components/home/cList";
 import TestimonialsSection from "@/components/landingPage/testimonialsSection";
@@ -75,8 +74,6 @@ export default async function HomePage() {
                 {/* Final CTA */}
                 <CtaSection />
             </div>
-
-            <Footer />
         </div>
     );
 }

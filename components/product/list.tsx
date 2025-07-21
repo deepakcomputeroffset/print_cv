@@ -70,9 +70,9 @@ export default function PList({
 
                 <div className="hidden md:block text-center max-w-3xl mx-auto">
                     {/* Decorative accent */}
-                    <div className="flex justify-center mb-6">
+                    {/* <div className="flex justify-center mb-6">
                         <div className="h-1 w-16 bg-gradient-to-r from-primary to-cyan-400 rounded-full opacity-80"></div>
-                    </div>
+                    </div> */}
 
                     <div className="inline-flex items-center justify-center mb-5">
                         <div className="h-px w-10 bg-primary/30"></div>
@@ -84,7 +84,7 @@ export default function PList({
 
                     <h1
                         className={cn(
-                            "text-3xl md:text-5xl font-bold mb-6 leading-tight",
+                            "text-3xl md:text-4xl font-bold mb-6 leading-tight",
                             sourceSerif4.className,
                         )}
                     >
@@ -97,12 +97,12 @@ export default function PList({
                         </span>
                     </h1>
 
-                    <p className="text-gray-600 md:text-lg leading-relaxed max-w-2xl mx-auto">
+                    {/* <p className="text-gray-600 md:text-lg leading-relaxed max-w-2xl mx-auto">
                         Discover our premium selection of{" "}
                         {category?.name.toLowerCase()} products designed to meet
                         your professional printing needs with exceptional
                         quality.
-                    </p>
+                    </p> */}
                 </div>
             </motion.div>
 

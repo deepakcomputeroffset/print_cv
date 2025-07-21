@@ -1,3 +1,4 @@
+import { Footer } from "@/components/landingPage/footer";
 import Navbar from "@/components/navbar/navbar";
 
 export default function RootLayout({
@@ -9,6 +10,7 @@ export default function RootLayout({
         <div className="min-h-screen bg-background">
             <Navbar />
             {children}
+            <Footer />
         </div>
     );
 }

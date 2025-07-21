@@ -5,7 +5,6 @@ import { ShoppingBag } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Prisma } from "@/lib/prisma";
-import { Footer } from "@/components/landingPage/footer";
 import RecentOrderList from "@/components/order/recentOrderList";
 import { unstable_cache } from "next/cache";
 
@@ -114,8 +113,6 @@ export default async function ProductCategoryPage({
                         <RecentOrderList orders={orders} />
                     )}
                 </div>
-
-                <Footer />
             </div>
         </Suspense>
     );
