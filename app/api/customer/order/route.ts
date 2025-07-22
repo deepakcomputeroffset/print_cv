@@ -172,6 +172,38 @@ export async function POST(request: Request) {
             });
         }
 
+        // Validate quantity based on product pricing structure
+        const minQty = productItem.pricing?.[0]?.qty || 1;
+
+        if (productItem?.product?.isTieredPricing) {
+            // For tiered pricing, qty must exactly match one of the available tiers
+            const validTiers = productItem.pricing?.map((p) => p.qty) || [];
+            if (!validTiers.includes(qty)) {
+                return serverResponse({
+                    status: 400,
+                    success: false,
+                    error: `Invalid quantity. Available quantities: ${validTiers.join(", ")}`,
+                });
+            }
+        } else {
+            // For regular pricing, qty must be >= minQty and a multiple of minQty
+            if (qty < minQty) {
+                return serverResponse({
+                    status: 400,
+                    success: false,
+                    error: `Minimum quantity is ${minQty}`,
+                });
+            }
+
+            if (qty % minQty !== 0) {
+                return serverResponse({
+                    status: 400,
+                    success: false,
+                    error: `Quantity must be a multiple of ${minQty}`,
+                });
+            }
+        }
+
         const address = await Prisma.address.findFirst({
             where: {
                 ownerId: session.user.customer.id,

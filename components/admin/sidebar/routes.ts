@@ -73,7 +73,7 @@ export const routes: RouteType[] = [
     {
         title: "Wallet",
         icon: PiggyBank,
-        url: "/admin/wallet",
+        url: "/admin/wallet?search=&sortorder=asc&perpage=100",
         pattern: /^\/admin\/wallet(?:\/.*)?$/,
         roles: ["ADMIN", "ACCOUNTANT"],
     },
