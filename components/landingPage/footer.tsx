@@ -104,7 +104,7 @@ export function Footer() {
                                 About Us
                             </Link>
                             <Link
-                                href="#"
+                                href="/terms_and_conditions"
                                 className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors group"
                             >
                                 <ArrowRight className="h-3 w-3 text-primary/40 group-hover:text-primary transition-colors" />
@@ -253,7 +253,7 @@ export function Footer() {
                     </div>
                     <div className="flex gap-4">
                         <Link
-                            href="#"
+                            href="/terms_and_conditions"
                             className="hover:text-primary transition-colors text-xs"
                         >
                             Terms
