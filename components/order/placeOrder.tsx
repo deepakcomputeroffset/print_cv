@@ -107,8 +107,9 @@ export default function PlaceOrder({
     //     product.pricing?.[0]?.price * (qty / product.pricing?.[0]?.qty);
     const emailUploadCharge =
         uploadType === "EMAIL" ? FILE_UPLOAD_EMAIL_CHARGE : 0;
-    const igstAmount = (basePrice ?? 0) * IGST_TAX_IN_PERCENTAGE;
-    const totalPrice = (basePrice ?? 0) + emailUploadCharge + igstAmount;
+    const igstAmount =
+        ((basePrice ?? 0) + emailUploadCharge) * IGST_TAX_IN_PERCENTAGE;
+    const totalPrice = (basePrice ?? 0) + igstAmount;
 
     const handleIncrease = () => {
         if (!product.product.isTieredPricing) {
@@ -583,7 +584,7 @@ export default function PlaceOrder({
                                     <span>Base Price</span>
                                     <span className="flex items-center">
                                         <IndianRupee className="w-3.5 h-3.5 mr-1" />
-                                        {basePrice?.toFixed(2)}
+                                        {(basePrice || 0) + emailUploadCharge}
                                     </span>
                                 </div>
                                 <div className="flex justify-between text-gray-600">
@@ -593,15 +594,6 @@ export default function PlaceOrder({
                                         {igstAmount.toFixed(2)}
                                     </span>
                                 </div>
-                                {emailUploadCharge > 0 && (
-                                    <div className="flex justify-between text-gray-600">
-                                        <span>Email Upload Charge</span>
-                                        <span className="flex items-center">
-                                            <IndianRupee className="w-3.5 h-3.5 mr-1" />
-                                            {emailUploadCharge.toFixed(2)}
-                                        </span>
-                                    </div>
-                                )}
                                 <Separator />
                                 <div className="flex justify-between text-lg font-bold text-gray-900 pt-2">
                                     <span>Total Amount</span>

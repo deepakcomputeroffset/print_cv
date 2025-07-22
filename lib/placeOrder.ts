@@ -22,9 +22,9 @@ export async function placeOrder(
             )
                 throw new Error("Bad order request!!");
 
-            const charge = basePrice * IGST_TAX_IN_PERCENTAGE;
             const uploadCharge =
                 uploadType === "EMAIL" ? FILE_UPLOAD_EMAIL_CHARGE : 0;
+            const charge = (basePrice + uploadCharge) * IGST_TAX_IN_PERCENTAGE;
 
             const totalPrice = basePrice + charge + uploadCharge;
 

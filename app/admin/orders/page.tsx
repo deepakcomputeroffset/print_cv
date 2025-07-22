@@ -8,6 +8,7 @@ import { DataTable } from "./components/data-table";
 import { columns } from "./components/columns";
 import { ViewFilesModal } from "../../../components/view-files-modal";
 import { ImproperOrderModal } from "./modal/ImproperOrderModal";
+import { UploadFileModal } from "./modal/uploadFileModal";
 
 export default function OrdersPage({
     searchParams,
@@ -39,6 +40,7 @@ export default function OrdersPage({
 
             <ViewFilesModal />
             <ImproperOrderModal />
+            <UploadFileModal />
         </div>
     );
 }

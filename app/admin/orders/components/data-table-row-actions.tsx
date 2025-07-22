@@ -1,7 +1,7 @@
 "use client";
 
 import { Row } from "@tanstack/react-table";
-import { FileText, MoreHorizontal } from "lucide-react";
+import { FileText, MoreHorizontal, UploadCloud } from "lucide-react";
 import { orderType } from "@/types/types";
 import { Button } from "@/components/ui/button";
 import {
@@ -66,6 +66,22 @@ export function DataTableRowActions<TData>({
                         Mark as Improper
                     </Button>
                 )}
+                {order?.status === "PENDING" &&
+                    order?.attachment.uploadVia === "EMAIL" && (
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                                onOpen("uploadOrderFile", {
+                                    orderId: order.id,
+                                });
+                                openChange();
+                            }}
+                        >
+                            <UploadCloud className="w-4 h-4 mr-2" />
+                            Uplad Files
+                        </Button>
+                    )}
             </DropdownMenuContent>
         </DropdownMenu>
     );

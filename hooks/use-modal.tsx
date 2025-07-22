@@ -40,7 +40,8 @@ type ModalType =
     | "editCustomerCategory"
     | "deleteCustomerCategory"
     | "viewFiles"
-    | "selectDistributor";
+    | "selectDistributor"
+    | "uploadOrderFile";
 
 type DataType = {
     staff?: staffType;
