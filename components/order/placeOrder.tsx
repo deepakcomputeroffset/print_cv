@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
@@ -72,7 +72,10 @@ export default function PlaceOrder({
     customerCategory: customerCategory;
 }) {
     const [uploadType, setUploadType] = useState<UPLOADVIA>("UPLOAD");
-    const [qty, setQty] = useState(product.qty);
+    const [qty, setQty] = useState(() => {
+        const minQty = product.pricing?.[0]?.qty || 1;
+        return Math.max(product.qty, minQty);
+    });
     const [files, setFiles] = useState<File[] | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const { refetch } = useWallet();
@@ -108,13 +111,36 @@ export default function PlaceOrder({
     const totalPrice = (basePrice ?? 0) + emailUploadCharge + igstAmount;
 
     const handleIncrease = () => {
-        if (!product.product.isTieredPricing)
-            setQty(qty + product.pricing?.[0]?.qty);
+        if (!product.product.isTieredPricing) {
+            const stepSize = product.pricing?.[0]?.qty || 1;
+            setQty(qty + stepSize);
+        }
     };
+
     const handleDecrease = () => {
-        if (!product.product.isTieredPricing && qty > product.pricing?.[0]?.qty)
-            setQty(qty - product.pricing?.[0]?.qty);
+        if (!product.product.isTieredPricing) {
+            const stepSize = product.pricing?.[0]?.qty || 1;
+            const minQty = product.pricing?.[0]?.qty || 1;
+
+            // Only decrease if the new quantity will be >= minimum quantity
+            if (qty - stepSize >= minQty) {
+                setQty(qty - stepSize);
+            }
+        }
     };
+
+    useEffect(() => {
+        const minQty = product.pricing?.[0]?.qty || 1;
+        if (qty < minQty) {
+            setQty(minQty);
+        } else {
+            // Ensure qty is always a multiple of minQty
+            const validQty = Math.ceil(qty / minQty) * minQty;
+            if (validQty !== qty) {
+                setQty(validQty);
+            }
+        }
+    }, [qty, product.pricing]);
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -334,9 +360,19 @@ export default function PlaceOrder({
                                     <div className="flex items-center gap-3">
                                         <Select
                                             value={qty?.toString() ?? ""}
-                                            onValueChange={(value) =>
-                                                setQty(Number(value))
-                                            }
+                                            onValueChange={(value) => {
+                                                const newQty = Number(value);
+                                                const minQty =
+                                                    product.pricing?.[0]?.qty ||
+                                                    1;
+                                                if (newQty >= minQty) {
+                                                    setQty(newQty);
+                                                } else {
+                                                    toast.warning(
+                                                        `Minimum quantity is ${minQty} units`,
+                                                    );
+                                                }
+                                            }}
                                         >
                                             <SelectTrigger className="w-full border-primary/20 focus:ring-primary/30 focus:border-primary/40 bg-white">
                                                 <SelectValue
@@ -371,7 +407,8 @@ export default function PlaceOrder({
                                             disabled={
                                                 isLoading ||
                                                 qty <=
-                                                    product.pricing?.[0]?.qty ||
+                                                    (product.pricing?.[0]
+                                                        ?.qty || 1) ||
                                                 product?.product
                                                     ?.isTieredPricing
                                             }

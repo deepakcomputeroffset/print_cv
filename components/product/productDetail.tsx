@@ -308,19 +308,69 @@ export default function ProductDetails({
                                                 selectedVariant?.pricing?.[0]
                                                     ?.qty
                                             }
-                                            value={qty ?? 0}
+                                            value={qty ?? ""}
                                             step={
                                                 selectedVariant?.pricing?.[0]
                                                     ?.qty
                                             }
-                                            onChange={(e) =>
-                                                setQty(parseInt(e.target.value))
-                                            }
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+
+                                                // Allow empty string (for clearing/typing)
+                                                if (value === "") {
+                                                    setQty(null);
+                                                    return;
+                                                }
+
+                                                // Convert to number and update
+                                                const numValue =
+                                                    parseInt(value);
+                                                if (!isNaN(numValue)) {
+                                                    setQty(numValue);
+                                                }
+                                            }}
+                                            onBlur={(e) => {
+                                                // Validate and adjust to nearest valid step on blur
+                                                const inputValue = parseInt(
+                                                    e.target.value,
+                                                );
+                                                const minQty =
+                                                    selectedVariant
+                                                        ?.pricing?.[0]?.qty ||
+                                                    1;
+
+                                                if (
+                                                    e.target.value === "" ||
+                                                    inputValue < minQty
+                                                ) {
+                                                    setQty(minQty);
+                                                    toast.message(
+                                                        `Minimum quantity is ${minQty}`,
+                                                    );
+                                                } else {
+                                                    // Round to nearest multiple of minQty
+                                                    const validQty =
+                                                        Math.round(
+                                                            inputValue / minQty,
+                                                        ) * minQty;
+                                                    if (
+                                                        validQty !== inputValue
+                                                    ) {
+                                                        setQty(validQty);
+                                                        toast.message(
+                                                            `Quantity adjusted to nearest multiple: ${validQty}`,
+                                                        );
+                                                    }
+                                                }
+                                            }}
                                             className="w-24 border-primary/20 focus:ring-primary/30 focus:border-primary/40 bg-white h-9 text-sm"
                                         />
                                         <p className="text-xs text-gray-500">
                                             Min:{" "}
+                                            {selectedVariant?.pricing?.[0]?.qty}{" "}
+                                            (in multiples of{" "}
                                             {selectedVariant?.pricing?.[0]?.qty}
+                                            )
                                         </p>
                                     </div>
                                 )}
@@ -357,16 +407,19 @@ export default function ProductDetails({
                                                   customerCategory,
                                                   cityDiscount,
                                                   findPrice()?.price as number,
-                                              ) || 0
+                                              ).toFixed(2) || 0
                                             : findPrice()?.qty &&
                                               qty &&
-                                              getPriceAccordingToCategoryOfCustomer(
-                                                  customerCategory,
-                                                  cityDiscount,
-                                                  findPrice()?.price as number,
-                                              ) *
+                                              (
+                                                  getPriceAccordingToCategoryOfCustomer(
+                                                      customerCategory,
+                                                      cityDiscount,
+                                                      findPrice()
+                                                          ?.price as number,
+                                                  ) *
                                                   (qty /
-                                                      (findPrice()?.qty ?? 0)))}
+                                                      (findPrice()?.qty ?? 0))
+                                              ).toFixed(2))}
                                 </span>
                             </div>
                         </div>

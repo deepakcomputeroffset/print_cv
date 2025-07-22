@@ -1,12 +1,11 @@
 import "../css/embla.css";
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import EmblaCarouselFade from "embla-carousel-fade";
 import Image from "next/image";
-import { motion } from "motion/react";
-import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type PropType = {
@@ -38,12 +37,6 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         slidesToScroll: 1,
     });
 
-    // Zoom functionality
-    const [scale, setScale] = useState<number>(1);
-    const [isZoomed, setIsZoomed] = useState<boolean>(false);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    const imageContainerRef = useRef<HTMLDivElement>(null);
-
     // Prev/Next navigation
     const scrollPrev = useCallback(() => {
         if (emblaMainApi) emblaMainApi.scrollPrev();
@@ -57,10 +50,6 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         (index: number) => {
             if (!emblaMainApi || !emblaThumbsApi) return;
             emblaMainApi.scrollTo(index);
-            // Reset zoom when changing slides
-            setScale(1);
-            setIsZoomed(false);
-            setPosition({ x: 0, y: 0 });
         },
         [emblaMainApi, emblaThumbsApi],
     );
@@ -78,68 +67,24 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         emblaMainApi.on("select", onSelect).on("reInit", onSelect);
     }, [emblaMainApi, onSelect]);
 
-    // Handle zoom in/out
-    const handleZoom = () => {
-        if (isZoomed) {
-            setScale(1);
-            setPosition({ x: 0, y: 0 });
-        } else {
-            setScale(2);
-        }
-        setIsZoomed(!isZoomed);
-    };
-
-    // Handle mouse move for zoomed image
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!isZoomed || !imageContainerRef.current) return;
-
-        const { left, top, width, height } =
-            imageContainerRef.current.getBoundingClientRect();
-        const x = (e.clientX - left) / width;
-        const y = (e.clientY - top) / height;
-
-        // Calculate new position
-        const newX = (0.5 - x) * 100;
-        const newY = (0.5 - y) * 100;
-
-        setPosition({ x: newX, y: newY });
-    };
-
     return (
-        <div className="embla relative">
+        <div className="embla relative select-none">
             {/* Main Carousel */}
             <div className="embla__viewport relative" ref={emblaMainRef}>
-                <div
-                    className="embla__container p-2"
-                    ref={imageContainerRef}
-                    onMouseMove={handleMouseMove}
-                >
+                <div className="embla__container p-2">
                     {slides.map((slide, index) => (
                         <div className="embla__slide px-2" key={index}>
-                            <div className="relative rounded-lg overflow-hidden aspect-[4/3]">
-                                <motion.div
-                                    className="h-full w-full"
-                                    animate={{
-                                        scale: scale,
-                                        x: isZoomed ? `${position.x}%` : 0,
-                                        y: isZoomed ? `${position.y}%` : 0,
-                                    }}
-                                    transition={{
-                                        type: "tween",
-                                        duration: 0.2,
-                                    }}
-                                >
-                                    <Image
-                                        src={slide}
-                                        alt={
-                                            productName
-                                                ? `${productName} - View ${index + 1}`
-                                                : `Product view ${index + 1}`
-                                        }
-                                        fill
-                                        className="object-cover transition-transform duration-500"
-                                    />
-                                </motion.div>
+                            <div className="relative rounded-lg overflow-hidden aspect-video">
+                                <Image
+                                    src={slide}
+                                    alt={
+                                        productName
+                                            ? `${productName} - View ${index + 1}`
+                                            : `Product view ${index + 1}`
+                                    }
+                                    fill
+                                    className="object-cover transition-transform duration-500"
+                                />
                                 {index === selectedIndex && (
                                     <div className="absolute top-3 left-3 z-30 flex items-center gap-1 bg-black/15 backdrop-blur-sm text-white text-xs py-1 px-2 rounded">
                                         <span className="font-medium">
@@ -171,52 +116,46 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                 >
                     <ChevronRight className="w-5 h-5" />
                 </button>
-
-                {/* Zoom Button */}
-                <button
-                    onClick={handleZoom}
-                    className="absolute bottom-4 right-4 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white transition-all duration-300 shadow-md border border-white/10 opacity-0 lg:opacity-70 group-hover:opacity-100"
-                    aria-label={isZoomed ? "Zoom out" : "Zoom in"}
-                >
-                    {isZoomed ? (
-                        <ZoomOut className="w-5 h-5" />
-                    ) : (
-                        <ZoomIn className="w-5 h-5" />
-                    )}
-                </button>
             </div>
 
             {/* Enhanced Thumbnails */}
             <div className="embla-thumbs mt-4">
                 <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
-                    <div className="embla-thumbs__container py-2 space-x-3">
+                    <div className="embla-thumbs__container py-2 space-x-2">
                         {slides.map((slide, index) => (
                             <div
                                 key={index}
                                 className={cn(
-                                    "embla-thumbs__slide rounded-lg cursor-pointer transition-all duration-300 overflow-hidden",
+                                    "embla-thumbs__slide relative rounded-lg cursor-pointer transition-all duration-300 overflow-hidden flex-shrink-0",
                                     index === selectedIndex
                                         ? "embla-thumbs__slide--selected ring-2 ring-primary shadow-md transform scale-105"
                                         : "opacity-70 hover:opacity-100 hover:scale-105",
                                 )}
                                 onClick={() => onThumbClick(index)}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        onThumbClick(index);
+                                    }
+                                }}
                             >
-                                <div className="relative h-16 w-16 lg:h-20 lg:w-20">
+                                <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20">
                                     <Image
                                         src={slide}
                                         alt={`Thumbnail ${index + 1}`}
                                         fill
-                                        className="object-cover rounded-lg"
+                                        className="object-cover rounded-lg pointer-events-none"
                                     />
                                 </div>
                                 <div
                                     className={cn(
-                                        "absolute inset-0 border-2 transition-colors duration-300 rounded-lg",
+                                        "absolute inset-0 border-2 transition-colors duration-300 rounded-lg pointer-events-none",
                                         index === selectedIndex
                                             ? "border-primary"
                                             : "border-transparent hover:border-primary/50",
                                     )}
-                                ></div>
+                                />
                             </div>
                         ))}
                     </div>
