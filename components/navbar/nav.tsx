@@ -25,6 +25,9 @@ import { Button } from "@/components/ui/button";
 const NAV_LINKS = [
     { name: "Home", url: "/" },
     { name: "Add Order", url: "/categories" },
+    { name: "Calculator", url: "/gsm_calculator" },
+    { name: "Designs", url: "/free_design" },
+    { name: "T & C", url: "/terms_and_conditions" },
     { name: "Contact us", url: "/#connect" },
 ];
 
