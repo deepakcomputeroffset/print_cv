@@ -332,9 +332,10 @@ model task {
     createdAt   DateTime  @default(now())
     updatedAt   DateTime  @updatedAt
 
-    assignee staff?   @relation(fields: [assignedStaffId], references: [id], onDelete: Restrict)
-    taskType taskType @relation(fields: [taskTypeId], references: [id], onDelete: Restrict)
-    job      job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+    assignee         staff?   @relation(fields: [assignedStaffId], references: [id], onDelete: Restrict)
+    taskType         taskType @relation(fields: [taskTypeId], references: [id], onDelete: Restrict)
+    job              job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+    designCategoryId Int?
 }
 
 model taskType {
@@ -345,6 +346,22 @@ model taskType {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+}
+
+model designCategory {
+    id      Int      @id @default(autoincrement())
+    name    String   @unique
+    img     String
+    designs design[]
+}
+
+model design {
+    id               Int             @id @default(autoincrement())
+    designCategoryId Int?
+    name             String          @unique
+    img              String
+    downloadUrl      String
+    designCategory   designCategory? @relation(fields: [designCategoryId], references: [id])
 }
 
 enum DELIVERYVIA {
