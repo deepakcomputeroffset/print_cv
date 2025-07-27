@@ -160,7 +160,7 @@ model product {
     isTieredPricing Boolean       @default(false)
     productItems    productItem[]
 
-    category  productCategory @relation(fields: [categoryId], references: [id])
+    category  productCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
     createdAt DateTime        @default(now())
     updatedAt DateTime        @updatedAt
 }

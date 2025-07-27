@@ -11,7 +11,7 @@ export const QuerySchema = z.object({
     page: z.string().transform(Number).optional(),
     perpage: z.string().transform(Number).optional(),
     sortby: z.string().optional(),
-    sortorder: z.enum(["asc", "desc"]).optional(),
+    sortorder: z.enum(["asc", "desc"]).default("asc").optional(),
     minPrice: z.string().optional(),
     maxPrice: z.string().optional(),
     minQty: z.string().optional(),

@@ -141,15 +141,17 @@ export async function PATCH(
                     sku: item.sku,
                     isAvailable: item.isAvailable,
                     pricing: {
-                        create: item.pricing.map((qtyPrice) => ({
+                        create: item?.pricing?.map((qtyPrice) => ({
                             qty: qtyPrice.qty,
                             price: qtyPrice.price,
                         })),
                     },
                     productAttributeOptions: {
-                        connect: item.productAttributeOptions.map((option) => ({
-                            id: option.id, // Connect using the existing ID
-                        })),
+                        connect: item?.productAttributeOptions?.map(
+                            (option) => ({
+                                id: option.id, // Connect using the existing ID
+                            }),
+                        ),
                     },
                 })),
             };

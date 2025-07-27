@@ -34,4 +34,6 @@ export const productFormSchema = z.object({
     productItems: z.array(productItemSchema), // Nested product items
 });
 
-export const partialProductFormSchema = productFormSchema.partial();
+export const partialProductFormSchema = productFormSchema.partial().extend({
+    productItems: z.array(productItemSchema.partial()).optional(),
+});

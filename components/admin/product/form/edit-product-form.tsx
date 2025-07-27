@@ -21,7 +21,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { useCallback, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { ProductAttributes } from "@/components/admin/attribute/product-attribute";
 import { ProductVariants } from "@/components/admin/product/product-variants";
 import ProductQtyPrice from "@/components/admin/product/modal/product-qtyPrice-modal";
@@ -258,8 +258,9 @@ export function EditProductForm({
         form.watch(),
     );
 
-    async function onSubmit() {
+    async function onSubmit(e: FormEvent) {
         try {
+            e.preventDefault();
             if (dirtyFields?.productItems)
                 dirtyFieldsWithValues.productItems =
                     form?.getValues("productItems");
@@ -300,6 +301,8 @@ export function EditProductForm({
         qty: number;
         price: number;
     }) => {
+        if (!form.getValues("isTieredPricing") && pricing.length >= 1)
+            return toast.error("Cant't add more qty and price");
         if (!qty || !price) return toast.error("Invalid qty and price.");
         if (!!pricing.find((pr) => pr.qty === qty))
             return toast.error("Already qty exists");
@@ -312,10 +315,7 @@ export function EditProductForm({
 
     return (
         <Form {...form}>
-            <form
-                onSubmit={form.handleSubmit(() => onSubmit())}
-                className="space-y-8"
-            >
+            <form onSubmit={(e) => onSubmit(e)} className="space-y-8">
                 <div className="grid grid-cols-2 gap-8">
                     <FormField
                         control={form.control}
@@ -536,13 +536,11 @@ export function EditProductForm({
                     />
                 </div>
 
-                {form.getValues("isTieredPricing") && (
-                    <ProductQtyPrice
-                        pricing={pricing}
-                        addQtyPriceHandler={addQtyPriceHandler}
-                        removeQtyPriceHandler={removeQtyPriceHandler}
-                    />
-                )}
+                <ProductQtyPrice
+                    pricing={pricing}
+                    addQtyPriceHandler={addQtyPriceHandler}
+                    removeQtyPriceHandler={removeQtyPriceHandler}
+                />
                 <ProductAttributes
                     isLoading={isLoading}
                     productCategoryId={Number(form?.watch().categoryId)}

@@ -119,6 +119,7 @@ export async function GET(request: Request) {
             message: "Products fetched successfully.",
         });
     } catch (error) {
+        console.log(error);
         return serverResponse({
             status: 500,
             success: false,

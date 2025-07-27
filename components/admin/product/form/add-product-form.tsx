@@ -61,6 +61,7 @@ export function ProductForm() {
             productItems: [],
             isAvailable: false,
             sku: "",
+            isTieredPricing: false,
         },
     });
 
@@ -136,6 +137,8 @@ export function ProductForm() {
         qty: number;
         price: number;
     }) => {
+        if (!form.getValues("isTieredPricing") && pricing.length >= 1)
+            return toast.error("Cant't add more qty and price");
         if (!qty || !price) return toast.error("Invalid qty and price.");
         if (!!pricing.find((pr) => pr.qty === qty))
             return toast.error("Already qty exists");
@@ -449,13 +452,11 @@ export function ProductForm() {
                         )}
                     />
                 </div>
-                {form.getValues("isTieredPricing") && (
-                    <ProductQtyPrice
-                        pricing={pricing}
-                        addQtyPriceHandler={addQtyPriceHandler}
-                        removeQtyPriceHandler={removeQtyPriceHandler}
-                    />
-                )}
+                <ProductQtyPrice
+                    pricing={pricing}
+                    addQtyPriceHandler={addQtyPriceHandler}
+                    removeQtyPriceHandler={removeQtyPriceHandler}
+                />
 
                 <ProductAttributes
                     isLoading={isLoading}
