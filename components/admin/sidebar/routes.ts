@@ -2,6 +2,7 @@ import { ROLE } from "@prisma/client";
 import {
     Blocks,
     Cuboid,
+    Frame,
     Home,
     LayoutDashboard,
     Package,
@@ -125,6 +126,13 @@ export const routes: RouteType[] = [
         url: "/admin/distribution?search=&sortorder=desc&orderStatus=ALL&page=1&perpage=100",
         pattern: /^\/admin\/distribution(?:\/.*)?$/,
         roles: ["DISTRIBUTER"],
+    },
+    {
+        title: "D Category",
+        icon: Frame,
+        url: "/admin/design-category?search=&sortorder=asc&page=1&perpage=100",
+        pattern: /^\/admin\/design-category(?:\/.*)?$/,
+        roles: ["ADMIN", "PRODUCT_MANAGER"],
     },
 ];
 

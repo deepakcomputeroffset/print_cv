@@ -5,6 +5,7 @@ export const defaultCustomerPerPage = 1;
 export const defaultTransactionPerPage = 1;
 export const defaultStaffPerPage = 5;
 export const defaultProductCategoryPerPage = 5;
+export const defaultDesignCategoryPerPage = 5;
 export const defaultProductPerPage = 1;
 export const defaultOrderPerPage = 2;
 export const defaultDepartmentsPerPage = 1;

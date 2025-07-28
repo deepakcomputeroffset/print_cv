@@ -22,7 +22,7 @@ import { ProductCategoryCreateModal } from "@/components/admin/category/modal/pr
 import { ProductCategoryEditModal } from "@/components/admin/category/modal/product-category-edit-modal";
 import { ProductCategoryDeleteModal } from "@/components/admin/category/modal/produt-category-delete-modal";
 import { productCategoryWithSubCategory, QueryParams } from "@/types/types";
-import { ProductCategoryFilter } from "@/components/admin/category/product-category-filter";
+import { CategoryFilter } from "@/components/admin/category-filter";
 import Pagination from "@/components/pagination";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
@@ -53,7 +53,7 @@ export default function CategoriesPage({
                 </Button>
             </div>
             <Card className="p-4">
-                <ProductCategoryFilter filters={filters} />
+                <CategoryFilter filters={filters} />
             </Card>
 
             <Card className="p-6">

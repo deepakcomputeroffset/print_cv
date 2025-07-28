@@ -6,20 +6,16 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "../../ui/select";
-import { Input } from "../../ui/input";
+} from "../ui/select";
+import { Input } from "../ui/input";
 import { Search } from "lucide-react";
-import { Button } from "../../ui/button";
+import { Button } from "../ui/button";
 import { QueryParams, sortType } from "@/types/types";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useUrlFilters } from "@/hooks/useUrlFilter";
 import { useEffect, useState } from "react";
 
-export const ProductCategoryFilter = ({
-    filters,
-}: {
-    filters: QueryParams;
-}) => {
+export const CategoryFilter = ({ filters }: { filters: QueryParams }) => {
     const [search, setSearch] = useState(filters?.search || "");
     const [sortOrder, setSortOrder] = useState<sortType | undefined>(
         filters?.sortorder,
