@@ -6,6 +6,7 @@ export const QuerySchema = z.object({
     search: z.string().optional(),
     category: z.enum(["LOW", "MEDIUM", "HIGH", "all"]).optional(),
     categoryId: z.string().optional(),
+    designCategoryId: z.string().optional(),
     status: z.enum(["true", "false", "all"]).optional(),
     isAvailable: z.enum(["true", "false", "all"]).optional(),
     page: z.string().transform(Number).optional(),

@@ -1,0 +1,71 @@
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import * as api from "@/lib/api/design.items";
+import { z } from "zod";
+import { QueryParams } from "@/types/types";
+import { designItemSchema } from "@/schemas/design.item.form.schema";
+
+export function useDesignItems(props: QueryParams = {}) {
+    const queryClient = useQueryClient();
+    const queryKey = ["design-items", props];
+
+    // Fetch products query
+    const { data, isLoading, error, refetch } = useQuery({
+        queryKey,
+        queryFn: () => api.fetchDesigns(props),
+    });
+    // create design mutation
+    const createMutation = useMutation({
+        mutationFn: (data: z.infer<typeof designItemSchema>) =>
+            api.createDesign(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey });
+            toast.success("design created successfully");
+        },
+        onError: () => {
+            toast.error("Failed to update design");
+        },
+    });
+
+    // Update design mutation
+    const updateMutation = useMutation({
+        mutationFn: ({
+            id,
+            data,
+        }: {
+            id: number;
+            data: Partial<z.infer<typeof designItemSchema>>;
+        }) => api.updateDesign(id, data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey });
+            toast.success("design updated successfully");
+        },
+        onError: () => {
+            toast.error("Failed to update design");
+        },
+    });
+
+    // Delete design mutation
+    const deleteMutation = useMutation({
+        mutationFn: api.deleteDesign,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey });
+            toast.success("design deleted successfully");
+        },
+        onError: () => {
+            toast.error("Failed to delete design");
+        },
+    });
+
+    return {
+        designs: data?.data ?? [],
+        totalPages: data?.totalPages ?? 0,
+        currentPage: data?.page ?? 1,
+        error,
+        isLoading,
+        refetch,
+        createDesign: createMutation,
+        updateDesign: updateMutation,
+        deleteDesign: deleteMutation,
+    };
+}
