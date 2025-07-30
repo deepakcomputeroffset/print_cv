@@ -11,10 +11,10 @@ export default async function AdminLayout({
     const session = await auth();
 
     return (
-        <div className="flex h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+        <div className="flex h-full bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
             <SidebarProvider>
                 <AppSidebar session={session} />
-                <main className="flex-1 overflow-y-auto p-6 h-full">
+                <main className="flex-1 overflow-y-auto p-6">
                     {/* <div className="max-w-7xl mx-auto"> */}
                     {children}
                     {/* </div> */}
