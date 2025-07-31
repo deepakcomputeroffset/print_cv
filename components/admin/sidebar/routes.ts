@@ -6,6 +6,7 @@ import {
     Home,
     LayoutDashboard,
     Package,
+    PictureInPicture,
     PiggyBank,
     ShoppingBag,
     ShoppingCart,
@@ -132,6 +133,13 @@ export const routes: RouteType[] = [
         icon: Frame,
         url: "/admin/design-category?search=&sortorder=asc&page=1&perpage=100",
         pattern: /^\/admin\/design-category(?:\/.*)?$/,
+        roles: ["ADMIN", "PRODUCT_MANAGER"],
+    },
+    {
+        title: "Designs",
+        icon: PictureInPicture,
+        url: "/admin/design-items?search=&sortorder=asc&page=1&perpage=100",
+        pattern: /^\/admin\/design-items(?:\/.*)?$/,
         roles: ["ADMIN", "PRODUCT_MANAGER"],
     },
 ];

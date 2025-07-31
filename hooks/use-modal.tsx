@@ -1,6 +1,7 @@
 import { addressType, customerType, orderType, staffType } from "@/types/types";
 import {
     customerCategory,
+    design,
     designCategory,
     job,
     order,
@@ -45,7 +46,8 @@ type ModalType =
     | "uploadOrderFile"
     | "addDesignCategory"
     | "editDesignCategory"
-    | "deleteDesignCategory";
+    | "deleteDesignCategory"
+    | "deleteDesign";
 
 type DataType = {
     staff?: staffType;
@@ -65,6 +67,7 @@ type DataType = {
     cityId?: number;
     order?: order;
     designCategory?: designCategory;
+    design?: design;
 };
 
 interface modalStore {

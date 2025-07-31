@@ -3,7 +3,7 @@ import axios from "axios";
 import { z } from "zod";
 import { QueryParams, ServerResponseType } from "@/types/types";
 import { designBaseUrl } from "../urls";
-import { design } from "@prisma/client";
+import { design, designCategory } from "@prisma/client";
 import { designItemSchema } from "@/schemas/design.item.form.schema";
 
 export async function fetchDesigns(params: QueryParams = {}) {
@@ -14,7 +14,7 @@ export async function fetchDesigns(params: QueryParams = {}) {
     const { data } = await axios<
         ServerResponseType<
             QueryParams & {
-                data: design[];
+                data: (design & { designCategory: designCategory })[];
             }
         >
     >(url);
