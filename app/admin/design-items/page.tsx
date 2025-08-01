@@ -5,6 +5,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { DesignFilter } from "@/components/admin/design/design-filter";
 import { DesignLists } from "@/components/admin/design/design-lists";
+import { DesignDeleteModal } from "@/components/admin/design/modal/design-delete-modal";
 
 export default function Designspage({
     searchParams,
@@ -27,6 +28,8 @@ export default function Designspage({
             <DesignFilter filters={filters} />
 
             <DesignLists filters={filters} />
+
+            <DesignDeleteModal />
         </div>
     );
 }
