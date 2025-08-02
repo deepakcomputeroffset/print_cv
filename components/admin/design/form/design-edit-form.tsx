@@ -21,6 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/hooks/use-modal";
 import { useProductCategory } from "@/hooks/useProductCategory";
 import { createFormData } from "@/lib/formData";
+import { getDirtyFieldsWithValues } from "@/lib/utils";
 import { getProductCategorySchema } from "@/schemas/product.category.form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Trash } from "lucide-react";
@@ -30,26 +31,33 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-export const ProductCategoryCreateForm = () => {
+export const DesignEditForm = () => {
     const { onClose, data } = useModal();
-    const [imageUrl, setImageUrl] = useState<string>();
-
     const productCategorySchema = getProductCategorySchema();
-
     const form = useForm<z.infer<typeof productCategorySchema>>({
-        resolver: zodResolver(productCategorySchema),
+        resolver: zodResolver(productCategorySchema.partial()),
         defaultValues: {
-            name: "",
-            description: "",
+            name: data?.productCategory?.name,
+            description: data?.productCategory?.description || "",
             parentCategoryId: data?.productCategory?.id.toString(),
-            isAvailable: false,
+            isAvailable: data?.productCategory?.isAvailable,
         },
     });
 
+    const [imageUrl, setImageUrl] = useState<string | undefined>(
+        data?.productCategory?.imageUrl,
+    );
+
     const {
-        createProductCategory: { isPending, mutateAsync },
+        updateProductCategory: { mutateAsync, isPending },
     } = useProductCategory();
 
+    const formData = form.watch();
+    const dirtyFields = form.formState.dirtyFields;
+    const dirtyFieldsWithValues = getDirtyFieldsWithValues(
+        dirtyFields,
+        formData,
+    );
     const handleDrop = useCallback(async (files: File[]) => {
         if (files[0]) {
             form.setValue("image", files[0], { shouldDirty: true });
@@ -59,6 +67,7 @@ export const ProductCategoryCreateForm = () => {
             toast.error("Image size must be less 5mb");
         }
     }, []);
+
     const handleDelete = useCallback(() => {
         if (!!form.getValues("image") || imageUrl) {
             form.resetField("image");
@@ -67,24 +76,22 @@ export const ProductCategoryCreateForm = () => {
         }
     }, []);
 
-    const handleSubmit = async (
-        values: z.infer<typeof productCategorySchema>,
-    ) => {
-        const formData = createFormData(values);
-
-        await mutateAsync(formData);
-        onClose();
-        form.reset();
-        if (imageUrl) {
-            URL.revokeObjectURL(imageUrl);
-            setImageUrl(undefined);
+    const handleSubmit = async () => {
+        if (data?.productCategory?.id) {
+            console.log(dirtyFieldsWithValues);
+            const formData = createFormData(dirtyFieldsWithValues);
+            await mutateAsync({
+                id: data?.productCategory?.id,
+                data: formData,
+            });
+            onClose();
+            form.reset();
         }
     };
-
     return (
         <Form {...form}>
             <form
-                onSubmit={form.handleSubmit((values) => handleSubmit(values))}
+                onSubmit={form.handleSubmit(() => handleSubmit())}
                 className="space-y-4"
             >
                 <FormField
@@ -100,7 +107,6 @@ export const ProductCategoryCreateForm = () => {
                         </FormItem>
                     )}
                 />
-
                 <FormField
                     control={form.control}
                     name="description"
@@ -114,6 +120,7 @@ export const ProductCategoryCreateForm = () => {
                         </FormItem>
                     )}
                 />
+
                 <FormField
                     control={form.control}
                     name="isAvailable"
@@ -194,7 +201,7 @@ export const ProductCategoryCreateForm = () => {
                     {isPending ? (
                         <Loader2 className="animate-spin" />
                     ) : (
-                        "create"
+                        "update"
                     )}
                 </Button>
             </form>

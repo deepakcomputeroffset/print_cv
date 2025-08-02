@@ -4,7 +4,7 @@ export const getDesignItemSchema = () => {
     const isClient = typeof window !== "undefined";
 
     return z.object({
-        designCategoryId: z.number(),
+        designCategoryId: z.string(),
         name: z
             .string({ required_error: "Name is required." })
             .min(1, { message: "Name must be at least 1 character long." }),

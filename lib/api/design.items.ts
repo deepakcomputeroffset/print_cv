@@ -21,7 +21,7 @@ export async function fetchDesigns(params: QueryParams = {}) {
     return data.data;
 }
 
-export async function createDesign(data: z.infer<typeof designItemSchema>) {
+export async function createDesign(data: FormData) {
     const { data: response } = await axios.post<ServerResponseType<design>>(
         designBaseUrl,
         data,

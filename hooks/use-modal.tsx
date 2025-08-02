@@ -47,7 +47,9 @@ type ModalType =
     | "addDesignCategory"
     | "editDesignCategory"
     | "deleteDesignCategory"
-    | "deleteDesign";
+    | "deleteDesign"
+    | "createDesign"
+    | "editDesign";
 
 type DataType = {
     staff?: staffType;

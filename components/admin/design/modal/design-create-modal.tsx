@@ -1,14 +1,15 @@
+"use client";
 import { Modal } from "@/components/modal";
 import { useModal } from "@/hooks/use-modal";
-import { ProductCategoryCreateForm } from "../../category/form/product-category-create-form";
+import { DesignCreateForm } from "../form/design-create-form";
 
-export const ProductCategoryCreateModal = () => {
+export const DesignCreateModal = () => {
     const { isOpen, modal, onClose } = useModal();
-    const isModalOpen = modal === "createProductCategory" && isOpen;
+    const isModalOpen = modal === "createDesign" && isOpen;
 
     return (
-        <Modal title="Add new category" isOpen={isModalOpen} onClose={onClose}>
-            <ProductCategoryCreateForm />
+        <Modal title="Add new Design" isOpen={isModalOpen} onClose={onClose}>
+            <DesignCreateForm />
         </Modal>
     );
 };

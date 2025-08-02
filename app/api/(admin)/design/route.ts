@@ -142,7 +142,7 @@ export async function POST(req: Request) {
 
         const isDesignExit = await Prisma.design.findUnique({
             where: {
-                designCategoryId: safeData?.designCategoryId,
+                designCategoryId: parseInt(safeData?.designCategoryId),
                 name: safeData?.name,
             },
         });
@@ -155,8 +155,8 @@ export async function POST(req: Request) {
             });
         }
 
-        const image = data.get("image");
-        const downloadFile = data.get("download");
+        const image = data.get("img");
+        const downloadFile = data.get("downloadUrl");
 
         if (
             !image ||
@@ -191,7 +191,7 @@ export async function POST(req: Request) {
             data: {
                 name: safeData.name,
                 img: img,
-                designCategoryId: safeData?.designCategoryId,
+                designCategoryId: parseInt(safeData?.designCategoryId),
                 downloadUrl,
             },
         });
@@ -203,6 +203,7 @@ export async function POST(req: Request) {
             data: desingItem,
         });
     } catch (error) {
+        console.log(error);
         return serverResponse({
             status: 500,
             success: false,

@@ -4,6 +4,7 @@ import * as api from "@/lib/api/design.items";
 import { z } from "zod";
 import { QueryParams } from "@/types/types";
 import { designItemSchema } from "@/schemas/design.item.form.schema";
+import { parseFormData } from "@/lib/formData";
 
 export function useDesignItems(props: QueryParams = {}) {
     const queryClient = useQueryClient();
@@ -16,8 +17,11 @@ export function useDesignItems(props: QueryParams = {}) {
     });
     // create design mutation
     const createMutation = useMutation({
-        mutationFn: (data: z.infer<typeof designItemSchema>) =>
-            api.createDesign(data),
+        mutationFn: (data: FormData) => {
+            const result = parseFormData(data, designItemSchema);
+            if (result.success) return api.createDesign(data);
+            throw result.error;
+        },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });
             toast.success("design created successfully");

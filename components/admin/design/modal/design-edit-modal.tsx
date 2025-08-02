@@ -1,18 +1,14 @@
 import { Modal } from "@/components/modal";
 import { useModal } from "@/hooks/use-modal";
-import { ProductCategoryEditForm } from "../../category/form/product-category-edit-form";
+import { DesignEditForm } from "../form/design-edit-form";
 
-export const ProductCategoryEditModal = () => {
+export const DesignEditModal = () => {
     const { isOpen, modal, onClose } = useModal();
-    const isModalOpen = modal === "editProductCategory" && isOpen;
+    const isModalOpen = modal === "editDesign" && isOpen;
 
     return (
-        <Modal
-            title="Edit Product Category"
-            isOpen={isModalOpen}
-            onClose={onClose}
-        >
-            <ProductCategoryEditForm />
+        <Modal title="Edit Design" isOpen={isModalOpen} onClose={onClose}>
+            <DesignEditForm />
         </Modal>
     );
 };

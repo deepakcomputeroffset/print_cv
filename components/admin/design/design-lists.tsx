@@ -87,13 +87,13 @@ export const DesignLists = ({ filters }: { filters: QueryParams }) => {
                                         <Button
                                             variant="ghost"
                                             size="icon"
-                                            asChild
+                                            onClick={() =>
+                                                onOpen("editDesign", {
+                                                    design,
+                                                })
+                                            }
                                         >
-                                            <Link
-                                                href={`/admin/design/${design?.id}/edit`}
-                                            >
-                                                <Pencil className="h-4 w-4" />
-                                            </Link>
+                                            <Pencil className="h-4 w-4" />
                                         </Button>
 
                                         <Button
