@@ -40,7 +40,7 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            आदित्य प्रिंटिफाई लिमिटेड एक B2B
+                                            आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड एक B2B
                                             कंपनी है, जहाँ प्रिंटिंग प्रेस अपने
                                             लिए गए ऑर्डर्स, को प्रोसेस होने के
                                             लिए भेजती है, यह ऑर्डर्स नकली /
@@ -84,7 +84,7 @@ export default function TermsAndCondition() {
                                         <p className="text-gray-700 text-sm leading-relaxed">
                                             मैं स्वीकार करता हूं कि{" "}
                                             <strong className="text-primary">
-                                                आदित्य प्रिंटिफाई लिमिटेड
+                                                आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड
                                             </strong>{" "}
                                             की जिम्मेदारी सामान को ट्रांसपोर्ट
                                             या कूरियर तक पहुंचाने की ही होगी !
@@ -102,7 +102,7 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            क्लब प्रिंटिंग वाले सभी प्रोडक्ट्स
+                                            आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड वाले सभी प्रोडक्ट्स
                                             (जैसे विजिटिंग कार्ड, एटीएम पाउच,
                                             लेटर हेड, एनवलप इत्यादि ) में अगर 5
                                             से 50% शीट्स/ कार्ड में अगर
@@ -140,7 +140,7 @@ export default function TermsAndCondition() {
                                             प्राप्त होने इत्यादि की स्थिति में,
                                             &quot;
                                             <strong className="text-primary">
-                                                आदित्य प्रिंटिफाई लिमिटेड
+                                                आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड
                                             </strong>
                                             &quot; की अधिकतम देनदारी केवल
                                             विवादित उत्पाद के दर तक ही होगी !
@@ -154,7 +154,7 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            आदित्य प्रिंटिफाई लिमिटेड के पास
+                                            आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड के पास
                                             किसी की भी &quot;membership&quot; को
                                             रद्द करने एवं चैनल पार्टनर कोड को
                                             बदलने के सभी अधिकार हैं !
@@ -168,7 +168,7 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            केवल आदित्य प्रिंटिफाई के बैंक खाते
+                                            केवल आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड के बैंक खाते
                                             में किये गए पेमेंट के लिए ही कंपनी
                                             जिम्मेदार होगी
                                         </p>
@@ -183,8 +183,7 @@ export default function TermsAndCondition() {
                                         <p className="text-gray-700 text-sm leading-relaxed">
                                             मैं, मुझे और मेरे ग्राहकों को
                                             सेवा/लेन-देन संबंधी एसएमएस भेजने के
-                                            लिए &quot;रिंटर्स क्लब ऑफ इंडिया
-                                            लिमिटेड&quot; को
+                                            लिए &quot;आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड&quot; को
                                             &quot;अनापत्ति&quot; प्रदान करता हूं
                                             ।
                                         </p>
@@ -197,7 +196,7 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed font-medium">
-                                            सभी कानूनी मामले केवल जयपुर न्यायालय
+                                            सभी कानूनी मामले केवल दिल्ली न्यायालय
                                             के अधीन हैं !
                                         </p>
                                     </li>
@@ -225,7 +224,7 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            Aditya Printify Pvt Limited is a B2B
+                                            ADITYA PRINTIFY INDIA PVT LTD is a B2B
                                             Company, which prints orders from
                                             Printing Press only, and these
                                             orders shall not contain Duplicate /
@@ -267,8 +266,7 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            I accept the Aditya Printify Pvt
-                                            Limited&apos;s responsibility ceases
+                                            I accept the ADITYA PRINTIFY INDIA PVT LTD&apos;s responsibility ceases
                                             the moment the goods leave
                                             company&apos;s godown.
                                         </p>
@@ -281,7 +279,7 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            In all products with club printing
+                                            In all products with ADITYA PRINTIFY INDIA PVT LTD
                                             (like visiting cards, ATM pouches,
                                             letter heads, envelopes etc.), if
                                             there is a printing mistake in 5 to
@@ -318,8 +316,7 @@ export default function TermsAndCondition() {
                                             I agree that in case of any dispute
                                             / lost / delayed receipt etc. in the
                                             transaction of the product, the
-                                            maximum liability of &quot;Printers
-                                            Club of India Limited&quot; will be
+                                            maximum liability of &quot;ADITYA PRINTIFY INDIA PVT LTD&quot; will be
                                             only up to the rate of the disputed
                                             product.
                                         </p>
@@ -332,7 +329,7 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            Aditya Printify Pvt Limited has all
+                                            ADITYA PRINTIFY INDIA PVT LTD has all
                                             rights to cancel / change any
                                             membership / channel partner code
                                         </p>
@@ -347,8 +344,7 @@ export default function TermsAndCondition() {
                                         <p className="text-gray-700 text-sm leading-relaxed">
                                             The company will be responsible only
                                             for the payment made in the bank
-                                            account of Aditya Printify Pvt
-                                            Limited.
+                                            account of ADITYA PRINTIFY INDIA PVT LTD.
                                         </p>
                                     </li>
 
@@ -360,8 +356,7 @@ export default function TermsAndCondition() {
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
                                             I hereby provide &quot;No
-                                            Objection&quot; to &quot;Aditya
-                                            Printify Pvt Limited&quot; for
+                                            Objection&quot; to &quot;ADITYA PRINTIFY INDIA PVT LTD&quot; for
                                             sending service/transactional
                                             related sms to me and my customers
                                             too.
@@ -376,7 +371,7 @@ export default function TermsAndCondition() {
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed font-medium">
                                             All the leagal matters are subject
-                                            to Jaipur Jurisdiction Only
+                                            to Delhi Jurisdiction Only
                                         </p>
                                     </li>
                                 </ol>
