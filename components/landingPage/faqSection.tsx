@@ -33,7 +33,7 @@ const faqs = [
     },
     {
         question: "What is your minimum order quantity?",
-        answer: "Minimum order quantities vary by product. Business cards typically start at 100 pieces, while flyers and brochures may start at 50-100 pieces. For specialty items, minimums may be higher. We also offer small batch printing for certain products to accommodate smaller needs.",
+        answer: "Minimum order quantities vary by product. Business cards typically start at 1000 pieces, while flyers and brochures may start at 1000-2000 pieces. For specialty items, minimums may be higher. We also offer small batch printing for certain products to accommodate smaller needs.",
     },
     {
         question: "Do you offer samples before placing a bulk order?",
