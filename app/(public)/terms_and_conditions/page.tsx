@@ -40,20 +40,20 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड एक B2B
-                                            कंपनी है, जहाँ प्रिंटिंग प्रेस अपने
-                                            लिए गए ऑर्डर्स, को प्रोसेस होने के
-                                            लिए भेजती है, यह ऑर्डर्स नकली /
-                                            डुबलीकेट या प्रतिबंधित वस्तु, अथवा
-                                            संस्था की अनुमति के बिना नहीं होने
-                                            चाहिए ! यह सुनिश्चित करना
-                                            डिस्ट्रीब्यूटर / प्रिंटिंग प्रेस की
-                                            ही जिम्मेदारी होगी। अगर कोई
-                                            प्रिंटिंग प्रेस या डिस्ट्रीब्यूटर
-                                            जानबुझ कर नकली / डुबलीकेट या
-                                            प्रतिबंधित वस्तु के आर्डर प्रोसेस
-                                            होने हमें भेजती है, तो उनकी सदयस्ता
-                                            आजीवन रद्द कर दी जाएगी।
+                                            आदित्य प्रिंटिफाई इंडिया प्राइवेट
+                                            लिमिटेड एक B2B कंपनी है, जहाँ
+                                            प्रिंटिंग प्रेस अपने लिए गए ऑर्डर्स,
+                                            को प्रोसेस होने के लिए भेजती है, यह
+                                            ऑर्डर्स नकली / डुबलीकेट या
+                                            प्रतिबंधित वस्तु, अथवा संस्था की
+                                            अनुमति के बिना नहीं होने चाहिए ! यह
+                                            सुनिश्चित करना डिस्ट्रीब्यूटर /
+                                            प्रिंटिंग प्रेस की ही जिम्मेदारी
+                                            होगी। अगर कोई प्रिंटिंग प्रेस या
+                                            डिस्ट्रीब्यूटर जानबुझ कर नकली /
+                                            डुबलीकेट या प्रतिबंधित वस्तु के
+                                            आर्डर प्रोसेस होने हमें भेजती है, तो
+                                            उनकी सदयस्ता आजीवन रद्द कर दी जाएगी।
                                         </p>
                                     </li>
 
@@ -84,7 +84,8 @@ export default function TermsAndCondition() {
                                         <p className="text-gray-700 text-sm leading-relaxed">
                                             मैं स्वीकार करता हूं कि{" "}
                                             <strong className="text-primary">
-                                                आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड
+                                                आदित्य प्रिंटिफाई इंडिया
+                                                प्राइवेट लिमिटेड
                                             </strong>{" "}
                                             की जिम्मेदारी सामान को ट्रांसपोर्ट
                                             या कूरियर तक पहुंचाने की ही होगी !
@@ -102,13 +103,14 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड वाले सभी प्रोडक्ट्स
-                                            (जैसे विजिटिंग कार्ड, एटीएम पाउच,
-                                            लेटर हेड, एनवलप इत्यादि ) में अगर 5
-                                            से 50% शीट्स/ कार्ड में अगर
-                                            प्रिंटिंग मिस्टेक है तो उसी अनुपात
-                                            में केवल डिस्काउंट ही किया जा सकता
-                                            है. एवं अगर 50 % शीट्स से ज्यादा में
+                                            आदित्य प्रिंटिफाई इंडिया प्राइवेट
+                                            लिमिटेड वाले सभी प्रोडक्ट्स (जैसे
+                                            विजिटिंग कार्ड, एटीएम पाउच, लेटर
+                                            हेड, एनवलप इत्यादि ) में अगर 5 से
+                                            50% शीट्स/ कार्ड में अगर प्रिंटिंग
+                                            मिस्टेक है तो उसी अनुपात में केवल
+                                            डिस्काउंट ही किया जा सकता है. एवं
+                                            अगर 50 % शीट्स से ज्यादा में
                                             प्रिंटिंग मिस्टेक है तो ही आर्डर को
                                             रीप्रिंट किया जायेगा ।
                                         </p>
@@ -140,7 +142,8 @@ export default function TermsAndCondition() {
                                             प्राप्त होने इत्यादि की स्थिति में,
                                             &quot;
                                             <strong className="text-primary">
-                                                आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड
+                                                आदित्य प्रिंटिफाई इंडिया
+                                                प्राइवेट लिमिटेड
                                             </strong>
                                             &quot; की अधिकतम देनदारी केवल
                                             विवादित उत्पाद के दर तक ही होगी !
@@ -154,10 +157,11 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड के पास
-                                            किसी की भी &quot;membership&quot; को
-                                            रद्द करने एवं चैनल पार्टनर कोड को
-                                            बदलने के सभी अधिकार हैं !
+                                            आदित्य प्रिंटिफाई इंडिया प्राइवेट
+                                            लिमिटेड के पास किसी की भी
+                                            &quot;membership&quot; को रद्द करने
+                                            एवं चैनल पार्टनर कोड को बदलने के सभी
+                                            अधिकार हैं !
                                         </p>
                                     </li>
 
@@ -168,8 +172,9 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            केवल आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड के बैंक खाते
-                                            में किये गए पेमेंट के लिए ही कंपनी
+                                            केवल आदित्य प्रिंटिफाई इंडिया
+                                            प्राइवेट लिमिटेड के बैंक खाते में
+                                            किये गए पेमेंट के लिए ही कंपनी
                                             जिम्मेदार होगी
                                         </p>
                                     </li>
@@ -183,7 +188,8 @@ export default function TermsAndCondition() {
                                         <p className="text-gray-700 text-sm leading-relaxed">
                                             मैं, मुझे और मेरे ग्राहकों को
                                             सेवा/लेन-देन संबंधी एसएमएस भेजने के
-                                            लिए &quot;आदित्य प्रिंटिफाई इंडिया प्राइवेट लिमिटेड&quot; को
+                                            लिए &quot;आदित्य प्रिंटिफाई इंडिया
+                                            प्राइवेट लिमिटेड&quot; को
                                             &quot;अनापत्ति&quot; प्रदान करता हूं
                                             ।
                                         </p>
@@ -196,8 +202,8 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed font-medium">
-                                            सभी कानूनी मामले केवल दिल्ली न्यायालय
-                                            के अधीन हैं !
+                                            सभी कानूनी मामले केवल दिल्ली
+                                            न्यायालय के अधीन हैं !
                                         </p>
                                     </li>
                                 </ol>
@@ -224,9 +230,9 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            ADITYA PRINTIFY INDIA PVT LTD is a B2B
-                                            Company, which prints orders from
-                                            Printing Press only, and these
+                                            ADITYA PRINTIFY INDIA PVT LTD is a
+                                            B2B Company, which prints orders
+                                            from Printing Press only, and these
                                             orders shall not contain Duplicate /
                                             Fake, Prohibited Content or without
                                             the permission or related
@@ -266,7 +272,8 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            I accept the ADITYA PRINTIFY INDIA PVT LTD&apos;s responsibility ceases
+                                            I accept the ADITYA PRINTIFY INDIA
+                                            PVT LTD&apos;s responsibility ceases
                                             the moment the goods leave
                                             company&apos;s godown.
                                         </p>
@@ -279,13 +286,13 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            In all products with ADITYA PRINTIFY INDIA PVT LTD
-                                            (like visiting cards, ATM pouches,
-                                            letter heads, envelopes etc.), if
-                                            there is a printing mistake in 5 to
-                                            50% of the sheets / cards, then only
-                                            the same proportion can be
-                                            discounted. And if there is a
+                                            In all products with ADITYA PRINTIFY
+                                            INDIA PVT LTD (like visiting cards,
+                                            ATM pouches, letter heads, envelopes
+                                            etc.), if there is a printing
+                                            mistake in 5 to 50% of the sheets /
+                                            cards, then only the same proportion
+                                            can be discounted. And if there is a
                                             printing mistake in more than 50% of
                                             the sheets only then the order will
                                             be reprinted.
@@ -316,7 +323,8 @@ export default function TermsAndCondition() {
                                             I agree that in case of any dispute
                                             / lost / delayed receipt etc. in the
                                             transaction of the product, the
-                                            maximum liability of &quot;ADITYA PRINTIFY INDIA PVT LTD&quot; will be
+                                            maximum liability of &quot;ADITYA
+                                            PRINTIFY INDIA PVT LTD&quot; will be
                                             only up to the rate of the disputed
                                             product.
                                         </p>
@@ -329,8 +337,8 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            ADITYA PRINTIFY INDIA PVT LTD has all
-                                            rights to cancel / change any
+                                            ADITYA PRINTIFY INDIA PVT LTD has
+                                            all rights to cancel / change any
                                             membership / channel partner code
                                         </p>
                                     </li>
@@ -344,7 +352,8 @@ export default function TermsAndCondition() {
                                         <p className="text-gray-700 text-sm leading-relaxed">
                                             The company will be responsible only
                                             for the payment made in the bank
-                                            account of ADITYA PRINTIFY INDIA PVT LTD.
+                                            account of ADITYA PRINTIFY INDIA PVT
+                                            LTD.
                                         </p>
                                     </li>
 
@@ -356,7 +365,8 @@ export default function TermsAndCondition() {
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
                                             I hereby provide &quot;No
-                                            Objection&quot; to &quot;ADITYA PRINTIFY INDIA PVT LTD&quot; for
+                                            Objection&quot; to &quot;ADITYA
+                                            PRINTIFY INDIA PVT LTD&quot; for
                                             sending service/transactional
                                             related sms to me and my customers
                                             too.
