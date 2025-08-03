@@ -242,9 +242,8 @@ export async function DELETE(
         const design = await Prisma.design.delete({
             where: { id: parseInt(id) },
         });
-        const im = await deleteFile(design.img);
-        const fil = await deleteFile(design.downloadUrl);
-        console.log(im, fil);
+        await deleteFile(design.img);
+        await deleteFile(design.downloadUrl);
 
         return serverResponse({
             status: 200,
