@@ -75,8 +75,8 @@ export const DesignCreateForm = () => {
         }
 
         if (type === "downloadUrl") {
+            form.resetField("downloadUrl");
         }
-        form.resetField("downloadUrl");
     }, []);
 
     const handleSubmit = async (values: z.infer<typeof designItemSchema>) => {
