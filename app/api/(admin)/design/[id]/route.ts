@@ -176,6 +176,10 @@ export async function PATCH(
                 downloadFile,
                 imageName,
             );
+
+            if (existingDesign?.downloadUrl) {
+                await deleteFile(existingDesign.downloadUrl);
+            }
         }
 
         const updatedData = await Prisma?.design?.update({
@@ -238,8 +242,9 @@ export async function DELETE(
         const design = await Prisma.design.delete({
             where: { id: parseInt(id) },
         });
-        await deleteFile(design.img);
-        await deleteFile(design.downloadUrl);
+        const im = await deleteFile(design.img);
+        const fil = await deleteFile(design.downloadUrl);
+        console.log(im, fil);
 
         return serverResponse({
             status: 200,
