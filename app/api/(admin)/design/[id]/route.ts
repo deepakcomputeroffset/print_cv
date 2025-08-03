@@ -2,10 +2,15 @@ import { NextResponse } from "next/server";
 import { Prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
-import { allowedRoleForCategoryAndProductManagement } from "@/lib/constants";
+import {
+    allowedRoleForCategoryAndProductManagement,
+    maxImageSize,
+} from "@/lib/constants";
 import { ROLE } from "@prisma/client";
-import { deleteFile } from "@/lib/storage";
+import { deleteFile, uploadFile } from "@/lib/storage";
 import { designItemSchema } from "@/schemas/design.item.form.schema";
+import { parsePartialFormData } from "@/lib/formData";
+import { FileLike } from "@/types/types";
 
 export async function GET(
     req: Request,
@@ -95,17 +100,24 @@ export async function PATCH(
             });
         }
 
-        const body = await request.json();
+        const data = await request.formData();
+        const validatedData = parsePartialFormData(data, designItemSchema);
 
-        // Validate request body against schema
-        const validatedData = designItemSchema?.partial().parse(body);
+        if (!validatedData.success) {
+            return serverResponse({
+                status: 400,
+                success: false,
+                message: "Invalid Data",
+                error: validatedData.error.issues,
+            });
+        }
 
         // Find existing Design
-        const existingProduct = await Prisma?.design?.findUnique({
+        const existingDesign = await Prisma?.design?.findUnique({
             where: { id: parseInt(id) },
         });
 
-        if (!existingProduct) {
+        if (!existingDesign) {
             return serverResponse({
                 status: 404,
                 success: false,
@@ -113,17 +125,68 @@ export async function PATCH(
             });
         }
 
-        // eslint-disable-next-line
-        type NestedObject<T = any> = {
-            [key: string]: T | NestedObject<T>;
-        };
-        const updateData: NestedObject = {};
+        let imageUrl = undefined;
+        if (validatedData?.data.img) {
+            const image = data.get("img") as FileLike;
 
-        if (validatedData?.name) updateData.name = validatedData.name;
+            if (!image || typeof image !== "object" || !("size" in image)) {
+                return serverResponse({
+                    status: 400,
+                    success: false,
+                    message: "Invalid image file.",
+                });
+            }
+
+            if (image.size > maxImageSize)
+                return serverResponse({
+                    status: 400,
+                    success: false,
+                    message: "Image is too large.",
+                });
+
+            const imageName = `${session.user.staff?.id}_${Date.now()}`;
+            imageUrl = await uploadFile(
+                "design_category_items",
+                image,
+                imageName,
+            );
+
+            if (existingDesign?.img) {
+                await deleteFile(existingDesign.img);
+            }
+        }
+
+        let downloadUrl = undefined;
+        if (validatedData?.data.downloadUrl) {
+            const downloadFile = data.get("downloadUrl");
+            if (
+                !downloadFile ||
+                typeof downloadFile !== "object" ||
+                !("size" in downloadFile)
+            ) {
+                return serverResponse({
+                    status: 400,
+                    success: false,
+                    message: "Invalid file.",
+                });
+            }
+            const imageName = `${session.user.staff?.id}_${Date.now()}`;
+            downloadUrl = await uploadFile(
+                "design_category_items_file",
+                downloadFile,
+                imageName,
+            );
+        }
 
         const updatedData = await Prisma?.design?.update({
             where: { id: parseInt(id) },
-            data: { ...updateData },
+            data: {
+                ...(validatedData?.data?.name
+                    ? { name: validatedData?.data?.name }
+                    : {}),
+                ...(imageUrl ? { img: imageUrl } : {}),
+                ...(downloadUrl ? { downloadUrl: downloadUrl } : {}),
+            },
         });
 
         return serverResponse({

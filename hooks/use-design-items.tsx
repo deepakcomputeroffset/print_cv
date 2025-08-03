@@ -4,13 +4,13 @@ import * as api from "@/lib/api/design.items";
 import { z } from "zod";
 import { QueryParams } from "@/types/types";
 import { designItemSchema } from "@/schemas/design.item.form.schema";
-import { parseFormData } from "@/lib/formData";
+import { parseFormData, parsePartialFormData } from "@/lib/formData";
 
 export function useDesignItems(props: QueryParams = {}) {
     const queryClient = useQueryClient();
     const queryKey = ["design-items", props];
 
-    // Fetch products query
+    // Fetch designs query
     const { data, isLoading, error, refetch } = useQuery({
         queryKey,
         queryFn: () => api.fetchDesigns(props),
@@ -33,13 +33,11 @@ export function useDesignItems(props: QueryParams = {}) {
 
     // Update design mutation
     const updateMutation = useMutation({
-        mutationFn: ({
-            id,
-            data,
-        }: {
-            id: number;
-            data: Partial<z.infer<typeof designItemSchema>>;
-        }) => api.updateDesign(id, data),
+        mutationFn: ({ id, data }: { id: number; data: FormData }) => {
+            const result = parsePartialFormData(data, designItemSchema);
+            if (result.success) return api.updateDesign(id, data);
+            throw result.error;
+        },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });
             toast.success("design updated successfully");

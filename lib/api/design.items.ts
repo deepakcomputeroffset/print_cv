@@ -1,10 +1,8 @@
 import queryString from "query-string";
 import axios from "axios";
-import { z } from "zod";
 import { QueryParams, ServerResponseType } from "@/types/types";
 import { designBaseUrl } from "../urls";
 import { design, designCategory } from "@prisma/client";
-import { designItemSchema } from "@/schemas/design.item.form.schema";
 
 export async function fetchDesigns(params: QueryParams = {}) {
     const url = queryString.stringifyUrl({
@@ -29,10 +27,7 @@ export async function createDesign(data: FormData) {
     return response;
 }
 
-export async function updateDesign(
-    id: number,
-    data: Partial<z.infer<typeof designItemSchema>>,
-) {
+export async function updateDesign(id: number, data: FormData) {
     const url = `${designBaseUrl}/${id}`;
     const { data: response } = await axios.patch<ServerResponseType<design>>(
         url,
