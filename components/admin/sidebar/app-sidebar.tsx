@@ -43,7 +43,7 @@ export function AppSidebar({ session }: { session: Session | null }) {
                                 {state !== "collapsed" && (
                                     <div className="flex flex-col gap-0.5 leading-none">
                                         <span className="font-bold text-lg bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                                            Print Club
+                                            Printify
                                         </span>
                                         <span className="text-sm text-gray-500">
                                             Admin Panel

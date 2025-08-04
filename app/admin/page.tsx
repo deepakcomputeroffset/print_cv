@@ -356,20 +356,20 @@ export default async function AdminDashboard() {
         }
 
         return (
-            <div className="space-y-8 p-6">
+            <div className="space-y-8">
                 {/* Header Section */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between flex-wrap">
                     <div className="flex items-center gap-3">
                         <SidebarTrigger className="w-8 h-8" />
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
                             Dashboard
                         </h1>
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-gray-500 ml-2">
                         {new Date().toLocaleDateString("en-US", {
-                            weekday: "long",
+                            weekday: "short",
                             year: "numeric",
-                            month: "long",
+                            month: "short",
                             day: "numeric",
                         })}
                     </div>
