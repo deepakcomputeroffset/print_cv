@@ -28,7 +28,6 @@ model customer {
 
     createdAt        DateTime          @default(now())
     updatedAt        DateTime          @updatedAt
-    attachments      attachment[]
     orderComment     orderComment[]
     customerCategory customerCategory? @relation(fields: [customerCategoryId], references: [id], onDelete: Restrict)
 }
@@ -220,7 +219,7 @@ model productAttributeType {
 }
 
 model order {
-    id            Int    @id @default(autoincrement())
+    id            Int       @id @default(autoincrement())
     customerId    Int
     productItemId Int
     qty           Int
@@ -228,10 +227,11 @@ model order {
     uploadCharge  Float
     price         Float
     total         Float
-    status        STATUS @default(PENDING)
+    status        STATUS    @default(PENDING)
+    fileUploadVia UPLOADVIA
 
     jobId        Int?
-    attachment   attachment?
+    attachment   attachment[]
     comments     orderComment[]
     deliveryVia  DELIVERYVIA    @default(NONE)
     distribution distribution?
@@ -260,17 +260,15 @@ model orderComment {
 }
 
 model attachment {
-    id           Int       @id @default(autoincrement())
-    orderId      Int       @unique
-    uploadVia    UPLOADVIA
-    urls         String[]
+    id           Int      @id @default(autoincrement())
+    orderId      Int      @unique
+    type         String
+    url          String
     uploadedById Int?
-    uploadedBy   staff?    @relation(fields: [uploadedById], references: [id])
-    order        order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
-    createdAt    DateTime  @default(now())
-    updatedAt    DateTime  @updatedAt
-    customer     customer? @relation(fields: [customerId], references: [id])
-    customerId   Int?
+    uploadedBy   staff?   @relation(fields: [uploadedById], references: [id])
+    order        order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
 }
 
 model staff {
