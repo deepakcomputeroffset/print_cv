@@ -173,10 +173,12 @@ model productItem {
     isAvailable             Boolean                 @default(false)
     productAttributeOptions productAttributeValue[]
     orders                  order[]
+    uploadGroupId           Int?
 
-    product   product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    uploadGroup uploadGroup? @relation(fields: [uploadGroupId], references: [id], onDelete: Restrict)
+    product     product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+    createdAt   DateTime     @default(now())
+    updatedAt   DateTime     @updatedAt
 }
 
 model pricing {
@@ -362,6 +364,22 @@ model design {
     img              String
     downloadUrl      String
     designCategory   designCategory? @relation(fields: [designCategoryId], references: [id])
+}
+
+model uploadGroup {
+    id           Int           @id @default(autoincrement())
+    name         String        @unique
+    uploadTypes  UPLOAD_TYPE[]
+    productItems productItem[]
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
+}
+
+enum UPLOAD_TYPE {
+    FRONT_SIDE
+    BACK_SIDE
+    FRONT_UV
+    BACK_UV
 }
 
 enum DELIVERYVIA {
