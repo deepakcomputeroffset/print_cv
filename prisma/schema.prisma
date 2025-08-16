@@ -26,9 +26,9 @@ model customer {
     references  customer[] @relation("reference")
     referedBy   customer?  @relation("reference", fields: [referenceId], references: [id], onDelete: Restrict)
 
-    createdAt        DateTime          @default(now())
-    updatedAt        DateTime          @updatedAt
-    orderComment     orderComment[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
     customerCategory customerCategory? @relation(fields: [customerCategoryId], references: [id], onDelete: Restrict)
 }
 
@@ -191,7 +191,7 @@ model pricing {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    @@unique([productItemId, qty]) // Prevent duplicate entries for the same qty
+    @@unique([productItemId, qty])
 }
 
 model productAttributeValue {
@@ -221,26 +221,25 @@ model productAttributeType {
 }
 
 model order {
-    id            Int       @id @default(autoincrement())
-    customerId    Int
-    productItemId Int
-    qty           Int
-    igst          Float
-    uploadCharge  Float
-    price         Float
-    total         Float
-    status        STATUS    @default(PENDING)
-    fileUploadVia UPLOADVIA
-
-    jobId        Int?
-    attachment   attachment[]
-    comments     orderComment[]
-    deliveryVia  DELIVERYVIA    @default(NONE)
-    distribution distribution?
+    id             Int            @id @default(autoincrement())
+    customerId     Int
+    productItemId  Int
+    qty            Int
+    igst           Float
+    uploadCharge   Float
+    price          Float
+    total          Float
+    status         STATUS         @default(PENDING)
+    uploadFilesVia UPLOADVIA
+    jobId          Int?
+    attachment     attachment[]
+    comments       orderComment[]
+    deliveryVia    DELIVERYVIA    @default(NONE)
+    distribution   distribution?
 
     job         job?        @relation(fields: [jobId], references: [id], onDelete: SetNull)
     productItem productItem @relation(fields: [productItemId], references: [id], onDelete: Restrict)
-    customer    customer    @relation(fields: [customerId], references: [id])
+    customer    customer    @relation(fields: [customerId], references: [id], onDelete: Cascade)
     createdAt   DateTime    @default(now())
     updatedAt   DateTime    @updatedAt
 }
@@ -250,27 +249,24 @@ model orderComment {
     orderId     Int
     comment     String
     commentType COMMENT_TYPE
-    createdById Int? // Could be either staff or customer
     staffId     Int?
-    customerId  Int?
 
-    order     order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
-    staff     staff?    @relation(fields: [staffId], references: [id])
-    customer  customer? @relation(fields: [customerId], references: [id])
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
+    order     order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    staff     staff?   @relation(fields: [staffId], references: [id], onDelete: SetNull)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model attachment {
-    id           Int      @id @default(autoincrement())
-    orderId      Int      @unique
-    type         String
+    id           Int         @id @default(autoincrement())
+    orderId      Int
+    type         UPLOAD_TYPE
     url          String
     uploadedById Int?
-    uploadedBy   staff?   @relation(fields: [uploadedById], references: [id])
-    order        order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
+    uploadedBy   staff?      @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+    order        order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    createdAt    DateTime    @default(now())
+    updatedAt    DateTime    @updatedAt
 }
 
 model staff {
