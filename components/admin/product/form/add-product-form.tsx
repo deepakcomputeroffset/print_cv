@@ -40,6 +40,7 @@ import { productAttributeType, productAttributeValue } from "@prisma/client";
 import { getAllProductCategory } from "@/lib/getCategories";
 import axios from "axios";
 import ProductQtyPrice from "../modal/product-qtyPrice-modal";
+import { useUploadGroup } from "@/hooks/use-upload-group";
 
 export function ProductForm() {
     const [uploading, setUploading] = useState(false);
@@ -217,11 +218,8 @@ export function ProductForm() {
         const newVariants = combinations.map((combination, index) => ({
             productAttributeOptions: combination,
             sku: `${form.getValues("sku")}-${index + 1}`,
-            // minQty: form?.getValues("minQty"),
-            // ogPrice: form?.getValues("ogPrice"),
-            // price: form?.getValues("price"),
             pricing: pricing,
-            imageUrl: [],
+            uploadGroupId: -1,
             isAvailable: form?.getValues("isAvailable"),
         }));
 
@@ -234,6 +232,8 @@ export function ProductForm() {
             generateVariants();
         else setVariants([]);
     }, [selectedAttributes, selectedOptions]);
+
+    const { data: uploadGroups } = useUploadGroup();
 
     return (
         <Form {...form}>
@@ -473,6 +473,7 @@ export function ProductForm() {
                         form={form}
                         getAttributeNameById={getAttributeNameById}
                         pricing={pricing}
+                        uploadGroups={uploadGroups}
                     />
                 )}
 

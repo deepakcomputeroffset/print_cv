@@ -2,6 +2,7 @@ export const customerBaseUrl = "/api/customer";
 export const customerCategoryBaseUrl = "/api/customer-category";
 export const productCategoryBaseUrl = "/api/category";
 export const designCategoryBaseUrl = "/api/design-category";
+export const uploadGroupBaseUrl = "/api/upload-group";
 export const designBaseUrl = "/api/design";
 export const staffBaseUrl = "/api/staff";
 export const productBaseUrl = "/api/products";

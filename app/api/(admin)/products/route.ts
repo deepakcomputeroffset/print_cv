@@ -192,6 +192,7 @@ export async function POST(req: Request) {
                     create: safeData.productItems.map((item) => ({
                         sku: item.sku,
                         isAvailable: item.isAvailable,
+                        uploadGroupId: item.uploadGroupId,
                         pricing: {
                             create: item.pricing.map((qp) => ({
                                 qty: qp.qty,

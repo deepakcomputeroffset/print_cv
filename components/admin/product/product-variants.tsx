@@ -12,12 +12,14 @@ import {
     productFormSchema,
     productPriceSchema,
 } from "@/schemas/product.form.schema";
+import { uploadGroup } from "@prisma/client";
 
 interface ProductVariantsProps {
     variants: ProductVariantType[];
     form: UseFormReturn<z.infer<typeof productFormSchema>>;
     getAttributeNameById: (id: number) => string;
     pricing: z.infer<typeof productPriceSchema>[];
+    uploadGroups: uploadGroup[];
 }
 
 export function ProductVariants({
@@ -25,6 +27,7 @@ export function ProductVariants({
     form,
     getAttributeNameById,
     pricing,
+    uploadGroups,
 }: ProductVariantsProps) {
     const [expandedVariant, setExpandedVariant] = useState<number | null>(null);
 
@@ -76,6 +79,7 @@ export function ProductVariants({
                                 form={form}
                                 index={index}
                                 pricing={pricing}
+                                uploadGroups={uploadGroups}
                             />
                         )}
                     </CardContent>

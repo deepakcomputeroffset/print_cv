@@ -21,14 +21,23 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { uploadGroup } from "@prisma/client";
+import { Badge } from "@/components/ui/badge";
+import { ArrowBigRight } from "lucide-react";
 
 interface VariantFormProps {
     form: UseFormReturn<z.infer<typeof productFormSchema>>;
     index: number;
     pricing: z.infer<typeof productPriceSchema>[];
+    uploadGroups: uploadGroup[];
 }
 
-export function VariantForm({ form, index, pricing }: VariantFormProps) {
+export function VariantForm({
+    form,
+    index,
+    pricing,
+    uploadGroups,
+}: VariantFormProps) {
     return (
         <div className="grid grid-cols-2 gap-4 mt-4">
             <FormField
@@ -99,6 +108,63 @@ export function VariantForm({ form, index, pricing }: VariantFormProps) {
                     )}
                 />
             ))}
+
+            <FormField
+                control={form.control}
+                name={`productItems.${index}.uploadGroupId`}
+                render={({ field }) => {
+                    const selectedGroup = uploadGroups?.find(
+                        (upg) => upg.id === field.value,
+                    );
+
+                    return (
+                        <FormItem>
+                            <FormLabel>Upload Group</FormLabel>
+                            <Select
+                                {...field}
+                                value={field?.value?.toString()}
+                                onValueChange={(v) => field.onChange(Number(v))}
+                            >
+                                <SelectTrigger>
+                                    {selectedGroup ? (
+                                        <div className="flex w-full items-center justify-between">
+                                            <span>{selectedGroup.name}</span>
+                                        </div>
+                                    ) : (
+                                        <SelectValue placeholder="Select Upload Group" />
+                                    )}
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {uploadGroups?.map((upg) => (
+                                        <SelectItem
+                                            key={upg.id}
+                                            value={upg.id.toString()}
+                                        >
+                                            <div className="mb-2 flex items-center text-base font-medium">
+                                                <ArrowBigRight className="w-3 h-3" />
+                                                {upg.name}
+                                            </div>
+                                            <div className="space-x-2">
+                                                {upg.uploadTypes?.map(
+                                                    (upgt) => (
+                                                        <Badge
+                                                            className="text-xs"
+                                                            key={upgt}
+                                                        >
+                                                            {upgt}
+                                                        </Badge>
+                                                    ),
+                                                )}
+                                            </div>
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <FormMessage />
+                        </FormItem>
+                    );
+                }}
+            />
         </div>
     );
 }

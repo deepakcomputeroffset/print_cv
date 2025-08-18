@@ -7,8 +7,14 @@ export const productPriceSchema = z.object({
 
 // Define the schema for product items
 export const productItemSchema = z.object({
+    id: z.number().optional(),
     sku: z.string(),
-    imageUrl: z.array(z.string()),
+    uploadGroupId: z
+        .number({
+            required_error: "Upload Group ID is required.",
+            invalid_type_error: "Upload Group ID must be a number.",
+        })
+        .min(0),
     isAvailable: z.boolean().default(true),
     pricing: z.array(productPriceSchema),
     productAttributeOptions: z.array(

@@ -99,6 +99,7 @@ export async function PATCH(
         }
 
         const body = await request.json();
+        console.log(body);
 
         // Validate request body against schema
         const validatedData = partialProductFormSchema?.partial().parse(body);
@@ -135,34 +136,66 @@ export async function PATCH(
             updateData.isTieredPricing = validatedData.isTieredPricing;
         if (validatedData.categoryId)
             updateData.categoryId = parseInt(validatedData.categoryId);
-        if (validatedData?.productItems)
+
+        if (validatedData.productItems) {
+            const incomingItems = validatedData.productItems;
+            const existingItemIds = new Set(
+                existingProduct.productItems.map((item) => item.id),
+            );
+            // const incomingItemIds = new Set(
+            //     incomingItems.map((item) => item?.id).filter(Boolean),
+            // );
+
+            const itemsToCreate = incomingItems.filter((item) => !item.id);
+            const itemsToUpdate = incomingItems.filter(
+                (item) => item.id && existingItemIds.has(item.id),
+            );
+            // const idsToDelete = [...existingItemIds].filter(
+            //     (existingId) => !incomingItemIds.has(existingId),
+            // );
             updateData.productItems = {
-                create: validatedData.productItems.map((item) => ({
+                // 👉 Create new items
+                create: itemsToCreate.map((item) => ({
                     sku: item.sku,
                     isAvailable: item.isAvailable,
+                    uploadGroupId: item.uploadGroupId,
                     pricing: {
-                        create: item?.pricing?.map((qtyPrice) => ({
-                            qty: qtyPrice.qty,
-                            price: qtyPrice.price,
+                        create: item.pricing?.map((p) => ({
+                            qty: p.qty,
+                            price: p.price,
                         })),
                     },
                     productAttributeOptions: {
-                        connect: item?.productAttributeOptions?.map(
-                            (option) => ({
-                                id: option.id, // Connect using the existing ID
-                            }),
-                        ),
+                        connect: item.productAttributeOptions?.map((opt) => ({
+                            id: opt.id,
+                        })),
                     },
                 })),
+                // 👉 Update existing items
+                update: itemsToUpdate.map((item) => ({
+                    where: { id: item.id },
+                    data: {
+                        sku: item.sku,
+                        isAvailable: item.isAvailable,
+                        uploadGroupId: item.uploadGroupId,
+                        pricing: {
+                            deleteMany: {}, // Clear old pricing
+                            create: item.pricing?.map((p) => ({
+                                qty: p.qty,
+                                price: p.price,
+                            })), // Create new pricing
+                        },
+                        productAttributeOptions: {
+                            // `set` syncs relations: disconnects old, connects new
+                            set: item.productAttributeOptions?.map((opt) => ({
+                                id: opt.id,
+                            })),
+                        },
+                    },
+                })),
+                // 👉 Delete items that were removed
+                // delete: idsToDelete.map((id) => ({ id })),
             };
-
-        // deleting all existing varients of product if variants changed
-        if (!!validatedData?.productItems) {
-            await Prisma?.productItem.deleteMany({
-                where: {
-                    productId: existingProduct?.id,
-                },
-            });
         }
 
         const updatedData = await Prisma?.product?.update({

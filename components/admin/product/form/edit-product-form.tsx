@@ -49,6 +49,7 @@ import { getDirtyFieldsWithValues } from "@/lib/utils";
 import { useMount } from "@/hooks/use-mount";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useUploadGroup } from "@/hooks/use-upload-group";
 
 type productItemType = productItem & {
     pricing?: pricing[];
@@ -106,6 +107,7 @@ export function EditProductForm({
         })) || [],
     );
     const router = useRouter();
+    const { data: uploadGroups } = useUploadGroup();
 
     const form = useForm<z.infer<typeof productFormSchema>>({
         resolver: zodResolver(productFormSchema),
@@ -240,11 +242,8 @@ export function EditProductForm({
         const newVariants = combinations.map((combination, index) => ({
             productAttributeOptions: combination,
             sku: `${form.getValues("sku")}-${index + 1}`,
-            // minQty: form?.getValues("minQty"),
-            // ogPrice: form?.getValues("ogPrice"),
-            // price: form?.getValues("price"),
             pricing: pricing,
-            imageUrl: [],
+            uploadGroupId: -1,
             isAvailable: form?.getValues("isAvailable"),
         }));
 
@@ -556,6 +555,7 @@ export function EditProductForm({
                         form={form}
                         getAttributeNameById={getAttributeNameById}
                         pricing={pricing}
+                        uploadGroups={uploadGroups}
                     />
                 )}
 
