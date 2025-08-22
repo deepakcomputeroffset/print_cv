@@ -43,23 +43,6 @@ export const authConfig: AuthOptions = {
                                 customerCategory: true,
                             },
                         });
-                        const address = await Prisma.address.findFirst({
-                            where: {
-                                ownerId: customer?.id,
-                                ownerType: "CUSTOMER",
-                            },
-                            include: {
-                                city: {
-                                    include: {
-                                        state: {
-                                            include: {
-                                                country: true,
-                                            },
-                                        },
-                                    },
-                                },
-                            },
-                        });
 
                         if (!customer) {
                             throw new Error("customer not found!!");
@@ -77,6 +60,24 @@ export const authConfig: AuthOptions = {
                         if (customer?.isBanned || !customer?.isVerifed) {
                             throw new Error("Your account is not active.");
                         }
+
+                        const address = await Prisma.address.findFirst({
+                            where: {
+                                ownerId: customer?.id,
+                                ownerType: "CUSTOMER",
+                            },
+                            include: {
+                                city: {
+                                    include: {
+                                        state: {
+                                            include: {
+                                                country: true,
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        });
 
                         return {
                             userType,

@@ -6,6 +6,7 @@ import { order, pricing, product, productItem } from "@prisma/client";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { addressType } from "@/types/types";
 
 interface InvoiceButtonProps {
     order: order & {
@@ -13,23 +14,11 @@ interface InvoiceButtonProps {
             pricing: pricing[];
             product: product;
         };
-        customer?: {
+        customer: {
+            address?: addressType;
             businessName: string;
             name: string;
             phone: string;
-            address: {
-                line?: string;
-                city?: {
-                    name?: string;
-                    state?: {
-                        name?: string;
-                        country: {
-                            name: string;
-                        };
-                    };
-                };
-                pinCode: string;
-            } | null;
         };
     };
 }

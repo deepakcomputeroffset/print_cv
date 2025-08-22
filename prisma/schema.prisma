@@ -18,7 +18,7 @@ model customer {
     wallet             wallet?
     gstNumber          String?
     isVerifed          Boolean @default(false)
-    customerCategoryId Int?
+    customerCategoryId Int
 
     orders order[]
 
@@ -29,7 +29,7 @@ model customer {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    customerCategory customerCategory? @relation(fields: [customerCategoryId], references: [id], onDelete: Restrict)
+    customerCategory customerCategory @relation(fields: [customerCategoryId], references: [id], onDelete: Restrict)
 }
 
 model address {
@@ -229,7 +229,7 @@ model order {
     uploadCharge   Float
     price          Float
     total          Float
-    status         STATUS         @default(PENDING)
+    status         STATUS         @default(PLACED)
     uploadFilesVia UPLOADVIA
     jobId          Int?
     attachment     attachment[]
@@ -415,7 +415,8 @@ enum TRANSACTION_TYPE {
 }
 
 enum STATUS {
-    PENDING
+    PLACED
+    FILE_UPLOADED
     PROCESSING
     PROCESSED
     DISPATCHED

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import OrderDetailsPage from "@/components/order/orderPage";
 import { Prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 
 export default async function OrderPage({
     params,
@@ -15,17 +16,10 @@ export default async function OrderPage({
         if (!id || isNaN(parseInt(id))) {
             return redirect("/customer/orders");
         }
-
+        const session = await auth();
         const order = await Prisma.order.findFirst({
             where: { id: parseInt(id) },
             include: {
-                customer: {
-                    select: {
-                        businessName: true,
-                        name: true,
-                        phone: true,
-                    },
-                },
                 productItem: {
                     include: {
                         pricing: true,
@@ -65,29 +59,9 @@ export default async function OrderPage({
                                 name: true,
                             },
                         },
-                        customer: {
-                            select: {
-                                id: true,
-                                name: true,
-                            },
-                        },
                     },
                     orderBy: {
                         createdAt: "desc",
-                    },
-                },
-            },
-        });
-        const address = await Prisma.address.findFirst({
-            where: { ownerId: order?.customerId, ownerType: "CUSTOMER" },
-            include: {
-                city: {
-                    include: {
-                        state: {
-                            include: {
-                                country: true,
-                            },
-                        },
                     },
                 },
             },
@@ -102,7 +76,16 @@ export default async function OrderPage({
         }
         return (
             <OrderDetailsPage
-                order={{ ...order, customer: { ...order.customer, address } }}
+                order={{
+                    ...order,
+                    customer: {
+                        address: session?.user.customer?.address,
+                        businessName: session?.user.customer
+                            ?.businessName as string,
+                        name: session?.user.customer?.name as string,
+                        phone: session?.user.customer?.phone as string,
+                    },
+                }}
             />
         );
     } catch (error) {

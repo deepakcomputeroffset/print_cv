@@ -2,7 +2,7 @@ import queryString from "query-string";
 import axios from "axios";
 import { QueryParams, ServerResponseType } from "@/types/types";
 import { orderBaseUrl } from "../urls";
-import { order, product, productItem } from "@prisma/client";
+import { order, product, productItem, UPLOADVIA } from "@prisma/client";
 
 export async function fetchOrders(params: QueryParams = {}) {
     const url = queryString.stringifyUrl({
@@ -22,7 +22,11 @@ export async function fetchOrders(params: QueryParams = {}) {
     >(url);
 }
 
-export async function createOrder(data: FormData) {
+export async function createOrder(data: {
+    productItemId: number;
+    qty: number;
+    fileOption: UPLOADVIA;
+}) {
     return await axios.post<ServerResponseType<order>>(orderBaseUrl, data);
 }
 

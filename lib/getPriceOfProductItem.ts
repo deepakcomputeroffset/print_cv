@@ -1,12 +1,19 @@
 import { cityDiscount, customerCategory } from "@prisma/client";
 
 export function getPriceAccordingToCategoryOfCustomer(
-    customerCategory: customerCategory,
-    cityDiscount: cityDiscount | null,
+    customerCategory: customerCategory | null | undefined,
+    cityDiscount: Pick<cityDiscount, "id" | "discount"> | null,
     price: number,
 ): number {
-    if (cityDiscount) {
-        return price - (price * cityDiscount.discount) / 100;
-    }
-    return price - (price * customerCategory.discount) / 100;
+    // Early return if no discounts apply
+    if (!cityDiscount && !customerCategory) return price;
+
+    // Calculate the highest applicable discount
+    const cityDiscountValue = cityDiscount ? cityDiscount.discount : 0;
+    const categoryDiscountValue = customerCategory
+        ? customerCategory.discount
+        : 0;
+    const maxDiscount = Math.max(cityDiscountValue, categoryDiscountValue);
+
+    return price - (price * maxDiscount) / 100;
 }

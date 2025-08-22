@@ -44,7 +44,7 @@ export async function POST(
             });
         }
 
-        if (order?.status !== "PENDING") {
+        if (order?.status !== "PLACED") {
             return serverResponse({
                 status: 400,
                 success: false,
@@ -78,16 +78,16 @@ export async function POST(
                         orderId: parseInt(id),
                         comment: data.reason,
                         commentType: "CANCELLATION",
-                        customerId: session.user.customer.id,
                     },
                 });
             }
         });
 
         if (order?.attachment) {
-            const deleted = await deleteFiles(order?.attachment?.urls);
+            const files = order?.attachment?.map((at) => at.url);
+            const deleted = await deleteFiles(files);
             console.log(
-                deleted.length === order.attachment.urls.length
+                deleted.length === files.length
                     ? "File deleted"
                     : "Some file not deleted",
             );

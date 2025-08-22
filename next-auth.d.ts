@@ -10,7 +10,7 @@ declare module "next-auth" {
             "createdAt" | "gstNumber" | "password" | "referenceId" | "updatedAt"
         > & {
             wallet?: { id: number; balance: number };
-            customerCategory?: customerCategory;
+            customerCategory: customerCategory;
             address?: addressType;
         };
         staff?: Omit<staff, "createdAt" | "updatedAt" | "password">;
@@ -28,7 +28,7 @@ declare module "next-auth" {
                 | "updatedAt"
             > & {
                 wallet?: { id: number; balance: number };
-                customerCategory?: customerCategory;
+                customerCategory: customerCategory;
                 address?: addressType;
             };
             staff?: Omit<staff, "createdAt" | "updatedAt" | "password">;
@@ -44,7 +44,7 @@ declare module "next-auth/jwt" {
             "createdAt" | "gstNumber" | "password" | "referenceId" | "updatedAt"
         > & {
             wallet?: { id: number; balance: number };
-            customerCategory?: customerCategory;
+            customerCategory: customerCategory;
             address?: addressType;
         };
         staff?: Omit<staff, "createdAt" | "updatedAt" | "password">;

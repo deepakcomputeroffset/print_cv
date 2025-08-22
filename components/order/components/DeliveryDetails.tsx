@@ -4,23 +4,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { order } from "@prisma/client";
+import { addressType } from "@/types/types";
 
 interface DeliveryDetailsProps {
     order: order & {
         customer: {
-            address: {
-                line?: string;
-                city?: {
-                    name?: string;
-                    state?: {
-                        name?: string;
-                        country: {
-                            name: string;
-                        };
-                    };
-                };
-                pinCode: string;
-            } | null;
+            address?: addressType;
             businessName: string;
             name: string;
             phone: string;

@@ -3,29 +3,18 @@ import autoTable from "jspdf-autotable";
 import { order, pricing, product, productItem } from "@prisma/client";
 import qrcode from "qrcode";
 import { IGST_TAX_IN_PERCENTAGE } from "../constants";
+import { addressType } from "@/types/types";
 
 interface InvoiceOrder extends order {
     productItem: productItem & {
         pricing: pricing[];
         product: product;
     };
-    customer?: {
+    customer: {
+        address?: addressType;
         businessName: string;
         name: string;
         phone: string;
-        address: {
-            line?: string;
-            city?: {
-                name?: string;
-                state?: {
-                    name?: string;
-                    country: {
-                        name: string;
-                    };
-                };
-            };
-            pinCode: string;
-        } | null;
     };
 }
 

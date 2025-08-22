@@ -14,7 +14,7 @@ export default function Wallet({ session }: { session: Session }) {
     return (
         <div className="flex gap-2 items-center">
             <span>Wallet : </span>
-            <span className="align-middle text-center">{wallet?.balance}</span>
+            <span className="align-middle text-center">{wallet?.balance.toPrecision(5)}</span>
             <Button
                 variant={"secondary"}
                 size={"sm"}

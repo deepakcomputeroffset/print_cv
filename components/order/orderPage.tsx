@@ -1,11 +1,10 @@
 "use client";
 import Link from "next/link";
-import { ArrowLeft, XCircle, MessageCircle } from "lucide-react";
+import { ArrowLeft, XCircle, MessageCircle, Calendar } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
-import { Calendar } from "lucide-react";
 import { getStatusColor } from "@/lib/getStatusColor";
 import { ProductDetails } from "./components/ProductDetails";
 import { DeliveryDetails } from "./components/DeliveryDetails";
@@ -18,7 +17,6 @@ import {
     task,
     taskType,
     attachment,
-    UPLOADVIA,
     product,
     productItem,
     orderComment,
@@ -37,7 +35,7 @@ interface OrderDetailsPageProps {
             product: product;
         };
         customer: {
-            address: addressType | null;
+            address?: addressType;
             businessName: string;
             name: string;
             phone: string;
@@ -51,21 +49,9 @@ interface OrderDetailsPageProps {
                   })[];
               })
             | null;
-        attachment:
-            | (attachment & {
-                  id: number;
-                  customerId: number | null;
-                  createdAt: Date;
-                  updatedAt: Date;
-                  orderId: number;
-                  uploadVia: UPLOADVIA;
-                  urls: string[];
-                  uploadedById: number | null;
-              })
-            | null;
+        attachment?: attachment[];
         comments?: (orderComment & {
             staff?: Pick<staff, "id" | "name"> | null;
-            customer?: Pick<{ id: number; name: string }, "id" | "name"> | null;
         })[];
     };
 }
@@ -78,65 +64,66 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="container mx-auto py-8"
+            className="container mx-auto py-6"
         >
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex justify-between items-center mb-6">
                 <Link
                     href="/customer/orders?search=&sortorder=desc&perpage=100"
-                    className="flex items-center text-primary hover:text-primary/80 transition-colors group"
+                    className="flex items-center text-primary hover:text-primary/80 transition-colors group text-sm"
                 >
-                    <div className="bg-primary/5 p-1.5 rounded-full group-hover:bg-primary/10 transition-colors mr-2">
-                        <ArrowLeft className="h-4 w-4" />
+                    <div className="bg-primary/5 p-1 rounded-full group-hover:bg-primary/10 transition-colors mr-1.5">
+                        <ArrowLeft className="h-3.5 w-3.5" />
                     </div>
                     <span className="font-medium">Back to Orders</span>
                 </Link>
-                {order.status === "PENDING" && (
+                {order.status === "PLACED" && (
                     <Button
+                        size="sm"
                         variant="destructive"
                         onClick={() =>
                             onOpen("cancelOrder", { orderId: order.id })
                         }
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-1.5 text-sm"
                     >
-                        <XCircle className="h-4 w-4" />
+                        <XCircle className="h-3.5 w-3.5" />
                         Cancel Order
                     </Button>
                 )}
             </div>
 
-            <div className="space-y-10">
+            <div className="space-y-6">
                 <MotionDiv
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
                 >
-                    <Card className="overflow-hidden border-0 shadow-md rounded-xl bg-white">
+                    <Card className="overflow-hidden border-0 shadow-md rounded-lg bg-white">
                         <div className="relative">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-cyan-400 to-primary"></div>
+                            <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary via-cyan-400 to-primary"></div>
 
-                            <div className="p-6 md:p-8">
-                                <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-8">
+                            <div className="p-4 md:p-6">
+                                <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-3 mb-6">
                                     <div>
-                                        <div className="flex items-center mb-2">
-                                            <div className="h-1 w-6 bg-gradient-to-r from-primary to-cyan-400 rounded-full mr-3"></div>
+                                        <div className="flex items-center mb-1.5">
+                                            <div className="h-0.5 w-5 bg-gradient-to-r from-primary to-cyan-400 rounded-full mr-2"></div>
                                             <h1
                                                 className={cn(
-                                                    "text-xl sm:text-2xl md:text-3xl font-bold text-gray-800",
+                                                    "text-lg sm:text-xl md:text-2xl font-semibold text-gray-800",
                                                     sourceSerif4.className,
                                                 )}
                                             >
                                                 Order #{order.id}
                                             </h1>
                                         </div>
-                                        <div className="flex items-center ml-10 text-gray-500">
-                                            <Calendar className="h-4 w-4 mr-2" />
+                                        <div className="flex items-center ml-7 text-gray-500 text-xs">
+                                            <Calendar className="h-3.5 w-3.5 mr-1.5" />
                                             <p>
                                                 Placed on{" "}
                                                 {new Date(
                                                     order.createdAt,
                                                 ).toLocaleDateString("en-US", {
                                                     year: "numeric",
-                                                    month: "long",
+                                                    month: "short",
                                                     day: "numeric",
                                                 })}
                                             </p>
@@ -145,14 +132,14 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                                     <Badge
                                         className={cn(
                                             getStatusColor(order.status),
-                                            "text-sm px-4 py-1 rounded-full uppercase hover:text-white",
+                                            "text-xs px-3 py-0.5 rounded-full uppercase hover:text-white",
                                         )}
                                     >
                                         {order.status}
                                     </Badge>
                                 </div>
 
-                                <div className="grid md:grid-cols-2 gap-10">
+                                <div className="grid md:grid-cols-2 gap-6">
                                     <ProductDetails order={order} />
                                     <DeliveryDetails order={order} />
                                 </div>
@@ -168,28 +155,28 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        <Card className="overflow-hidden border-0 shadow-md rounded-xl bg-white">
-                            <div className="p-6 md:p-8">
-                                <div className="flex items-center mb-6">
-                                    <div className="h-1 w-6 bg-gradient-to-r from-primary to-cyan-400 rounded-full mr-3"></div>
+                        <Card className="overflow-hidden border-0 shadow-md rounded-lg bg-white">
+                            <div className="p-4 md:p-6">
+                                <div className="flex items-center mb-4">
+                                    <div className="h-0.5 w-5 bg-gradient-to-r from-primary to-cyan-400 rounded-full mr-2"></div>
                                     <h2
                                         className={cn(
-                                            "text-xl font-bold text-gray-800",
+                                            "text-lg font-semibold text-gray-800",
                                             sourceSerif4.className,
                                         )}
                                     >
                                         Comments
                                     </h2>
                                 </div>
-                                <div className="space-y-4">
+                                <div className="space-y-3">
                                     {order.comments.map((comment) => (
                                         <div
                                             key={comment.id}
-                                            className="bg-gray-50 p-4 rounded-lg border border-gray-100"
+                                            className="bg-gray-50 p-3 rounded-lg border border-gray-100"
                                         >
-                                            <div className="flex justify-between items-start mb-2">
-                                                <div className="flex items-center">
-                                                    <MessageCircle className="h-4 w-4 mr-2 text-primary" />
+                                            <div className="flex justify-between items-start mb-1.5">
+                                                <div className="flex items-center text-sm">
+                                                    <MessageCircle className="h-3.5 w-3.5 mr-1.5 text-primary" />
                                                     <span className="font-medium text-gray-800">
                                                         {comment.commentType ===
                                                         "CANCELLATION"
@@ -200,7 +187,7 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                                                               )}
                                                     </span>
                                                 </div>
-                                                <span className="text-xs text-gray-500">
+                                                <span className="text-[10px] text-gray-500">
                                                     {format(
                                                         new Date(
                                                             comment.createdAt,
@@ -209,16 +196,14 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                                                     )}
                                                 </span>
                                             </div>
-                                            <p className="text-gray-700 mt-1">
+                                            <p className="text-gray-700 text-sm">
                                                 {comment.comment}
                                             </p>
-                                            <div className="mt-2 text-xs text-gray-500">
+                                            <div className="mt-1.5 text-[11px] text-gray-500">
                                                 By:{" "}
-                                                {comment.customer
-                                                    ? comment.customer.name
-                                                    : comment.staff
-                                                      ? comment.staff.name
-                                                      : "System"}
+                                                {comment.staff
+                                                    ? comment.staff.name
+                                                    : "System"}
                                             </div>
                                         </div>
                                     ))}
@@ -233,7 +218,7 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                    <Card className="overflow-hidden border-0 shadow-md rounded-xl bg-white">
+                    <Card className="overflow-hidden border-0 shadow-md rounded-lg bg-white">
                         <OrderTimeline order={order} />
                     </Card>
                 </MotionDiv>

@@ -13,8 +13,6 @@ export default async function ProductPage({
         return redirect("/products");
     }
     const session = await auth();
-    const customerCategory = session?.user?.customer?.customerCategory;
-    if (!customerCategory) return redirect("/products");
 
     const product = await Prisma.product.findUnique({
         where: {
@@ -43,12 +41,15 @@ export default async function ProductPage({
         );
     }
 
-    const cityDiscount = await Prisma.cityDiscount.findFirst({
-        where: {
-            cityId: session.user.customer?.address?.cityId,
-            customerCategoryId: customerCategory?.id,
-        },
-    });
+    const cityDiscount = !!session
+        ? await Prisma.cityDiscount.findFirst({
+              where: {
+                  cityId: session?.user.customer?.address?.cityId,
+                  customerCategoryId:
+                      session?.user.customer?.customerCategory?.id,
+              },
+          })
+        : null;
 
     const transformedProduct = {
         id: product.id,
@@ -59,11 +60,6 @@ export default async function ProductPage({
         isAvailable: product.isAvailable,
         isTieredPricing: product.isTieredPricing,
         sku: product.sku,
-        // price: getPriceAccordingToCategoryOfCustomer(
-        //     customerCategory,
-        //     cityDiscount,
-        //     product.price,
-        // ),
         createdAt: product.createdAt,
         updatedAt: product.updatedAt,
         productItems: product.productItems.map((item) => ({
@@ -75,12 +71,7 @@ export default async function ProductPage({
             createdAt: item.createdAt,
             updatedAt: item.updatedAt,
             pricing: item.pricing,
-
-            // price: getPriceAccordingToCategoryOfCustomer(
-            //     customerCategory,
-            //     cityDiscount,
-            //     item.price,
-            // ),
+            uploadGroupId: item.uploadGroupId,
         })),
     };
 
@@ -88,7 +79,7 @@ export default async function ProductPage({
         <ProductDetails
             product={transformedProduct}
             cityDiscount={cityDiscount}
-            customerCategory={customerCategory}
+            customer={session?.user?.customer}
         />
     );
 }
