@@ -87,7 +87,7 @@ export function ProductDetails({ order }: ProductDetailsProps) {
                         <div className="flex justify-between items-center pb-1 border-b border-gray-100">
                             <span className="text-gray-600">Base Price</span>
                             <span className="font-medium text-gray-800">
-                                ₹{order?.price}
+                                ₹{order?.price.toFixed(NUMBER_PRECISION)}
                             </span>
                         </div>
 
@@ -104,14 +104,14 @@ export function ProductDetails({ order }: ProductDetailsProps) {
                         <div className="flex justify-between items-center pb-1">
                             <span className="text-gray-600">Upload Charge</span>
                             <span className="font-medium text-gray-800">
-                                ₹{order?.uploadCharge}
+                                ₹{order?.uploadCharge.toFixed(NUMBER_PRECISION)}
                             </span>
                         </div>
 
                         <div className="flex justify-between items-center">
                             <span className="text-gray-600">Total Amount</span>
                             <span className="text-base font-semibold text-primary">
-                                ₹{order?.total}
+                                ₹{order?.total.toFixed(NUMBER_PRECISION)}
                             </span>
                         </div>
                     </div>

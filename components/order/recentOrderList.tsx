@@ -19,6 +19,7 @@ import { Card } from "@/components/ui/card";
 import { motion } from "motion/react";
 import { sourceSerif4 } from "@/lib/font";
 import { order, product, productItem } from "@prisma/client";
+import { NUMBER_PRECISION } from "@/lib/constants";
 
 export default function RecentOrderList({
     orders,
@@ -105,7 +106,10 @@ export default function RecentOrderList({
                                             </TableCell>
                                             <TableCell>{order?.qty}</TableCell>
                                             <TableCell className="font-medium">
-                                                ₹{order?.total}
+                                                ₹
+                                                {order?.total.toFixed(
+                                                    NUMBER_PRECISION,
+                                                )}
                                             </TableCell>
                                             <TableCell>
                                                 {format(

@@ -332,9 +332,7 @@ export async function DELETE(request: NextRequest) {
             });
         }
 
-        const { searchParams } = new URL(request.url);
-        const orderId = searchParams.get("orderId");
-        const attachmentId = searchParams.get("attachmentId");
+        const { orderId, attachmentId } = await request.json();
 
         if (!orderId || !attachmentId) {
             return serverResponse({

@@ -1,7 +1,6 @@
 import { STATUS } from "@prisma/client";
 import { z } from "zod";
 
-// Schema for query parameters
 export const QuerySchema = z.object({
     search: z.string().optional(),
     category: z.enum(["LOW", "MEDIUM", "HIGH", "all"]).optional(),

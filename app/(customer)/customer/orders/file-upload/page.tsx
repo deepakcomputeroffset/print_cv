@@ -6,6 +6,7 @@ import {
     product,
     productAttributeValue,
     uploadGroup,
+    attachment,
 } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { Prisma } from "@/lib/prisma";
@@ -17,6 +18,7 @@ interface OrderWithDetails extends order {
         product: Pick<product, "name" | "imageUrl">;
         uploadGroup: uploadGroup | null;
     };
+    attachment: Pick<attachment, "id" | "type" | "url">[];
 }
 
 export default async function UploadFilesPage({
@@ -61,6 +63,7 @@ export default async function UploadFilesPage({
                 },
                 attachment: {
                     select: {
+                        id: true,
                         type: true,
                         url: true,
                     },
@@ -106,15 +109,7 @@ export default async function UploadFilesPage({
             );
         }
 
-        // Check if order already has all files uploaded
-        const requiredTypes =
-            orderDetails.productItem.uploadGroup?.uploadTypes || [];
-        const uploadedTypes = orderDetails.attachment.map((att) => att.type);
-        const allFilesUploaded = requiredTypes.every((type) =>
-            uploadedTypes.includes(type),
-        );
-
-        if (allFilesUploaded) {
+        if (orderDetails.status !== "PLACED") {
             return (
                 <div className="min-h-[80vh] flex items-center justify-center">
                     <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
@@ -162,48 +157,10 @@ export default async function UploadFilesPage({
             );
         }
 
-        // Check if order is in a state that allows file uploads
-        if (orderDetails.status !== "PLACED") {
-            return (
-                <div className="min-h-[80vh] flex items-center justify-center">
-                    <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
-                        <div className="text-center">
-                            <div className="inline-flex items-center justify-center w-16 h-16 bg-amber-100 rounded-full mb-4">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-8 w-8 text-amber-500"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                                    />
-                                </svg>
-                            </div>
-                            <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                                Cannot Upload Files
-                            </h2>
-                            <p className="text-gray-600 mb-6">
-                                This order is currently in{" "}
-                                <strong>{orderDetails.status}</strong> status
-                                and cannot accept file uploads.
-                            </p>
-                            <Button href="/customer/orders" variant="secondary">
-                                Back to Orders
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
         // Transform order data for the component
         const transformedOrder: OrderWithDetails = {
             ...orderDetails,
+            attachment: orderDetails.attachment,
             productItem: orderDetails.productItem,
         };
 

@@ -213,7 +213,9 @@ export default async function OrderDetail({
                                     IGST ({order.igst * 100}%)
                                 </p>
                                 <p className="font-medium flex items-center">
-                                    {(order.igst * order.price).toFixed(NUMBER_PRECISION)}
+                                    {(order.igst * order.price).toFixed(
+                                        NUMBER_PRECISION,
+                                    )}
                                 </p>
                             </div>
                             <div>
@@ -222,7 +224,9 @@ export default async function OrderDetail({
                                 </p>
                                 <p className="font-medium flex items-center">
                                     <IndianRupee className="h-3 w-3 mr-1" />
-                                    {order.uploadCharge.toFixed(NUMBER_PRECISION)}
+                                    {order.uploadCharge.toFixed(
+                                        NUMBER_PRECISION,
+                                    )}
                                 </p>
                             </div>
                         </div>

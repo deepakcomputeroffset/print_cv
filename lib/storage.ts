@@ -12,37 +12,6 @@ export const storage = new Storage({
 
 export const bucket = storage.bucket(process?.env?.bucketName as string);
 
-export const old = async (
-    folder: "files" | "images" = "files",
-    file: FileLike,
-    name: string,
-) => {
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    const fileName = `${folder}/${name}_${Date.now()}`;
-    const cloudFile = bucket.file(fileName);
-
-    // folder check
-    const [exists] = await cloudFile.exists();
-    if (!exists) {
-        await bucket.file(`${folder}/`).save("", {
-            metadata: {
-                contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-            },
-        });
-    }
-
-    await cloudFile.save(buffer, {
-        metadata: {
-            contentType: file.type,
-        },
-    });
-
-    await cloudFile.makePublic();
-    return `https://storage.googleapis.com/${process.env.bucketName}/${fileName}`;
-};
-
 /**
  * Uploads a single file to Google Cloud Storage.
  * @param folder - The destination folder in the bucket (e.g., "files" or "images").
@@ -60,7 +29,7 @@ export const uploadFile = async (
     file: FileLike,
     name: string,
 ): Promise<string> => {
-    const fileName = `${folder}/${name}_${Date.now()}`;
+    const fileName = `${folder}/${Date.now()}_${name}`;
     const cloudFile = bucket.file(fileName);
 
     await new Promise(async (resolve, reject) => {
