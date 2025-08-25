@@ -12,6 +12,7 @@ import {
 } from "@prisma/client";
 import { InvoiceButton } from "../../InvoiceButton";
 import { addressType } from "@/types/types";
+import { NUMBER_PRECISION } from "@/lib/constants";
 
 interface ProductDetailsProps {
     order: order & {
@@ -93,7 +94,10 @@ export function ProductDetails({ order }: ProductDetailsProps) {
                         <div className="flex justify-between items-center pb-1 border-b border-gray-100">
                             <span className="text-gray-600">IGST (18%)</span>
                             <span className="font-medium text-gray-800">
-                                ₹{(order?.price * order?.igst).toFixed(2)}
+                                ₹
+                                {(order?.price * order?.igst).toFixed(
+                                    NUMBER_PRECISION,
+                                )}
                             </span>
                         </div>
 

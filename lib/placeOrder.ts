@@ -1,6 +1,10 @@
 import { Prisma } from "@/lib/prisma";
 import { TRANSACTION_TYPE, STATUS, UPLOADVIA } from "@prisma/client";
-import { FILE_UPLOAD_EMAIL_CHARGE, IGST_TAX_IN_PERCENTAGE } from "./constants";
+import {
+    FILE_UPLOAD_EMAIL_CHARGE,
+    IGST_TAX_IN_PERCENTAGE,
+    NUMBER_PRECISION,
+} from "./constants";
 import { Prisma as PP } from "@prisma/client";
 
 export async function placeOrder(
@@ -31,8 +35,14 @@ export async function placeOrder(
 
     // Calculate charges
     const uploadCharge = uploadVia === "EMAIL" ? FILE_UPLOAD_EMAIL_CHARGE : 0;
-    const igstAmount = (basePrice + uploadCharge) * IGST_TAX_IN_PERCENTAGE;
-    const totalPrice = basePrice + igstAmount + uploadCharge;
+    const igstAmount = Number(
+        ((basePrice + uploadCharge) * IGST_TAX_IN_PERCENTAGE).toFixed(
+            NUMBER_PRECISION,
+        ),
+    );
+    const totalPrice = Number(
+        (basePrice + igstAmount + uploadCharge).toFixed(NUMBER_PRECISION),
+    );
 
     return await Prisma.$transaction(
         async (tx) => {
@@ -67,7 +77,7 @@ export async function placeOrder(
 
             if (wallet.balance < totalPrice) {
                 throw new Error(
-                    `Insufficient wallet balance. Required: ${totalPrice.toFixed(2)}, Available: ${wallet.balance.toFixed(2)}`,
+                    `Insufficient wallet balance. Required: ${totalPrice}, Available: ${wallet.balance}`,
                 );
             }
 
@@ -75,7 +85,9 @@ export async function placeOrder(
             const updatedWallet = await tx.wallet.update({
                 where: { id: wallet.id },
                 data: {
-                    balance: { decrement: totalPrice },
+                    balance: {
+                        decrement: totalPrice,
+                    },
                 },
                 select: { id: true, balance: true },
             });
@@ -100,7 +112,7 @@ export async function placeOrder(
                     qty,
                     igst: IGST_TAX_IN_PERCENTAGE,
                     price: basePrice,
-                    uploadCharge,
+                    uploadCharge: uploadCharge,
                     total: totalPrice,
                     status: STATUS.PLACED,
                     uploadFilesVia: uploadVia,

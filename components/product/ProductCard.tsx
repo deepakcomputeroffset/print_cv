@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { product } from "@prisma/client";
 import { ChevronRight } from "lucide-react";
 
-export const PCard = ({
+export const ProductCard = ({
     product,
     onClickHandler,
 }: {

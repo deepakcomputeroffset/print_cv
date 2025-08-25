@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { sourceSerif4 } from "@/lib/font";
 import Pagination from "@/components/pagination";
+import { NUMBER_PRECISION } from "@/lib/constants";
 
 const GradientBar = () => (
     <div className="h-1 w-8 bg-gradient-to-r from-primary to-blue-500 rounded-full mr-3" />
@@ -141,7 +142,7 @@ export default async function CustomerWalletPage({
                 <StatCard
                     icon={Wallet}
                     title="Current Balance"
-                    amount={`₹${wallet?.balance.toFixed(2) || "0.00"}`}
+                    amount={`₹${wallet?.balance.toFixed(NUMBER_PRECISION) || "0.00"}`}
                     gradient="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700"
                     border="border border-blue-100 dark:border-gray-600"
                     iconColor="text-primary"
@@ -149,7 +150,7 @@ export default async function CustomerWalletPage({
                 <StatCard
                     icon={ArrowDownLeft}
                     title="Total Deposits"
-                    amount={`₹${creditTotal.toFixed(2)}`}
+                    amount={`₹${creditTotal.toFixed(NUMBER_PRECISION)}`}
                     count={`${creditTransactions.length} transactions`}
                     gradient="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-700"
                     border="border border-green-100 dark:border-gray-600"
@@ -158,7 +159,7 @@ export default async function CustomerWalletPage({
                 <StatCard
                     icon={ArrowUpRight}
                     title="Total Withdrawals"
-                    amount={`₹${debitTotal.toFixed(2)}`}
+                    amount={`₹${debitTotal.toFixed(NUMBER_PRECISION)}`}
                     count={`${debitTransactions.length} transactions`}
                     gradient="bg-gradient-to-br from-red-50 to-orange-50 dark:from-gray-800 dark:to-gray-700"
                     border="border border-red-100 dark:border-gray-600"

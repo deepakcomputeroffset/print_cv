@@ -1,4 +1,4 @@
-import ProductLists from "../../../components/product/list";
+import ProductLists from "@/components/product/ProductList";
 import { Prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";

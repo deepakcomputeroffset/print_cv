@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import * as api from "@/lib/api/order";
 import { QueryParams } from "@/types/types";
+import { UPLOADVIA } from "@prisma/client";
 
 export function useOrder(props: QueryParams = {}) {
     const queryClient = useQueryClient();
@@ -13,7 +14,11 @@ export function useOrder(props: QueryParams = {}) {
     });
 
     const createMutation = useMutation({
-        mutationFn: (data: FormData) => api.createOrder(data),
+        mutationFn: (data: {
+            productItemId: number;
+            qty: number;
+            fileOption: UPLOADVIA;
+        }) => api.createOrder(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey });
             toast.success("Order created successfully");

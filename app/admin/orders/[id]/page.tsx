@@ -13,6 +13,7 @@ import Image from "next/image";
 import { ViewFilesButton } from "@/components/ViewFilesButton";
 import { ImproperOrderButton } from "../components/ImproperButton";
 import { BackButton } from "@/components/backButton";
+import { NUMBER_PRECISION } from "@/lib/constants";
 
 export default async function OrderDetail({
     params,
@@ -195,7 +196,7 @@ export default async function OrderDetail({
                                 </p>
                                 <p className="font-medium flex items-center">
                                     <IndianRupee className="h-3 w-3 mr-1" />
-                                    {order.price.toFixed(2)}
+                                    {order.price.toFixed(NUMBER_PRECISION)}
                                 </p>
                             </div>
                             <div>
@@ -204,7 +205,7 @@ export default async function OrderDetail({
                                 </p>
                                 <p className="font-medium flex items-center">
                                     <IndianRupee className="h-3 w-3 mr-1" />
-                                    {order.total.toFixed(2)}
+                                    {order.total.toFixed(NUMBER_PRECISION)}
                                 </p>
                             </div>
                             <div>
@@ -212,7 +213,7 @@ export default async function OrderDetail({
                                     IGST ({order.igst * 100}%)
                                 </p>
                                 <p className="font-medium flex items-center">
-                                    {(order.igst * order.price).toFixed(2)}
+                                    {(order.igst * order.price).toFixed(NUMBER_PRECISION)}
                                 </p>
                             </div>
                             <div>
@@ -221,7 +222,7 @@ export default async function OrderDetail({
                                 </p>
                                 <p className="font-medium flex items-center">
                                     <IndianRupee className="h-3 w-3 mr-1" />
-                                    {order.uploadCharge.toFixed(2)}
+                                    {order.uploadCharge.toFixed(NUMBER_PRECISION)}
                                 </p>
                             </div>
                         </div>

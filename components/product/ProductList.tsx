@@ -14,9 +14,9 @@ import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 import { product } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { PCard } from "./card";
+import { ProductCard } from "./ProductCard";
 
-export default function PList({
+export default function ProductList({
     products,
     category,
 }: {
@@ -119,7 +119,7 @@ export default function PList({
                         }}
                         viewport={{ once: true }}
                     >
-                        <PCard
+                        <ProductCard
                             product={product}
                             onClickHandler={() =>
                                 router.push(`/products/${product.id}`)

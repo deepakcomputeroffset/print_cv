@@ -2,7 +2,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { order, pricing, product, productItem } from "@prisma/client";
 import qrcode from "qrcode";
-import { IGST_TAX_IN_PERCENTAGE } from "../constants";
+import { IGST_TAX_IN_PERCENTAGE, NUMBER_PRECISION } from "../constants";
 import { addressType } from "@/types/types";
 
 interface InvoiceOrder extends order {
@@ -242,8 +242,8 @@ export const generateInvoice = async (order: InvoiceOrder) => {
                     styles: { cellWidth: "auto", minCellWidth: 70 },
                 },
                 order.qty.toString(),
-                `Rs. ${(order.price / (order.qty / (findPrice()?.qty ?? 0))).toFixed(2)}`,
-                `Rs. ${(order.price || 0).toFixed(2)}`,
+                `Rs. ${(order.price / (order.qty / (findPrice()?.qty ?? 0))).toFixed(NUMBER_PRECISION)}`,
+                `Rs. ${(order.price || 0).toFixed(NUMBER_PRECISION)}`,
             ],
         ],
         theme: "grid",
@@ -288,13 +288,37 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     autoTable(doc, {
         startY: tableEndY + 5,
         body: [
-            ["", "", "", "Subtotal", `Rs. ${subtotal.toFixed(2)}`],
-            ["", "", "", "IGST (18%)", `Rs. ${igst.toFixed(2)}`],
+            [
+                "",
+                "",
+                "",
+                "Subtotal",
+                `Rs. ${subtotal.toFixed(NUMBER_PRECISION)}`,
+            ],
+            ["", "", "", "IGST (18%)", `Rs. ${igst.toFixed(NUMBER_PRECISION)}`],
             ["", "", "", "CGST (0%)", "Rs. 0.00"],
             ["", "", "", "SGST (0%)", "Rs. 0.00"],
-            ["", "", "", "Shipping Charges", `Rs. ${shippingCost.toFixed(2)}`],
-            ["", "", "", "Upload Charges", `Rs. ${uploadCharge.toFixed(2)}`],
-            ["", "", "", "Total Amount", `Rs. ${totalAmount.toFixed(2)}`],
+            [
+                "",
+                "",
+                "",
+                "Shipping Charges",
+                `Rs. ${shippingCost.toFixed(NUMBER_PRECISION)}`,
+            ],
+            [
+                "",
+                "",
+                "",
+                "Upload Charges",
+                `Rs. ${uploadCharge.toFixed(NUMBER_PRECISION)}`,
+            ],
+            [
+                "",
+                "",
+                "",
+                "Total Amount",
+                `Rs. ${totalAmount.toFixed(NUMBER_PRECISION)}`,
+            ],
         ],
         theme: "grid",
         styles: {

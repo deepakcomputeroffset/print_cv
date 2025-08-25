@@ -39,6 +39,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { NUMBER_PRECISION } from "@/lib/constants";
 
 // Define the validation schema with Zod
 const formSchema = z.object({
@@ -114,7 +115,7 @@ export default function PaperGsmCalculatorThemed() {
         }
 
         const calculatedGsm = weightInGrams / totalArea;
-        setGsm(Number(calculatedGsm.toFixed(2)));
+        setGsm(Number(calculatedGsm.toFixed(NUMBER_PRECISION)));
     }
 
     // Resets the form and results

@@ -90,7 +90,7 @@ export default function ProductDetails({
 
             if (res?.success) {
                 toast.success(res?.message);
-                router.back();
+                router.push(`/customer/orders/file-upload/?orderId=${res?.data?.id}`);
             } else {
                 toast.warning(res.message);
             }

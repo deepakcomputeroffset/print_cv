@@ -39,3 +39,5 @@ export const allowedRoleForDistributionManagement: ROLE[] = [
 // TAX
 export const IGST_TAX_IN_PERCENTAGE = 0.18;
 export const FILE_UPLOAD_EMAIL_CHARGE = 20;
+
+export const NUMBER_PRECISION = 3;

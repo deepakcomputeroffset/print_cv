@@ -19,6 +19,7 @@ import dynamic from "next/dynamic";
 import { ViewFilesModal } from "@/components/view-files-modal";
 import { Button } from "@/components/ui/button";
 import { ViewFilesButton } from "../../../../components/ViewFilesButton";
+import { NUMBER_PRECISION } from "@/lib/constants";
 
 const TaskActions = dynamic(() => import("../components/TaskActions"));
 
@@ -197,7 +198,9 @@ export default async function TaskDetail({
                                         </TableCell>
                                         <TableCell>{order.qty}</TableCell>
                                         <TableCell>
-                                            {order.total.toFixed(2)}
+                                            {order.total.toFixed(
+                                                NUMBER_PRECISION,
+                                            )}
                                         </TableCell>
                                         <TableCell>
                                             <Badge variant="outline">

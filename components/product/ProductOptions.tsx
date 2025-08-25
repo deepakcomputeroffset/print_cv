@@ -1,6 +1,9 @@
 import { product } from "@prisma/client";
 import { UPLOADVIA } from "@prisma/client";
-import { ProductItemTypeWithAttribute } from "@/types/types";
+import {
+    productAttributeWithOptions,
+    ProductItemTypeWithAttribute,
+} from "@/types/types";
 import {
     Select,
     SelectContent,
@@ -14,7 +17,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 interface ProductOptionsProps {
-    distinctAttributeWithOptions: any[];
+    distinctAttributeWithOptions: productAttributeWithOptions[];
     selectedAttributes: Record<number, number>;
     onAttributeChange: (typeId: number, valueId: number) => void;
     product: product & {
@@ -85,7 +88,7 @@ export default function ProductOptions({
                             <SelectValue placeholder={`Select ${type.name}`} />
                         </SelectTrigger>
                         <SelectContent>
-                            {type?.productAttributeOptions?.map((opt: any) => (
+                            {type?.productAttributeOptions?.map((opt) => (
                                 <SelectItem
                                     key={opt.id}
                                     value={opt?.id?.toString()}
@@ -115,7 +118,7 @@ export default function ProductOptions({
                             </SelectTrigger>
                             <SelectContent>
                                 {product?.productItems?.[0]?.pricing?.map(
-                                    (pricing: any) => (
+                                    (pricing) => (
                                         <SelectItem
                                             key={pricing.id}
                                             value={pricing?.qty?.toString()}

@@ -29,6 +29,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 import { Badge } from "@/components/ui/badge";
+import { NUMBER_PRECISION } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -141,7 +142,10 @@ export default async function CustomerDashboard() {
                                 </div>
                                 <div className="flex items-center">
                                     <span className="text-gray-800 font-semibold text-xl">
-                                        ₹ {wallet?.balance.toFixed(2)}
+                                        ₹{" "}
+                                        {wallet?.balance.toFixed(
+                                            NUMBER_PRECISION,
+                                        )}
                                     </span>
                                 </div>
                             </div>
@@ -281,7 +285,7 @@ export default async function CustomerDashboard() {
                                                             <span className="font-medium text-blue-600">
                                                                 ₹
                                                                 {order?.total?.toFixed(
-                                                                    2,
+                                                                    NUMBER_PRECISION,
                                                                 )}
                                                             </span>
                                                         </div>
@@ -389,7 +393,7 @@ export default async function CustomerDashboard() {
                                                                         )}
                                                                         ₹
                                                                         {transaction.amount.toFixed(
-                                                                            2,
+                                                                            NUMBER_PRECISION,
                                                                         )}
                                                                     </div>
                                                                 </TableCell>

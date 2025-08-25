@@ -17,8 +17,8 @@ export default async function ProductCategoryPage({
 
     const { parentCategoryId } = await params;
 
-    async function getCategories() {
-        return await Prisma?.$transaction([
+    async function getData() {
+        return await Promise.all([
             Prisma?.productCategory.findMany({
                 where: {
                     parentCategoryId: Number(parentCategoryId) ?? null,
@@ -31,6 +31,7 @@ export default async function ProductCategoryPage({
                     id: "asc",
                 },
             }),
+
             Prisma?.order.findMany({
                 where: {
                     customerId: session?.user?.customer?.id,
@@ -49,8 +50,9 @@ export default async function ProductCategoryPage({
             }),
         ]);
     }
-    const cachedData = unstable_cache(getCategories, ["categories-orders"], {
+    const cachedData = unstable_cache(getData, ["categories-orders"], {
         revalidate: 60 * 60,
+        // revalidate: 1,
         tags: ["categories-orders"],
     });
 

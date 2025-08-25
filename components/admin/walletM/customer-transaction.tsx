@@ -33,6 +33,7 @@ import { TransactionFilter } from "@/components/admin/walletM/transaction-filter
 import { useCustomerByWallet } from "@/hooks/use-customer";
 import { TransactionCreateModal } from "./model/transaction";
 import { useModal } from "@/hooks/use-modal";
+import { NUMBER_PRECISION } from "@/lib/constants";
 
 export default function CustomerTransactions({
     filters,
@@ -109,8 +110,9 @@ export default function CustomerTransactions({
                                 </p>
                                 <div className="text-3xl font-bold text-blue-700 flex items-center gap-2">
                                     <Wallet className="w-6 h-6" />
-                                    {customer.wallet?.balance.toFixed(2) ||
-                                        "0.00"}
+                                    {customer.wallet?.balance.toFixed(
+                                        NUMBER_PRECISION,
+                                    ) || "0.00"}
                                 </div>
                                 <Button
                                     variant="ghost"
@@ -188,7 +190,7 @@ export default function CustomerTransactions({
                                                 <TableCell>
                                                     $
                                                     {transaction.amount.toFixed(
-                                                        2,
+                                                        NUMBER_PRECISION,
                                                     )}
                                                 </TableCell>
                                                 <TableCell>

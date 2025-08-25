@@ -1,8 +1,8 @@
 "use client";
 
-import { Eye, Package, ShoppingCart } from "lucide-react";
+import { Eye, Package, ShoppingCart, Upload } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Table,
     TableBody,
@@ -10,12 +10,12 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "../ui/table";
+} from "@/components/ui/table";
 import { getStatusColor } from "@/lib/getStatusColor";
 import { cn } from "@/lib/utils";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
-import { Card } from "../ui/card";
+import { Card } from "@/components/ui/card";
 import { motion } from "motion/react";
 import { sourceSerif4 } from "@/lib/font";
 import { order, product, productItem } from "@prisma/client";
@@ -126,18 +126,34 @@ export default function RecentOrderList({
                                                 </Badge>
                                             </TableCell>
                                             <TableCell className="text-center">
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="group-hover:bg-white/80 group-hover:text-primary transition-colors"
-                                                    asChild
-                                                >
-                                                    <Link
-                                                        href={`/customer/orders/${order.id}`}
+                                                {order?.status === "PLACED" &&
+                                                order?.uploadFilesVia ===
+                                                    "UPLOAD" ? (
+                                                    <Button
+                                                        variant="destructive"
+                                                        size="icon"
+                                                        asChild
                                                     >
-                                                        <Eye className="h-4 w-4" />
-                                                    </Link>
-                                                </Button>
+                                                        <Link
+                                                            href={`/customer/orders/file-upload?orderId=${order.id}`}
+                                                        >
+                                                            <Upload className="h-4 w-4" />
+                                                        </Link>
+                                                    </Button>
+                                                ) : (
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="group-hover:bg-white/80 group-hover:text-primary transition-colors"
+                                                        asChild
+                                                    >
+                                                        <Link
+                                                            href={`/customer/orders/${order.id}`}
+                                                        >
+                                                            <Eye className="h-4 w-4" />
+                                                        </Link>
+                                                    </Button>
+                                                )}
                                             </TableCell>
                                         </motion.tr>
                                     ))}
