@@ -123,7 +123,7 @@ export default async function UploadFilesPage({
                     <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
                         <div className="text-center">
                             <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
-                                <UploadCloud className="w-6 h-6 text-indigo-600"/>
+                                <UploadCloud className="w-6 h-6 text-indigo-600" />
                             </div>
                             <h2 className="text-2xl font-bold text-gray-800 mb-2">
                                 Can&apos;t Upload
