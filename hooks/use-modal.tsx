@@ -1,4 +1,10 @@
-import { addressType, customerType, orderType, staffType } from "@/types/types";
+import {
+    addressType,
+    customerType,
+    orderType,
+    OrderWithDetails,
+    staffType,
+} from "@/types/types";
 import {
     customerCategory,
     design,
@@ -68,6 +74,7 @@ type DataType = {
     files?: string[];
     cityId?: number;
     order?: order;
+    orderForFileUpload?: OrderWithDetails;
     designCategory?: designCategory;
     design?: design;
 };

@@ -10,6 +10,7 @@ import {
     PiggyBank,
     ShoppingBag,
     ShoppingCart,
+    UploadCloud,
     Users,
 } from "lucide-react";
 import { Session } from "next-auth";
@@ -113,6 +114,13 @@ export const routes: RouteType[] = [
         url: "/admin/dispatch?search=&sortorder=asc&page=1&perpage=100",
         pattern: /^\/admin\/dispatch(?:\/.*)?$/,
         roles: ["ADMIN", "DISPATCHER"],
+    },
+    {
+        title: "Files",
+        icon: UploadCloud,
+        url: "/admin/file-upload?search=&sortorder=desc&orderStatus=ALL&page=1&perpage=100",
+        pattern: /^\/admin\/file-upload(?:\/.*)?$/,
+        roles: ["ADMIN", "ORDER_MANAGER"],
     },
     {
         title: "Orders",

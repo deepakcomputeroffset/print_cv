@@ -17,6 +17,7 @@ import {
     customerCategory,
     staff,
     pricing,
+    uploadGroup,
 } from "@prisma/client";
 import { z, ZodIssue } from "zod";
 
@@ -74,6 +75,29 @@ export interface ServerResponseType<T> {
     error?: string | undefined | ZodIssue[] | ValidationError[] | any;
     data?: T | undefined;
     status: number;
+}
+
+export interface OrderWithDetails extends order {
+    productItem: productItem & {
+        productAttributeOptions: (productAttributeValue & {
+            productAttributeType: productAttributeType;
+        })[];
+        product: Pick<product, "name" | "imageUrl"> & {
+            category: productCategory;
+        };
+        uploadGroup: uploadGroup | null;
+    };
+    attachment: Pick<attachment, "id" | "type" | "url">[];
+    customer: Pick<
+        customer,
+        | "businessName"
+        | "name"
+        | "phone"
+        | "isBanned"
+        | "email"
+        | "gstNumber"
+        | "id"
+    >;
 }
 
 export interface orderType extends order {

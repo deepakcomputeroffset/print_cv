@@ -4,16 +4,7 @@ import { ChangeEvent, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import {
-    UPLOAD_TYPE,
-    order,
-    productItem,
-    product,
-    productAttributeValue,
-    uploadGroup,
-    attachment,
-    productAttributeType,
-} from "@prisma/client";
+import { UPLOAD_TYPE } from "@prisma/client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Label } from "@/components/ui/label";
@@ -27,19 +18,9 @@ import {
     ExternalLink,
 } from "lucide-react";
 import axios, { isAxiosError } from "axios";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-
-interface OrderWithDetails extends order {
-    productItem: productItem & {
-        productAttributeOptions: (productAttributeValue & {
-            productAttributeType: productAttributeType;
-        })[];
-        product: Pick<product, "name" | "imageUrl">;
-        uploadGroup: uploadGroup | null;
-    };
-    attachment: Pick<attachment, "id" | "type" | "url">[];
-}
+import { OrderWithDetails } from "@/types/types";
 
 export default function FileUploadPage({ order }: { order: OrderWithDetails }) {
     const [files, setFiles] = useState<Record<UPLOAD_TYPE, File | null>>(
@@ -91,7 +72,10 @@ export default function FileUploadPage({ order }: { order: OrderWithDetails }) {
                 formData.append("orderId", order.id.toString());
                 formData.append("uploadType", type);
 
-                const { data } = await axios.post("/api/file-upload", formData);
+                const { data } = await axios.post(
+                    "/api/orders/file-upload",
+                    formData,
+                );
                 if (!data.success)
                     throw new Error(data.error || `Failed to upload ${type}`);
             }
@@ -117,7 +101,7 @@ export default function FileUploadPage({ order }: { order: OrderWithDetails }) {
             const attachment = attachments[type];
             if (!attachment) return;
             console.log(attachment);
-            const { data } = await axios.delete("/api/file-upload", {
+            const { data } = await axios.delete("/api/orders/file-upload", {
                 data: {
                     orderId: order.id,
                     attachmentId: attachment.id,
@@ -145,7 +129,7 @@ export default function FileUploadPage({ order }: { order: OrderWithDetails }) {
         try {
             setIsLoading(true);
             const { data } = await axios.post(
-                "/api/file-upload/change-status",
+                "/api/orders/file-upload/change-status",
                 {
                     orderId: order.id,
                     status: "FILE_UPLOADED",
@@ -155,7 +139,7 @@ export default function FileUploadPage({ order }: { order: OrderWithDetails }) {
             if (data.success) {
                 toast.success("Order status updated ✅");
                 router.push(
-                    "/customer/orders?search=&sortorder=desc&perpage=100",
+                    "/admin/file-upload?search=&sortorder=desc&orderStatus=ALL&page=1&perpage=100",
                 );
             } else {
                 toast.error(data.error || "Failed to update status");
@@ -201,6 +185,55 @@ export default function FileUploadPage({ order }: { order: OrderWithDetails }) {
                 </CardHeader>
 
                 <CardContent className="p-4">
+                    {/* Customer Details Section - ADDED */}
+                    <div className="mb-6">
+                        <Label className="text-base font-semibold text-gray-800 flex items-center gap-2 mb-3">
+                            <div className="h-0.5 w-5 bg-gradient-to-r from-primary to-cyan-400 rounded-full"></div>
+                            Customer Details
+                        </Label>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.3 }}
+                            className="p-4 rounded-xl shadow-sm border bg-gradient-to-br from-white to-gray-50"
+                        >
+                            <div className="grid md:grid-cols-2 gap-x-4 gap-y-2 text-sm text-gray-800">
+                                <p>
+                                    <span className="font-semibold text-gray-600">
+                                        Name:{" "}
+                                    </span>
+                                    {order.customer.name}
+                                </p>
+                                <p>
+                                    <span className="font-semibold text-gray-600">
+                                        Business:{" "}
+                                    </span>
+                                    {order.customer.businessName}
+                                </p>
+                                <p>
+                                    <span className="font-semibold text-gray-600">
+                                        Email:{" "}
+                                    </span>
+                                    {order.customer.email}
+                                </p>
+                                <p>
+                                    <span className="font-semibold text-gray-600">
+                                        Phone:{" "}
+                                    </span>
+                                    {order.customer.phone}
+                                </p>
+                                {order.customer.gstNumber && (
+                                    <p className="md:col-span-2">
+                                        <span className="font-semibold text-gray-600">
+                                            GST:{" "}
+                                        </span>
+                                        {order.customer.gstNumber}
+                                    </p>
+                                )}
+                            </div>
+                        </motion.div>
+                    </div>
+
                     {/* Order details section */}
                     <div className="mb-6">
                         {/* Section Title */}

@@ -1,10 +1,14 @@
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
 import { uploadFile, deleteFile } from "@/lib/storage";
-import { allowedFileMimeType, maxFileSize } from "@/lib/constants";
+import {
+    allowedFileMimeType,
+    allowedRoleForOrderManagement,
+    maxFileSize,
+} from "@/lib/constants";
 import { Prisma } from "@/lib/prisma";
 import { NextRequest } from "next/server";
-import { STATUS, UPLOAD_TYPE } from "@prisma/client";
+import { ROLE, STATUS, UPLOAD_TYPE } from "@prisma/client";
 import { isValidUploadType } from "@/lib/utils/validUploadType";
 
 export async function POST(request: NextRequest) {
@@ -13,14 +17,18 @@ export async function POST(request: NextRequest) {
 
         // Validate session and permissions
         if (
-            !session?.user?.customer ||
-            session.user.userType !== "customer" ||
-            session.user.customer.isBanned
+            !session ||
+            session?.user?.userType != "staff" ||
+            !allowedRoleForOrderManagement.includes(
+                session?.user?.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session.user.staff?.isBanned)
         ) {
             return serverResponse({
                 status: 401,
                 success: false,
-                error: "Unauthorized: Invalid or banned customer account",
+                error: "Unauthorized",
             });
         }
 
@@ -51,7 +59,6 @@ export async function POST(request: NextRequest) {
         const order = await Prisma.order.findFirst({
             where: {
                 id: parseInt(orderId),
-                customerId: session.user.customer.id,
             },
             include: {
                 productItem: {
@@ -222,14 +229,18 @@ export async function GET(request: NextRequest) {
 
         // Validate session and permissions
         if (
-            !session?.user?.customer ||
-            session.user.userType !== "customer" ||
-            session.user.customer.isBanned
+            !session ||
+            session?.user?.userType != "staff" ||
+            !allowedRoleForOrderManagement.includes(
+                session?.user?.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session.user.staff?.isBanned)
         ) {
             return serverResponse({
                 status: 401,
                 success: false,
-                error: "Unauthorized: Invalid or banned customer account",
+                error: "Unauthorized",
             });
         }
 
@@ -248,7 +259,6 @@ export async function GET(request: NextRequest) {
         const order = await Prisma.order.findFirst({
             where: {
                 id: parseInt(orderId),
-                customerId: session.user.customer.id,
             },
             include: {
                 attachment: {
@@ -322,14 +332,18 @@ export async function DELETE(request: NextRequest) {
 
         // Validate session and permissions
         if (
-            !session?.user?.customer ||
-            session.user.userType !== "customer" ||
-            session.user.customer.isBanned
+            !session ||
+            session?.user?.userType != "staff" ||
+            !allowedRoleForOrderManagement.includes(
+                session?.user?.staff?.role as ROLE,
+            ) ||
+            (session.user.staff?.role !== "ADMIN" &&
+                session.user.staff?.isBanned)
         ) {
             return serverResponse({
                 status: 401,
                 success: false,
-                error: "Unauthorized: Invalid or banned customer account",
+                error: "Unauthorized",
             });
         }
 
@@ -349,7 +363,6 @@ export async function DELETE(request: NextRequest) {
                 id: parseInt(attachmentId),
                 order: {
                     id: parseInt(orderId),
-                    customerId: session.user.customer.id,
                 },
             },
             include: {

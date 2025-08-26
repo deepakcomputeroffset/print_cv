@@ -7,14 +7,18 @@ import {
     productAttributeValue,
     uploadGroup,
     attachment,
+    productAttributeType,
 } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { Prisma } from "@/lib/prisma";
 import Button from "./components/button";
+import { UploadCloud } from "lucide-react";
 
 interface OrderWithDetails extends order {
     productItem: productItem & {
-        productAttributeOptions: productAttributeValue[];
+        productAttributeOptions: (productAttributeValue & {
+            productAttributeType: productAttributeType;
+        })[];
         product: Pick<product, "name" | "imageUrl">;
         uploadGroup: uploadGroup | null;
     };
@@ -51,7 +55,11 @@ export default async function UploadFilesPage({
             include: {
                 productItem: {
                     include: {
-                        productAttributeOptions: true,
+                        productAttributeOptions: {
+                            include: {
+                                productAttributeType: true,
+                            },
+                        },
                         product: {
                             select: {
                                 name: true,
@@ -99,6 +107,30 @@ export default async function UploadFilesPage({
                                 The order you&apos;re looking for doesn&apos;t
                                 exist or you don&apos;t have permission to
                                 access it.
+                            </p>
+                            <Button href="/customer/orders" variant="secondary">
+                                Back to Orders
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        if (orderDetails?.uploadFilesVia !== "UPLOAD") {
+            return (
+                <div className="min-h-[80vh] flex items-center justify-center">
+                    <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
+                        <div className="text-center">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
+                                <UploadCloud className="w-6 h-6 text-indigo-600"/>
+                            </div>
+                            <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                                Can&apos;t Upload
+                            </h2>
+                            <p className="text-gray-600 mb-6">
+                                Mail Files to our company at
+                                fileupload@printvc.com.
                             </p>
                             <Button href="/customer/orders" variant="secondary">
                                 Back to Orders
