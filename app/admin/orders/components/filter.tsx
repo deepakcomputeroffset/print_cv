@@ -63,11 +63,21 @@ export function OrdersFilter<TData>({
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="ALL">All Status</SelectItem>
-                        <SelectItem value={STATUS.FILE_UPLOADED}>File Uploaded</SelectItem>
-                        <SelectItem value={STATUS.PROCESSING}>Processing</SelectItem>
-                        <SelectItem value={STATUS.DISPATCHED}>Dispatched</SelectItem>
-                        <SelectItem value={STATUS.CANCELLED}>Cancelled</SelectItem>
-                        <SelectItem value={STATUS.IMPROPER_ORDER}>Improper Order</SelectItem>
+                        <SelectItem value={STATUS.FILE_UPLOADED}>
+                            File Uploaded
+                        </SelectItem>
+                        <SelectItem value={STATUS.PROCESSING}>
+                            Processing
+                        </SelectItem>
+                        <SelectItem value={STATUS.DISPATCHED}>
+                            Dispatched
+                        </SelectItem>
+                        <SelectItem value={STATUS.CANCELLED}>
+                            Cancelled
+                        </SelectItem>
+                        <SelectItem value={STATUS.IMPROPER_ORDER}>
+                            Improper Order
+                        </SelectItem>
                     </SelectContent>
                 </Select>
                 <div className="flex space-x-2">

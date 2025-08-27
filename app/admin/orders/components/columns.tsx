@@ -14,7 +14,8 @@ export const columns: ColumnDef<orderType>[] = [
         header: ({ table }) => {
             // Get selectable rows (those with files and no job)
             const selectableRows = table.getRowModel().rows.filter((row) => {
-                const hasFilesUpload = row.original.status === STATUS.FILE_UPLOADED;
+                const hasFilesUpload =
+                    row.original.status === STATUS.FILE_UPLOADED;
                 const hasJobId = row.original.job?.id;
                 return hasFilesUpload && !hasJobId;
             });
@@ -47,7 +48,9 @@ export const columns: ColumnDef<orderType>[] = [
             return (
                 <Checkbox
                     checked={
-                        hasFilesUpload && !hasJobId ? row.getIsSelected() : false
+                        hasFilesUpload && !hasJobId
+                            ? row.getIsSelected()
+                            : false
                     }
                     onCheckedChange={(value) => {
                         if (hasFilesUpload && !hasJobId) {

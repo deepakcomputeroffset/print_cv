@@ -91,7 +91,10 @@ export default function FileUploadPage({ order }: { order: OrderWithDetails }) {
                 formData.append("orderId", order.id.toString());
                 formData.append("uploadType", type);
 
-                const { data } = await axios.post("/api/customer/file-upload", formData);
+                const { data } = await axios.post(
+                    "/api/customer/file-upload",
+                    formData,
+                );
                 if (!data.success)
                     throw new Error(data.error || `Failed to upload ${type}`);
             }
