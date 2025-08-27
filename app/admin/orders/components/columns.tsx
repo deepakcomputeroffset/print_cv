@@ -6,6 +6,7 @@ import { orderType } from "@/types/types";
 import { IndianRupee } from "lucide-react";
 import { format } from "date-fns";
 import { DataTableRowActions } from "./data-table-row-actions";
+import { STATUS } from "@prisma/client";
 
 export const columns: ColumnDef<orderType>[] = [
     {
@@ -13,9 +14,9 @@ export const columns: ColumnDef<orderType>[] = [
         header: ({ table }) => {
             // Get selectable rows (those with files and no job)
             const selectableRows = table.getRowModel().rows.filter((row) => {
-                const hasFileUrls = row.original.attachment?.urls?.length > 0;
+                const hasFilesUpload = row.original.status === STATUS.FILE_UPLOADED;
                 const hasJobId = row.original.job?.id;
-                return hasFileUrls && !hasJobId;
+                return hasFilesUpload && !hasJobId;
             });
 
             // Check if all selectable rows are selected
@@ -40,22 +41,22 @@ export const columns: ColumnDef<orderType>[] = [
             );
         },
         cell: ({ row }) => {
-            const hasFileUrls = row.original.attachment?.urls?.length > 0;
+            const hasFilesUpload = row.original.status === STATUS.FILE_UPLOADED;
             const hasJobId = row.original.job?.id; // Assuming job has an `id` field
 
             return (
                 <Checkbox
                     checked={
-                        hasFileUrls && !hasJobId ? row.getIsSelected() : false
+                        hasFilesUpload && !hasJobId ? row.getIsSelected() : false
                     }
                     onCheckedChange={(value) => {
-                        if (hasFileUrls && !hasJobId) {
+                        if (hasFilesUpload && !hasJobId) {
                             row.toggleSelected(!!value);
                         }
                     }}
                     aria-label="Select row"
                     className="translate-y-[2px]"
-                    disabled={!hasFileUrls || !!hasJobId} // Disable checkbox when not selectable
+                    disabled={!hasFilesUpload || !!hasJobId} // Disable checkbox when not selectable
                 />
             );
         },
@@ -167,15 +168,10 @@ export const columns: ColumnDef<orderType>[] = [
             <DataTableColumnHeader column={column} title="File" />
         ),
         cell: ({ row }) => {
-            const file = row.original.attachment;
+            const order = row.original;
             return (
                 <div className="flex flex-col justify-center">
-                    <span className="text-xs">{file?.uploadVia}</span>
-                    {file?.urls?.length > 0 && (
-                        <span className="text-xs text-muted-foreground">
-                            Uploaded
-                        </span>
-                    )}
+                    <span className="text-xs">{order.uploadFilesVia}</span>
                 </div>
             );
         },

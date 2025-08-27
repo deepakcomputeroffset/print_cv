@@ -6,6 +6,7 @@ import {
     staffType,
 } from "@/types/types";
 import {
+    attachment,
     customerCategory,
     design,
     designCategory,
@@ -71,12 +72,12 @@ type DataType = {
     job?: job;
     orders?: orderType[];
     orderId?: number;
-    files?: string[];
     cityId?: number;
     order?: order;
     orderForFileUpload?: OrderWithDetails;
     designCategory?: designCategory;
     design?: design;
+    attachment?: attachment[];
 };
 
 interface modalStore {

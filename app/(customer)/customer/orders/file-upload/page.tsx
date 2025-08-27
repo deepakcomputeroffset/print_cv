@@ -25,6 +25,8 @@ interface OrderWithDetails extends order {
     attachment: Pick<attachment, "id" | "type" | "url">[];
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function UploadFilesPage({
     searchParams,
 }: {

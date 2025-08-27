@@ -209,34 +209,12 @@ export default async function TaskDetail({
                                         </TableCell>
                                         <TableCell>
                                             {order.attachment &&
-                                                order.attachment.urls.length >
-                                                    0 && (
-                                                    // <Button
-                                                    //     variant="outline"
-                                                    //     size="sm"
-                                                    //     className="w-full"
-                                                    //     onClick={() =>
-                                                    //         onOpen(
-                                                    //             "viewFiles",
-                                                    //             {
-                                                    //                 orderId:
-                                                    //                     order.id,
-                                                    //                 files: order
-                                                    //                     ?.attachment
-                                                    //                     ?.urls,
-                                                    //             },
-                                                    //         )
-                                                    //     }
-                                                    // >
-                                                    //     <FileText className="w-4 h-4 mr-2" />
-                                                    //     View Files
-                                                    // </Button>
+                                                order.attachment.length > 0 && (
                                                     <ViewFilesButton
                                                         order={{
                                                             id: order.id,
                                                             attachment:
-                                                                order.attachment
-                                                                    .urls,
+                                                                order.attachment,
                                                         }}
                                                     />
                                                 )}

@@ -7,6 +7,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { STATUS } from "@prisma/client";
 
 export function RecentOrders({
     orders,
@@ -15,13 +16,7 @@ export function RecentOrders({
         id: number;
         createdAt: Date;
         updatedAt: Date;
-        status:
-            | "PENDING"
-            | "PROCESSING"
-            | "PROCESSED"
-            | "DISPATCHED"
-            | "CANCELLED"
-            | "IMPROPER_ORDER";
+        status: STATUS;
         jobId: number | null;
         customerId: number;
         productItemId: number;

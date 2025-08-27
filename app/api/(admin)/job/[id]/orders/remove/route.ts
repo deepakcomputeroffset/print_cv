@@ -2,7 +2,7 @@ import { Prisma } from "@/lib/prisma";
 import serverResponse from "@/lib/serverResponse";
 import { auth } from "@/lib/auth";
 import { allowedRoleForJobManagement } from "@/lib/constants";
-import { ROLE } from "@prisma/client";
+import { ROLE, STATUS } from "@prisma/client";
 
 export async function POST(
     request: Request,
@@ -56,7 +56,7 @@ export async function POST(
                 jobId: {
                     set: null,
                 },
-                status: "PENDING",
+                status: STATUS.FILE_UPLOADED,
             },
         });
 

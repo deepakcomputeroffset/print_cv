@@ -287,13 +287,12 @@ export default async function JobPage({
                                         </TableCell>
                                         {!job.isVerified && (
                                             <TableCell className="flex space-x-1">
-                                                {!!order?.attachment?.urls && (
+                                                {!!order?.attachment && (
                                                     <ViewFilesButton
                                                         order={{
                                                             id: order.id,
                                                             attachment:
-                                                                order.attachment
-                                                                    .urls,
+                                                                order.attachment,
                                                         }}
                                                     />
                                                 )}

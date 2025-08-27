@@ -101,7 +101,7 @@ export interface OrderWithDetails extends order {
 }
 
 export interface orderType extends order {
-    attachment: attachment;
+    attachment?: attachment[];
     job: job & { tasks: task[] };
     productItem: productItem & {
         pricing: pricing[];

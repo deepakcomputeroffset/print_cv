@@ -33,71 +33,81 @@ export async function GET(request: Request) {
             AND: [
                 query.search
                     ? {
-                          OR: [
-                              !isNaN(parseInt(query.search))
-                                  ? {
-                                        id: {
-                                            gte: parseInt(query.search),
+                        OR: [
+                            !isNaN(parseInt(query.search))
+                                ? {
+                                    id: {
+                                        gte: parseInt(query.search),
+                                    },
+                                }
+                                : {},
+                            !isNaN(parseInt(query.search))
+                                ? {
+                                    customerId: parseInt(query.search),
+                                }
+                                : {},
+                            {
+                                customer: {
+                                    OR: [
+                                        {
+                                            name: {
+                                                contains: query?.search,
+                                                mode: "insensitive",
+                                            },
                                         },
-                                    }
-                                  : {},
-                              !isNaN(parseInt(query.search))
-                                  ? {
-                                        customerId: parseInt(query.search),
-                                    }
-                                  : {},
-                              {
-                                  customer: {
-                                      OR: [
-                                          {
-                                              name: {
-                                                  contains: query?.search,
-                                                  mode: "insensitive",
-                                              },
-                                          },
-                                          {
-                                              phone: {
-                                                  contains: query?.search,
-                                                  mode: "insensitive",
-                                              },
-                                          },
-                                      ],
-                                  },
-                              },
-                          ],
-                      }
+                                        {
+                                            phone: {
+                                                contains: query?.search,
+                                                mode: "insensitive",
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
+                        ],
+                    }
                     : {},
                 query.minPrice && !isNaN(parseInt(query.minPrice))
                     ? {
-                          total: {
-                              gte: parseInt(query.minPrice),
-                          },
-                      }
+                        total: {
+                            gte: parseInt(query.minPrice),
+                        },
+                    }
                     : {},
                 query.maxPrice && !isNaN(parseInt(query.maxPrice))
                     ? {
-                          total: {
-                              lte: parseInt(query.maxPrice),
-                          },
-                      }
+                        total: {
+                            lte: parseInt(query.maxPrice),
+                        },
+                    }
                     : {},
                 query?.from
                     ? {
-                          createdAt: {
-                              gte: new Date(query.from as string),
-                          },
-                      }
+                        createdAt: {
+                            gte: new Date(query.from as string),
+                        },
+                    }
                     : {},
                 query.to
                     ? {
-                          createdAt: {
-                              lte: new Date(query.to as string),
-                          },
-                      }
+                        createdAt: {
+                            lte: new Date(query.to as string),
+                        },
+                    }
                     : {},
                 query.orderStatus && query.orderStatus !== "ALL"
-                    ? { status: query.orderStatus as STATUS }
-                    : {},
+                    ? {
+                        status: {
+                            equals: query.orderStatus as STATUS,
+                            not: "PLACED"
+                        }
+                    }
+                    : {
+                        status: {
+                            not: "PLACED"
+                        }
+                    },
+
             ],
         };
 

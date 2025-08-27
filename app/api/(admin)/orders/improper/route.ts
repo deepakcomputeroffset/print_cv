@@ -1,11 +1,9 @@
 import serverResponse from "@/lib/serverResponse";
 import { Prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { STATUS } from "@prisma/client";
 
-export async function POST(
-    req: Request,
-    { params }: { params: Promise<{ orderId: string }> },
-) {
+export async function POST(req: Request) {
     try {
         const session = await auth();
 
@@ -22,8 +20,9 @@ export async function POST(
             });
         }
 
-        // Get the order ID from params
-        const { orderId } = await params;
+        // Get the reason from the request body
+        const body = await req.json();
+        const { reason, orderId } = body;
         if (!orderId || isNaN(parseInt(orderId))) {
             return serverResponse({
                 status: 400,
@@ -31,10 +30,6 @@ export async function POST(
                 error: "Order ID is required.",
             });
         }
-
-        // Get the reason from the request body
-        const body = await req.json().catch(() => ({}));
-        const { reason } = body;
 
         if (!reason || reason.trim().length < 10) {
             return serverResponse({
@@ -58,11 +53,11 @@ export async function POST(
         }
 
         // Check if order is in PENDING state
-        if (order.status !== "PENDING") {
+        if (order.status !== STATUS.FILE_UPLOADED) {
             return serverResponse({
                 status: 400,
                 success: false,
-                error: "Only pending orders can be marked as improper.",
+                error: "Only file uploaded orders can be marked as improper.",
             });
         }
 
@@ -71,7 +66,7 @@ export async function POST(
             // Update order status
             await tx.order.update({
                 where: { id: parseInt(orderId) },
-                data: { status: "IMPROPER_ORDER" },
+                data: { status: STATUS.IMPROPER_ORDER },
             });
 
             // Create a comment with the reason
@@ -79,7 +74,7 @@ export async function POST(
                 data: {
                     orderId: parseInt(orderId),
                     comment: reason,
-                    commentType: "IMPROPER_ORDER",
+                    commentType: STATUS.IMPROPER_ORDER,
                     staffId: session.user.staff?.id,
                 },
             });

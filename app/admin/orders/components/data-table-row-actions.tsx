@@ -1,7 +1,7 @@
 "use client";
 
 import { Row } from "@tanstack/react-table";
-import { FileText, MoreHorizontal, UploadCloud } from "lucide-react";
+import { FileText, MoreHorizontal } from "lucide-react";
 import { orderType } from "@/types/types";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { useModal } from "@/hooks/use-modal";
+import { STATUS } from "@prisma/client";
+import Link from "next/link";
 
 interface DataTableRowActionsProps<TData> {
     row: Row<TData>;
@@ -20,7 +22,6 @@ export function DataTableRowActions<TData>({
     row,
 }: DataTableRowActionsProps<TData>) {
     const order = row.original as orderType;
-    const file = order.attachment;
     const { onOpen } = useModal();
     const [open, setOpen] = useState(false);
     const openChange = () => setOpen(!open);
@@ -36,52 +37,30 @@ export function DataTableRowActions<TData>({
                     <span className="sr-only">Open menu</span>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-[160px]">
-                {file && file?.urls?.length > 0 && (
+            <DropdownMenuContent
+                align="end"
+                className="w-[160px] space-y-2 py-2"
+            >
+                <Button variant={"info"} size={"sm"} className="w-full">
+                    <Link href={`/admin/orders/${order.id}`} className="flex">
+                        <FileText className="w-4 h-4 mr-2" />
+                        View Order
+                    </Link>
+                </Button>
+                {order?.status === STATUS.FILE_UPLOADED && (
                     <Button
                         variant="outline"
                         size="sm"
                         className="w-full"
-                        onClick={() => {
-                            onOpen("viewFiles", {
-                                files: file.urls,
-                            });
-                            openChange();
-                        }}
-                    >
-                        <FileText className="w-4 h-4 mr-2" />
-                        View Files
-                    </Button>
-                )}
-                {order?.status === "PENDING" && (
-                    <Button
-                        variant="outline"
-                        size="sm"
                         onClick={() => {
                             onOpen("improperOrder", { orderId: order.id });
                             openChange();
                         }}
                     >
                         <FileText className="w-4 h-4 mr-2" />
-                        Mark as Improper
+                        Mark Improper
                     </Button>
                 )}
-                {order?.status === "PENDING" &&
-                    order?.attachment.uploadVia === "EMAIL" && (
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => {
-                                onOpen("uploadOrderFile", {
-                                    orderId: order.id,
-                                });
-                                openChange();
-                            }}
-                        >
-                            <UploadCloud className="w-4 h-4 mr-2" />
-                            Uplad Files
-                        </Button>
-                    )}
             </DropdownMenuContent>
         </DropdownMenu>
     );

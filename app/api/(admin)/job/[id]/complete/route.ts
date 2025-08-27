@@ -35,14 +35,14 @@ export async function POST(
         }
 
         const job = await Prisma.job.findUnique({
-            where: { id: parseInt(id) },
+            where: { id: parseInt(id), isCompleted: false },
         });
 
         if (!job) {
             return serverResponse({
                 status: 404,
                 success: false,
-                message: "Job not found.",
+                message: "Job not found or already completed.",
             });
         }
 

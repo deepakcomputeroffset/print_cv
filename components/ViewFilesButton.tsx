@@ -1,12 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
+import { attachment } from "@prisma/client";
 import { FileText } from "lucide-react";
 
 export function ViewFilesButton({
     order,
 }: {
-    order: { id: number; attachment: string[] };
+    order: { id: number; attachment: attachment[] };
 }) {
     const { onOpen } = useModal();
     return (
@@ -17,7 +18,7 @@ export function ViewFilesButton({
             onClick={() =>
                 onOpen("viewFiles", {
                     orderId: order.id,
-                    files: order?.attachment,
+                    attachment: order.attachment,
                 })
             }
         >

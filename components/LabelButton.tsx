@@ -34,7 +34,7 @@ interface LabelButtonProps {
             phone: string;
             address: address | null;
         };
-        attachment?: attachment;
+        attachment?: attachment[];
     };
 }
 
@@ -164,11 +164,11 @@ export function LabelButtonWithAttachment({ order }: LabelButtonProps) {
                 </DialogHeader>
 
                 {order?.attachment &&
-                order?.attachment?.urls &&
-                order?.attachment?.urls?.length > 0 ? (
+                order?.attachment &&
+                order?.attachment?.length > 0 ? (
                     <div className="space-y-4">
                         <div className="border rounded-md p-4">
-                            {order?.attachment?.urls?.map((url, index) => (
+                            {order?.attachment?.map((attachment, index) => (
                                 <div
                                     key={index}
                                     className="flex items-center space-x-2"
@@ -177,13 +177,16 @@ export function LabelButtonWithAttachment({ order }: LabelButtonProps) {
                                         htmlFor={`attachment-${index}`}
                                         className="flex-1 cursor-pointer"
                                     >
-                                        Attachment {index + 1}
+                                        {attachment.type}
                                     </Label>
                                     <Button
                                         variant="ghost"
                                         size="sm"
                                         onClick={() =>
-                                            window.open(url, "_blank")
+                                            window.open(
+                                                attachment.url,
+                                                "_blank",
+                                            )
                                         }
                                     >
                                         <FileText className="w-4 h-4" />

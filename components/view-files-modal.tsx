@@ -37,18 +37,18 @@ export function ViewFilesModal() {
                     </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-2">
-                    {data?.files?.map((url, index) => (
+                    {data?.attachment?.map((attachment, index) => (
                         <div
                             key={index}
                             className="flex items-center justify-between p-2 text-sm border rounded-md w-full"
                         >
-                            <span className="truncate">
-                                {url.split("/").pop()}
-                            </span>
+                            <span className="truncate">{attachment.type}</span>
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => window.open(url, "_blank")}
+                                onClick={() =>
+                                    window.open(attachment.url, "_blank")
+                                }
                             >
                                 <ExternalLink className="w-4 h-4" />
                             </Button>

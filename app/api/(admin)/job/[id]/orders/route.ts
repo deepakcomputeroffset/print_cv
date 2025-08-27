@@ -1,6 +1,7 @@
 import serverResponse from "@/lib/serverResponse";
 import { addOrdersToJobFormSchema } from "@/schemas/job.form.schema";
 import { Prisma } from "@/lib/prisma";
+import { STATUS } from "@prisma/client";
 
 export async function POST(
     request: Request,
@@ -36,11 +37,7 @@ export async function POST(
                 id: {
                     in: result.data.orders,
                 },
-                attachment: {
-                    urls: {
-                        isEmpty: false,
-                    },
-                },
+                status: STATUS.FILE_UPLOADED,
             },
         });
 
@@ -58,6 +55,7 @@ export async function POST(
                 id: {
                     in: result.data.orders,
                 },
+                status: STATUS.FILE_UPLOADED,
             },
             data: {
                 jobId: isJobExist.id,

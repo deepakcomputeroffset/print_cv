@@ -52,12 +52,10 @@ export function ImproperOrderModal() {
         try {
             setIsSubmitting(true);
             // Update this API endpoint if needed
-            const response = await axios.post(
-                `/api/orders/${data?.orderId}/improper`,
-                {
-                    reason: values.reason,
-                },
-            );
+            const response = await axios.post(`/api/orders/improper`, {
+                reason: values.reason,
+                orderId: data?.orderId,
+            });
 
             if (!response.data.success) {
                 throw new Error(

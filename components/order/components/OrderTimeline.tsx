@@ -20,7 +20,8 @@ interface TimelineEvent {
     icon: React.ReactNode;
     title: string;
     description: React.ReactNode;
-    date: string;
+    startedAt?: string;
+    completedAt: string;
     status: STATUS;
 }
 
@@ -58,7 +59,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                         </div>
                     </div>
                 ),
-                date: baseDate.toLocaleDateString(),
+                completedAt: baseDate.toLocaleDateString(),
                 status: "PLACED",
             },
         ];
@@ -79,7 +80,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                         </div>
                     </div>
                 ),
-                date: improperDate.toLocaleDateString(),
+                completedAt: improperDate.toLocaleDateString(),
                 status: "IMPROPER_ORDER",
             });
             return events;
@@ -101,7 +102,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                         </div>
                     </div>
                 ),
-                date: cancelDate.toLocaleDateString(),
+                completedAt: cancelDate.toLocaleDateString(),
                 status: "CANCELLED",
             });
             return events;
@@ -124,7 +125,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                         </div>
                     </div>
                 ),
-                date: fileDate.toLocaleDateString(),
+                completedAt: fileDate.toLocaleDateString(),
                 status: "FILE_UPLOADED",
             });
         }
@@ -150,6 +151,18 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                                     {task.assignee?.name}
                                 </span>
                             </div>
+                            {startDate && (
+                                <div className="flex items-center gap-2 mt-1">
+                                    <CheckCircle2 className="h-3.5 w-3.5" />
+                                    <span>Started:</span>
+                                    <span className="font-medium text-gray-900">
+                                        {format(
+                                            startDate,
+                                            "MMM d, yyyy h:mm a",
+                                        )}
+                                    </span>
+                                </div>
+                            )}
                             {completionDate && (
                                 <div className="flex items-center gap-2 mt-1">
                                     <CheckCircle2 className="h-3.5 w-3.5" />
@@ -167,11 +180,10 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
 
                     events.push({
                         icon: <Boxes className="h-6 w-6" />,
-                        title: `Processing: ${task.taskType?.name || "Task"}`,
+                        title: `${task.taskType?.name || "Task"}`,
                         description,
-                        date: completionDate
-                            ? format(completionDate, "MMM d, yyyy")
-                            : format(startDate, "MMM d, yyyy"),
+                        startedAt: format(startDate, "MMM d, yyyy"),
+                        completedAt: format(startDate, "MMM d, yyyy"),
                         status: "PROCESSING",
                     });
                 });
@@ -194,7 +206,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                         </div>
                     </div>
                 ),
-                date: processedDate.toLocaleDateString(),
+                completedAt: processedDate.toLocaleDateString(),
                 status: "PROCESSED",
             });
         }
@@ -216,7 +228,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                         </div>
                     </div>
                 ),
-                date: dispatchDate.toLocaleDateString(),
+                completedAt: dispatchDate.toLocaleDateString(),
                 status: "DISPATCHED",
             });
         }

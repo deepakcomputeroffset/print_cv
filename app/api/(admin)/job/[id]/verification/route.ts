@@ -35,19 +35,19 @@ export async function POST(
         }
 
         const job = await Prisma.job.findUnique({
-            where: { id: parseInt(id) },
+            where: { id: parseInt(id), isVerified: false },
         });
 
         if (!job) {
             return serverResponse({
                 status: 404,
                 success: false,
-                message: "Job not found.",
+                message: "Job not found or already verified.",
             });
         }
 
         const updatedJob = await Prisma.job.update({
-            where: { id: parseInt(id) },
+            where: { id: parseInt(id), isVerified: false },
             data: {
                 isVerified: !job.isVerified,
                 verifiedAt: new Date(),

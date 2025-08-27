@@ -91,7 +91,7 @@ export default function FileUploadPage({ order }: { order: OrderWithDetails }) {
                 formData.append("orderId", order.id.toString());
                 formData.append("uploadType", type);
 
-                const { data } = await axios.post("/api/file-upload", formData);
+                const { data } = await axios.post("/api/customer/file-upload", formData);
                 if (!data.success)
                     throw new Error(data.error || `Failed to upload ${type}`);
             }
@@ -117,7 +117,7 @@ export default function FileUploadPage({ order }: { order: OrderWithDetails }) {
             const attachment = attachments[type];
             if (!attachment) return;
             console.log(attachment);
-            const { data } = await axios.delete("/api/file-upload", {
+            const { data } = await axios.delete("/api/customer/file-upload", {
                 data: {
                     orderId: order.id,
                     attachmentId: attachment.id,
@@ -145,7 +145,7 @@ export default function FileUploadPage({ order }: { order: OrderWithDetails }) {
         try {
             setIsLoading(true);
             const { data } = await axios.post(
-                "/api/file-upload/change-status",
+                "/api/customer/file-upload/change-status",
                 {
                     orderId: order.id,
                     status: "FILE_UPLOADED",

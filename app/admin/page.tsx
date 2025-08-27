@@ -25,31 +25,14 @@ import {
 } from "lucide-react";
 import { SalesChart } from "@/components/admin/sales-chart";
 import { TopProducts } from "@/components/admin/top-products";
+import { order } from "@prisma/client";
 
 interface AdminStats {
     totalOrders: number;
     totalProducts: number;
     totalCustomers: number;
     totalStaff: number;
-    recentOrders: {
-        id: number;
-        createdAt: Date;
-        updatedAt: Date;
-        status:
-            | "PENDING"
-            | "PROCESSING"
-            | "PROCESSED"
-            | "DISPATCHED"
-            | "CANCELLED"
-            | "IMPROPER_ORDER";
-        jobId: number | null;
-        customerId: number;
-        productItemId: number;
-        qty: number;
-        igst: number;
-        uploadCharge: number;
-        price: number;
-        total: number;
+    recentOrders: (order & {
         customer: {
             name: string;
             phone: string;
@@ -59,7 +42,7 @@ interface AdminStats {
                 name: string;
             };
         };
-    }[];
+    })[];
     monthlyOrders: {
         createdAt: Date;
         _sum: {
