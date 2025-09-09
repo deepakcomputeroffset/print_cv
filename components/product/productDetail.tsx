@@ -214,8 +214,8 @@ export default function ProductDetails({
                     }}
                     className="mt-8 space-y-6"
                 >
-                    <ProductFeatures />
                     <ProductDescription description={product.description} />
+                    <ProductFeatures />
                     <TrustIndicators />
                 </motion.div>
             </div>

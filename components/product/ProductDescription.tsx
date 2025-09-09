@@ -22,7 +22,7 @@ export default function ProductDescription({
                 </h2>
             </div>
             <div className="p-4">
-                <div className="prose prose-sm prose-gray max-w-none prose-headings:font-semibold prose-h3:text-primary">
+                <div className="prose prose-sm prose-gray max-w-none prose-headings:font-semibold prose-h3:text-primary text-xs">
                     <Markdown>{description}</Markdown>
                 </div>
             </div>
