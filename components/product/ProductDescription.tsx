@@ -14,7 +14,7 @@ export default function ProductDescription({
             <div className="border-b border-gray-100 px-4 py-3">
                 <h2
                     className={cn(
-                        "text-lg font-bold text-gray-800",
+                        "text-base font-bold text-gray-800",
                         sourceSerif4.className,
                     )}
                 >
