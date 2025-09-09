@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { toast } from "sonner";
@@ -75,6 +75,21 @@ export default function ProductDetails({
         cityDiscount,
         fileOption,
     );
+
+    const defaultQtyHandler = useCallback(
+        (variant: ProductItemTypeWithAttribute | null) => {
+            if (variant && !product.isTieredPricing) {
+                setQty(variant.pricing[0]?.qty || 0);
+            } else {
+                setQty(null);
+            }
+        },
+        [selectedVariant, product],
+    );
+
+    useEffect(() => {
+        defaultQtyHandler(selectedVariant);
+    }, [selectedVariant, defaultQtyHandler]);
 
     const handleBuy = async () => {
         try {

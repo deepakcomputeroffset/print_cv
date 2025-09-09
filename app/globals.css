@@ -7,6 +7,13 @@ body {
     scrollbar-gutter: stable;
 }
 
+/* Fix for layout shift when modals/dialogs are opened */
+html body[data-scroll-locked] {
+    margin-right: 0px !important; /* For LTR layout */
+    margin-left: 0px !important; /* For RTL layout */
+    overflow: visible !important;
+}
+
 @layer base {
     :root {
         --background: 0 0% 100%;
