@@ -29,6 +29,7 @@ export default async function ProductPage({
                     },
                     pricing: true,
                 },
+                where: { isAvailable: true },
             },
         },
     });

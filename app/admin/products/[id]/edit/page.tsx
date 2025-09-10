@@ -20,6 +20,9 @@ export default async function EditProductPage({
                             include: {
                                 productAttributeType: true,
                             },
+                            orderBy: {
+                                productAttributeType: { name: "asc" },
+                            },
                         },
                         pricing: {
                             orderBy: { qty: "asc" },
