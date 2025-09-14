@@ -14,6 +14,8 @@ export const List = ({ categories }: { categories: productCategoryType[] }) => {
     const handleCategoryClick = (category: productCategoryType) => {
         if (category?._count?.subCategories > 0) {
             setParam("parentCategoryId", category?.id.toString());
+        } else if (category?.isList) {
+            router.push(`/products/list/${category.id}`);
         } else {
             router.push(`/products?categoryId=${category.id}`);
         }

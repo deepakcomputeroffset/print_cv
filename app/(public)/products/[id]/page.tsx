@@ -12,7 +12,6 @@ export default async function ProductPage({
     if (isNaN(parseInt(id))) {
         return redirect("/products");
     }
-    const session = await auth();
 
     const product = await Prisma.product.findUnique({
         where: {
@@ -26,6 +25,7 @@ export default async function ProductPage({
                         include: {
                             productAttributeType: true,
                         },
+                        orderBy: { productAttributeType: { name: "asc" } },
                     },
                     pricing: true,
                 },
@@ -34,6 +34,10 @@ export default async function ProductPage({
         },
     });
 
+    if (product?.category.isList) {
+        return redirect(`/products/list/${product.categoryId}`);
+    }
+
     if (!product) {
         return (
             <div className="container mx-auto py-8 px-4">
@@ -41,6 +45,8 @@ export default async function ProductPage({
             </div>
         );
     }
+
+    const session = await auth();
 
     const cityDiscount = !!session
         ? await Prisma.cityDiscount.findFirst({

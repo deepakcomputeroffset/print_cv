@@ -136,7 +136,8 @@ export async function PATCH(
             updateData.isTieredPricing = validatedData.isTieredPricing;
         if (validatedData.categoryId)
             updateData.categoryId = parseInt(validatedData.categoryId);
-
+        if (validatedData.imageUrl)
+            updateData.imageUrl = validatedData.imageUrl;
         if (validatedData.productItems) {
             const incomingItems = validatedData.productItems;
             const existingItemIds = new Set(

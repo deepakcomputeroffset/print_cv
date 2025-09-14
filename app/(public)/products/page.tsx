@@ -20,8 +20,18 @@ export default async function ProductPage({
 
     const category = await Prisma.productCategory.findUnique({
         where: { id: parseInt(params?.categoryId) },
-        select: { name: true, parentCategory: { select: { name: true } } },
+        select: {
+            name: true,
+            parentCategory: { select: { name: true } },
+            isList: true,
+            id: true,
+        },
     });
+
+    if (category?.isList) {
+        return redirect(`/products/list/${category?.id}`);
+    }
+
     const products = await Prisma.product.findMany({
         where: params?.categoryId
             ? {

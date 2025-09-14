@@ -5,7 +5,7 @@ import {
 import { product } from "@prisma/client";
 
 export default function getDistinctOptionsWithDetails(
-    product: Omit<product, "ogPrice"> & {
+    product: product & {
         productItems: ProductItemTypeWithAttribute[];
     },
 ): productAttributeWithOptions[] {

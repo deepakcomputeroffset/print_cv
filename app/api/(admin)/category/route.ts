@@ -178,8 +178,10 @@ export async function POST(req: Request) {
             name: safeData.data.name,
             description: safeData.data.description,
             imageUrl,
+            isAvailable: safeData.data.isAvailable,
+            isList: safeData.data.isList,
         };
-        console.log(dataToCreate);
+
         const productCategory = await Prisma.productCategory.create({
             data: !!parentCategoryId
                 ? { ...dataToCreate, parentCategoryId: parentCategoryId }

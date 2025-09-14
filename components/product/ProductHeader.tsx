@@ -14,11 +14,13 @@ import { sourceSerif4 } from "@/lib/font";
 interface ProductHeaderProps {
     product: product;
     isCompact?: boolean;
+    isProductPage?: boolean;
 }
 
 export default function ProductHeader({
     product,
     isCompact = false,
+    isProductPage = true,
 }: ProductHeaderProps) {
     if (isCompact) {
         return (
@@ -69,15 +71,19 @@ export default function ProductHeader({
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink
-                            href={`/products?categoryId=${product.categoryId}`}
-                            className="cursor-pointer text-gray-600 hover:text-primary"
-                        >
-                            Products
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
+                    {isProductPage && (
+                        <>
+                            <BreadcrumbItem>
+                                <BreadcrumbLink
+                                    href={`/products?categoryId=${product.categoryId}`}
+                                    className="cursor-pointer text-gray-600 hover:text-primary"
+                                >
+                                    Products
+                                </BreadcrumbLink>
+                            </BreadcrumbItem>
+                            <BreadcrumbSeparator />
+                        </>
+                    )}
                     <BreadcrumbItem>
                         <BreadcrumbPage className="text-primary font-medium">
                             {product.name}

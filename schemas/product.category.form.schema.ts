@@ -27,6 +27,7 @@ export const getProductCategorySchema = () => {
                   })
                   .optional(), // Server (FileLike)
         isAvailable: z.boolean().optional(),
+        isList: z.boolean().optional(),
         parentCategoryId: z
             .string({ message: "Parent category ID must be an integer." })
             .optional(),

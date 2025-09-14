@@ -1,4 +1,6 @@
-export const Product_Categories = [
+import { productCategoryType } from "@/types/types";
+
+export const Product_Categories: productCategoryType[] = [
     {
         id: 1,
         name: "Visiting Cards",
@@ -8,11 +10,12 @@ export const Product_Categories = [
             "https://storage.googleapis.com/printvc/images/1_1745991440914_1745991440914",
         isAvailable: true,
         parentCategoryId: null,
-        createdAt: "2025-04-30T05:37:22.603Z",
-        updatedAt: "2025-05-08T17:48:36.422Z",
+        // createdAt: "2025-04-30T05:37:22.603Z",
+        // updatedAt: "2025-05-08T17:48:36.422Z",
         _count: {
             subCategories: 0,
         },
+        isList: false,
         parentCategory: null,
     },
     {
@@ -23,11 +26,12 @@ export const Product_Categories = [
             "https://storage.googleapis.com/printvc/images/1_1745991953613_1745991953613",
         isAvailable: true,
         parentCategoryId: null,
-        createdAt: "2025-04-30T05:45:56.247Z",
-        updatedAt: "2025-05-08T17:48:36.615Z",
+        // createdAt: "2025-04-30T05:45:56.247Z",
+        // updatedAt: "2025-05-08T17:48:36.615Z",
         _count: {
             subCategories: 0,
         },
+        isList: false,
         parentCategory: null,
     },
     {
@@ -39,11 +43,12 @@ export const Product_Categories = [
             "https://storage.googleapis.com/printvc/images/1_1745992086192_1745992086192",
         isAvailable: true,
         parentCategoryId: null,
-        createdAt: "2025-04-30T05:48:06.770Z",
-        updatedAt: "2025-05-08T17:48:36.710Z",
+        // createdAt: "2025-04-30T05:48:06.770Z",
+        // updatedAt: "2025-05-08T17:48:36.710Z",
         _count: {
             subCategories: 0,
         },
+        isList: false,
         parentCategory: null,
     },
     {
@@ -55,11 +60,12 @@ export const Product_Categories = [
             "https://storage.googleapis.com/printvc/images/1_1745992341671_1745992341671",
         isAvailable: true,
         parentCategoryId: null,
-        createdAt: "2025-04-30T05:52:22.170Z",
-        updatedAt: "2025-05-08T17:48:36.889Z",
+        // createdAt: "2025-04-30T05:52:22.170Z",
+        // updatedAt: "2025-05-08T17:48:36.889Z",
         _count: {
             subCategories: 0,
         },
+        isList: true,
         parentCategory: null,
     },
     {
@@ -71,11 +77,12 @@ export const Product_Categories = [
             "https://storage.googleapis.com/printvc/images/1_1745992443384_1745992443384",
         isAvailable: true,
         parentCategoryId: null,
-        createdAt: "2025-04-30T05:54:04.040Z",
-        updatedAt: "2025-05-08T17:48:36.977Z",
+        // createdAt: "2025-04-30T05:54:04.040Z",
+        // updatedAt: "2025-05-08T17:48:36.977Z",
         _count: {
             subCategories: 0,
         },
+        isList: false,
         parentCategory: null,
     },
     {
@@ -87,8 +94,9 @@ export const Product_Categories = [
             "https://storage.googleapis.com/printvc/images/1_1745992567258_1745992567258",
         isAvailable: true,
         parentCategoryId: null,
-        createdAt: "2025-04-30T05:56:07.973Z",
-        updatedAt: "2025-05-08T17:48:37.068Z",
+        // createdAt: "2025-04-30T05:56:07.973Z",
+        // updatedAt: "2025-05-08T17:48:37.068Z",
+        isList: false,
         _count: {
             subCategories: 0,
         },

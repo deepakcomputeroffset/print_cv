@@ -43,6 +43,7 @@ export const ProductCategoryCreateForm = () => {
             description: "",
             parentCategoryId: data?.productCategory?.id.toString(),
             isAvailable: false,
+            isList: false,
         },
     });
 
@@ -131,6 +132,39 @@ export const ProductCategoryCreateForm = () => {
                                     <SelectTrigger>
                                         <SelectValue
                                             placeholder={"Select Availability"}
+                                        />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="true">
+                                            Yes
+                                        </SelectItem>
+                                        <SelectItem value="false">
+                                            No
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="isList"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>List</FormLabel>
+                            <FormControl>
+                                <Select
+                                    value={`${field.value}`}
+                                    onValueChange={(v) =>
+                                        field.onChange(Boolean(v))
+                                    }
+                                    defaultValue="false"
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue
+                                            placeholder={"Select List View"}
                                         />
                                     </SelectTrigger>
                                     <SelectContent>

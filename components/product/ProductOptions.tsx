@@ -71,6 +71,31 @@ export default function ProductOptions({
         }
     };
 
+    // Determine if a given option is available given the current selections
+    // const isOptionAvailable = (typeId: number, optionId: number) => {
+    //     // Find any productItem that contains this option and matches all other selected attributes
+    //     return product.productItems.some((item) => {
+    //         // Item must include the candidate option for the current type
+    //         const hasCandidateOption = item.productAttributeOptions.some(
+    //             (opt) =>
+    //                 opt.productAttributeType.id === typeId &&
+    //                 opt.id === optionId,
+    //         );
+
+    //         if (!hasCandidateOption) return false;
+
+    //         // And it must match all other selected attributes
+    //         return Object.entries(selectedAttributes).every(([tId, vId]) => {
+    //             const tid = parseInt(tId);
+    //             if (tid === typeId) return true; // skip current type
+    //             return item.productAttributeOptions.some(
+    //                 (opt) =>
+    //                     opt.productAttributeType.id === tid && opt.id === vId,
+    //             );
+    //         });
+    //     });
+    // };
+
     return (
         <>
             {distinctAttributeWithOptions.map((type) => (
@@ -92,6 +117,7 @@ export default function ProductOptions({
                                 <SelectItem
                                     key={opt.id}
                                     value={opt?.id?.toString()}
+                                    // disabled={!isOptionAvailable(type.id, opt.id)}
                                 >
                                     {opt?.productAttributeValue}
                                 </SelectItem>

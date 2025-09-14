@@ -157,7 +157,7 @@ export function EditProductForm({
                 if (data?.data) {
                     form.setValue(
                         "imageUrl",
-                        [...form.getValues("imageUrl"), ...data?.data],
+                        [...form?.getValues("imageUrl"), ...data?.data],
                         {
                             shouldDirty: true,
                         },

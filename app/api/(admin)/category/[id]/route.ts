@@ -139,10 +139,9 @@ export async function PATCH(
                 await deleteFile(productCategory.imageUrl);
             }
         }
+        //eslint-disable-next-line
         const { image, parentCategoryId, ...dataWithoutImage } =
             validatedData.data;
-        console.log(image, parentCategoryId);
-
         const updatedCategory = await Prisma.productCategory.update({
             where: { id: parseInt(id) },
             data: {

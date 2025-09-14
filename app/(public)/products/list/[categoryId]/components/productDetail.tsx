@@ -24,22 +24,31 @@ import getDistinctOptionsWithDetails from "@/components/product/getAttributeWith
 import { createOrder } from "@/lib/api/order";
 
 // Custom Components
-import ProductFeatures from "./ProductFeature";
-import TrustIndicators from "./TrustIndicator";
-import ProductDescription from "./ProductDescription";
-import PriceBreakdown from "./PriceBreakdown";
-import SelectedConfiguration from "./SelectedConfiguration";
-import ProductOptions from "./ProductOptions";
-import ProductHeader from "./ProductHeader";
+import ProductFeatures from "@/components/product/ProductFeature";
+import TrustIndicators from "@/components/product/TrustIndicator";
+import ProductDescription from "@/components/product/ProductDescription";
+import PriceBreakdown from "@/components/product/PriceBreakdown";
+import SelectedConfiguration from "@/components/product/SelectedConfiguration";
+import ProductOptions from "@/components/product/ProductOptions";
+import ProductHeader from "@/components/product/ProductHeader";
 import { AxiosError } from "axios";
-import { usePricing } from "./use-pricing";
-import { useVariantSelection } from "./use-variant-selection";
+import { usePricing } from "@/components/product/use-pricing";
+import { useVariantSelection } from "@/components/product/use-variant-selection";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 // Types
+type productType = product & {
+    productItems: ProductItemTypeWithAttribute[];
+};
 interface ProductDetailsProps {
-    product: product & {
-        productItems: ProductItemTypeWithAttribute[];
-    };
+    products: productType[];
+    initialProductId?: string | null;
     cityDiscount: cityDiscount | null;
     customer?: Omit<
         customer,
@@ -53,7 +62,8 @@ interface ProductDetailsProps {
 
 // Main Component
 export default function ProductDetails({
-    product,
+    products,
+    initialProductId,
     cityDiscount,
     customer,
 }: ProductDetailsProps) {
@@ -62,13 +72,22 @@ export default function ProductDetails({
     const [fileOption, setFileOption] = useState<UPLOADVIA>("UPLOAD");
 
     const router = useRouter();
-    const distinctAttributeWithOptions = getDistinctOptionsWithDetails(product);
+    const [selectedProductId, setSelectedProductId] = useState<string | null>(
+        initialProductId ?? products?.[0]?.id?.toString() ?? null,
+    );
+
+    const selectedProduct: productType =
+        products.find((p) => p.id === parseInt(selectedProductId ?? "")) ||
+        products[0];
+
+    const distinctAttributeWithOptions =
+        getDistinctOptionsWithDetails(selectedProduct);
 
     const { selectedAttributes, selectedVariant, handleAttributeChange } =
-        useVariantSelection(product, distinctAttributeWithOptions);
+        useVariantSelection(selectedProduct, distinctAttributeWithOptions);
 
     const { basePrice, uploadCharge, igstAmount, totalAmount } = usePricing(
-        product,
+        selectedProduct,
         selectedVariant,
         qty,
         customer?.customerCategory,
@@ -78,13 +97,13 @@ export default function ProductDetails({
 
     const defaultQtyHandler = useCallback(
         (variant: ProductItemTypeWithAttribute | null) => {
-            if (variant && !product.isTieredPricing) {
+            if (variant && !selectedProduct.isTieredPricing) {
                 setQty(variant.pricing[0]?.qty || 0);
             } else {
                 setQty(null);
             }
         },
-        [selectedVariant, product],
+        [selectedVariant, selectedProduct],
     );
 
     useEffect(() => {
@@ -126,7 +145,10 @@ export default function ProductDetails({
     return (
         <div className="relative bg-gradient-to-b from-background to-blue-50/30 py-3">
             <div className="container mx-auto px-4 md:px-8">
-                <ProductHeader product={product} />
+                <ProductHeader
+                    product={selectedProduct}
+                    isProductPage={false}
+                />
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Product Details */}
@@ -136,14 +158,42 @@ export default function ProductDetails({
                         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                         className="space-y-5 order-2 lg:order-1"
                     >
-                        <ProductHeader product={product} isCompact />
+                        {/* <ProductHeader product={selectedProduct} isCompact /> */}
 
                         {/* Product Options Selection */}
                         <div className="space-y-4 bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-                            <h3 className="text-sm font-semibold text-gray-800 mb-3 flex items-center">
+                            <div>
+                                <label className="text-xs font-medium mb-1 block text-gray-700">
+                                    Products
+                                </label>
+                                <Select
+                                    value={selectedProductId ?? undefined}
+                                    onValueChange={(v) => {
+                                        setSelectedProductId(v);
+                                    }}
+                                >
+                                    <SelectTrigger className="w-full border-primary/20 focus:ring-primary/30 focus:border-primary/40 bg-white h-9">
+                                        <SelectValue
+                                            placeholder={`Select Product`}
+                                        />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {products.map((opt) => (
+                                            <SelectItem
+                                                key={opt.id}
+                                                value={opt.id.toString()}
+                                            >
+                                                {opt.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+
+                            {/* <h3 className="text-sm font-semibold text-gray-800 mb-3 flex items-center">
                                 <span className="inline-block h-3 w-1 bg-gradient-to-b from-primary to-cyan-500 rounded-full mr-2"></span>
                                 Product Configuration
-                            </h3>
+                            </h3> */}
 
                             <ProductOptions
                                 distinctAttributeWithOptions={
@@ -151,7 +201,7 @@ export default function ProductDetails({
                                 }
                                 selectedAttributes={selectedAttributes}
                                 onAttributeChange={handleAttributeChange}
-                                product={product}
+                                product={selectedProduct}
                                 qty={qty}
                                 onQtyChange={setQty}
                                 selectedVariant={selectedVariant}
@@ -198,7 +248,7 @@ export default function ProductDetails({
                     >
                         <div className="rounded-2xl overflow-hidden shadow-lg border border-primary/10 bg-white relative group">
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-cyan-400 to-primary z-10"></div>
-                            <EmblaCarousel slides={product.imageUrl} />
+                            <EmblaCarousel slides={selectedProduct.imageUrl} />
                         </div>
                     </motion.div>
                 </div>
@@ -214,7 +264,9 @@ export default function ProductDetails({
                     }}
                     className="mt-8 space-y-6"
                 >
-                    <ProductDescription description={product.description} />
+                    <ProductDescription
+                        description={selectedProduct.description}
+                    />
                     <ProductFeatures />
                     <TrustIndicators />
                 </motion.div>
