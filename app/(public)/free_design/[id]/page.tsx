@@ -77,14 +77,14 @@ const PageHeader = ({ title }: { title: string }) => {
 
 const ItemCard = ({ item }: { item: design }) => (
     <div className="bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group transform hover:-translate-y-1">
-        <div className="overflow-hidden">
+        <div className="overflow-hidden py-2">
             <img
                 src={item.img}
                 alt={item.name}
-                className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-48 object-contain group-hover:scale-105 transition-transform duration-300"
             />
         </div>
-        <div className="p-6">
+        <div className="px-6 pt-1 pb-4">
             <h4 className="font-bold text-gray-800 text-lg mb-3">
                 {item.name}
             </h4>
@@ -243,7 +243,7 @@ export default async function CategoryItemsPage({
                     skip: (currentPage - 1) * pageSize,
                     take: pageSize,
                     orderBy: {
-                        id: "desc", // Consistent ordering is key for pagination
+                        id: "asc", // Consistent ordering is key for pagination
                     },
                 },
             },
