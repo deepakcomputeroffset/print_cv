@@ -16,6 +16,7 @@ import { sourceSerif4 } from "@/lib/font";
 import { Separator } from "../ui/separator";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
+import { COMPANY_DATA } from "@/lib/constants";
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
@@ -52,7 +53,7 @@ export function Footer() {
                                 suppressHydrationWarning
                                 className="font-bold text-2xl tracking-tight group-hover:text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500 transition-all duration-300"
                             >
-                                Aditya Printify
+                                {COMPANY_DATA.shortName}
                             </span>
                         </Link>
                         <p className="text-muted-foreground max-w-md text-sm">
@@ -111,7 +112,7 @@ export function Footer() {
                                 Terms & Conditions
                             </Link>
                             <Link
-                                href="#"
+                                href="/terms_and_conditions"
                                 className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors group"
                             >
                                 <ArrowRight className="h-3 w-3 text-primary/40 group-hover:text-primary transition-colors" />
@@ -169,30 +170,32 @@ export function Footer() {
                                 </div>
                                 <div className="text-muted-foreground group-hover:text-foreground transition-colors">
                                     <p className="font-medium text-foreground text-xs">
-                                        Aditya Printify Headquarters
+                                        {COMPANY_DATA.name} Headquarters
                                     </p>
                                     <p>
-                                        123 Print Street, Delhi, 110001, India
+                                        {COMPANY_DATA.addressLine1},{" "}
+                                        {COMPANY_DATA.addressLine2},{" "}
+                                        {COMPANY_DATA.pinCode}
                                     </p>
                                 </div>
                             </div>
                             <a
-                                href="tel:+911234567890"
+                                href={`tel:${COMPANY_DATA.phone}`}
                                 className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors group"
                             >
                                 <div className="h-6 w-6 flex items-center justify-center rounded-full bg-gradient-to-br from-primary/80 to-cyan-600 text-white shadow-sm flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <Phone className="h-3 w-3" />
                                 </div>
-                                +91 1234567890
+                                {COMPANY_DATA.phone}
                             </a>
                             <a
-                                href="mailto:support@printify.com"
+                                href={`mailto:${COMPANY_DATA.email}`}
                                 className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors group"
                             >
                                 <div className="h-6 w-6 flex items-center justify-center rounded-full bg-gradient-to-br from-primary/80 to-cyan-600 text-white shadow-sm flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <Mail className="h-3 w-3" />
                                 </div>
-                                support@printify.com
+                                {COMPANY_DATA.email}
                             </a>
                         </div>
                     </div>
@@ -246,7 +249,7 @@ export function Footer() {
                         <span>
                             © {currentYear}{" "}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500">
-                                Aditya Printify
+                                {COMPANY_DATA.name}
                             </span>
                             . All Rights Reserved.
                         </span>

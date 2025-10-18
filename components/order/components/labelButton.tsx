@@ -6,6 +6,7 @@ import { order, product, productItem } from "@prisma/client";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { download } from "@/lib/utils/generateLabel";
 
 interface LabelButtonProps {
     order: order & {
@@ -47,8 +48,8 @@ export function LabelButton({ order }: LabelButtonProps) {
                 );
                 return;
             }
-            await generateLabel(order);
-
+            const label = await generateLabel(order);
+            download(label, order.id);
             // Show success state for 2 seconds
             setIsSuccess(true);
             toast.success("Shipping label generated successfully!");

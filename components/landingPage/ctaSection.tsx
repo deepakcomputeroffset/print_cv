@@ -6,6 +6,7 @@ import { sourceSerif4 } from "@/lib/font";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Printer, Clock, Award, Users } from "lucide-react";
+import { COMPANY_DATA } from "@/lib/constants";
 
 export default function CtaSection() {
     return (
@@ -54,7 +55,7 @@ export default function CtaSection() {
 
                         <div className="bg-white/10 rounded-lg p-5 backdrop-blur-sm">
                             <h3 className="text-white text-lg font-semibold mb-4">
-                                The Aditya Printify Advantage
+                                The {COMPANY_DATA.shortName} Advantage
                             </h3>
                             <div className="space-y-3">
                                 <div className="flex items-start">

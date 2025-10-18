@@ -2,7 +2,11 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { order, pricing, product, productItem } from "@prisma/client";
 import qrcode from "qrcode";
-import { IGST_TAX_IN_PERCENTAGE, NUMBER_PRECISION } from "../constants";
+import {
+    COMPANY_DATA,
+    IGST_TAX_IN_PERCENTAGE,
+    NUMBER_PRECISION,
+} from "../constants";
 import { addressType } from "@/types/types";
 
 interface InvoiceOrder extends order {
@@ -43,7 +47,7 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     doc.setTextColor(50, 50, 50);
     doc.setFontSize(20);
     doc.setFont("helvetica", "bold");
-    doc.text("Printify", margin, 15);
+    doc.text(COMPANY_DATA.name, margin, 15);
 
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
@@ -54,7 +58,7 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     doc.roundedRect(margin, 22, 70, 8, 1, 1, "F");
     doc.setFontSize(8);
     doc.setTextColor(80, 80, 80);
-    doc.text("GST: 08CBAPG4788J1ZJ", margin + 2, 27);
+    doc.text(`GST: ${COMPANY_DATA.gst}`, margin + 2, 27);
 
     // HEADER SECTION - Right side, TAX INVOICE better positioned
     doc.setTextColor(41, 98, 255);
@@ -72,11 +76,11 @@ export const generateInvoice = async (order: InvoiceOrder) => {
 
     // Right-aligned company details
     const companyDetails = [
-        "Official Mail: printmasters.info@gmail.com",
-        "Support Number: +91 982-832-2293",
-        "Website: www.printmasters.in",
-        "Address: Plot No. 36 Karampura Industrial Area,",
-        "22 Godam, Jaipur, Rajasthan 302019",
+        `Official Mail: ${COMPANY_DATA.email}`,
+        `Support Number: ${COMPANY_DATA.phone}`,
+        `Website: ${COMPANY_DATA.url}`,
+        `Address: ${COMPANY_DATA.addressLine1},`,
+        `${COMPANY_DATA.addressLine2}, ${COMPANY_DATA.pinCode}`,
     ];
 
     companyDetails.forEach((line, index) => {

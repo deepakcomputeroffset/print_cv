@@ -20,6 +20,7 @@ import { usePathname } from "next/navigation";
 import { NavUser } from "./nav-user";
 import { Session } from "next-auth";
 import { routes } from "./routes";
+import { COMPANY_DATA } from "@/lib/constants";
 
 export function AppSidebar({ session }: { session: Session | null }) {
     const currentPath = usePathname();
@@ -43,7 +44,7 @@ export function AppSidebar({ session }: { session: Session | null }) {
                                 {state !== "collapsed" && (
                                     <div className="flex flex-col gap-0.5 leading-none">
                                         <span className="font-bold text-lg bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                                            Aditya Printify
+                                            {COMPANY_DATA.shortName}
                                         </span>
                                         <span className="text-sm text-gray-500">
                                             Admin Panel

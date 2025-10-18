@@ -21,6 +21,7 @@ import { signOut } from "next-auth/react";
 import { Lock, LogOut, Pen, Menu, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
+import { COMPANY_DATA } from "@/lib/constants";
 
 const NAV_LINKS = [
     { name: "Home", url: "/" },
@@ -102,7 +103,7 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                 suppressHydrationWarning
                                 className="font-bold text-xl tracking-tight group-hover:text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500 transition-all duration-300"
                             >
-                                Aditya Printify
+                                {COMPANY_DATA.shortName}
                             </span>
                         </Link>
 

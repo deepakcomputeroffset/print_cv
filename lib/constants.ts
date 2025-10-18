@@ -41,3 +41,15 @@ export const IGST_TAX_IN_PERCENTAGE = 0.18;
 export const FILE_UPLOAD_EMAIL_CHARGE = 20;
 
 export const NUMBER_PRECISION = 3;
+
+export const COMPANY_DATA = {
+    name: "Aditya Printify India",
+    shortName: "Aditya Printify",
+    addressLine1: "123 Print Street",
+    addressLine2: " Delhi, India",
+    url: "www.printvc.com",
+    pinCode: "110001",
+    phone: "+91-1147511919",
+    email: "deepakcomputeroffset@gmail.com",
+    gst: "08CBAPG4788J1ZJ",
+};

@@ -1,3 +1,4 @@
+import { COMPANY_DATA } from "@/lib/constants";
 import React from "react";
 
 export default function TermsAndCondition() {
@@ -230,13 +231,13 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            ADITYA PRINTIFY INDIA PVT LTD is a
-                                            B2B Company, which prints orders
-                                            from Printing Press only, and these
-                                            orders shall not contain Duplicate /
-                                            Fake, Prohibited Content or without
-                                            the permission or related
-                                            organisation, will be sole
+                                            {COMPANY_DATA.name.toUpperCase()}{" "}
+                                            PVT LTD is a B2B Company, which
+                                            prints orders from Printing Press
+                                            only, and these orders shall not
+                                            contain Duplicate / Fake, Prohibited
+                                            Content or without the permission or
+                                            related organisation, will be sole
                                             responsibility of Pringing Press /
                                             Channel Partner only. And if any
                                             Printing Agency Knowingly or
@@ -272,7 +273,8 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            I accept the ADITYA PRINTIFY INDIA
+                                            I accept the{" "}
+                                            {COMPANY_DATA.name.toUpperCase()}
                                             PVT LTD&apos;s responsibility ceases
                                             the moment the goods leave
                                             company&apos;s godown.
@@ -286,9 +288,10 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            In all products with ADITYA PRINTIFY
-                                            INDIA PVT LTD (like visiting cards,
-                                            ATM pouches, letter heads, envelopes
+                                            In all products with{" "}
+                                            {COMPANY_DATA.name.toUpperCase()}{" "}
+                                            PVT LTD (like visiting cards, ATM
+                                            pouches, letter heads, envelopes
                                             etc.), if there is a printing
                                             mistake in 5 to 50% of the sheets /
                                             cards, then only the same proportion
@@ -323,10 +326,10 @@ export default function TermsAndCondition() {
                                             I agree that in case of any dispute
                                             / lost / delayed receipt etc. in the
                                             transaction of the product, the
-                                            maximum liability of &quot;ADITYA
-                                            PRINTIFY INDIA PVT LTD&quot; will be
-                                            only up to the rate of the disputed
-                                            product.
+                                            maximum liability of &quot;
+                                            {COMPANY_DATA.name.toUpperCase()}{" "}
+                                            PVT LTD&quot; will be only up to the
+                                            rate of the disputed product.
                                         </p>
                                     </li>
 
@@ -337,9 +340,10 @@ export default function TermsAndCondition() {
                                             </span>
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
-                                            ADITYA PRINTIFY INDIA PVT LTD has
-                                            all rights to cancel / change any
-                                            membership / channel partner code
+                                            {COMPANY_DATA.name.toUpperCase()}{" "}
+                                            PVT LTD has all rights to cancel /
+                                            change any membership / channel
+                                            partner code
                                         </p>
                                     </li>
 
@@ -352,8 +356,9 @@ export default function TermsAndCondition() {
                                         <p className="text-gray-700 text-sm leading-relaxed">
                                             The company will be responsible only
                                             for the payment made in the bank
-                                            account of ADITYA PRINTIFY INDIA PVT
-                                            LTD.
+                                            account of{" "}
+                                            {COMPANY_DATA.name.toUpperCase()}{" "}
+                                            PVT LTD.
                                         </p>
                                     </li>
 
@@ -365,11 +370,11 @@ export default function TermsAndCondition() {
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">
                                             I hereby provide &quot;No
-                                            Objection&quot; to &quot;ADITYA
-                                            PRINTIFY INDIA PVT LTD&quot; for
-                                            sending service/transactional
-                                            related sms to me and my customers
-                                            too.
+                                            Objection&quot; to &quot;
+                                            {COMPANY_DATA.name.toUpperCase()}{" "}
+                                            PVT LTD&quot; for sending
+                                            service/transactional related sms to
+                                            me and my customers too.
                                         </p>
                                     </li>
 
