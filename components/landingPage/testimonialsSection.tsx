@@ -17,7 +17,7 @@ const testimonials = [
         role: "Marketing Director, TechCorp",
         image: "https://i.pravatar.cc/150?img=32",
         content:
-            "Working with Printify transformed our marketing materials. The quality and attention to detail exceeded our expectations. Our brochures and business cards now truly represent our brand.",
+            "Working with Aditya Printify transformed our marketing materials. The quality and attention to detail exceeded our expectations. Our brochures and business cards now truly represent our brand.",
     },
     {
         id: 2,
@@ -25,7 +25,7 @@ const testimonials = [
         role: "Event Manager, EventHorizon",
         image: "https://i.pravatar.cc/150?img=53",
         content:
-            "The team at Printify delivered our event banners and promotional materials on an extremely tight deadline. The quality was outstanding, and their customer service was impeccable!",
+            "The team at Aditya Printify delivered our event banners and promotional materials on an extremely tight deadline. The quality was outstanding, and their customer service was impeccable!",
     },
     {
         id: 3,
@@ -33,7 +33,7 @@ const testimonials = [
         role: "Owner, Artisan Designs",
         image: "https://i.pravatar.cc/150?img=5",
         content:
-            "As a small business owner, finding a reliable printing partner was crucial. Printify's consistent quality and reasonable pricing have made them an invaluable partner for my design studio.",
+            "As a small business owner, finding a reliable printing partner was crucial. Aditya Printify's consistent quality and reasonable pricing have made them an invaluable partner for my design studio.",
     },
     {
         id: 4,
@@ -41,7 +41,7 @@ const testimonials = [
         role: "CEO, BuildRight Construction",
         image: "https://i.pravatar.cc/150?img=11",
         content:
-            "From business cards to large-format blueprints, Printify has become our one-stop shop for all printing needs. Their attention to detail and color accuracy is remarkable.",
+            "From business cards to large-format blueprints, Aditya Printify has become our one-stop shop for all printing needs. Their attention to detail and color accuracy is remarkable.",
     },
 ];
 
@@ -121,7 +121,7 @@ export default function TestimonialsSection() {
                     <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
                         Don&apos;t just take our word for it — hear from some of
                         our satisfied customers about their experiences working
-                        with Printify.
+                        with Aditya Printify.
                     </p>
                 </motion.div>
 

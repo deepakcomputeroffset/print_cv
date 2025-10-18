@@ -112,7 +112,7 @@ const TestimonialsCarousel = () => {
 
 const testimonials = [
     {
-        text: "Printify made my project pop!",
+        text: "Aditya Printify made my project pop!",
         name: "Sarah Lee",
         role: "Graphic Designer",
         imageUrl:

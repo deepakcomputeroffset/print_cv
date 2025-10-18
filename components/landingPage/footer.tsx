@@ -43,7 +43,7 @@ export function Footer() {
                                 <Image
                                     src="/logo.avif"
                                     fill
-                                    alt="Printify Logo"
+                                    alt="Aditya Printify Logo"
                                     className="object-cover group-hover:scale-110 transition-transform duration-300 p-1"
                                 />
                             </div>
@@ -52,7 +52,7 @@ export function Footer() {
                                 suppressHydrationWarning
                                 className="font-bold text-2xl tracking-tight group-hover:text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500 transition-all duration-300"
                             >
-                                Printify
+                                Aditya Printify
                             </span>
                         </Link>
                         <p className="text-muted-foreground max-w-md text-sm">
@@ -169,7 +169,7 @@ export function Footer() {
                                 </div>
                                 <div className="text-muted-foreground group-hover:text-foreground transition-colors">
                                     <p className="font-medium text-foreground text-xs">
-                                        Printify Headquarters
+                                        Aditya Printify Headquarters
                                     </p>
                                     <p>
                                         123 Print Street, Delhi, 110001, India
@@ -246,7 +246,7 @@ export function Footer() {
                         <span>
                             © {currentYear}{" "}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500">
-                                Printify
+                                Aditya Printify
                             </span>
                             . All Rights Reserved.
                         </span>

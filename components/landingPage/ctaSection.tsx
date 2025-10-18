@@ -54,7 +54,7 @@ export default function CtaSection() {
 
                         <div className="bg-white/10 rounded-lg p-5 backdrop-blur-sm">
                             <h3 className="text-white text-lg font-semibold mb-4">
-                                The Printify Advantage
+                                The Aditya Printify Advantage
                             </h3>
                             <div className="space-y-3">
                                 <div className="flex items-start">

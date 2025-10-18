@@ -94,7 +94,7 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                     src="/logo.avif"
                                     width={24}
                                     height={24}
-                                    alt="Printify Logo"
+                                    alt="Aditya Printify Logo"
                                     className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-300"
                                 />
                             </div>
@@ -102,7 +102,7 @@ export default function NavbarLinks({ session }: { session: Session | null }) {
                                 suppressHydrationWarning
                                 className="font-bold text-xl tracking-tight group-hover:text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500 transition-all duration-300"
                             >
-                                Printify
+                                Aditya Printify
                             </span>
                         </Link>
 
