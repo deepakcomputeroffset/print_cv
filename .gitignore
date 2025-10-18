@@ -43,3 +43,5 @@ next-env.d.ts
 
 # tests
 /testing/
+/upload_scripts/data/
+/upload_scripts/downloaded_designs/

@@ -129,7 +129,12 @@ export const uploadMultipleLocalFiles = async (
  * @returns {Promise<string[]>} - A promise that resolves to an array of public URLs.
  */
 export const getPublicUrlsFromFolder = async (
-    folder: "files" | "images" | "design_category" | "design_category_items",
+    folder:
+        | "files"
+        | "images"
+        | "design_category"
+        | "design_category_items"
+        | "design_category_items_file",
 ): Promise<string[]> => {
     try {
         // Ensure the folder name ends with a '/' to correctly list directory contents.
