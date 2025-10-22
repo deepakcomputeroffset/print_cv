@@ -345,7 +345,11 @@ model taskType {
 }
 
 model designCategory {
-    id      Int      @id @default(autoincrement())
+    id               Int              @id @default(autoincrement())
+    parentCategoryId Int? // For subcategories parent category id
+    subCategories    designCategory[] @relation("SubCategories")
+    parentCategory   designCategory?  @relation("SubCategories", fields: [parentCategoryId], references: [id], onDelete: Cascade)
+
     name    String   @unique
     img     String
     designs design[]

@@ -174,7 +174,10 @@ export async function completeUploadWorkflow(
     // Upload images and create URLs file
     console.log("📤 Uploading images...");
     const { successful: urls } = await uploadFilesImage(tdata);
-    createUrlsFile(urls, "C:/Codes/PrintingPress/upload_scripts/data/uploaded_image_urls.txt");
+    createUrlsFile(
+        urls,
+        "C:/Codes/PrintingPress/upload_scripts/data/uploaded_image_urls.txt",
+    );
     createDetailedUrlsFile(
         tdata,
         urls,
@@ -186,7 +189,10 @@ export async function completeUploadWorkflow(
         // Upload zips and create URLs file
         console.log("📤 Uploading zip files...");
         const { successful: zipUrls } = await uploadFilesZip(tdata);
-        createUrlsFile(zipUrls, "C:/Codes/PrintingPress/upload_scripts/data/uploaded_zip_urls.txt");
+        createUrlsFile(
+            zipUrls,
+            "C:/Codes/PrintingPress/upload_scripts/data/uploaded_zip_urls.txt",
+        );
         createDetailedUrlsFile(
             tdata,
             zipUrls,

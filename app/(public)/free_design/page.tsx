@@ -13,6 +13,7 @@ type CategoryCardProps = {
     category: designCategory & {
         _count: {
             designs: number;
+            subCategories: number;
         };
     };
 };
@@ -31,7 +32,14 @@ const Header = ({ title, description }: HeaderProps) => (
 );
 
 const CategoryCard = ({ category }: CategoryCardProps) => (
-    <Link href={`/free_design/${category.id}`} className="block group">
+    <Link
+        href={
+            category?._count?.subCategories > 0
+                ? `/free_design/subCategory?parentId=${category.id}`
+                : `/free_design/${category.id}`
+        }
+        className="block group"
+    >
         <div className="bg-white border rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1">
             <img
                 src={category.img}
@@ -42,8 +50,12 @@ const CategoryCard = ({ category }: CategoryCardProps) => (
                 <h3 className="text-base font-bold text-gray-800 mb-1 group-hover:text-blue-600">
                     {category.name}
                 </h3>
+
                 <p className="text-sm text-cyan-600 font-semibold">
-                    🎨 {category?._count?.designs} Designs
+                    🎨{" "}
+                    {category?._count?.subCategories
+                        ? `${category?._count?.subCategories} categories`
+                        : `${category?._count?.designs} Designs`}
                 </p>
             </div>
         </div>
@@ -53,10 +65,12 @@ const CategoryCard = ({ category }: CategoryCardProps) => (
 export default async function CategoriesPage() {
     async function getCategories() {
         return await Prisma.designCategory.findMany({
+            where: { parentCategoryId: null },
             include: {
                 _count: {
                     select: {
                         designs: true,
+                        subCategories: true,
                     },
                 },
             },
