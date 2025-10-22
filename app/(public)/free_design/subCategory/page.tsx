@@ -130,8 +130,7 @@ export default async function CategoriesPage({
     }
 
     const cachedData = unstable_cache(getCategories, ["categories-design"], {
-        // revalidate: 60 * 60,
-        revalidate: 1,
+        revalidate: 60 * 60,
         tags: [`subCategory-${parentId}`],
     });
 
