@@ -226,14 +226,14 @@ function getTransformedDataAfterDownloadWithOriginalNames(
     originalData: {
         name: string;
         img: string;
-        downloadUrl: string;
+        downloadUrl?: string;
     }[],
     imagesFolder: string = "C:/codes/PrintingPress/upload_scripts/downloaded_designs/images",
     zipsFolder: string = "C:/codes/PrintingPress/upload_scripts/downloaded_designs/zips",
 ): {
     name: string;
     img: string;
-    downloadUrl: string;
+    downloadUrl?: string | null;
 }[] {
     const transformedData = originalData.map((item) => {
         const { name, img, downloadUrl } = item;
@@ -242,14 +242,18 @@ function getTransformedDataAfterDownloadWithOriginalNames(
         const imageUrlObject = new URL(img);
         const imageFilename = path.basename(imageUrlObject.pathname);
 
-        const downloadUrlObject = new URL(downloadUrl);
-        const downloadFilename = path.basename(downloadUrlObject.pathname);
+        const downloadUrlObject = downloadUrl ? new URL(downloadUrl) : null;
+        const downloadFilename = downloadUrlObject
+            ? path.basename(downloadUrlObject?.pathname)
+            : null;
 
         // Create new structure with original name
         return {
             name: name, // Keep original name like "LH-3"
             img: path.join(imagesFolder, imageFilename),
-            downloadUrl: path.join(zipsFolder, downloadFilename),
+            downloadUrl: downloadFilename
+                ? path.join(zipsFolder, downloadFilename)
+                : null,
         };
     });
 

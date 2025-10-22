@@ -10,7 +10,7 @@ export async function uploadFilesImage(
     data: {
         name: string;
         img: string;
-        downloadUrl: string;
+        downloadUrl?: string | null;
     }[],
 ) {
     const ud = await uploadMultipleLocalFiles(
@@ -90,6 +90,12 @@ export function createUrlsFile(
         content.push("=== SUMMARY ===");
         content.push(`Total uploaded URLs: ${urls.length}`);
 
+        const directory = path.dirname(filename);
+        if (!fs.existsSync(directory)) {
+            fs.mkdirSync(directory, { recursive: true });
+            console.log(`📁 Directory created: ${directory}`);
+        }
+
         // Write to file
         fs.writeFileSync(filename, content.join("\n"), "utf8");
         console.log(`✅ URLs file created: ${filename}`);
@@ -110,7 +116,7 @@ export function createDetailedUrlsFile(
     data: {
         name: string;
         img: string;
-        downloadUrl: string;
+        downloadUrl?: string | null;
     }[],
     urls: string[],
     uploadType: "images" | "zips",
@@ -137,7 +143,7 @@ export function createDetailedUrlsFile(
             const uploadedUrl = urls.find((url) => {
                 const fileName = path.basename(url);
                 const originalFileName = path.basename(
-                    uploadType === "images" ? item.img : item.downloadUrl,
+                    uploadType === "images" ? item.img : item?.downloadUrl,
                 );
                 return fileName.includes(originalFileName.split(".")[0]);
             });
@@ -162,30 +168,32 @@ export async function completeUploadWorkflow(
     tdata: {
         name: string;
         img: string;
-        downloadUrl: string;
+        downloadUrl?: string | null;
     }[],
 ) {
     // Upload images and create URLs file
     console.log("📤 Uploading images...");
     const { successful: urls } = await uploadFilesImage(tdata);
-    createUrlsFile(urls, "/upload_scripts/data/uploaded_image_urls.txt");
+    createUrlsFile(urls, "C:/Codes/PrintingPress/upload_scripts/data/uploaded_image_urls.txt");
     createDetailedUrlsFile(
         tdata,
         urls,
         "images",
-        "/upload_scripts/data/image_upload_details.txt",
+        "C:/Codes/PrintingPress/upload_scripts/data/image_upload_details.txt",
     );
 
-    // Upload zips and create URLs file
-    console.log("📤 Uploading zip files...");
-    const { successful: zipUrls } = await uploadFilesZip(tdata);
-    createUrlsFile(zipUrls, "/upload_scripts/data/uploaded_zip_urls.txt");
-    createDetailedUrlsFile(
-        tdata,
-        zipUrls,
-        "zips",
-        "/upload_scripts/data/zip_upload_details.txt",
-    );
+    if (tdata[0]?.downloadUrl) {
+        // Upload zips and create URLs file
+        console.log("📤 Uploading zip files...");
+        const { successful: zipUrls } = await uploadFilesZip(tdata);
+        createUrlsFile(zipUrls, "C:/Codes/PrintingPress/upload_scripts/data/uploaded_zip_urls.txt");
+        createDetailedUrlsFile(
+            tdata,
+            zipUrls,
+            "zips",
+            "C:/Codes/PrintingPress/upload_scripts/data/zip_upload_details.txt",
+        );
+    }
 
     console.log("🎉 All uploads completed and URLs files created!");
 }
