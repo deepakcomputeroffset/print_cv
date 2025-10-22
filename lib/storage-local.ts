@@ -23,9 +23,11 @@ export const uploadLocalFile = async (
         await fs.promises.access(localPath, fs.constants.R_OK);
 
         const baseName = path.basename(localPath);
-        // Sanitize the baseName to remove extension for the name part
         const name = baseName.split(".").slice(0, -1).join(".");
-        const fileName = `${folder}/${name}_${Date.now()}${path.extname(baseName)}`;
+        // Sanitize the baseName to remove extension for the name part
+        const sanitizedName = name.replace(/[^a-zA-Z0-9-_]/g, "_");
+        const fileName = `${folder}/${sanitizedName}_${Date.now()}${path.extname(baseName)}`;
+
         const cloudFile = bucket.file(fileName);
 
         // --- Streaming Upload ---
@@ -129,7 +131,12 @@ export const uploadMultipleLocalFiles = async (
  * @returns {Promise<string[]>} - A promise that resolves to an array of public URLs.
  */
 export const getPublicUrlsFromFolder = async (
-    folder: "files" | "images" | "design_category" | "design_category_items",
+    folder:
+        | "files"
+        | "images"
+        | "design_category"
+        | "design_category_items"
+        | "design_category_items_file",
 ): Promise<string[]> => {
     try {
         // Ensure the folder name ends with a '/' to correctly list directory contents.

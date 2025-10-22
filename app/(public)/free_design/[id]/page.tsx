@@ -9,10 +9,8 @@ import {
     TriangleAlert,
 } from "lucide-react";
 import Link from "next/link";
-// import { notFound } from "next/navigation";
 
 const PageHeader = ({ title }: { title: string }) => {
-    // Get current date and format it for display
     const currentDate = new Date().toLocaleDateString("en-IN", {
         weekday: "long",
         year: "numeric",
