@@ -137,7 +137,9 @@ const RenderCategoryRow = ({
                                 )}
                             </button>
                         )}
-                        <span className={`${!hasSubcategories ? "pl-[30px]" : ""}`}>
+                        <span
+                            className={`${!hasSubcategories ? "pl-[30px]" : ""}`}
+                        >
                             {category?.id}
                         </span>
                     </div>
