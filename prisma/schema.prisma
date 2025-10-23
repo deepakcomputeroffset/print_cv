@@ -358,7 +358,7 @@ model designCategory {
 model design {
     id               Int             @id @default(autoincrement())
     designCategoryId Int?
-    name             String          @unique
+    name             String
     img              String
     downloadUrl      String
     designCategory   designCategory? @relation(fields: [designCategoryId], references: [id])
