@@ -37,6 +37,7 @@ export async function GET(request: Request) {
 
         const where: PrismaType.designCategoryWhereInput = {
             AND: [
+                { parentCategoryId: null },
                 query?.search
                     ? {
                           OR: [
@@ -63,6 +64,7 @@ export async function GET(request: Request) {
             Prisma.designCategory.count({ where }),
             Prisma.designCategory.findMany({
                 where,
+                include: { subCategories: true },
                 orderBy: {
                     [query?.sortby ?? "id"]: query?.sortorder || "asc",
                 },

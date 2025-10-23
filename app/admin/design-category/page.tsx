@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +11,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, ChevronDown, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useModal } from "@/hooks/use-modal";
 import { LoadingRow } from "@/components/loading-row";
@@ -24,6 +24,7 @@ import { CategoryFilter } from "@/components/admin/category-filter";
 import Pagination from "@/components/pagination";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useDesignCategory } from "@/hooks/use-design-category";
+import { designCategory } from "@prisma/client";
 
 export default function CategoriesPage({
     searchParams,
@@ -74,71 +75,11 @@ export default function CategoriesPage({
                             <MessageRow text="No category found" />
                         ) : (
                             designCategories?.map((category) => (
-                                <TableRow key={`${category.id}`}>
-                                    <TableCell>
-                                        <div>{category?.id}</div>
-                                    </TableCell>
-                                    <TableCell>{category?.name}</TableCell>
-
-                                    <TableCell>
-                                        <div className="relative h-10 w-10">
-                                            <Image
-                                                src={category?.img}
-                                                alt={category?.name}
-                                                fill
-                                                className="object-cover rounded"
-                                            />
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="flex space-x-2">
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                onClick={() =>
-                                                    onOpen(
-                                                        "editDesignCategory",
-                                                        {
-                                                            designCategory:
-                                                                category,
-                                                        },
-                                                    )
-                                                }
-                                            >
-                                                <Pencil className="h-4 w-4" />
-                                            </Button>
-
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                onClick={() =>
-                                                    onOpen(
-                                                        "addDesignCategory",
-                                                        {},
-                                                    )
-                                                }
-                                            >
-                                                <Plus className="h-4 w-4" />
-                                            </Button>
-
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                onClick={() => {
-                                                    onOpen(
-                                                        "deleteDesignCategory",
-                                                        {
-                                                            designCategory:
-                                                                category,
-                                                        },
-                                                    );
-                                                }}
-                                            >
-                                                <Trash2 className="h-4 w-4" />
-                                            </Button>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
+                                <RenderCategoryRow
+                                    category={category}
+                                    level={0}
+                                    key={category?.id}
+                                />
                             ))
                         )}
                     </TableBody>
@@ -153,3 +94,120 @@ export default function CategoriesPage({
         </div>
     );
 }
+
+const RenderCategoryRow = ({
+    category,
+    level = 0,
+}: {
+    category: designCategory & {
+        subCategories: designCategory[];
+    };
+    level?: number;
+}) => {
+    const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
+
+    const toggleExpand = (categoryId: number) => {
+        setExpandedCategories((prev) =>
+            prev.includes(categoryId)
+                ? prev.filter((id) => id !== categoryId)
+                : [...prev, categoryId],
+        );
+    };
+
+    const isExpanded = expandedCategories.includes(category.id);
+    const hasSubcategories = category?.subCategories?.length > 0;
+    const { onOpen } = useModal();
+    return (
+        <>
+            <TableRow key={`${category.id}-${level}`}>
+                <TableCell>
+                    <div
+                        style={{ paddingLeft: `${level * 2}rem` }}
+                        className="text-left"
+                    >
+                        {hasSubcategories && (
+                            <button
+                                onClick={() => toggleExpand(category?.id)}
+                                className="p-1 hover:bg-gray-100 rounded-full mr-2"
+                            >
+                                {isExpanded ? (
+                                    <ChevronDown className="h-4 w-4" />
+                                ) : (
+                                    <ChevronRight className="h-4 w-4" />
+                                )}
+                            </button>
+                        )}
+                        <span className={`${!hasSubcategories ? "pl-[30px]" : ""}`}>
+                            {category?.id}
+                        </span>
+                    </div>
+                </TableCell>
+
+                {/* <TableCell>
+                    <div>{category?.id}</div>
+                </TableCell> */}
+                <TableCell>{category?.name}</TableCell>
+
+                <TableCell>
+                    <div className="relative h-10 w-10">
+                        <Image
+                            src={category?.img}
+                            alt={category?.name}
+                            fill
+                            className="object-cover rounded"
+                        />
+                    </div>
+                </TableCell>
+
+                <TableCell>
+                    <div className="flex space-x-2">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() =>
+                                onOpen("editDesignCategory", {
+                                    designCategory: category,
+                                })
+                            }
+                        >
+                            <Pencil className="h-4 w-4" />
+                        </Button>
+
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => onOpen("addDesignCategory", {})}
+                        >
+                            <Plus className="h-4 w-4" />
+                        </Button>
+
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => {
+                                onOpen("deleteDesignCategory", {
+                                    designCategory: category,
+                                });
+                            }}
+                        >
+                            <Trash2 className="h-4 w-4" />
+                        </Button>
+                    </div>
+                </TableCell>
+            </TableRow>
+
+            {isExpanded &&
+                category.subCategories.map((subCategory) => (
+                    <RenderCategoryRow
+                        category={
+                            subCategory as designCategory & {
+                                subCategories: designCategory[];
+                            }
+                        }
+                        level={level + 1}
+                        key={subCategory?.id + level + 1}
+                    />
+                ))}
+        </>
+    );
+};

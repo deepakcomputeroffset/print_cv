@@ -4,7 +4,9 @@ import { QueryParams, ServerResponseType } from "@/types/types";
 import { designCategoryBaseUrl } from "@/lib/urls";
 import { designCategory } from "@prisma/client";
 
-type ResponseType = QueryParams & { data: designCategory[] };
+type ResponseType = QueryParams & {
+    data: (designCategory & { subCategories: designCategory[] })[];
+};
 
 export async function fetchProductCategories(params: QueryParams = {}) {
     const url = queryString.stringifyUrl({
