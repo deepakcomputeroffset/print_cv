@@ -140,21 +140,6 @@ export async function POST(req: Request) {
             });
         }
 
-        const isDesignExit = await Prisma.design.findUnique({
-            where: {
-                designCategoryId: parseInt(safeData?.designCategoryId),
-                name: safeData?.name,
-            },
-        });
-
-        if (isDesignExit) {
-            return serverResponse({
-                status: 400,
-                success: false,
-                message: "Name already exists",
-            });
-        }
-
         const image = data.get("img");
         const downloadFile = data.get("downloadUrl");
 

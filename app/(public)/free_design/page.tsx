@@ -19,12 +19,12 @@ type CategoryCardProps = {
 };
 
 const Header = ({ title, description }: HeaderProps) => (
-    <header className="text-center py-8 md:py-12 bg-gradient-to-r from-cyan-50 to-blue-50 border-b">
+    <header className="text-center py-6 md:py-8 bg-gradient-to-r from-cyan-50 to-blue-50 border-b">
         <div className="container mx-auto px-4">
-            <h1 className="text-3xl md:text-5xl font-extrabold text-gray-800 mb-2 md:mb-4">
+            <h1 className="text-2xl font-extrabold text-gray-800 mb-2 md:mb-4">
                 {title}
             </h1>
-            <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xs md:text-base text-gray-600 max-w-2xl mx-auto">
                 {description}
             </p>
         </div>
@@ -35,7 +35,7 @@ const CategoryCard = ({ category }: CategoryCardProps) => (
     <Link
         href={
             category?._count?.subCategories > 0
-                ? `/free_design/subCategory?parentId=${category.id}`
+                ? `/free_design/subCategory/${category.id}`
                 : `/free_design/${category.id}`
         }
         className="block group"
@@ -44,14 +44,14 @@ const CategoryCard = ({ category }: CategoryCardProps) => (
             <img
                 src={category.img}
                 alt={category.name}
-                className="w-full h-32 sm:h-36 object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-28 sm:h-32 object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="p-4">
-                <h3 className="text-base font-bold text-gray-800 mb-1 group-hover:text-blue-600">
+            <div className="p-2">
+                <h3 className="text-sm font-bold text-gray-800 mb-1 group-hover:text-blue-600">
                     {category.name}
                 </h3>
 
-                <p className="text-sm text-cyan-600 font-semibold">
+                <p className="text-xs text-cyan-600 font-semibold">
                     🎨{" "}
                     {category?._count?.subCategories
                         ? `${category?._count?.subCategories} categories`

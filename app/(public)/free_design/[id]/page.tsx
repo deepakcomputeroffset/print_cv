@@ -23,12 +23,12 @@ const PageHeader = ({ title }: { title: string }) => {
             {/* Subtle background pattern */}
             <div className="absolute inset-0 bg-[url(https://www.tailwindcss.com/img/beams.jpg)] bg-cover bg-center bg-no-repeat opacity-5"></div>
 
-            <div className="relative container mx-auto px-6 py-12">
+            <div className="relative container mx-auto px-6 py-8">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                     {/* Left side: Breadcrumbs and Title */}
                     <div>
                         {/* Breadcrumb Navigation */}
-                        <nav className="flex items-center text-sm font-medium text-slate-500 mb-2">
+                        <nav className="flex items-center text-xs font-medium text-slate-500 mb-2">
                             <Link
                                 href="/"
                                 className="hover:text-cyan-600 transition-colors"
@@ -45,7 +45,7 @@ const PageHeader = ({ title }: { title: string }) => {
                         </nav>
 
                         {/* Page Title */}
-                        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight">
+                        <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight">
                             {title}
                         </h1>
                     </div>
@@ -55,15 +55,15 @@ const PageHeader = ({ title }: { title: string }) => {
                         {/* Back Button */}
                         <Link
                             href="/free_design"
-                            className="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold text-white bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg shadow-md hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                            className="inline-flex items-center justify-center px-5 py-2 text-xs font-semibold text-white bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg shadow-md hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                         >
                             <ArrowLeft size={18} className="mr-2" />
                             Back to Categories
                         </Link>
 
                         {/* Current Date Display */}
-                        <div className="flex items-center text-xs font-medium text-slate-500">
-                            <CalendarDays size={14} className="mr-2" />
+                        <div className="flex items-center text-[10px] font-medium text-slate-500">
+                            <CalendarDays size={10} className="mr-2" />
                             <span>{currentDate}</span>
                         </div>
                     </div>
@@ -79,19 +79,19 @@ const ItemCard = ({ item }: { item: design }) => (
             <img
                 src={item.img}
                 alt={item.name}
-                className="w-full h-48 object-contain group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-40 object-contain group-hover:scale-105 transition-transform duration-300"
             />
         </div>
-        <div className="px-6 pt-1 pb-4">
-            <h4 className="font-bold text-gray-800 text-lg mb-3">
+        <div className="px-4 pt-1 pb-4">
+            <h4 className="font-bold text-gray-800 text-sm mb-3">
                 {item.name}
             </h4>
             <Link
                 href={item.downloadUrl}
                 download={true}
-                className="flex items-center justify-center w-full px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 transform hover:scale-105 shadow-md"
+                className="flex items-center justify-center w-full px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 transform hover:scale-105 shadow-md text-xs"
             >
-                <Download size={18} className="mr-2" />
+                <Download size={12} className="mr-2" />
                 Download CDR
             </Link>
         </div>
