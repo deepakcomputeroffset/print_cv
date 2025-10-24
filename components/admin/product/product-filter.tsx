@@ -62,7 +62,7 @@ export const ProductFilter = ({ filters }: { filters: QueryParams }) => {
                         <div className="relative min-w-28">
                             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                             <Input
-                                placeholder="Search customers..."
+                                placeholder="Search products..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 className="pl-8"
