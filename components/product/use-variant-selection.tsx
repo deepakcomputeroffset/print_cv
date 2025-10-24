@@ -1,7 +1,7 @@
 import { ProductItemTypeWithAttribute } from "@/types/types";
 import { product } from "@prisma/client";
 import getDistinctOptionsWithDetails from "./getAttributeWithOptions";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { getBaseVarient } from "./getBaseVarient";
 
 export const useVariantSelection = (
@@ -12,11 +12,18 @@ export const useVariantSelection = (
         typeof getDistinctOptionsWithDetails
     >,
 ) => {
-    const [selectedAttributes, setSelectedAttributes] = useState<
-        Record<number, number>
-    >(getBaseVarient(distinctAttributeWithOptions));
+    const baseVariant = useMemo(
+        () => getBaseVarient(distinctAttributeWithOptions),
+        [distinctAttributeWithOptions],
+    );
+    const [selectedAttributes, setSelectedAttributes] =
+        useState<Record<number, number>>(baseVariant);
     const [selectedVariant, setSelectedVariant] =
         useState<ProductItemTypeWithAttribute | null>(null);
+
+    useEffect(() => {
+        setSelectedAttributes(baseVariant);
+    }, [baseVariant]);
 
     const findVariant = useCallback(() => {
         return product.productItems.find((item) =>
@@ -28,7 +35,7 @@ export const useVariantSelection = (
                 ),
             ),
         );
-    }, [selectedAttributes, product]);
+    }, [selectedAttributes, product.productItems]);
 
     useEffect(() => {
         const variant = findVariant();

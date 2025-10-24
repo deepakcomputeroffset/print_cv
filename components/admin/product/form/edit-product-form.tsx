@@ -268,7 +268,8 @@ export function EditProductForm({
                 id: product?.id as number,
                 data: dirtyFieldsWithValues,
             });
-            router.push("/admin/products?search=&sortorder=asc&perpage=100");
+            router.back();
+            // router.push("/admin/products?search=&sortorder=asc&perpage=100");
         } catch (error) {
             toast.error("Error While updating product.");
             console.log("Error creating product:", error);
