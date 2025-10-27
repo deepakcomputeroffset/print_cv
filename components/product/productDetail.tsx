@@ -84,7 +84,7 @@ export default function ProductDetails({
                 setQty(null);
             }
         },
-        [selectedVariant, product],
+        [product],
     );
 
     useEffect(() => {

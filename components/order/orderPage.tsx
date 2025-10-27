@@ -6,55 +6,15 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 import { getStatusColor } from "@/lib/getStatusColor";
-import { ProductDetails } from "./components/ProductDetails";
-import { DeliveryDetails } from "./components/DeliveryDetails";
 import { OrderTimeline } from "./components/OrderTimeline";
 import { Button } from "@/components/ui/button";
-import {
-    order,
-    job,
-    staff,
-    task,
-    taskType,
-    attachment,
-    product,
-    productItem,
-    orderComment,
-    pricing,
-} from "@prisma/client";
 import { MotionDiv } from "../motionDiv";
 import { CancellationModal } from "./components/CancellationModal";
 import { format } from "date-fns";
 import { useModal } from "@/hooks/use-modal";
-import { addressType } from "@/types/types";
-
-interface OrderDetailsPageProps {
-    order: order & {
-        productItem: productItem & {
-            pricing: pricing[];
-            product: product;
-        };
-        customer: {
-            address?: addressType;
-            businessName: string;
-            name: string;
-            phone: string;
-        };
-        job:
-            | (job & {
-                  staff: Pick<staff, "id" | "name"> | null;
-                  tasks: (task & {
-                      taskType: taskType | null;
-                      assignee: Pick<staff, "id" | "name"> | null;
-                  })[];
-              })
-            | null;
-        attachment?: attachment[];
-        comments?: (orderComment & {
-            staff?: Pick<staff, "id" | "name"> | null;
-        })[];
-    };
-}
+import { OrderDetailsPageProps } from "@/types/types";
+import { FileViewer } from "./components/FileViewer";
+import { OrderInfo } from "./components/OrderInfo";
 
 export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
     const { onOpen } = useModal();
@@ -86,7 +46,7 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                         className="flex items-center gap-1.5 text-sm"
                     >
                         <XCircle className="h-3.5 w-3.5" />
-                        Cancel Order
+                        Cancel
                     </Button>
                 )}
             </div>
@@ -140,8 +100,10 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                                 </div>
 
                                 <div className="grid md:grid-cols-2 gap-6">
-                                    <ProductDetails order={order} />
-                                    <DeliveryDetails order={order} />
+                                    {/* <ProductDetails order={order} /> */}
+                                    <FileViewer order={order} />
+                                    {/* <DeliveryDetails order={order} /> */}
+                                    <OrderInfo order={order} />
                                 </div>
                             </div>
                         </div>

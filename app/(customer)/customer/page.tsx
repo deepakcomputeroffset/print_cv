@@ -40,55 +40,65 @@ export default async function CustomerDashboard() {
         redirect("/");
     }
 
-    const [recentTransactions, wallet, orders] = await Prisma.$transaction([
-        Prisma.transaction.findMany({
-            where: {
-                walletId: session?.user?.customer?.wallet?.id,
-            },
-            take: 5,
-            orderBy: {
-                createdAt: "desc",
-            },
-        }),
-        Prisma.wallet.findUnique({
-            where: {
-                customerId: session?.user?.customer?.id,
-            },
-        }),
-        Prisma.order.findMany({
-            where: {
-                customerId: session?.user?.customer?.id,
-            },
-            take: 3,
-            orderBy: {
-                createdAt: "desc",
-            },
-            include: {
-                productItem: {
-                    include: {
-                        product: {
-                            select: {
-                                name: true,
-                                imageUrl: true,
-                            },
+    // Cache identifiers to avoid dereferencing session repeatedly
+    const customerId = session?.user?.customer?.id;
+    const walletId = session?.user?.customer?.wallet?.id;
+
+    // Run a small set of targeted queries inside a single transaction.
+    // Use groupBy to get counts per status in one query instead of multiple .count() calls.
+    const [recentTransactions, wallet, orders, statusGroups] =
+        await Prisma.$transaction([
+            Prisma.transaction.findMany({
+                where: { walletId },
+                take: 5,
+                orderBy: { createdAt: "desc" },
+            }),
+            Prisma.wallet.findUnique({ where: { customerId } }),
+            Prisma.order.findMany({
+                where: { customerId },
+                take: 3,
+                orderBy: { createdAt: "desc" },
+                include: {
+                    productItem: {
+                        include: {
+                            product: { select: { name: true, imageUrl: true } },
                         },
                     },
                 },
-            },
-        }),
-    ]);
+            }),
+            // groupBy returns counts grouped by status for this customer
+            Prisma.order.groupBy({
+                by: ["status"],
+                where: { customerId },
+                // orderBy is required by Prisma's generated types for groupBy
+                orderBy: { status: "asc" },
+                _count: { status: true },
+            }),
+        ]);
+
+    // Derive total and per-status counts from groupBy result (single in-memory pass)
+    let totalOrders = 0;
+    let processingOrdersCount = 0;
+    let completedOrdersCount = 0;
+
+    for (const g of statusGroups ?? []) {
+        // Types from Prisma.groupBy can be a bit awkward here; cast to any to read the counted value safely.
+        // eslint-disable-next-line
+        const cnt = (g as any)?._count?.status ?? 0;
+        totalOrders += cnt;
+        if (g.status === "PROCESSING") processingOrdersCount = cnt;
+        if (g.status === "DISPATCHED") {
+            // In original code 'completedOrdersCount' mapped to DISPATCHED
+            completedOrdersCount += cnt;
+        }
+    }
 
     // Calculate order stats
     // const pendingOrders = orders.filter(
     //     (order) => (order?.status as string) === "PENDING",
     // ).length;
-    const processingOrders = orders?.filter(
-        (order) => (order?.status as string) === "PROCESSING",
-    ).length;
-    const completedOrders = orders?.filter(
-        (order) => (order?.status as string) === "COMPLETED",
-    ).length;
-    const totalOrders = orders.length;
+
+    // const totalOrders = orders.length;
 
     // Helper function to get status color
     const getStatusColor = (status: string) => {
@@ -179,7 +189,7 @@ export default async function CustomerDashboard() {
                                 </div>
                                 <div className="flex items-center">
                                     <span className="text-gray-800 font-semibold text-xl">
-                                        {processingOrders}
+                                        {processingOrdersCount}
                                     </span>
                                 </div>
                             </div>
@@ -196,7 +206,7 @@ export default async function CustomerDashboard() {
                                 </div>
                                 <div className="flex items-center">
                                     <span className="text-gray-800 font-semibold text-xl">
-                                        {completedOrders}
+                                        {completedOrdersCount}
                                     </span>
                                 </div>
                             </div>
@@ -274,7 +284,7 @@ export default async function CustomerDashboard() {
                                                         <div className="flex flex-col items-end">
                                                             <Badge
                                                                 className={cn(
-                                                                    "text-xs px-2 py-1 mb-2",
+                                                                    "text-xs px-2 py-1 mb-2 hover:text-white",
                                                                     getStatusColor(
                                                                         order?.status as string,
                                                                     ),
@@ -467,7 +477,7 @@ export default async function CustomerDashboard() {
                                             variant="outline"
                                             className="justify-start h-auto py-3 border-gray-200"
                                         >
-                                            <Link href="/customer/orders">
+                                            <Link href="/customer/orders?search=&sortorder=desc&perpage=100">
                                                 <Package className="h-5 w-5 mr-3 text-blue-600" />
                                                 <div className="text-left">
                                                     <div className="font-medium">

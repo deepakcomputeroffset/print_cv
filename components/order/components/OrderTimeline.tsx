@@ -13,7 +13,15 @@ import {
     Upload,
     AlertTriangle,
 } from "lucide-react";
-import { order, job, staff, STATUS, task, taskType } from "@prisma/client";
+import {
+    order,
+    job,
+    staff,
+    STATUS,
+    task,
+    taskType,
+    attachment,
+} from "@prisma/client";
 import { MotionDiv } from "../../motionDiv";
 
 interface TimelineEvent {
@@ -36,6 +44,7 @@ interface OrderTimelineProps {
                   })[];
               })
             | null;
+        attachment?: attachment[];
     };
 }
 
@@ -116,6 +125,13 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                 title: "File Uploaded",
                 description: (
                     <div className="flex flex-col text-sm text-gray-600">
+                        <div className="flex items-center gap-2">
+                            <User className="h-3.5 w-3.5" />
+                            <span>Assigned to:</span>
+                            <span className="font-medium text-gray-900">
+                                {order?.attachment?.[0]?.uploadedById}
+                            </span>
+                        </div>
                         <div className="flex items-center gap-2">
                             <Clock className="h-3.5 w-3.5" />
                             <span>Uploaded:</span>
@@ -241,7 +257,7 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
     return (
         <div className="relative">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/80 via-primary to-primary/80"></div>
-            <div className="p-6 md:p-8">
+            <div className="p-4 md:p-8">
                 <div className="flex items-center gap-3 mb-6">
                     <div className="h-6 w-1 rounded-full bg-gradient-to-b from-primary to-primary/60"></div>
                     <h2
@@ -254,37 +270,196 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
                     </h2>
                 </div>
 
-                <div className="relative space-y-6">
-                    {timelineEvents.map((event, index) => (
-                        <MotionDiv
-                            key={index}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="flex items-start gap-4"
-                        >
-                            <div
-                                className={cn(
-                                    "w-10 h-10 rounded-full flex items-center justify-center shadow-sm",
-                                    event.status === "CANCELLED"
-                                        ? "bg-red-50 text-red-500"
-                                        : event.status === "IMPROPER_ORDER"
-                                          ? "bg-yellow-50 text-yellow-600"
-                                          : "bg-primary/10 text-primary",
-                                )}
-                            >
-                                {event.icon}
+                <div className="relative">
+                    {/* Center line: left on mobile, centered on sm+ */}
+                    <div className="absolute left-0 sm:left-1/2 top-0 bottom-0 w-0.5 bg-primary/20"></div>
+
+                    <div className="relative space-y-5">
+                        {timelineEvents?.map((event, index) => (
+                            <div key={index}>
+                                {/* Mobile layout: cards on right, center line on left */}
+                                <MotionDiv
+                                    initial={{ opacity: 0, y: 8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                        duration: 0.45,
+                                        delay: index * 0.06,
+                                    }}
+                                    className="relative sm:hidden sm:px-2 px-4"
+                                >
+                                    {/* Dot (aligned to the center line on mobile) */}
+                                    <div className="absolute -left-1.5 top-4 flex items-center">
+                                        <div
+                                            className={cn(
+                                                "w-3.5 h-3.5 rounded-full z-10",
+                                                event.status === "CANCELLED"
+                                                    ? "bg-red-500"
+                                                    : event.status ===
+                                                        "IMPROPER_ORDER"
+                                                      ? "bg-yellow-500"
+                                                      : "bg-primary",
+                                                "ring-4 ring-white",
+                                            )}
+                                        />
+                                        {/* short connector to card */}
+                                        <div
+                                            className={cn(
+                                                "ml-2 h-[2px] w-6",
+                                                event.status === "CANCELLED"
+                                                    ? "bg-red-200"
+                                                    : event.status ===
+                                                        "IMPROPER_ORDER"
+                                                      ? "bg-yellow-200"
+                                                      : "bg-primary/20",
+                                            )}
+                                        ></div>
+                                    </div>
+
+                                    <div className="ml-6">
+                                        <div
+                                            className={cn(
+                                                "bg-white rounded-lg shadow-md border border-muted/40 overflow-hidden transition-all duration-200",
+                                                "hover:shadow-lg hover:border-primary/20",
+                                                event.status === "CANCELLED" &&
+                                                    "border-red-200 hover:border-red-300",
+                                                event.status ===
+                                                    "IMPROPER_ORDER" &&
+                                                    "border-yellow-200 hover:border-yellow-300",
+                                            )}
+                                        >
+                                            <div className="p-4 pb-0 border-b border-muted/20 flex items-center gap-3">
+                                                <div
+                                                    className={cn(
+                                                        "w-10 h-10 rounded-full flex items-center justify-center",
+                                                        event.status ===
+                                                            "CANCELLED"
+                                                            ? "bg-red-50 text-red-500"
+                                                            : event.status ===
+                                                                "IMPROPER_ORDER"
+                                                              ? "bg-yellow-50 text-yellow-600"
+                                                              : "bg-primary/10 text-primary",
+                                                    )}
+                                                >
+                                                    {event.icon}
+                                                </div>
+                                                <h3 className="flex-1 text-base font-medium text-gray-900">
+                                                    {event.title}
+                                                </h3>
+                                            </div>
+                                            <div className="p-4 pt-2 bg-gradient-to-b from-transparent to-muted/5">
+                                                <div className="text-sm text-gray-600">
+                                                    {event.description}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </MotionDiv>
+
+                                {/* Desktop layout (sm+): alternating left/right */}
+                                <MotionDiv
+                                    key={"d-" + index}
+                                    initial={{
+                                        opacity: 0,
+                                        x: index % 2 === 0 ? -20 : 20,
+                                    }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{
+                                        duration: 0.5,
+                                        delay: index * 0.1,
+                                    }}
+                                    className={cn(
+                                        "hidden sm:flex items-center",
+                                        index % 2 === 0
+                                            ? "flex-row"
+                                            : "flex-row-reverse",
+                                    )}
+                                >
+                                    {/* Content Side */}
+                                    <div
+                                        className={cn(
+                                            "w-[calc(50%-2rem)] group",
+                                            index % 2 === 0 ? "pr-8" : "pl-8",
+                                        )}
+                                    >
+                                        <div
+                                            className={cn(
+                                                "bg-white rounded-lg shadow-md border border-muted/40 overflow-hidden transition-all duration-200",
+                                                "hover:shadow-lg hover:border-primary/20",
+                                                event.status === "CANCELLED" &&
+                                                    "border-red-200 hover:border-red-300",
+                                                event.status ===
+                                                    "IMPROPER_ORDER" &&
+                                                    "border-yellow-200 hover:border-yellow-300",
+                                            )}
+                                        >
+                                            {/* Card Header */}
+                                            <div className="p-4 pb-0 border-b border-muted/20 flex items-center gap-3">
+                                                <div
+                                                    className={cn(
+                                                        "w-10 h-10 rounded-full flex items-center justify-center",
+                                                        event.status ===
+                                                            "CANCELLED"
+                                                            ? "bg-red-50 text-red-500"
+                                                            : event.status ===
+                                                                "IMPROPER_ORDER"
+                                                              ? "bg-yellow-50 text-yellow-600"
+                                                              : "bg-primary/10 text-primary",
+                                                    )}
+                                                >
+                                                    {event.icon}
+                                                </div>
+                                                <h3 className="flex-1 text-base font-medium text-gray-900">
+                                                    {event.title}
+                                                </h3>
+                                            </div>
+                                            {/* Card Content */}
+                                            <div className="p-4 pt-2 bg-gradient-to-b from-transparent to-muted/5">
+                                                <div className="text-sm text-gray-600">
+                                                    {event.description}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Center Branch with connecting line */}
+                                    <div className="relative flex items-center justify-center w-16">
+                                        {/* Dot in center */}
+                                        <div
+                                            className={cn(
+                                                "w-4 h-4 rounded-full z-10",
+                                                event.status === "CANCELLED"
+                                                    ? "bg-red-500"
+                                                    : event.status ===
+                                                        "IMPROPER_ORDER"
+                                                      ? "bg-yellow-500"
+                                                      : "bg-primary",
+                                                "ring-4 ring-white",
+                                            )}
+                                        />
+                                        {/* Horizontal connector line */}
+                                        <div
+                                            className={cn(
+                                                "absolute h-[2px]",
+                                                index % 2 === 0
+                                                    ? "-left-2"
+                                                    : "-right-2",
+                                                "w-10",
+                                                event.status === "CANCELLED"
+                                                    ? "bg-red-200"
+                                                    : event.status ===
+                                                        "IMPROPER_ORDER"
+                                                      ? "bg-yellow-200"
+                                                      : "bg-primary/20",
+                                            )}
+                                        />
+                                    </div>
+
+                                    {/* Empty space for the other side */}
+                                    <div className="w-[calc(50%-2rem)]"></div>
+                                </MotionDiv>
                             </div>
-                            <div className="flex-1">
-                                <h3 className="text-sm font-medium text-gray-900">
-                                    {event.title}
-                                </h3>
-                                <div className="mt-1 text-xs text-gray-600">
-                                    {event.description}
-                                </div>
-                            </div>
-                        </MotionDiv>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

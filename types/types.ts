@@ -18,6 +18,8 @@ import {
     staff,
     pricing,
     uploadGroup,
+    taskType,
+    orderComment,
 } from "@prisma/client";
 import { z, ZodIssue } from "zod";
 
@@ -145,3 +147,34 @@ export type FileLike = {
     name?: string;
     arrayBuffer: () => Promise<ArrayBuffer>;
 };
+
+export interface OrderDetailsPageProps {
+    order: order & {
+        productItem: productItem & {
+            pricing: pricing[];
+            product: product;
+            productAttributeOptions: (productAttributeValue & {
+                productAttributeType: productAttributeType;
+            })[];
+        };
+        customer: {
+            address?: addressType;
+            businessName: string;
+            name: string;
+            phone: string;
+        };
+        job:
+            | (job & {
+                  staff: Pick<staff, "id" | "name"> | null;
+                  tasks: (task & {
+                      taskType: taskType | null;
+                      assignee: Pick<staff, "id" | "name"> | null;
+                  })[];
+              })
+            | null;
+        attachment?: attachment[];
+        comments?: (orderComment & {
+            staff?: Pick<staff, "id" | "name"> | null;
+        })[];
+    };
+}

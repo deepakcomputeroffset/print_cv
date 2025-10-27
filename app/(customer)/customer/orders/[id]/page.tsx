@@ -24,6 +24,11 @@ export default async function OrderPage({
                     include: {
                         pricing: true,
                         product: true,
+                        productAttributeOptions: {
+                            include: {
+                                productAttributeType: true,
+                            },
+                        },
                     },
                 },
                 job: {
