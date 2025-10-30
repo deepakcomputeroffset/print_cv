@@ -1,13 +1,5 @@
 "use client";
 
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import React from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -15,6 +7,7 @@ import { sourceSerif4 } from "@/lib/font";
 import { product } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { ProductCard } from "./ProductCard";
+import BreadCrumb from "./BreadCrumb";
 
 export default function ProductList({
     products,
@@ -40,33 +33,7 @@ export default function ProductList({
                 transition={{ duration: 0.5 }}
                 className="mb-12"
             >
-                <Breadcrumb className="mb-4">
-                    <BreadcrumbList>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink
-                                href="/"
-                                className="cursor-pointer text-gray-600 hover:text-primary"
-                            >
-                                Home
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator />
-                        <BreadcrumbItem>
-                            <BreadcrumbLink
-                                href="/categories"
-                                className="cursor-pointer text-gray-600 hover:text-primary"
-                            >
-                                Categories
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator />
-                        <BreadcrumbItem>
-                            <BreadcrumbPage className="text-primary font-medium">
-                                {category?.name}
-                            </BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
+                <BreadCrumb category={category?.name as string} />
 
                 <div className="hidden md:block text-center max-w-3xl mx-auto">
                     {/* Decorative accent */}

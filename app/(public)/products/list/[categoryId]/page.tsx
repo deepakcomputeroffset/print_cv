@@ -2,6 +2,9 @@ import { Prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import ProductDetails from "./components/productDetail";
 import { auth } from "@/lib/auth";
+import { Package } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { sourceSerif4 } from "@/lib/font";
 
 export default async function ProductPage({
     params,
@@ -84,14 +87,39 @@ export default async function ProductPage({
     //         uploadGroupId: item.uploadGroupId,
     //     })),
     // }));
-
     return (
         <div>
-            <ProductDetails
-                cityDiscount={cityDiscount}
-                customer={session?.user?.customer}
-                products={products}
-            />
+            {products.length === 0 ? (
+                <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4 py-16">
+                    <div className="bg-gradient-to-br from-primary/5 to-cyan-500/5 p-8 rounded-full shadow-md border border-primary/10">
+                        <Package className="w-10 h-10 text-primary/70" />
+                    </div>
+
+                    <h2
+                        className={cn(
+                            "text-xl font-bold mt-4 mb-3",
+                            sourceSerif4.className,
+                        )}
+                    >
+                        <span>No Products</span>{" "}
+                        <span className="text-primary relative inline-block">
+                            Available
+                            <span className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-primary/40 to-cyan-500/40"></span>
+                        </span>
+                    </h2>
+                    <p className="text-gray-600 max-w-md">
+                        Currently, there are no products available in this
+                        category. Please check back later or explore other
+                        categories.
+                    </p>
+                </div>
+            ) : (
+                <ProductDetails
+                    cityDiscount={cityDiscount}
+                    customer={session?.user?.customer}
+                    products={products}
+                />
+            )}
         </div>
     );
 }

@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
@@ -30,6 +28,8 @@ export default function Header({
             {/* <div className="flex justify-center mt-2 mb-6">
                 <div className="h-1 w-16 bg-gradient-to-r from-primary to-cyan-400 rounded-full opacity-80"></div>
             </div> */}
+
+            {/* <BreadCrumb category={category?.name as string} /> */}
 
             <div className="inline-flex items-center justify-center my-4">
                 <div className="h-px w-10 bg-primary/30"></div>
@@ -66,25 +66,6 @@ export default function Header({
                     ? `Discover our specialized ${category.parentCategory.name.toLowerCase()} solutions tailored to meet your precise printing requirements.`
                     : "Explore our comprehensive range of professional printing services designed for businesses and individuals seeking exceptional quality."}
             </p> */}
-
-            {category?.parentCategory !== null && (
-                <motion.div
-                    className="flex justify-center mt-8"
-                    initial={{ opacity: 0, translateY: 10 }}
-                    animate={{ opacity: 1, translateY: 0 }}
-                    transition={{ duration: 0.5 }}
-                >
-                    <Link
-                        href="/categories"
-                        className="flex items-center text-primary bg-primary/5 hover:bg-primary/10 px-4 py-2 rounded-full transition-colors group"
-                    >
-                        <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                        <span className="font-medium">
-                            Back to all categories
-                        </span>
-                    </Link>
-                </motion.div>
-            )}
         </motion.div>
     );
 }

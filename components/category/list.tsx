@@ -12,6 +12,7 @@ export const List = ({ categories }: { categories: productCategoryType[] }) => {
     const { setParam } = useUrlFilters();
 
     const handleCategoryClick = (category: productCategoryType) => {
+        console.log("Clicked category:", category);
         if (category?._count?.subCategories > 0) {
             setParam("parentCategoryId", category?.id.toString());
         } else if (category?.isList) {

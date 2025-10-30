@@ -9,13 +9,13 @@ import RecentOrderList from "@/components/order/recentOrderList";
 import { unstable_cache } from "next/cache";
 
 export default async function ProductCategoryPage({
-    params,
+    searchParams,
 }: {
-    params: Promise<{ parentCategoryId: string }>;
+    searchParams: Promise<{ parentCategoryId: string }>;
 }) {
     const session = await auth();
 
-    const { parentCategoryId } = await params;
+    const { parentCategoryId } = await searchParams;
 
     async function getData() {
         return await Promise.all([
@@ -50,11 +50,15 @@ export default async function ProductCategoryPage({
             }),
         ]);
     }
-    const cachedData = unstable_cache(getData, ["categories-orders"], {
-        revalidate: 60 * 60,
-        // revalidate: 1,
-        tags: ["categories-orders"],
-    });
+    const cachedData = unstable_cache(
+        getData,
+        ["categories-orders", parentCategoryId],
+        {
+            // revalidate: 60 * 60,
+            revalidate: 1,
+            tags: ["categories-orders"],
+        },
+    );
 
     const [categories, orders] = await cachedData();
     const sortedCategories = categories.sort((a, b) => {
@@ -108,13 +112,11 @@ export default async function ProductCategoryPage({
                 </div>
             }
         >
-            <div>
-                <div className="mx-auto px-[5vw] container space-y-7">
-                    <List categories={sortedCategories} />
-                    {session?.user?.userType === "customer" && (
-                        <RecentOrderList orders={orders} />
-                    )}
-                </div>
+            <div className="mx-auto px-[5vw] container space-y-7">
+                <List categories={sortedCategories} />
+                {session?.user?.userType === "customer" && (
+                    <RecentOrderList orders={orders} />
+                )}
             </div>
         </Suspense>
     );

@@ -80,7 +80,7 @@ export default function ProductDetails({
             return products[0];
         }
         return (
-            products.find((p) => p.id === parseInt(selectedProductId)) ??
+            products?.find((p) => p?.id === parseInt(selectedProductId)) ??
             products[0]
         );
     }, [selectedProductId, products]);
