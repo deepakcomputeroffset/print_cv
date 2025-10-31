@@ -266,6 +266,7 @@ export async function GET(req: NextRequest) {
         if (
             !session ||
             session.user.userType !== "customer" ||
+            session?.user?.customer?.id === null ||
             session.user?.customer?.isBanned
         ) {
             return serverResponse({
@@ -275,11 +276,13 @@ export async function GET(req: NextRequest) {
             });
         }
 
+        const customerId = session?.user?.customer?.id;
+
         const { searchParams } = new URL(req.url);
         const query = QuerySchema.parse(Object.fromEntries(searchParams));
 
         const where: PrismaType.orderWhereInput = {
-            customerId: session?.user?.customer?.id,
+            customerId,
             AND: [
                 query.search
                     ? {

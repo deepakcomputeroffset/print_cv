@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table";
 import { Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { LoadingRow } from "@/components/loading-row";
+import { LoadingRow } from "@/components/loaders/loading-row";
 import { MessageRow } from "@/components/message-row";
 import Pagination from "@/components/pagination";
 import { QueryParams } from "@/types/types";

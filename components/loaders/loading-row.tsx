@@ -1,5 +1,5 @@
 import { Loader2 } from "lucide-react";
-import { TableCell, TableRow } from "./ui/table";
+import { TableCell, TableRow } from "../ui/table";
 
 export const LoadingRow = ({
     text,

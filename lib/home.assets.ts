@@ -212,7 +212,7 @@ export const carouselSlides = [
             "Experience print perfection with our state-of-the-art technology and expert team",
         cta: {
             text: "View Samples",
-            link: "/products",
+            link: "/customer/products",
         },
     },
 ];

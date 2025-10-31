@@ -16,7 +16,6 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
-import { motion } from "motion/react";
 import { sourceSerif4 } from "@/lib/font";
 import { order, product, productItem } from "@prisma/client";
 import { NUMBER_PRECISION } from "@/lib/constants";
@@ -27,12 +26,7 @@ export default function RecentOrderList({
     orders: (order & { productItem: productItem & { product: product } })[];
 }) {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-6"
-        >
+        <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <div>
                     <div className="flex items-center mb-2">
@@ -54,85 +48,75 @@ export default function RecentOrderList({
 
             {orders && orders?.length > 0 ? (
                 <Card className="overflow-hidden border-0 shadow-md rounded-xl bg-white">
-                    <div className="p-1">
-                        <div className="w-full overflow-x-auto">
-                            <Table>
-                                <TableHeader>
-                                    <TableRow className="bg-gray-50 hover:bg-gray-50">
-                                        <TableHead className="font-medium text-gray-600">
-                                            Order ID
-                                        </TableHead>
-                                        <TableHead className="font-medium text-gray-600">
-                                            Product
-                                        </TableHead>
-                                        <TableHead className="font-medium text-gray-600">
-                                            Quantity
-                                        </TableHead>
-                                        <TableHead className="font-medium text-gray-600">
-                                            Amount
-                                        </TableHead>
-                                        <TableHead className="font-medium text-gray-600">
-                                            Date
-                                        </TableHead>
-                                        <TableHead className="font-medium text-gray-600">
-                                            Status
-                                        </TableHead>
-                                        <TableHead className="text-center font-medium text-gray-600">
-                                            Actions
-                                        </TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {orders?.map((order, index) => (
-                                        <motion.tr
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{
-                                                duration: 0.3,
-                                                delay: index * 0.05,
-                                                ease: [0.22, 1, 0.36, 1],
-                                            }}
-                                            key={order.id}
-                                            className="group hover:bg-primary/5"
-                                        >
-                                            <TableCell className="font-medium text-gray-700">
-                                                #{order.id}
-                                            </TableCell>
-                                            <TableCell className="max-w-[150px] truncate">
-                                                {
-                                                    order?.productItem?.product
-                                                        ?.name
-                                                }
-                                            </TableCell>
-                                            <TableCell>{order?.qty}</TableCell>
-                                            <TableCell className="font-medium">
-                                                ₹
-                                                {order?.total.toFixed(
-                                                    NUMBER_PRECISION,
+                    <div className="w-full overflow-x-auto">
+                        <Table>
+                            <TableHeader>
+                                <TableRow className="bg-gray-50 hover:bg-gray-50">
+                                    <TableHead className="font-medium text-nowrap  text-gray-600">
+                                        Order ID
+                                    </TableHead>
+                                    <TableHead className="font-medium text-gray-600">
+                                        Product
+                                    </TableHead>
+                                    <TableHead className="font-medium text-gray-600">
+                                        Quantity
+                                    </TableHead>
+                                    <TableHead className="font-medium text-gray-600">
+                                        Amount
+                                    </TableHead>
+                                    <TableHead className="font-medium text-gray-600">
+                                        Date
+                                    </TableHead>
+                                    <TableHead className="font-medium text-gray-600">
+                                        Status
+                                    </TableHead>
+                                    <TableHead className="text-center font-medium text-gray-600">
+                                        Actions
+                                    </TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {orders?.map((order) => (
+                                    <TableRow
+                                        key={order.id}
+                                        className="group hover:bg-primary/5"
+                                    >
+                                        <TableCell className="font-medium text-gray-700">
+                                            #{order.id}
+                                        </TableCell>
+                                        <TableCell className="max-w-[150px] text-nowrap truncate">
+                                            {order?.productItem?.product?.name}
+                                        </TableCell>
+                                        <TableCell>{order?.qty}</TableCell>
+                                        <TableCell className="font-medium text-nowrap">
+                                            ₹
+                                            {order?.total.toFixed(
+                                                NUMBER_PRECISION,
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="text-nowrap">
+                                            {format(
+                                                new Date(order?.createdAt),
+                                                "dd MMM yyyy",
+                                            )}
+                                        </TableCell>
+                                        <TableCell>
+                                            <Badge
+                                                className={cn(
+                                                    getStatusColor(
+                                                        order.status,
+                                                    ),
+                                                    "text-xs px-2.5 py-0.5 rounded-full font-medium hover:text-white",
                                                 )}
-                                            </TableCell>
-                                            <TableCell>
-                                                {format(
-                                                    new Date(order?.createdAt),
-                                                    "dd MMM yyyy",
-                                                )}
-                                            </TableCell>
-                                            <TableCell>
-                                                <Badge
-                                                    className={cn(
-                                                        getStatusColor(
-                                                            order.status,
-                                                        ),
-                                                        "text-xs px-2.5 py-0.5 rounded-full font-medium hover:text-white",
-                                                    )}
-                                                >
-                                                    {order.status}
-                                                </Badge>
-                                            </TableCell>
-                                            <TableCell className="text-center">
-                                                {order?.status === "PLACED" &&
-                                                order?.uploadFilesVia ===
-                                                    "UPLOAD" ? (
+                                            >
+                                                {order.status}
+                                            </Badge>
+                                        </TableCell>
+                                        <TableCell className="flex justify-center px-2">
+                                            <div className="grid grid-cols-2 min-w-20 gap-2">
+                                                {order?.uploadFilesVia ===
+                                                    "UPLOAD" &&
+                                                order?.status === "PLACED" ? (
                                                     <Button
                                                         variant="destructive"
                                                         size="icon"
@@ -145,34 +129,30 @@ export default function RecentOrderList({
                                                         </Link>
                                                     </Button>
                                                 ) : (
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        className="group-hover:bg-white/80 group-hover:text-primary transition-colors"
-                                                        asChild
-                                                    >
-                                                        <Link
-                                                            href={`/customer/orders/${order.id}`}
-                                                        >
-                                                            <Eye className="h-4 w-4" />
-                                                        </Link>
-                                                    </Button>
+                                                    <span></span>
                                                 )}
-                                            </TableCell>
-                                        </motion.tr>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </div>
+                                                <Button
+                                                    variant="secondary"
+                                                    size="icon"
+                                                    className="group-hover:bg-white/80 group-hover:text-primary transition-colors"
+                                                    asChild
+                                                >
+                                                    <Link
+                                                        href={`/customer/orders/${order.id}`}
+                                                    >
+                                                        <Eye className="h-4 w-4" />
+                                                    </Link>
+                                                </Button>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
                     </div>
                 </Card>
             ) : (
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="flex flex-col items-center justify-center min-h-[50vh] text-center p-6 bg-white rounded-xl shadow-md border border-primary/5"
-                >
+                <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-6 bg-white rounded-xl shadow-md border border-primary/5">
                     <div className="bg-gradient-to-br from-primary/5 to-cyan-500/5 p-8 rounded-full shadow-sm border border-primary/10">
                         <ShoppingCart className="w-16 h-16 text-primary/70" />
                     </div>
@@ -201,8 +181,8 @@ export default function RecentOrderList({
                             Explore Products
                         </Button>
                     </Link>
-                </motion.div>
+                </div>
             )}
-        </motion.div>
+        </div>
     );
 }

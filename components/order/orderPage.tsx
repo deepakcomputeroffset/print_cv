@@ -15,6 +15,7 @@ import { useModal } from "@/hooks/use-modal";
 import { OrderDetailsPageProps } from "@/types/types";
 import { FileViewer } from "./components/FileViewer";
 import { OrderInfo } from "./components/OrderInfo";
+import { orderCancellableStatus } from "@/lib/constants";
 
 export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
     const { onOpen } = useModal();
@@ -36,7 +37,7 @@ export default function OrderDetailsPage({ order }: OrderDetailsPageProps) {
                     </div>
                     <span className="font-medium">Back to Orders</span>
                 </Link>
-                {order.status === "PLACED" && (
+                {orderCancellableStatus?.includes(order?.status) && (
                     <Button
                         size="sm"
                         variant="destructive"

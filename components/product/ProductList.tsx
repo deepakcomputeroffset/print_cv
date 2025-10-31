@@ -89,7 +89,7 @@ export default function ProductList({
                         <ProductCard
                             product={product}
                             onClickHandler={() =>
-                                router.push(`/products/${product.id}`)
+                                router.push(`/customer/products/${product.id}`)
                             }
                         />
                     </motion.div>

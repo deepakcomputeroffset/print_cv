@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 import { Package, Truck, MapPin, User, Calendar } from "lucide-react";
 import { format } from "date-fns";
-import { LoadingRow } from "@/components/loading-row";
+import { LoadingRow } from "@/components/loaders/loading-row";
 import { InvoiceButton } from "@/components/InvoiceButton";
 import {
     LabelButton,

@@ -2,6 +2,9 @@ import { redirect } from "next/navigation";
 import OrderDetailsPage from "@/components/order/orderPage";
 import { Prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { ClipboardList } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { sourceSerif4 } from "@/lib/font";
 
 export default async function OrderPage({
     params,
@@ -18,7 +21,10 @@ export default async function OrderPage({
         }
         const session = await auth();
         const order = await Prisma.order.findFirst({
-            where: { id: parseInt(id) },
+            where: {
+                id: parseInt(id),
+                customerId: session?.user?.customer?.id,
+            },
             include: {
                 productItem: {
                     include: {
@@ -74,8 +80,19 @@ export default async function OrderPage({
 
         if (!order) {
             return (
-                <div>
-                    <p>Not any order found</p>
+                <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-5">
+                    <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 p-8 rounded-full shadow-md mb-3">
+                        <ClipboardList className="w-10 h-10 text-primary/60" />
+                    </div>
+
+                    <h2
+                        className={cn(
+                            "text-xl font-semibold text-gray-800 dark:text-gray-100",
+                            sourceSerif4.className,
+                        )}
+                    >
+                        No Order Found
+                    </h2>
                 </div>
             );
         }

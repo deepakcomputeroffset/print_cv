@@ -7,7 +7,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { MessageRow } from "@/components/message-row";
-import { LoadingRow } from "@/components/loading-row";
+import { LoadingRow } from "@/components/loaders/loading-row";
 import { taskType } from "@prisma/client";
 import { Pencil, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";

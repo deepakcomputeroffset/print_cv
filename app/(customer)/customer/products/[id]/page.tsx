@@ -10,7 +10,7 @@ export default async function ProductPage({
 }) {
     const { id } = await params;
     if (isNaN(parseInt(id))) {
-        return redirect("/products");
+        return redirect("/customer/products");
     }
 
     const product = await Prisma.product.findUnique({
@@ -35,7 +35,7 @@ export default async function ProductPage({
     });
 
     if (product?.category.isList) {
-        return redirect(`/products/list/${product.categoryId}`);
+        return redirect(`/customer/products/list/${product.categoryId}`);
     }
 
     if (!product) {

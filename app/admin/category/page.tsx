@@ -16,7 +16,7 @@ import Image from "next/image";
 import { useModal } from "@/hooks/use-modal";
 import { useProductCategory } from "@/hooks/useProductCategory";
 import { productCategory } from "@prisma/client";
-import { LoadingRow } from "@/components/loading-row";
+import { LoadingRow } from "@/components/loaders/loading-row";
 import { MessageRow } from "@/components/message-row";
 import { ProductCategoryCreateModal } from "@/components/admin/category/modal/product-category-create-modal";
 import { ProductCategoryEditModal } from "@/components/admin/category/modal/product-category-edit-modal";

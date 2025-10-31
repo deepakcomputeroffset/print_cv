@@ -29,7 +29,7 @@ export default async function ProductPage({
     });
 
     if (category?.isList) {
-        return redirect(`/products/list/${category?.id}`);
+        return redirect(`/customer/products/list/${category?.id}`);
     }
 
     const products = await Prisma.product.findMany({

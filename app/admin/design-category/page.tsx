@@ -14,7 +14,7 @@ import {
 import { Plus, Pencil, Trash2, ChevronDown, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useModal } from "@/hooks/use-modal";
-import { LoadingRow } from "@/components/loading-row";
+import { LoadingRow } from "@/components/loaders/loading-row";
 import { MessageRow } from "@/components/message-row";
 import { DesignCategoryCreateModal } from "@/components/admin/design-category/modal/design-category-create-modal";
 import { DesignCategoryEditModal } from "@/components/admin/design-category/modal/design-category-edit-modal";

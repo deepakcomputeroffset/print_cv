@@ -2,31 +2,18 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";
-import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { productCategoryType } from "@/types/types";
 
-export const CCard = ({
+export const CategoryCard = ({
     category,
-    index,
     onClick,
 }: {
     category: productCategoryType;
-    index: number;
     onClick: () => void;
 }) => {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-                duration: 0.5,
-                ease: "easeOut",
-                delay: Math.min(0.1, index * 0.03),
-            }}
-            viewport={{ once: true, margin: "100px" }}
-            className="h-full"
-        >
+        <div className="h-full">
             <Card
                 className={cn(
                     "bg-white transition-all duration-300 overflow-hidden relative h-full border-0 rounded-2xl shadow-md hover:shadow-xl",
@@ -82,6 +69,6 @@ export const CCard = ({
                     </div>
                 )}
             </Card>
-        </motion.div>
+        </div>
     );
 };

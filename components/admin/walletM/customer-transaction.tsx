@@ -15,7 +15,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { MessageRow } from "@/components/message-row";
-import { LoadingRow } from "@/components/loading-row";
+import { LoadingRow } from "@/components/loaders/loading-row";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {

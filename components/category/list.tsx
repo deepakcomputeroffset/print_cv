@@ -2,22 +2,24 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { useUrlFilters } from "@/hooks/useUrlFilter";
-import { CCard } from "./card";
+import { CategoryCard } from "./card";
 import Header from "./header";
 import { productCategoryType } from "@/types/types";
 
-export const List = ({ categories }: { categories: productCategoryType[] }) => {
+export const ProductCategories = ({
+    categories,
+}: {
+    categories: productCategoryType[];
+}) => {
     const router = useRouter();
-    const { setParam } = useUrlFilters();
 
     const handleCategoryClick = (category: productCategoryType) => {
         if (category?._count?.subCategories > 0) {
-            setParam("parentCategoryId", category?.id.toString());
+            router.push(`/categories/${category.id}`);
         } else if (category?.isList) {
-            router.push(`/products/list/${category.id}`);
+            router.push(`/customer/products/list/${category.id}`);
         } else {
-            router.push(`/products?categoryId=${category.id}`);
+            router.push(`/customer/products?categoryId=${category.id}`);
         }
     };
 
@@ -26,11 +28,10 @@ export const List = ({ categories }: { categories: productCategoryType[] }) => {
             <Header category={categories[0]} />
 
             <div className="grid grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
-                {categories.map((category, index) => (
-                    <CCard
+                {categories.map((category) => (
+                    <CategoryCard
                         key={category.id}
                         category={category}
-                        index={index}
                         onClick={() => handleCategoryClick(category)}
                     />
                 ))}

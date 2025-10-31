@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal";
 import { ConfirmationModal } from "@/components/modal";
+import { isAxiosError } from "axios";
 
 export function CancellationModal() {
     const { isOpen, onClose, modal, data } = useModal();
@@ -38,11 +39,16 @@ export function CancellationModal() {
             router.refresh();
             onClose();
         } catch (error) {
-            toast.error(
-                error instanceof Error
-                    ? error.message
-                    : "Failed to cancel order",
-            );
+            console.error(error);
+            if (isAxiosError(error)) {
+                toast.error(error.response?.data?.error);
+            } else {
+                toast.error(
+                    error instanceof Error
+                        ? error.message
+                        : "Failed to cancel order",
+                );
+            }
         } finally {
             setIsCancelling(false);
         }

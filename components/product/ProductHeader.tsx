@@ -75,7 +75,7 @@ export default function ProductHeader({
                         <>
                             <BreadcrumbItem>
                                 <BreadcrumbLink
-                                    href={`/products?categoryId=${product.categoryId}`}
+                                    href={`/customer/products?categoryId=${product.categoryId}`}
                                     className="cursor-pointer text-gray-600 hover:text-primary"
                                 >
                                     Products

@@ -1,7 +1,4 @@
-"use client";
-
 import React from "react";
-import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 import { productCategory } from "@prisma/client";
@@ -14,11 +11,7 @@ export default function Header({
     };
 }) {
     return (
-        <motion.div
-            initial={{ opacity: 0, translateY: 20 }}
-            whileInView={{ opacity: 1, translateY: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            viewport={{ once: true }}
+        <div
             className={cn(
                 "text-center max-w-3xl mx-auto",
                 sourceSerif4.className,
@@ -66,6 +59,6 @@ export default function Header({
                     ? `Discover our specialized ${category.parentCategory.name.toLowerCase()} solutions tailored to meet your precise printing requirements.`
                     : "Explore our comprehensive range of professional printing services designed for businesses and individuals seeking exceptional quality."}
             </p> */}
-        </motion.div>
+        </div>
     );
 }

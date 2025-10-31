@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Check, Pencil, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import { useProducts } from "@/hooks/use-product";
-import { LoadingRow } from "@/components/loading-row";
+import { LoadingRow } from "@/components/loaders/loading-row";
 import { MessageRow } from "@/components/message-row";
 import Pagination from "@/components/pagination";
 import { QueryParams } from "@/types/types";

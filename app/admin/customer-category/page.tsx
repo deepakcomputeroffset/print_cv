@@ -15,7 +15,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { LoadingRow } from "@/components/loading-row";
+import { LoadingRow } from "@/components/loaders/loading-row";
 import { MessageRow } from "@/components/message-row";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";

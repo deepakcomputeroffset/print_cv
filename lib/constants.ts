@@ -1,4 +1,4 @@
-import { ROLE } from "@prisma/client";
+import { ROLE, STATUS } from "@prisma/client";
 
 export const perPageData = 2;
 export const defaultCustomerPerPage = 1;
@@ -35,6 +35,9 @@ export const allowedRoleForDistributionManagement: ROLE[] = [
     "ADMIN",
     "DISTRIBUTER",
 ];
+
+// STATUS
+export const orderCancellableStatus: STATUS[] = ["PLACED", "FILE_UPLOADED"];
 
 // TAX
 export const IGST_TAX_IN_PERCENTAGE = 0.18;

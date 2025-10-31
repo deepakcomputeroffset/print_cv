@@ -8,7 +8,7 @@ import {
 } from "../../ui/table";
 import { MessageRow } from "../../message-row";
 import { CustomerTableRow } from "./customer-list-table-row";
-import { LoadingRow } from "../../loading-row";
+import { LoadingRow } from "../../loaders/loading-row";
 
 export const CustomerListTable = ({
     customers,

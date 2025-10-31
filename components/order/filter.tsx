@@ -16,7 +16,13 @@ import { useUrlFilters } from "@/hooks/useUrlFilter";
 import { useEffect, useState } from "react";
 import { STATUS } from "@prisma/client";
 
-export function OrdersFilter({ filters }: { filters: QueryParams }) {
+export function OrdersFilter({
+    filters,
+    isLoading,
+}: {
+    filters: QueryParams;
+    isLoading?: boolean;
+}) {
     const [search, setSearch] = useState(filters?.search || "");
     const [sortOrder, setSortOrder] = useState<sortType>(
         filters?.sortorder !== undefined ? filters?.sortorder : "desc",
@@ -41,11 +47,13 @@ export function OrdersFilter({ filters }: { filters: QueryParams }) {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         className="pl-8"
+                        disabled={isLoading}
                     />
                 </div>
 
                 <Select
                     value={filters?.orderStatus || "ALL"}
+                    disabled={isLoading}
                     onValueChange={(value) =>
                         setParam("orderStatus", value as STATUS)
                     }
@@ -63,6 +71,7 @@ export function OrdersFilter({ filters }: { filters: QueryParams }) {
                 </Select>
                 <div className="flex space-x-2">
                     <Select
+                        disabled={isLoading}
                         value={filters?.sortby || "date"}
                         onValueChange={(value) => setParam("sortby", value)}
                     >
@@ -77,6 +86,7 @@ export function OrdersFilter({ filters }: { filters: QueryParams }) {
                     </Select>
 
                     <Button
+                        disabled={isLoading}
                         variant="outline"
                         onClick={() =>
                             setSortOrder(sortOrder === "asc" ? "desc" : "asc")
@@ -86,6 +96,7 @@ export function OrdersFilter({ filters }: { filters: QueryParams }) {
                     </Button>
                 </div>
                 <Button
+                    disabled={isLoading}
                     variant="outline"
                     className="w-full"
                     onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
@@ -99,6 +110,7 @@ export function OrdersFilter({ filters }: { filters: QueryParams }) {
                 <div className="flex flex-wrap gap-4 pt-4 border-t">
                     <div className="flex flex-wrap items-center gap-2">
                         <Input
+                            disabled={isLoading}
                             type="date"
                             value={filters?.from || ""}
                             onChange={(e) => setParam("from", e.target.value)}
@@ -106,6 +118,7 @@ export function OrdersFilter({ filters }: { filters: QueryParams }) {
                             placeholder="From"
                         />
                         <Input
+                            disabled={isLoading}
                             type="date"
                             value={filters?.to || ""}
                             onChange={(e) => setParam("to", e.target.value)}
@@ -116,6 +129,7 @@ export function OrdersFilter({ filters }: { filters: QueryParams }) {
 
                     <div className="flex flex-wrap items-center gap-2">
                         <Input
+                            disabled={isLoading}
                             type="number"
                             placeholder="Min Amount"
                             value={filters?.minPrice || ""}
@@ -125,6 +139,7 @@ export function OrdersFilter({ filters }: { filters: QueryParams }) {
                             className="w-full"
                         />
                         <Input
+                            disabled={isLoading}
                             type="number"
                             placeholder="Max Amount"
                             value={filters?.maxPrice || ""}
@@ -135,6 +150,7 @@ export function OrdersFilter({ filters }: { filters: QueryParams }) {
                         />
                     </div>
                     <Select
+                        disabled={isLoading}
                         value={`${filters?.perpage || "100"}`}
                         onValueChange={(value) =>
                             setParam("perpage", Number(value))

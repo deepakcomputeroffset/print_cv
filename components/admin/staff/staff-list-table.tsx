@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/table";
 import { MessageRow } from "@/components/message-row";
 import { StaffTableRow } from "./staff-list-table-row";
-import { LoadingRow } from "@/components/loading-row";
+import { LoadingRow } from "@/components/loaders/loading-row";
 import { staffType } from "@/types/types";
 
 export const StaffListTable = ({

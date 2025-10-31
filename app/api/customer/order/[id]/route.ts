@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth";
 import { deleteFiles } from "@/lib/storage";
 import { TRANSACTION_TYPE } from "@prisma/client";
 import { Prisma as PrismaType } from "@prisma/client";
+import { orderCancellableStatus } from "@/lib/constants";
 
 export async function POST(
     req: Request,
@@ -26,6 +27,7 @@ export async function POST(
 
         const { id } = await params;
         const orderId = parseInt(id);
+        const customerId = session.user.customer.id;
 
         if (!id || isNaN(orderId)) {
             return serverResponse({
@@ -35,14 +37,10 @@ export async function POST(
             });
         }
 
-        const customerId = session.user.customer.id;
-
-        // Single query with all needed data
-        const order = await Prisma.order.findFirst({
+        const order = await Prisma.order.findUnique({
             where: {
                 id: orderId,
-                customerId,
-                status: "PLACED", // Check status here
+                customerId: customerId,
             },
             select: {
                 id: true,
@@ -54,7 +52,7 @@ export async function POST(
             },
         });
 
-        if (!order) {
+        if (!order || orderCancellableStatus.includes(order?.status)) {
             return serverResponse({
                 status: 404,
                 success: false,
