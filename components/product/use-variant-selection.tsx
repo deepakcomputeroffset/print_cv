@@ -21,10 +21,6 @@ export const useVariantSelection = (
     const [selectedVariant, setSelectedVariant] =
         useState<ProductItemTypeWithAttribute | null>(null);
 
-    useEffect(() => {
-        setSelectedAttributes(baseVariant);
-    }, [baseVariant]);
-
     const findVariant = useCallback(() => {
         return product.productItems.find((item) =>
             Object.entries(selectedAttributes).every(([typeId, valueId]) =>

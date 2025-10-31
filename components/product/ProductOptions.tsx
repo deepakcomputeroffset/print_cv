@@ -98,7 +98,7 @@ export default function ProductOptions({
 
     return (
         <>
-            {distinctAttributeWithOptions.map((type) => (
+            {distinctAttributeWithOptions?.map((type) => (
                 <div key={type.id}>
                     <label className="text-xs font-medium mb-1 block text-gray-700">
                         {type.name}
