@@ -52,7 +52,7 @@ export async function POST(
             },
         });
 
-        if (!order || orderCancellableStatus.includes(order?.status)) {
+        if (!order || !orderCancellableStatus.includes(order?.status)) {
             return serverResponse({
                 status: 404,
                 success: false,
