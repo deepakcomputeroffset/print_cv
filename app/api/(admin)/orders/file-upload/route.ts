@@ -146,11 +146,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Upload file to storage
-        const fileUrl = await uploadFile(
-            "files",
-            file,
-            `${file.name}`,
-        );
+        const fileUrl = await uploadFile("files", file, `${file.name}`);
 
         // Create attachment record
         const attachment = await Prisma.attachment.create({

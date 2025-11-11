@@ -13,7 +13,7 @@ import { useModal } from "@/hooks/use-modal";
 // Separate component for attachment cell to properly use hooks
 const AttachmentCell = ({ order }: { order: orderType }) => {
     const { onOpen } = useModal();
-    
+
     return (
         <div className="flex flex-col gap-1.5 items-center">
             <span className="text-xs text-muted-foreground">
@@ -38,7 +38,6 @@ const AttachmentCell = ({ order }: { order: orderType }) => {
         </div>
     );
 };
-
 
 export const columns: ColumnDef<orderType>[] = [
     {
