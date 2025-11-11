@@ -66,9 +66,9 @@ export default function FileUploadPage({ order }: { order: OrderWithDetails }) {
             for (const type of uploadTypes) {
                 const file = files[type];
                 if (!file) continue; // already uploaded
-
+                const newFile = new File([file], `${order.id}_${type}_${order.customerId}`, { type: file.type });
                 const formData = new FormData();
-                formData.append("file", file);
+                formData.append("file", newFile);
                 formData.append("orderId", order.id.toString());
                 formData.append("uploadType", type);
 

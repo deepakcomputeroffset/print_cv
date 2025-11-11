@@ -29,7 +29,7 @@ export const uploadFile = async (
     file: FileLike,
     name: string,
 ): Promise<string> => {
-    const fileName = `${folder}/${Date.now()}_${name.split(".").slice(0, -1).join(".")}`;
+    const fileName = `${folder}/${name}`;
     const cloudFile = bucket.file(fileName);
 
     await new Promise(async (resolve, reject) => {

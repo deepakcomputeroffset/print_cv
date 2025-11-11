@@ -7,6 +7,38 @@ import { IndianRupee } from "lucide-react";
 import { format } from "date-fns";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { STATUS } from "@prisma/client";
+import { Button } from "@/components/ui/button";
+import { useModal } from "@/hooks/use-modal";
+
+// Separate component for attachment cell to properly use hooks
+const AttachmentCell = ({ order }: { order: orderType }) => {
+    const { onOpen } = useModal();
+    
+    return (
+        <div className="flex flex-col gap-1.5 items-center">
+            <span className="text-xs text-muted-foreground">
+                {order.uploadFilesVia || "N/A"}
+            </span>
+            {order.status !== STATUS.PLACED &&
+                order.status !== STATUS.CANCELLED && (
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-7 text-xs"
+                        onClick={() =>
+                            onOpen("viewFiles", {
+                                attachment: order?.attachment,
+                                orderId: order?.id,
+                            })
+                        }
+                    >
+                        View Files
+                    </Button>
+                )}
+        </div>
+    );
+};
+
 
 export const columns: ColumnDef<orderType>[] = [
     {
@@ -170,14 +202,7 @@ export const columns: ColumnDef<orderType>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="File" />
         ),
-        cell: ({ row }) => {
-            const order = row.original;
-            return (
-                <div className="flex flex-col justify-center">
-                    <span className="text-xs">{order.uploadFilesVia}</span>
-                </div>
-            );
-        },
+        cell: ({ row }) => <AttachmentCell order={row.original} />,
     },
     {
         accessorKey: "job",

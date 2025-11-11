@@ -149,7 +149,7 @@ export async function POST(request: NextRequest) {
         const fileUrl = await uploadFile(
             "files",
             file,
-            `${uploadType}_${file.name}`,
+            `${file.name}`,
         );
 
         // Create attachment record
