@@ -8,11 +8,13 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { useModal } from "@/hooks/use-modal";
-import { ExternalLink } from "lucide-react";
+import { downloadHandler } from "@/lib/downloadHandler";
+import { ExternalLink, LucideDownload } from "lucide-react";
 
 export function ViewFilesModal() {
     const { isOpen, onClose, data, modal } = useModal();
     const open = isOpen && modal === "viewFiles";
+
     return (
         <Dialog open={open} onOpenChange={onClose}>
             {/* <DialogTrigger asChild>
@@ -43,15 +45,26 @@ export function ViewFilesModal() {
                             className="flex items-center justify-between p-2 text-sm border rounded-md w-full"
                         >
                             <span className="truncate">{attachment.type}</span>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() =>
-                                    window.open(attachment.url, "_blank")
-                                }
-                            >
-                                <ExternalLink className="w-4 h-4" />
-                            </Button>
+                            <div className="space-x-2">
+                                <Button
+                                    variant={"secondary"}
+                                    size={"icon"}
+                                    onClick={() =>
+                                        downloadHandler(attachment.url)
+                                    }
+                                >
+                                    <LucideDownload />
+                                </Button>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() =>
+                                        window.open(attachment.url, "_blank")
+                                    }
+                                >
+                                    <ExternalLink className="w-4 h-4" />
+                                </Button>
+                            </div>
                         </div>
                     ))}
                 </div>

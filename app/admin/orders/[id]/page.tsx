@@ -24,6 +24,7 @@ import Image from "next/image";
 import { ImproperOrderButton } from "../components/ImproperButton";
 import { BackButton } from "@/components/backButton";
 import { NUMBER_PRECISION } from "@/lib/constants";
+import { DownloadButton } from "./_components/DownloadButton";
 
 export default async function OrderDetail({
     params,
@@ -350,20 +351,25 @@ export default async function OrderDetail({
                                                             </p>
                                                         </div>
                                                     </div>
-                                                    <Button
-                                                        asChild
-                                                        variant="outline"
-                                                        size="sm"
-                                                    >
-                                                        <Link
-                                                            href={att.url}
-                                                            target="_blank"
-                                                            className="flex items-center gap-2"
+                                                    <div className="flex items-center justify-center gap-2">
+                                                        <DownloadButton
+                                                            url={att.url}
+                                                        />
+                                                        <Button
+                                                            asChild
+                                                            variant="outline"
+                                                            size="sm"
                                                         >
-                                                            View File
-                                                            <ExternalLink className="h-3 w-3" />
-                                                        </Link>
-                                                    </Button>
+                                                            <Link
+                                                                href={att.url}
+                                                                target="_blank"
+                                                                className="flex items-center gap-2"
+                                                            >
+                                                                View File
+                                                                <ExternalLink className="h-3 w-3" />
+                                                            </Link>
+                                                        </Button>
+                                                    </div>
                                                 </div>
                                             ))}
                                         </div>
