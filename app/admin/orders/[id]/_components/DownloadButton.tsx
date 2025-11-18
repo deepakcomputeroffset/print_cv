@@ -10,7 +10,7 @@ export function DownloadButton({ url }: { url: string }) {
             size="sm"
             onClick={() => downloadHandler(url)}
         >
-           Download <LucideDownload className="h-3 w-3" />
+            Download <LucideDownload className="h-3 w-3" />
         </Button>
     );
 }
