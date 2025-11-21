@@ -54,5 +54,5 @@ export const COMPANY_DATA = {
     pinCode: "110001",
     phone: "+91-1147511919",
     email: "deepakcomputeroffset@gmail.com",
-    gst: "08CBAPG4788J1ZJ",
+    gst: "07ABDCA7756Q1ZX",
 };

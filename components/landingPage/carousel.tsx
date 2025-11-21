@@ -55,7 +55,7 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-cyan-400 to-primary z-20"></div>
 
             <Carousel
-                className="w-full h-[350px] md:h-[350px] 2xl:h-[600px] relative overflow-hidden shadow-2xl"
+                className="w-full h-[250px] md:h-[250px] 2xl:h-[300px] relative overflow-hidden shadow-2xl"
                 plugins={[
                     Autoplay({
                         delay: 6000,
@@ -72,7 +72,7 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                 <CarouselContent className="h-full">
                     {slides.map((slide, idx) => (
                         <CarouselItem key={idx} className="relative">
-                            <div className="relative w-full h-[350px] md:h-[350px] 2xl:h-[600px] overflow-hidden">
+                            <div className="relative w-full h-[250px] md:h-[250px] 2xl:h-[300px] overflow-hidden">
                                 {/* Enhanced gradient overlay with multiple layers for depth */}
                                 <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10 opacity-70" />

@@ -44,7 +44,7 @@ export default async function HomePage() {
 
                 {/* Product Categories */}
                 <Suspense>
-                    <section className="pt-16 bg-gradient-to-b from-background to-blue-50/30">
+                    <section className="pt-5 md:pt-7 bg-gradient-to-b from-background to-blue-50/30">
                         <div className="container px-4 mx-auto">
                             {Product_Categories &&
                                 Product_Categories?.length > 0 && (

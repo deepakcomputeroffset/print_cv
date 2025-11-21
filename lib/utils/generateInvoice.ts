@@ -153,7 +153,7 @@ export const generateInvoice = async (order: InvoiceOrder) => {
             margin + 5,
             cityStateY + 12,
         );
-        doc.text(`GST: 06ERMPC2261Q1Z0`, margin + 5, cityStateY + 18);
+        doc.text(`GST: ${"N/A"}`, margin + 5, cityStateY + 18);
     } else {
         doc.text(addressText, margin + 5, 70);
         doc.text(cityStateText, margin + 5, 76);
@@ -163,7 +163,7 @@ export const generateInvoice = async (order: InvoiceOrder) => {
             margin + 5,
             88,
         );
-        doc.text(`GST: 06ERMPC2261Q1Z0`, margin + 5, 94);
+        doc.text(`GST: ${"N/A"}`, margin + 5, 94);
     }
 
     // Right box for invoice details
@@ -202,7 +202,7 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     doc.text(`Invoice Date: ${invoiceDate}`, rightColumnX + 5, 79);
 
     // Payment terms
-    doc.text(`Payment Terms: On Delivery`, rightColumnX + 5, 86);
+    doc.text(`Payment Terms: Pre Paid`, rightColumnX + 5, 86);
     doc.text(`Shipping Method: Transport`, rightColumnX + 5, 93);
 
     // QR Code section - Using a reliable approach that works with jsPDF
