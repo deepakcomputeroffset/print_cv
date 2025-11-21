@@ -184,6 +184,8 @@ export async function GET(request: Request) {
             },
         }));
 
+        console.log("Fetched orders:", orders.length);
+
         return serverResponse({
             status: 200,
             success: true,

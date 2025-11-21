@@ -108,6 +108,7 @@ export const columns: ColumnDef<orderType>[] = [
     },
     {
         accessorKey: "customer",
+        accessorFn: (row) => row.customer?.name,
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Customer" />
         ),
@@ -115,7 +116,7 @@ export const columns: ColumnDef<orderType>[] = [
             const customer = row.original.customer;
             return (
                 <div className="flex flex-col">
-                    <span>{customer?.name}</span>
+                    <span>{customer?.id}</span>
                     <span className="text-xs text-muted-foreground">
                         {customer?.phone}
                     </span>
@@ -125,9 +126,11 @@ export const columns: ColumnDef<orderType>[] = [
                 </div>
             );
         },
+        enableSorting: true,
     },
     {
         accessorKey: "productItem",
+        accessorFn: (row) => row.productItem?.product?.name,
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Product" />
         ),
@@ -144,6 +147,7 @@ export const columns: ColumnDef<orderType>[] = [
                 </div>
             );
         },
+        enableSorting: true,
     },
     {
         accessorKey: "qty",
@@ -153,6 +157,7 @@ export const columns: ColumnDef<orderType>[] = [
         cell: ({ row }) => {
             return <span className="font-medium">{row.getValue("qty")}</span>;
         },
+        enableSorting: true,
     },
     {
         accessorKey: "total",
@@ -167,6 +172,7 @@ export const columns: ColumnDef<orderType>[] = [
                 </div>
             );
         },
+        enableSorting: true,
     },
     {
         accessorKey: "createdAt",
@@ -185,6 +191,7 @@ export const columns: ColumnDef<orderType>[] = [
                 </div>
             );
         },
+        enableSorting: true,
     },
     {
         accessorKey: "status",
@@ -194,17 +201,21 @@ export const columns: ColumnDef<orderType>[] = [
         cell: ({ row }) => {
             return <span className="lowercase">{row.getValue("status")}</span>;
         },
+        enableSorting: true,
     },
 
     {
-        accessorKey: "attachment",
+        id: "attachment",
+        accessorFn: (row) => row.attachment?.length || 0,
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="File" />
         ),
         cell: ({ row }) => <AttachmentCell order={row.original} />,
+        enableSorting: false,
     },
     {
-        accessorKey: "job",
+        id: "job",
+        accessorFn: (row) => row.job?.name || "",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Job Id" />
         ),

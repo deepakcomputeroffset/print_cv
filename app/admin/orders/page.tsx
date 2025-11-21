@@ -21,7 +21,6 @@ export default function OrdersPage({
             filters?.sortorder !== undefined ? filters?.sortorder : "desc",
         perpage: filters?.perpage || defaultOrderPerPage,
     });
-
     return (
         <div>
             <div className="flex items-center gap-3 mb-6">
