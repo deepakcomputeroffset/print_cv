@@ -34,7 +34,7 @@ export default function Header({
                 <div className="h-px w-10 bg-primary/30"></div>
             </div>
 
-            <h2 className="text-3xl md:text-4xl font-bold leading-tight">
+            <h2 className="text-3xl font-bold leading-tight">
                 {!!category?.parentCategory ? (
                     <span>
                         {category?.parentCategory.name}{" "}

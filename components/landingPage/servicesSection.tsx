@@ -60,18 +60,18 @@ function ServiceCard({
                     </div>
                 </div>
 
-                <h3 className="text-sm sm:text-base font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-sm font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
                     {title}
                 </h3>
 
-                <p className="text-gray-600 text-xs sm:text-sm mb-3 leading-relaxed">
+                <p className="text-gray-600 text-xs mb-3 leading-relaxed">
                     {description}
                 </p>
 
                 <div className="pt-2 border-t border-gray-100">
                     <Link
                         href={href}
-                        className="text-primary text-xs sm:text-sm font-medium flex items-center group/link"
+                        className="text-primary text-xs font-medium flex items-center group/link"
                     >
                         Learn more
                         <ArrowRight className="ml-1 h-3 w-3 group-hover/link:translate-x-1 transition-transform duration-300" />
@@ -85,7 +85,7 @@ function ServiceCard({
 export default function ServicesSection() {
     const services = [
         {
-            icon: <Printer className="h-6 w-6" />,
+            icon: <Printer className="h-5 w-5" />,
             title: "Commercial Printing",
             description:
                 "High-quality printing services for businesses including brochures, catalogs, flyers, and more.",
@@ -93,7 +93,7 @@ export default function ServicesSection() {
             color: "bg-primary/10",
         },
         {
-            icon: <Building2 className="h-6 w-6" />,
+            icon: <Building2 className="h-5 w-5" />,
             title: "Corporate Identity",
             description:
                 "Business cards, letterheads, envelopes, and other essentials to establish your brand identity.",
@@ -101,7 +101,7 @@ export default function ServicesSection() {
             color: "bg-cyan-500/10",
         },
         {
-            icon: <Palette className="h-6 w-6" />,
+            icon: <Palette className="h-5 w-5" />,
             title: "Design Services",
             description:
                 "Professional graphic design services to create stunning visuals for your print materials.",
@@ -109,7 +109,7 @@ export default function ServicesSection() {
             color: "bg-purple-500/10",
         },
         {
-            icon: <Users className="h-6 w-6" />,
+            icon: <Users className="h-5 w-5" />,
             title: "Event Materials",
             description:
                 "Banners, posters, tickets, and promotional items for trade shows, conferences, and events.",
@@ -117,7 +117,7 @@ export default function ServicesSection() {
             color: "bg-amber-500/10",
         },
         {
-            icon: <LayoutGrid className="h-6 w-6" />,
+            icon: <LayoutGrid className="h-5 w-5" />,
             title: "Large Format",
             description:
                 "Attention-grabbing banners, signs, posters, and display graphics in various sizes.",
@@ -125,7 +125,7 @@ export default function ServicesSection() {
             color: "bg-emerald-500/10",
         },
         {
-            icon: <Award className="h-6 w-6" />,
+            icon: <Award className="h-5 w-5" />,
             title: "Premium Finishes",
             description:
                 "Elevate your prints with foil stamping, embossing, spot UV, and other premium finishing options.",
@@ -165,7 +165,7 @@ export default function ServicesSection() {
                         </span>
                         <div className="h-px w-10 bg-primary/30"></div>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 leading-tight">
+                    <h2 className="text-2xl sm:text-3xl 4xl font-bold mb-4 leading-tight">
                         Premium{" "}
                         <span className="text-primary relative inline-block">
                             Printing Services
@@ -205,8 +205,8 @@ export default function ServicesSection() {
                 >
                     <Link href="/categories">
                         <Button
-                            size="lg"
-                            className="rounded-xl bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl group px-8 py-6 h-auto text-lg transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-0.5 relative overflow-hidden"
+                            size="sm"
+                            className="rounded-xl bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl group px-6 py-5 h-auto text-lg transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-0.5 relative overflow-hidden"
                         >
                             <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
                             <span className="relative z-10 flex items-center">

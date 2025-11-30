@@ -98,7 +98,7 @@ export function Footer() {
                         </h3>
                         <nav className="space-y-2">
                             <Link
-                                href="#"
+                                href="/about"
                                 className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors group"
                             >
                                 <ArrowRight className="h-3 w-3 text-primary/40 group-hover:text-primary transition-colors" />

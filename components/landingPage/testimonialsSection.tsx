@@ -116,10 +116,10 @@ export default function TestimonialsSection() {
                         </span>
                         <div className="h-px w-10 bg-primary/30"></div>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
                         What Our Customers Say
                     </h2>
-                    <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
+                    <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
                         Don&apos;t just take our word for it — hear from some of
                         our satisfied customers about their experiences working
                         with {COMPANY_DATA.shortName}.

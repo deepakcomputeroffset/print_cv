@@ -39,7 +39,7 @@ export default function ProductCategoryHeader({
                 <div className="h-px w-10 bg-primary/30"></div>
             </div> */}
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6 leading-tight">
                 {!!category?.parentCategory ? (
                     <span>
                         {category?.parentCategory.name}{" "}
@@ -59,7 +59,7 @@ export default function ProductCategoryHeader({
                 )}
             </h2>
 
-            <p className="text-gray-600 md:text-lg leading-relaxed max-w-2xl mx-auto">
+            <p className="text-gray-600 leading-relaxed max-w-2xl mx-auto">
                 {!!category?.parentCategory
                     ? `Discover our specialized ${category.parentCategory.name.toLowerCase()} solutions tailored to meet your precise printing requirements.`
                     : "Explore our comprehensive range of professional printing services designed for businesses and individuals seeking exceptional quality."}

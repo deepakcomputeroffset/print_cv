@@ -114,7 +114,7 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                                         {slide.title && (
                                             <h1
                                                 className={cn(
-                                                    "text-2xl sm:text-3xl md:text-4xl font-bold text-white/85 tracking-tight leading-tight mb-6 drop-shadow-xl",
+                                                    "text-2xl sm:text-3xl font-bold text-white/85 tracking-tight leading-tight mb-4 drop-shadow-xl",
                                                     isLoaded &&
                                                         activeIndex === idx
                                                         ? "animate-slide-up opacity-100"
@@ -132,7 +132,7 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                                         {slide.subtitle && (
                                             <p
                                                 className={cn(
-                                                    "text-lg text-white/75 mb-8 max-w-xl drop-shadow-md font-medium",
+                                                    "text-base text-white/75 mb-8 max-w-xl drop-shadow-md font-medium",
                                                     isLoaded &&
                                                         activeIndex === idx
                                                         ? "animate-slide-up opacity-100"

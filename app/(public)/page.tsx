@@ -1,35 +1,39 @@
 import HomeCarousel from "@/components/landingPage/carousel";
-import ServicesSection from "@/components/landingPage/servicesSection";
 import { ProductCategoryList } from "@/components/home/cList";
 import TestimonialsSection from "@/components/landingPage/testimonialsSection";
 import CtaSection from "@/components/landingPage/ctaSection";
 import StatsSection from "@/components/landingPage/statsSection";
 import FaqSection from "@/components/landingPage/faqSection";
-import ServiceCategories from "@/components/landingPage/serviceCategories";
-import { carouselSlides, Product_Categories } from "@/lib/home.assets";
+import { carouselSlides } from "@/lib/home.assets";
 import { Suspense } from "react";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
-
-// async function getCategories() {
-//     const categories = await Prisma?.productCategory.findMany({
-//         include: {
-//             _count: { select: { subCategories: true } },
-//             parentCategory: true,
-//         },
-//         orderBy: {
-//             isAvailable: "desc",
-//         },
-//     });
-//     return categories;
-// }
-
-// const cachedCategories = unstable_cache(getCategories, ["categories"], {
-//     revalidate: 60 * 60,
-//     tags: ["categories"],
-// });
+import { Prisma } from "@/lib/prisma";
+import { unstable_cache } from "next/cache";
 
 export default async function HomePage() {
+    async function getCategories() {
+        const categories = await Prisma?.productCategory.findMany({
+            include: {
+                _count: { select: { subCategories: true } },
+                parentCategory: true,
+            },
+            orderBy: {
+                isAvailable: "desc",
+            },
+            take: 8,
+        });
+        return categories;
+    }
+
+    const cachedCategories = await unstable_cache(
+        getCategories,
+        ["categories"],
+        {
+            revalidate: 60 * 60 * 24 * 7, // 7 days
+            tags: ["categories"],
+        },
+    )();
     return (
         <div
             className={cn("flex flex-col min-h-screen", sourceSerif4.className)}
@@ -46,10 +50,10 @@ export default async function HomePage() {
                 <Suspense>
                     <section className="pt-5 md:pt-7 bg-gradient-to-b from-background to-blue-50/30">
                         <div className="container px-4 mx-auto">
-                            {Product_Categories &&
-                                Product_Categories?.length > 0 && (
+                            {cachedCategories &&
+                                cachedCategories?.length > 0 && (
                                     <ProductCategoryList
-                                        categories={Product_Categories}
+                                        categories={cachedCategories}
                                     />
                                 )}
                         </div>
@@ -58,12 +62,6 @@ export default async function HomePage() {
 
                 {/* Stats Highlights */}
                 <StatsSection />
-
-                {/* Visual Service Categories */}
-                <ServiceCategories />
-
-                {/* Detailed Services */}
-                <ServicesSection />
 
                 {/* Customer Testimonials */}
                 <TestimonialsSection />

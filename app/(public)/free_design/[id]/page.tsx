@@ -8,6 +8,7 @@ import {
     Frown,
     TriangleAlert,
 } from "lucide-react";
+import { unstable_cache } from "next/cache";
 import Link from "next/link";
 
 const PageHeader = ({ title }: { title: string }) => {
@@ -233,19 +234,37 @@ export default async function CategoryItemsPage({
 
     // Fetch total item count and the category data with paginated designs in parallel
     const [totalDesigns, categoryData] = await Promise.all([
-        Prisma.design.count({ where: { designCategoryId: categoryId } }),
-        Prisma.designCategory.findUnique({
-            where: { id: categoryId },
-            include: {
-                designs: {
-                    skip: (currentPage - 1) * pageSize,
-                    take: pageSize,
-                    orderBy: {
-                        id: "asc", // Consistent ordering is key for pagination
-                    },
-                },
+        unstable_cache(
+            async () =>
+                await Prisma.design.count({
+                    where: { designCategoryId: categoryId },
+                }),
+            ["design-count", categoryId.toString()],
+            {
+                revalidate: 60 * 60 * 24 * 7, // 7 days
+                tags: ["design-count"],
             },
-        }),
+        )(),
+        unstable_cache(
+            async () =>
+                await Prisma.designCategory.findUnique({
+                    where: { id: categoryId },
+                    include: {
+                        designs: {
+                            skip: (currentPage - 1) * pageSize,
+                            take: pageSize,
+                            orderBy: {
+                                id: "asc", // Consistent ordering is key for pagination
+                            },
+                        },
+                    },
+                }),
+            ["design-category", categoryId.toString()],
+            {
+                revalidate: 60 * 60 * 24 * 7, // 7 days
+                tags: ["design-category"],
+            },
+        )(),
     ]);
 
     // If the category itself doesn't exist, show a 404 page

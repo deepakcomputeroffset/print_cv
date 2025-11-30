@@ -38,7 +38,7 @@ export const ProductCategoryCard = ({
             >
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-cyan-400 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                <div className="relative h-40 sm:h-48 w-full overflow-hidden">
+                <div className="relative h-40  w-full overflow-hidden">
                     {/* Premium gradient overlay for depth */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/5 z-10 opacity-70 group-hover:opacity-40 transition-opacity duration-300"></div>
                     <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-black/10 z-10 opacity-80 group-hover:opacity-40 transition-opacity duration-300"></div>
@@ -56,12 +56,12 @@ export const ProductCategoryCard = ({
 
                     {/* Category name overlay on image */}
                     <div className="absolute bottom-0 left-0 right-0 px-3 sm:px-4 md:px-6 py-2 z-20">
-                        <h3 className="text-lg sm:text-xl font-bold text-white drop-shadow-md transition-transform duration-300 ease-out group-hover:-translate-y-1">
+                        <h3 className="text-base font-bold text-white drop-shadow-md transition-transform duration-300 ease-out group-hover:-translate-y-1">
                             {category.name}
                         </h3>
 
                         {category.isAvailable && (
-                            <div className="flex items-center text-white/90 text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                            <div className="flex items-center text-white/90 text-xs font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                                 {category._count.subCategories > 0
                                     ? `Explore ${category._count.subCategories} subcategories`
                                     : "View available products"}
@@ -85,7 +85,7 @@ export const ProductCategoryCard = ({
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-1 sm:space-x-2">
                             <div className="h-1 w-5 sm:w-8 bg-gradient-to-r from-primary to-cyan-400 rounded-full"></div>
-                            <div className="text-xs sm:text-sm text-gray-500 font-medium">
+                            <div className="text-xs text-gray-500 font-medium">
                                 {category.isAvailable
                                     ? "Click to explore this category"
                                     : "This category will be available soon"}

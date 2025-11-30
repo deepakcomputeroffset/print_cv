@@ -5,27 +5,26 @@ import { ShoppingBag } from "lucide-react";
 import { Prisma } from "@/lib/prisma";
 import { unstable_cache } from "next/cache";
 
-async function getCategories() {
-    return await Prisma?.productCategory.findMany({
-        where: {
-            parentCategoryId: null,
-        },
-        include: {
-            _count: { select: { subCategories: true } },
-            parentCategory: true,
-        },
-        orderBy: {
-            id: "asc",
-        },
-    });
-}
-
 export default async function ProductCategoryPage() {
+    async function getCategories() {
+        return await Prisma?.productCategory.findMany({
+            where: {
+                parentCategoryId: null,
+            },
+            include: {
+                _count: { select: { subCategories: true } },
+                parentCategory: true,
+            },
+            orderBy: {
+                id: "asc",
+            },
+        });
+    }
     const categories = await unstable_cache(
         async () => await getCategories(),
         ["categories"],
         {
-            revalidate: 60 * 60 * 5, // 5 hours
+            revalidate: 60 * 60 * 24 * 7, // 7 days
             tags: ["categories"],
         },
     )();

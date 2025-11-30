@@ -76,7 +76,7 @@ export default function ServiceCategories() {
                         sourceSerif4.className,
                     )}
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold relative inline-block">
+                    <h2 className="text-3xl font-bold relative inline-block">
                         Exceptional Print Solutions for{" "}
                         <span className="text-primary relative">
                             Every Vision
@@ -116,9 +116,9 @@ export default function ServiceCategories() {
                         >
                             <div className="group flex flex-col items-center text-center p-3 md:p-6 rounded-xl border border-gray-100 bg-white transition-all duration-300 hover:shadow-xl hover:border-primary/20">
                                 <div
-                                    className={`mb-3 md:mb-4 p-2 rounded-full bg-gradient-to-br ${category.color} text-white transform transition-transform group-hover:scale-110 duration-300`}
+                                    className={`mb-3 p-2 rounded-full bg-gradient-to-br ${category.color} text-white transform transition-transform group-hover:scale-110 duration-300`}
                                 >
-                                    <div className="w-6 h-6 md:w-10 md:h-10 flex items-center justify-center">
+                                    <div className="w-6 h-6 md:w-7 md:h-7 flex items-center justify-center">
                                         <svg
                                             viewBox="0 0 24 24"
                                             fill="none"
@@ -129,7 +129,7 @@ export default function ServiceCategories() {
                                         </svg>
                                     </div>
                                 </div>
-                                <h3 className="text-base md:text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                                <h3 className="text-base md:text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
                                     {category.name}
                                 </h3>
                                 <p className="text-sm text-gray-600 max-w-xs">
@@ -147,7 +147,7 @@ export default function ServiceCategories() {
                     viewport={{ once: true }}
                     className="mt-8 md:mt-16 p-4 md:p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200 text-center"
                 >
-                    <p className="text-sm md:text-base text-gray-700 font-medium">
+                    <p className="text-xs text-gray-700 font-medium">
                         Can&apos;t find what you need? We offer custom printing
                         solutions tailored to your specific requirements.
                     </p>

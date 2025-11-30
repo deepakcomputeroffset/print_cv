@@ -17,7 +17,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Lock, LogOut, Pen, Menu, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,8 @@ const CUSTOMER_LINKS = [
 
 const Wallet = dynamic(() => import("@/components/wallet"), { ssr: false });
 
-export default function NavbarLinks({ session }: { session: Session | null }) {
+export default function NavbarLinks() {
+    const { data: session } = useSession();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [menuScope, menuAnimate] = useAnimate();
     const pathname = usePathname();
