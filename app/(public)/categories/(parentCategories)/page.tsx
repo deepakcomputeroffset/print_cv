@@ -7,18 +7,26 @@ import { unstable_cache } from "next/cache";
 
 export default async function ProductCategoryPage() {
     async function getCategories() {
-        return await Prisma?.productCategory.findMany({
-            where: {
-                parentCategoryId: null,
-            },
-            include: {
-                _count: { select: { subCategories: true } },
-                parentCategory: true,
-            },
-            orderBy: {
-                id: "asc",
-            },
-        });
+        try {
+            return await Prisma?.productCategory.findMany({
+                where: {
+                    parentCategoryId: null,
+                },
+                include: {
+                    _count: { select: { subCategories: true } },
+                    parentCategory: true,
+                },
+                orderBy: {
+                    id: "asc",
+                },
+            });
+        } catch (error) {
+            console.log(
+                "Database not available during build, returning empty array",
+                error,
+            );
+            return [];
+        }
     }
     const categories = await unstable_cache(
         async () => await getCategories(),

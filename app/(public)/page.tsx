@@ -13,17 +13,22 @@ import { unstable_cache } from "next/cache";
 
 export default async function HomePage() {
     async function getCategories() {
-        const categories = await Prisma?.productCategory.findMany({
-            include: {
-                _count: { select: { subCategories: true } },
-                parentCategory: true,
-            },
-            orderBy: {
-                isAvailable: "desc",
-            },
-            take: 8,
-        });
-        return categories;
+        try {
+            const categories = await Prisma?.productCategory.findMany({
+                include: {
+                    _count: { select: { subCategories: true } },
+                    parentCategory: true,
+                },
+                orderBy: {
+                    isAvailable: "desc",
+                },
+                take: 8,
+            });
+            return categories;
+        } catch (error) {
+            console.log("Database not available during build", error);
+            return [];
+        }
     }
 
     const cachedCategories = await unstable_cache(

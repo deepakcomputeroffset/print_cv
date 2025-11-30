@@ -64,17 +64,26 @@ const CategoryCard = ({ category }: CategoryCardProps) => (
 
 export default async function CategoriesPage() {
     async function getCategories() {
-        return await Prisma.designCategory.findMany({
-            where: { parentCategoryId: null },
-            include: {
-                _count: {
-                    select: {
-                        designs: true,
-                        subCategories: true,
+        try {
+            return await Prisma.designCategory.findMany({
+                where: { parentCategoryId: null },
+                include: {
+                    _count: {
+                        select: {
+                            designs: true,
+                            subCategories: true,
+                        },
                     },
                 },
-            },
-        });
+            });
+        } catch (error) {
+            // During build time, database might not be accessible
+            console.log(
+                "Database not available during build, returning empty array",
+                error,
+            );
+            return [];
+        }
     }
     const cachedData = unstable_cache(getCategories, ["categories-design"], {
         revalidate: 60 * 60,
