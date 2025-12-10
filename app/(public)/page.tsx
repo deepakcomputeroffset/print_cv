@@ -4,12 +4,13 @@ import TestimonialsSection from "@/components/landingPage/testimonialsSection";
 import CtaSection from "@/components/landingPage/ctaSection";
 import StatsSection from "@/components/landingPage/statsSection";
 import FaqSection from "@/components/landingPage/faqSection";
-import { carouselSlides } from "@/lib/home.assets";
+// import { carouselSlides } from "@/lib/home.assets";
 import { Suspense } from "react";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 import { Prisma } from "@/lib/prisma";
 import { unstable_cache } from "next/cache";
+import { getActiveCarousels } from "../admin/carousel/_actions/actions";
 
 export default async function HomePage() {
     async function getCategories() {
@@ -31,6 +32,13 @@ export default async function HomePage() {
         }
     }
 
+    const carouselSlides = await unstable_cache(
+        getActiveCarousels,
+        ["carousel"],
+        {
+            tags: ["carousel"],
+        },
+    )();
     const cachedCategories = await unstable_cache(
         getCategories,
         ["categories"],

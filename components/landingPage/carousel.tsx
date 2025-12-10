@@ -10,19 +10,12 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import fade from "embla-carousel-fade";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
+import { carousel } from "@prisma/client";
 
-type CarouselSlide = {
-    image: string;
-    title?: string;
-    subtitle?: string;
-    ctaText?: string;
-};
-
-export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
+export default function HomeCarousel({ slides }: { slides: carousel[] }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
     const [api, setApi] = useState<CarouselApi>();
@@ -81,7 +74,7 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                                 <div className="absolute inset-0 bg-[url('/noise-pattern.png')] opacity-[0.03] mix-blend-overlay z-10"></div>
 
                                 <Image
-                                    src={slide.image}
+                                    src={slide.imageUrl}
                                     fill
                                     alt={
                                         slide.title ||
@@ -99,7 +92,7 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                                 />
 
                                 {/* Text overlay with enhanced styling */}
-                                {(slide.title || slide.subtitle) && (
+                                {slide.title && (
                                     <div className="absolute inset-0 flex flex-col justify-center z-20 px-8 md:px-16 lg:pl-24 max-w-4xl">
                                         {/* Decorative element */}
                                         <div
@@ -129,7 +122,7 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                                             </h1>
                                         )}
 
-                                        {slide.subtitle && (
+                                        {slide.description && (
                                             <p
                                                 className={cn(
                                                     "text-base text-white/75 mb-8 max-w-xl drop-shadow-md font-medium",
@@ -143,11 +136,11 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                                                         "all 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.3s",
                                                 }}
                                             >
-                                                {slide.subtitle}
+                                                {slide.description}
                                             </p>
                                         )}
 
-                                        {slide.ctaText && (
+                                        {/* {slide.ctaText && (
                                             <div
                                                 className={cn(
                                                     "mt-2",
@@ -168,7 +161,7 @@ export default function HomeCarousel({ slides }: { slides: CarouselSlide[] }) {
                                                     {slide.ctaText}
                                                 </Button>
                                             </div>
-                                        )}
+                                        )} */}
                                     </div>
                                 )}
                             </div>

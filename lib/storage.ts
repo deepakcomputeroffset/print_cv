@@ -1,6 +1,14 @@
 import { FileLike } from "@/types/types";
 import { Storage } from "@google-cloud/storage";
 
+export type GCLOUD_FOLDER_NAME =
+    | "files"
+    | "images"
+    | "design_category"
+    | "design_category_items"
+    | "design_category_items_file"
+    | "carousel";
+
 export const storage = new Storage({
     projectId: process.env.project_id,
     credentials: {
@@ -20,12 +28,7 @@ export const bucket = storage.bucket(process?.env?.bucketName as string);
  * @returns {Promise<string>} - Returns the file URL.
  */
 export const uploadFile = async (
-    folder:
-        | "files"
-        | "images"
-        | "design_category"
-        | "design_category_items"
-        | "design_category_items_file",
+    folder: GCLOUD_FOLDER_NAME,
     file: FileLike,
     name: string,
 ): Promise<string> => {
@@ -52,12 +55,7 @@ export const uploadFile = async (
  * @returns {Promise<string[]>} - Returns an array of uploaded file URLs.
  */
 export const uploadMultipleFiles = async (
-    folder:
-        | "files"
-        | "images"
-        | "design_category"
-        | "design_category_items"
-        | "design_category_items_file",
+    folder: GCLOUD_FOLDER_NAME,
     files: FileLike[],
     namePrefix: string,
 ): Promise<string[]> => {

@@ -7,6 +7,7 @@ import {
 } from "@/types/types";
 import {
     attachment,
+    carousel,
     customerCategory,
     design,
     designCategory,
@@ -56,7 +57,10 @@ type ModalType =
     | "deleteDesignCategory"
     | "deleteDesign"
     | "createDesign"
-    | "editDesign";
+    | "editDesign"
+    | "createCarousel"
+    | "editCarousel"
+    | "deleteCarousel";
 
 type DataType = {
     staff?: staffType;
@@ -78,6 +82,7 @@ type DataType = {
     designCategory?: designCategory;
     design?: design;
     attachment?: attachment[];
+    carousel?: carousel;
 };
 
 interface modalStore {

@@ -9,6 +9,7 @@ export const defaultDesignCategoryPerPage = 5;
 export const defaultDesignPerPage = 5;
 export const defaultProductPerPage = 1;
 export const defaultOrderPerPage = 2;
+export const defaultCarouselPerPage = 10;
 export const defaultDepartmentsPerPage = 1;
 export const defaultJobsPerPage = 1;
 
@@ -24,6 +25,7 @@ export const allowedImageMimeType = [
 ];
 
 export const allowedRoleForOrderManagement: ROLE[] = ["ADMIN", "ORDER_MANAGER"];
+export const allowedRoleForCarouselManagement: ROLE[] = ["ADMIN"];
 export const allowedRoleForCategoryAndProductManagement: ROLE[] = [
     "ADMIN",
     "PRODUCT_MANAGER",

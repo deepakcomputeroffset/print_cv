@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { bucket } from "./storage";
+import { bucket, GCLOUD_FOLDER_NAME } from "./storage";
 
 /**
  * Uploads a single file from the local filesystem to Google Cloud Storage.
@@ -11,12 +11,7 @@ import { bucket } from "./storage";
  */
 export const uploadLocalFile = async (
     localPath: string,
-    folder:
-        | "files"
-        | "images"
-        | "design_category"
-        | "design_category_items"
-        | "design_category_items_file",
+    folder: GCLOUD_FOLDER_NAME,
 ): Promise<string> => {
     try {
         // --- Pre-upload check: Verify the file exists and is readable ---
@@ -76,12 +71,7 @@ export const uploadLocalFile = async (
  */
 export const uploadMultipleLocalFiles = async (
     localPaths: string[],
-    folder:
-        | "files"
-        | "images"
-        | "design_category"
-        | "design_category_items"
-        | "design_category_items_file",
+    folder: GCLOUD_FOLDER_NAME,
 ): Promise<{
     successful: string[];
     // eslint-disable-next-line
@@ -131,12 +121,7 @@ export const uploadMultipleLocalFiles = async (
  * @returns {Promise<string[]>} - A promise that resolves to an array of public URLs.
  */
 export const getPublicUrlsFromFolder = async (
-    folder:
-        | "files"
-        | "images"
-        | "design_category"
-        | "design_category_items"
-        | "design_category_items_file",
+    folder: GCLOUD_FOLDER_NAME,
 ): Promise<string[]> => {
     try {
         // Ensure the folder name ends with a '/' to correctly list directory contents.

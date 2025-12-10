@@ -150,6 +150,13 @@ export const routes: RouteType[] = [
         pattern: /^\/admin\/design-items(?:\/.*)?$/,
         roles: ["ADMIN", "PRODUCT_MANAGER"],
     },
+    {
+        title: "Carousels",
+        icon: PictureInPicture,
+        url: "/admin/carousel?search=&sortorder=asc&page=1&perpage=100",
+        pattern: /^\/admin\/carousel(?:\/.*)?$/,
+        roles: ["ADMIN"],
+    },
 ];
 
 export const getFilteredRoutes = (session: Session | null) => {
