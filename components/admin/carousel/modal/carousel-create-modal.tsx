@@ -9,7 +9,11 @@ export const CarouselCreateModal = () => {
     const isModalOpen = modal === "createCarousel" && isOpen;
 
     return (
-        <Modal title="Add new carousel slide" isOpen={isModalOpen} onClose={onClose}>
+        <Modal
+            title="Add new carousel slide"
+            isOpen={isModalOpen}
+            onClose={onClose}
+        >
             <CarouselCreateForm />
         </Modal>
     );

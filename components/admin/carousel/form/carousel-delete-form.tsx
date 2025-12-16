@@ -20,7 +20,11 @@ export const CarouselDeleteForm = () => {
                 toast.success("Carousel deleted successfully");
                 onClose();
             } catch (error) {
-                toast.error(error instanceof Error ? error.message : "Failed to delete carousel");
+                toast.error(
+                    error instanceof Error
+                        ? error.message
+                        : "Failed to delete carousel",
+                );
             }
         });
     };
@@ -28,8 +32,8 @@ export const CarouselDeleteForm = () => {
     return (
         <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
-                Are you sure you want to delete the carousel slide &quot;{carousel?.title}&quot;?
-                This action cannot be undone.
+                Are you sure you want to delete the carousel slide &quot;
+                {carousel?.title}&quot;? This action cannot be undone.
             </p>
 
             <div className="flex justify-end gap-2">
@@ -47,7 +51,9 @@ export const CarouselDeleteForm = () => {
                     onClick={handleDelete}
                     disabled={isPending}
                 >
-                    {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {isPending && (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     Delete
                 </Button>
             </div>

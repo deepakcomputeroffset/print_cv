@@ -8,7 +8,11 @@ export const CarouselEditModal = () => {
     const isModalOpen = modal === "editCarousel" && isOpen;
 
     return (
-        <Modal title="Edit carousel slide" isOpen={isModalOpen} onClose={onClose}>
+        <Modal
+            title="Edit carousel slide"
+            isOpen={isModalOpen}
+            onClose={onClose}
+        >
             <CarouselEditForm />
         </Modal>
     );

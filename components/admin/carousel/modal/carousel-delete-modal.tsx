@@ -9,7 +9,11 @@ export const CarouselDeleteModal = () => {
     const isModalOpen = modal === "deleteCarousel" && isOpen;
 
     return (
-        <Modal title="Delete carousel slide" isOpen={isModalOpen} onClose={onClose}>
+        <Modal
+            title="Delete carousel slide"
+            isOpen={isModalOpen}
+            onClose={onClose}
+        >
             <CarouselDeleteForm />
         </Modal>
     );
