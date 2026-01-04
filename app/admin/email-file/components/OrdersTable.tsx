@@ -90,7 +90,10 @@ export function OrdersTable({ orders, totalPages }: OrdersTableProps) {
                                     <TableCell>
                                         <div className="flex flex-col">
                                             <span>
-                                                {order.productItem?.product?.name}{" "}
+                                                {
+                                                    order.productItem?.product
+                                                        ?.name
+                                                }{" "}
                                                 ({order.productItem?.sku})
                                             </span>
                                             <span className="text-xs text-muted-foreground">

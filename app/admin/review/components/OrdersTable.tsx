@@ -49,7 +49,11 @@ interface OrdersTableProps {
     uploadType: "EMAIL" | "FILE" | "IMPROPER";
 }
 
-export function OrdersTable({ orders, totalPages, uploadType }: OrdersTableProps) {
+export function OrdersTable({
+    orders,
+    totalPages,
+    uploadType,
+}: OrdersTableProps) {
     const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -97,7 +101,10 @@ export function OrdersTable({ orders, totalPages, uploadType }: OrdersTableProps
                                     <TableCell>
                                         <div className="flex flex-col">
                                             <span>
-                                                {order.productItem?.product?.name}{" "}
+                                                {
+                                                    order.productItem?.product
+                                                        ?.name
+                                                }{" "}
                                                 ({order.productItem?.sku})
                                             </span>
                                             <span className="text-xs text-muted-foreground">

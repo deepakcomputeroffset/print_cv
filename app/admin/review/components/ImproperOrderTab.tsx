@@ -14,7 +14,9 @@ interface ImproperOrderTabProps {
     searchParams: Promise<QueryParams>;
 }
 
-export async function ImproperOrderTab({ searchParams }: ImproperOrderTabProps) {
+export async function ImproperOrderTab({
+    searchParams,
+}: ImproperOrderTabProps) {
     const session = await auth();
     if (
         !session ||

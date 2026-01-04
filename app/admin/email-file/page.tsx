@@ -112,7 +112,8 @@ export default async function OrdersPage({
                 [filters?.sortby ?? "createdAt"]: filters?.sortorder || "desc",
             },
             skip: filters.page
-                ? (Number(filters.page) - 1) * (Number(filters.perpage) || defaultOrderPerPage)
+                ? (Number(filters.page) - 1) *
+                  (Number(filters.perpage) || defaultOrderPerPage)
                 : 0,
             take: Number(filters.perpage) || defaultOrderPerPage,
             include: {
