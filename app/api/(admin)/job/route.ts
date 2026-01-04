@@ -44,6 +44,13 @@ export async function GET(request: Request) {
                           ],
                       }
                     : {},
+                {
+                    ...(query.isVerified === "true"
+                        ? { isVerified: true }
+                        : query.isVerified === "false"
+                          ? { isVerified: false }
+                          : {}),
+                },
             ],
         };
 

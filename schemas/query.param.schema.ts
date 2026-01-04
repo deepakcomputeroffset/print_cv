@@ -1,4 +1,4 @@
-import { STATUS } from "@prisma/client";
+import { STATUS, UPLOADVIA } from "@prisma/client";
 import { z } from "zod";
 
 export const QuerySchema = z.object({
@@ -24,4 +24,6 @@ export const QuerySchema = z.object({
     orderStatus: z.union([z.nativeEnum(STATUS), z.literal("ALL")]).optional(),
     dispatched: z.enum(["true", "false"]).optional(),
     completed: z.enum(["true", "false"]).optional(),
+    uploadFilesVia: z.nativeEnum(UPLOADVIA).optional(),
+    isVerified: z.enum(["true", "false"]).optional(),
 });

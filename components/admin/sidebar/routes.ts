@@ -116,10 +116,10 @@ export const routes: RouteType[] = [
         roles: ["ADMIN", "DISPATCHER"],
     },
     {
-        title: "Files",
+        title: "Review Orders",
         icon: UploadCloud,
-        url: "/admin/file-upload?search=&sortorder=desc&orderStatus=ALL&page=1&perpage=100",
-        pattern: /^\/admin\/file-upload(?:\/.*)?$/,
+        url: "/admin/review?search=&sortorder=desc&orderStatus=ALL&page=1&perpage=100",
+        pattern: /^\/admin\/review(?:\/.*)?$/,
         roles: ["ADMIN", "ORDER_MANAGER"],
     },
     {

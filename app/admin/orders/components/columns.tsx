@@ -3,7 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { orderType } from "@/types/types";
-import { IndianRupee } from "lucide-react";
+import { Check, Clock, IndianRupee } from "lucide-react";
 import { format } from "date-fns";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { STATUS } from "@prisma/client";
@@ -48,7 +48,8 @@ export const columns: ColumnDef<orderType>[] = [
                 const hasFilesUpload =
                     row.original.status === STATUS.FILE_UPLOADED;
                 const hasJobId = row.original.job?.id;
-                return hasFilesUpload && !hasJobId;
+                const isReviewed = row.original.isAttachmentVerified;
+                return hasFilesUpload && !hasJobId && isReviewed;
             });
 
             // Check if all selectable rows are selected
@@ -75,22 +76,23 @@ export const columns: ColumnDef<orderType>[] = [
         cell: ({ row }) => {
             const hasFilesUpload = row.original.status === STATUS.FILE_UPLOADED;
             const hasJobId = row.original.job?.id; // Assuming job has an `id` field
+            const isReviewed = row.original.isAttachmentVerified;
 
             return (
                 <Checkbox
                     checked={
-                        hasFilesUpload && !hasJobId
+                        hasFilesUpload && !hasJobId && isReviewed
                             ? row.getIsSelected()
                             : false
                     }
                     onCheckedChange={(value) => {
-                        if (hasFilesUpload && !hasJobId) {
+                        if (hasFilesUpload && !hasJobId && isReviewed) {
                             row.toggleSelected(!!value);
                         }
                     }}
                     aria-label="Select row"
                     className="translate-y-[2px]"
-                    disabled={!hasFilesUpload || !!hasJobId} // Disable checkbox when not selectable
+                    disabled={!hasFilesUpload || !!hasJobId || !isReviewed} // Disable checkbox when not selectable
                 />
             );
         },
@@ -203,7 +205,24 @@ export const columns: ColumnDef<orderType>[] = [
         },
         enableSorting: true,
     },
-
+    {
+        accessorKey: "isAttachmentVerified",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Review" />
+        ),
+        cell: ({ row }) => {
+            return (
+                <span className="lowercase">
+                    {row.getValue("isAttachmentVerified") ? (
+                        <Check className="w-4 h-4 text-green-600" />
+                    ) : (
+                        <Clock className="w-4 h-4 text-yellow-600" />
+                    )}
+                </span>
+            );
+        },
+        enableSorting: true,
+    },
     {
         id: "attachment",
         accessorFn: (row) => row.attachment?.length || 0,

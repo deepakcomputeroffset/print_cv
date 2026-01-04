@@ -99,6 +99,11 @@ export async function GET(request: Request) {
                 {
                     status: "PLACED",
                 },
+                query.uploadFilesVia
+                    ? {
+                          uploadFilesVia: query.uploadFilesVia,
+                      }
+                    : {},
             ],
         };
 

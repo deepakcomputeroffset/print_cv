@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        const { orderId } = await request.json();
+        const { orderId, comment } = await request.json();
 
         if (!orderId) {
             return serverResponse({
@@ -36,22 +36,10 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        // Validate order exists and belongs to the customer
+        // Validate order exists
         const order = await Prisma.order.findFirst({
             where: {
                 id: orderId,
-            },
-            include: {
-                productItem: {
-                    include: {
-                        uploadGroup: true,
-                    },
-                },
-                attachment: {
-                    select: {
-                        type: true,
-                    },
-                },
             },
         });
 
@@ -72,41 +60,6 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        // Check if upload group exists
-        if (!order.productItem.uploadGroup) {
-            return serverResponse({
-                status: 400,
-                success: false,
-                error: "This product does not require file uploads",
-            });
-        }
-
-        const allowedUploadTypes = order.productItem.uploadGroup.uploadTypes;
-
-        // Check if all required upload types are fulfilled
-        const uploadedTypes = order.attachment.map((att) => att.type);
-        const allRequiredTypesUploaded = allowedUploadTypes.every((type) =>
-            uploadedTypes.includes(type),
-        );
-
-        if (!allRequiredTypesUploaded) {
-            const missingTypes = allowedUploadTypes.filter(
-                (type) => !uploadedTypes.includes(type),
-            );
-
-            return serverResponse({
-                status: 400,
-                success: false,
-                error: "Not all required files have been uploaded",
-                data: {
-                    uploadedTypes,
-                    requiredTypes: allowedUploadTypes,
-                    missingTypes,
-                    allUploaded: false,
-                },
-            });
-        }
-
         // Update order status to FILE_UPLOADED
         const updatedOrder = await Prisma.order.update({
             where: { id: orderId },
@@ -116,15 +69,24 @@ export async function POST(request: NextRequest) {
             },
         });
 
+        // Add comment if provided
+        if (comment && comment.trim()) {
+            await Prisma.orderComment.create({
+                data: {
+                    orderId,
+                    comment: comment.trim(),
+                    commentType: "STAFF_NOTE",
+                    staffId: session.user.staff?.id,
+                },
+            });
+        }
+
         return serverResponse({
             status: 200,
             success: true,
             message: "Order status updated to FILE_UPLOADED",
             data: {
                 order: updatedOrder,
-                uploadedTypes,
-                requiredTypes: allowedUploadTypes,
-                allUploaded: true,
             },
         });
     } catch (error) {

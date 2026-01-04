@@ -1,3 +1,4 @@
+"use client";
 import { QueryParams } from "@/types/types";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";

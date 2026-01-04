@@ -122,7 +122,9 @@ export default async function JobPage({
                 </div>
                 <div className="flex gap-2 items-center">
                     {!job.isVerified && <JobVerification jobId={Number(id)} />}
-                    {job.isVerified && !job.isCompleted && <JobUnverification jobId={Number(id)} />}
+                    {job.isVerified && !job.isCompleted && (
+                        <JobUnverification jobId={Number(id)} />
+                    )}
                     {canComplete && <CompleteJobButton jobId={job.id} />}
                 </div>
             </div>

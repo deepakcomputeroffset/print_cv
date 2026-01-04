@@ -221,21 +221,22 @@ model productAttributeType {
 }
 
 model order {
-    id             Int            @id @default(autoincrement())
-    customerId     Int
-    productItemId  Int
-    qty            Int
-    igst           Float
-    uploadCharge   Float
-    price          Float
-    total          Float
-    status         STATUS         @default(PLACED)
-    uploadFilesVia UPLOADVIA
-    jobId          Int?
-    attachment     attachment[]
-    comments       orderComment[]
-    deliveryVia    DELIVERYVIA    @default(NONE)
-    distribution   distribution?
+    id                   Int            @id @default(autoincrement())
+    customerId           Int
+    productItemId        Int
+    qty                  Int
+    igst                 Float
+    uploadCharge         Float
+    price                Float
+    total                Float
+    status               STATUS         @default(PLACED)
+    uploadFilesVia       UPLOADVIA
+    jobId                Int?
+    attachment           attachment[]
+    isAttachmentVerified Boolean        @default(false)
+    comments             orderComment[]
+    deliveryVia          DELIVERYVIA    @default(NONE)
+    distribution         distribution?
 
     job         job?        @relation(fields: [jobId], references: [id], onDelete: SetNull)
     productItem productItem @relation(fields: [productItemId], references: [id], onDelete: Restrict)

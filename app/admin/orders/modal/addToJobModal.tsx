@@ -31,7 +31,10 @@ export const AddToJobModal = ({
 }) => {
     const { isOpen, modal, data, onClose } = useModal();
     const isModalOpen = modal === "selectJob" && isOpen;
-    const { data: jobs, isLoading } = useJob({ perpage: 100 });
+    const { data: jobs, isLoading } = useJob({
+        perpage: 100,
+        isVerified: "false",
+    });
     const [selectedJob, setSelectedJob] = useState<string>();
     const { mutateAsync, isPending } = addJobToOrders;
     const orderIds = useCallback(
