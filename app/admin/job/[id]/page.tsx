@@ -14,6 +14,7 @@ import RemoveOrderFromJob from "./components/removeOrderFromJob";
 import { format } from "date-fns";
 import { TaskForm } from "./components/addTaskForm";
 import { Badge } from "@/components/ui/badge";
+import JobUnverification from "./components/jobUnverification";
 import ReassignTask from "./components/reassign-task";
 import DeleteTask from "./components/delete-task";
 import CompleteJobButton from "./components/completeJobButton";
@@ -121,6 +122,7 @@ export default async function JobPage({
                 </div>
                 <div className="flex gap-2 items-center">
                     {!job.isVerified && <JobVerification jobId={Number(id)} />}
+                    {job.isVerified && !job.isCompleted && <JobUnverification jobId={Number(id)} />}
                     {canComplete && <CompleteJobButton jobId={job.id} />}
                 </div>
             </div>

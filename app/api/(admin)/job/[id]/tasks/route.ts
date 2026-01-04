@@ -1,7 +1,7 @@
 import { taskSchema } from "@/schemas/task.form.schema";
 import { NextRequest } from "next/server";
 import { Prisma } from "@/lib/prisma";
-import { allowedRoleForOrderManagement } from "@/lib/constants";
+import { allowedRoleForJobManagement } from "@/lib/constants";
 import { ROLE } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
         if (
             !session ||
             session?.user?.userType != "staff" ||
-            !allowedRoleForOrderManagement.includes(
+            !allowedRoleForJobManagement.includes(
                 session?.user?.staff?.role as ROLE,
             ) ||
             (session.user.staff?.role !== "ADMIN" &&

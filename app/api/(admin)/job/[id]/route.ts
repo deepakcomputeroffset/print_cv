@@ -2,7 +2,7 @@ import { Prisma } from "@/lib/prisma";
 import { jobFormSchema } from "@/schemas/job.form.schema";
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
-import { allowedRoleForOrderManagement } from "@/lib/constants";
+import { allowedRoleForJobManagement } from "@/lib/constants";
 import { ROLE } from "@prisma/client";
 
 export async function GET(
@@ -14,7 +14,7 @@ export async function GET(
         if (
             !session ||
             session?.user?.userType != "staff" ||
-            !allowedRoleForOrderManagement.includes(
+            !allowedRoleForJobManagement.includes(
                 session?.user?.staff?.role as ROLE,
             ) ||
             (session.user.staff?.role !== "ADMIN" &&
@@ -117,7 +117,7 @@ export async function DELETE(
         if (
             !session ||
             session?.user?.userType != "staff" ||
-            !allowedRoleForOrderManagement.includes(
+            !allowedRoleForJobManagement.includes(
                 session?.user?.staff?.role as ROLE,
             ) ||
             (session.user.staff?.role !== "ADMIN" &&

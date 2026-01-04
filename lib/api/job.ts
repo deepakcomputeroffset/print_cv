@@ -42,6 +42,12 @@ export async function jobVerification(id: number) {
     );
 }
 
+export async function jobUnverification(id: number) {
+    return await axios.post<ServerResponseType<job>>(
+        `${jobBaseUrl}/${id}/unverification`,
+    );
+}
+
 export async function removeOrderFromJob(id: number, orderId: number) {
     return await axios.post<ServerResponseType<order>>(
         `${jobBaseUrl}/${id}/orders/remove`,
