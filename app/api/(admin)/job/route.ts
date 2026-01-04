@@ -3,7 +3,7 @@ import { jobFormSchema } from "@/schemas/job.form.schema";
 import { Prisma as PrismaType, ROLE } from "@prisma/client";
 import { QuerySchema } from "@/schemas/query.param.schema";
 import {
-    allowedRoleForOrderManagement,
+    allowedRoleForJobManagement,
     defaultJobsPerPage,
 } from "@/lib/constants";
 import serverResponse from "@/lib/serverResponse";
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
         if (
             !session ||
             session?.user?.userType != "staff" ||
-            !allowedRoleForOrderManagement.includes(
+            !allowedRoleForJobManagement.includes(
                 session?.user?.staff?.role as ROLE,
             ) ||
             (session.user.staff?.role !== "ADMIN" &&
@@ -60,7 +60,6 @@ export async function GET(request: Request) {
                 take: query.perpage || defaultJobsPerPage,
             }),
         ]);
-
         return serverResponse({
             status: 200,
             success: true,
@@ -91,7 +90,7 @@ export async function POST(req: Request) {
         if (
             !session ||
             session?.user?.userType != "staff" ||
-            !allowedRoleForOrderManagement.includes(
+            !allowedRoleForJobManagement.includes(
                 session?.user?.staff?.role as ROLE,
             ) ||
             (session.user.staff?.role !== "ADMIN" &&
