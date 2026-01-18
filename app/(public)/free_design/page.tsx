@@ -86,7 +86,7 @@ export default async function CategoriesPage() {
         }
     }
     const cachedData = unstable_cache(getCategories, ["categories-design"], {
-        revalidate: 60 * 60,
+        revalidate: 3600 * 24, // 24 hours
         tags: ["categories-design"],
     });
 

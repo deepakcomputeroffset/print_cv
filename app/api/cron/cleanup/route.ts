@@ -14,8 +14,8 @@ export async function GET(req: NextRequest) {
             );
         }
 
-        const daysOld =  30;
-        const folder:GCLOUD_FOLDER_NAME = "files"
+        const daysOld = 30;
+        const folder: GCLOUD_FOLDER_NAME = "files";
 
         // Delete old files
         const result = await deleteOldFiles(folder, daysOld);
@@ -33,7 +33,8 @@ export async function GET(req: NextRequest) {
         return NextResponse.json(
             {
                 error: "Internal server error",
-                message: error instanceof Error ? error.message : "Unknown error",
+                message:
+                    error instanceof Error ? error.message : "Unknown error",
             },
             { status: 500 },
         );

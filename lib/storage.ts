@@ -129,8 +129,9 @@ export const getOldFiles = async (
                 const createdDate = new Date(metadata.timeCreated);
                 return createdDate <= cutoffDate;
             })
-            .map((file) => 
-                `https://storage.googleapis.com/${process.env.bucketName}/${file.name}`
+            .map(
+                (file) =>
+                    `https://storage.googleapis.com/${process.env.bucketName}/${file.name}`,
             );
 
         return oldFileUrls;
