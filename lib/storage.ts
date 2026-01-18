@@ -103,3 +103,63 @@ export const deleteFiles = async (fileUrls: string[]): Promise<boolean[]> => {
         return fileUrls.map(() => false); // Return false for all files in case of a major failure
     }
 };
+
+/**
+ * Gets URLs of files older than specified number of days from Google Cloud Storage.
+ * @param folder - Optional folder to search in. If not provided, searches entire bucket.
+ * @param daysOld - Number of days (default: 30).
+ * @returns {Promise<string[]>} - Array of file URLs.
+ */
+export const getOldFiles = async (
+    folder?: GCLOUD_FOLDER_NAME,
+    daysOld: number = 30,
+): Promise<string[]> => {
+    try {
+        const cutoffDate = new Date();
+        cutoffDate.setDate(cutoffDate.getDate() - daysOld);
+
+        const [files] = await bucket.getFiles({
+            prefix: folder ? `${folder}/` : undefined,
+        });
+
+        const oldFileUrls = files
+            .filter((file) => {
+                const metadata = file.metadata;
+                if (!metadata.timeCreated) return false;
+                const createdDate = new Date(metadata.timeCreated);
+                return createdDate <= cutoffDate;
+            })
+            .map((file) => 
+                `https://storage.googleapis.com/${process.env.bucketName}/${file.name}`
+            );
+
+        return oldFileUrls;
+    } catch (error) {
+        console.error("Error fetching old files:", error);
+        return [];
+    }
+};
+
+/**
+ * Deletes files older than specified number of days from Google Cloud Storage.
+ * @param folder - Optional folder to search in. If not provided, searches entire bucket.
+ * @param daysOld - Number of days (default: 30).
+ * @returns {Promise<{deleted: number, failed: number}>} - Count of deleted and failed deletions.
+ */
+export const deleteOldFiles = async (
+    folder?: GCLOUD_FOLDER_NAME,
+    daysOld: number = 30,
+): Promise<{ deleted: number; failed: number }> => {
+    try {
+        const fileUrls = await getOldFiles(folder, daysOld);
+        const results = await deleteFiles(fileUrls);
+
+        const deleted = results.filter((result) => result === true).length;
+        const failed = results.filter((result) => result === false).length;
+
+        return { deleted, failed };
+    } catch (error) {
+        console.error("Error deleting old files:", error);
+        return { deleted: 0, failed: 0 };
+    }
+};
