@@ -11,6 +11,9 @@ export function useDispatch(props: QueryParams = {}) {
     const { data, isLoading, error, refetch } = useQuery({
         queryKey,
         queryFn: () => api.getOrdersToDispatch(props),
+        staleTime: 0,
+        refetchOnMount: true,
+        refetchOnWindowFocus: true,
     });
 
     // Update order dispatch status mutation

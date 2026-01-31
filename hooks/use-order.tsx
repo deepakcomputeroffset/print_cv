@@ -11,6 +11,9 @@ export function useOrder(props: QueryParams = {}) {
     const { data, isLoading, error, refetch } = useQuery({
         queryKey,
         queryFn: () => api.fetchOrders(props),
+        staleTime: 0,
+        refetchOnMount: true,
+        refetchOnWindowFocus: true,
     });
 
     const createMutation = useMutation({

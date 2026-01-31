@@ -220,12 +220,16 @@ export default async function CustomerWalletPage({
                                                     <TableCell className="py-2">
                                                         <div className="flex flex-col">
                                                             <ClientDate
-                                                                date={transaction.createdAt}
+                                                                date={
+                                                                    transaction.createdAt
+                                                                }
                                                                 formatString="MMM d, yyyy"
                                                                 className="text-xs font-medium"
                                                             />
                                                             <ClientDate
-                                                                date={transaction.createdAt}
+                                                                date={
+                                                                    transaction.createdAt
+                                                                }
                                                                 formatString="h:mm a"
                                                                 className="text-xs text-gray-500"
                                                             />
