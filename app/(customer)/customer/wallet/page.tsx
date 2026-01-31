@@ -10,7 +10,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { format } from "date-fns";
 import {
     IndianRupee,
     Wallet,
@@ -26,6 +25,7 @@ import { Badge } from "@/components/ui/badge";
 import { sourceSerif4 } from "@/lib/font";
 import Pagination from "@/components/pagination";
 import { NUMBER_PRECISION } from "@/lib/constants";
+import { ClientDate } from "@/components/client-date";
 
 const GradientBar = () => (
     <div className="h-1 w-8 bg-gradient-to-r from-primary to-blue-500 rounded-full mr-3" />
@@ -219,22 +219,16 @@ export default async function CustomerWalletPage({
                                                 >
                                                     <TableCell className="py-2">
                                                         <div className="flex flex-col">
-                                                            <span className="text-xs font-medium">
-                                                                {format(
-                                                                    new Date(
-                                                                        transaction.createdAt,
-                                                                    ),
-                                                                    "MMM d, yyyy",
-                                                                )}
-                                                            </span>
-                                                            <span className="text-xs text-gray-500">
-                                                                {format(
-                                                                    new Date(
-                                                                        transaction.createdAt,
-                                                                    ),
-                                                                    "h:mm a",
-                                                                )}
-                                                            </span>
+                                                            <ClientDate
+                                                                date={transaction.createdAt}
+                                                                formatString="MMM d, yyyy"
+                                                                className="text-xs font-medium"
+                                                            />
+                                                            <ClientDate
+                                                                date={transaction.createdAt}
+                                                                formatString="h:mm a"
+                                                                className="text-xs text-gray-500"
+                                                            />
                                                         </div>
                                                     </TableCell>
                                                     <TableCell className="py-2">

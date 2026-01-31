@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
-import { Lock, Phone, Shield } from "lucide-react";
+import { Lock, Phone, Shield, CheckCircle2 } from "lucide-react";
 
 const formSchema = z.object({
     phone: z.string({ required_error: "Enter phone number" }).trim().min(9),
@@ -30,6 +30,7 @@ const isDevelopment = process.env.NODE_ENV === "development";
 
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
     const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -47,14 +48,17 @@ export default function LoginPage() {
                 userType: "staff",
                 password: values.password,
                 callbackUrl: "/admin",
-                redirect: true,
+                redirect: false,
             });
             if (result?.error) {
                 toast.error("Invalid credentials");
                 return;
             }
-            router.push("/admin");
-            router.refresh();
+            setSuccess(true);
+            setTimeout(() => {
+                router.push("/admin");
+                router.refresh();
+            }, 200);
         } catch (error) {
             console.log(error);
             toast.error("Something went wrong");
@@ -99,72 +103,90 @@ export default function LoginPage() {
                             Sign in to access administration tools
                         </p>
 
-                        <Form {...form}>
-                            <form
-                                className="space-y-5"
-                                onSubmit={form.handleSubmit(onSubmit)}
+                        {success ? (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="p-6 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3"
                             >
-                                <FormField
-                                    control={form.control}
-                                    name="phone"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormControl>
-                                                <div className="relative">
-                                                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
-                                                    <Input
-                                                        placeholder="Admin phone number"
-                                                        {...field}
-                                                        disabled={loading}
-                                                        className="w-full pl-10 py-6 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
-                                                    />
-                                                </div>
-                                            </FormControl>
-                                            <FormMessage className="text-sm text-red-500 mt-1" />
-                                        </FormItem>
-                                    )}
-                                />
-
-                                <FormField
-                                    control={form.control}
-                                    name="password"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormControl>
-                                                <div className="relative">
-                                                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
-                                                    <Input
-                                                        {...field}
-                                                        placeholder="Admin password"
-                                                        type="password"
-                                                        disabled={loading}
-                                                        className="w-full pl-10 py-6 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
-                                                    />
-                                                </div>
-                                            </FormControl>
-                                            <FormMessage className="text-sm text-red-500 mt-1" />
-                                        </FormItem>
-                                    )}
-                                />
-
-                                <Button
-                                    type="submit"
-                                    disabled={loading}
-                                    className="w-full bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 text-white py-6 rounded-lg text-base font-medium transition-all duration-300 shadow-md hover:shadow-lg"
-                                >
-                                    {loading
-                                        ? "Authenticating..."
-                                        : "Admin Login"}
-                                </Button>
-
-                                <div className="text-center pt-3">
-                                    <p className="text-xs text-gray-500">
-                                        Restricted access for authorized
-                                        personnel only
+                                <CheckCircle2 className="h-5 w-5 text-green-600" />
+                                <div>
+                                    <p className="text-green-800 font-medium">
+                                        Login Successful!
+                                    </p>
+                                    <p className="text-green-600 text-sm">
+                                        Redirecting to admin panel...
                                     </p>
                                 </div>
-                            </form>
-                        </Form>
+                            </motion.div>
+                        ) : (
+                            <Form {...form}>
+                                <form
+                                    className="space-y-5"
+                                    onSubmit={form.handleSubmit(onSubmit)}
+                                >
+                                    <FormField
+                                        control={form.control}
+                                        name="phone"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormControl>
+                                                    <div className="relative">
+                                                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                                                        <Input
+                                                            placeholder="Admin phone number"
+                                                            {...field}
+                                                            disabled={loading}
+                                                            className="w-full pl-10 py-6 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
+                                                        />
+                                                    </div>
+                                                </FormControl>
+                                                <FormMessage className="text-sm text-red-500 mt-1" />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name="password"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormControl>
+                                                    <div className="relative">
+                                                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                                                        <Input
+                                                            {...field}
+                                                            placeholder="Admin password"
+                                                            type="password"
+                                                            disabled={loading}
+                                                            className="w-full pl-10 py-6 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
+                                                        />
+                                                    </div>
+                                                </FormControl>
+                                                <FormMessage className="text-sm text-red-500 mt-1" />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <Button
+                                        type="submit"
+                                        disabled={loading}
+                                        className="w-full bg-gradient-to-r from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-600 text-white py-6 rounded-lg text-base font-medium transition-all duration-300 shadow-md hover:shadow-lg"
+                                    >
+                                        {loading
+                                            ? "Authenticating..."
+                                            : "Admin Login"}
+                                    </Button>
+
+                                    <div className="text-center pt-3">
+                                        <p className="text-xs text-gray-500">
+                                            Restricted access for authorized
+                                            personnel only
+                                        </p>
+                                    </div>
+                                </form>
+                            </Form>
+                        )}
                     </div>
                 </motion.div>
             </div>

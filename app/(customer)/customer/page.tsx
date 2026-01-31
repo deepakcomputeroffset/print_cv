@@ -10,7 +10,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { format } from "date-fns";
 import {
     IndianRupee,
     Wallet,
@@ -30,6 +29,7 @@ import { cn } from "@/lib/utils";
 import { sourceSerif4 } from "@/lib/font";
 import { Badge } from "@/components/ui/badge";
 import { NUMBER_PRECISION } from "@/lib/constants";
+import { ClientDate } from "@/components/client-date";
 
 export const dynamic = "force-dynamic";
 
@@ -274,10 +274,10 @@ export default async function CustomerDashboard() {
                                                                 </p>
                                                                 <div className="flex items-center mt-1 text-xs text-gray-500">
                                                                     <Calendar className="h-3 w-3 mr-1" />
-                                                                    {format(
-                                                                        order?.createdAt,
-                                                                        "dd MMM yyyy",
-                                                                    )}
+                                                                    <ClientDate
+                                                                        date={order?.createdAt}
+                                                                        formatString="dd MMM yyyy, h:mm a"
+                                                                    />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -380,10 +380,10 @@ export default async function CustomerDashboard() {
                                                                     }
                                                                 </TableCell>
                                                                 <TableCell className="text-sm text-gray-600">
-                                                                    {format(
-                                                                        transaction?.createdAt,
-                                                                        "dd/MM/yyyy",
-                                                                    )}
+                                                                    <ClientDate
+                                                                        date={transaction?.createdAt}
+                                                                        formatString="dd/MM/yyyy, h:mm a"
+                                                                    />
                                                                 </TableCell>
                                                                 <TableCell>
                                                                     <div

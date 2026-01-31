@@ -338,6 +338,7 @@ export const CustomerRegisterForm = () => {
                                     <div className="relative">
                                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
                                         <Input
+                                            type="email"
                                             placeholder="your.email@example.com"
                                             {...field}
                                             disabled={loading}

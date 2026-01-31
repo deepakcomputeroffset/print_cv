@@ -122,7 +122,7 @@ export default function OrdersPage({
                                     <TableCell className="text-nowrap">
                                         {format(
                                             new Date(order?.createdAt),
-                                            "dd MMM yyyy",
+                                            "dd MMM yyyy, h:mm a",
                                         )}
                                     </TableCell>
                                     <TableCell>
