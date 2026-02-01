@@ -37,7 +37,14 @@ export async function middleware(request: NextRequest) {
         // Redirect unauthenticated users to the login page
         if (pathname.startsWith("/customer"))
             return NextResponse.redirect(new URL("/login", request.url));
+
+        console.log(pathname)
+
+        if(pathname !== "/free_design" && pathname.startsWith("/free_design/")){
+            return NextResponse.redirect(new URL("/login", request.url));
+        }
     }
+
     // Allow access to all other routes
     return NextResponse.next();
 }
@@ -51,5 +58,6 @@ export const config = {
         "/aregister",
         "/login",
         "/register",
+        "/free_design/:path*",
     ],
 };
