@@ -52,6 +52,7 @@ export interface productAttributeWithOptions extends productAttributeType {
 export interface ProductVariantType
     extends Omit<productItem, "createdAt" | "updatedAt" | "productId" | "id"> {
     productAttributeOptions: productAttributeValue[];
+    pricing: { qty: number; price: number }[];
 }
 
 export interface QueryParams extends z.infer<typeof QuerySchema> {}

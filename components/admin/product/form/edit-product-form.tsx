@@ -257,6 +257,8 @@ export function EditProductForm({
             const updated = variants.map((v, i) => ({
                 ...v,
                 isDefault: i === defaultIndex,
+                productAttributeOptions: v.productAttributeOptions ?? [],
+                pricing: v.pricing ?? [],
             }));
             setVariants(updated);
             form.setValue("productItems", updated, { shouldDirty: true });
