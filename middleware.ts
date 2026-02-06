@@ -38,9 +38,12 @@ export async function middleware(request: NextRequest) {
         if (pathname.startsWith("/customer"))
             return NextResponse.redirect(new URL("/login", request.url));
 
-        console.log(pathname)
+        console.log(pathname);
 
-        if(pathname !== "/free_design" && pathname.startsWith("/free_design/")){
+        if (
+            pathname !== "/free_design" &&
+            pathname.startsWith("/free_design/")
+        ) {
             return NextResponse.redirect(new URL("/login", request.url));
         }
     }

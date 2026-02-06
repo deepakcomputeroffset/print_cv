@@ -3,6 +3,7 @@ import { allowedRoleForJobManagement } from "@/lib/constants";
 import { ROLE } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
+import { notifyTaskAssigned } from "@/lib/sse/events";
 
 export async function PATCH(
     request: Request,
@@ -80,7 +81,16 @@ export async function PATCH(
             },
             include: {
                 assignee: true,
+                taskType: true,
+                job: true,
             },
+        });
+
+        // Notify newly assigned staff in real time
+        notifyTaskAssigned({
+            userId: staffId,
+            taskId: updatedTask.id,
+            title: `Task reassigned: ${updatedTask.taskType.name} (Job #${updatedTask.jobId})`,
         });
 
         return serverResponse({

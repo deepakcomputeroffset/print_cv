@@ -5,6 +5,7 @@ import { allowedRoleForJobManagement } from "@/lib/constants";
 import { ROLE } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
+import { notifyTaskAssigned } from "@/lib/sse/events";
 
 export async function POST(request: NextRequest) {
     try {
@@ -64,6 +65,15 @@ export async function POST(request: NextRequest) {
                 assignee: true,
             },
         });
+
+        // Notify assigned staff in real time
+        if (assignedStaffId) {
+            notifyTaskAssigned({
+                userId: assignedStaffId,
+                taskId: task.id,
+                title: `New task: ${task.taskType.name} (Job #${jobId})`,
+            });
+        }
 
         return serverResponse({
             success: true,

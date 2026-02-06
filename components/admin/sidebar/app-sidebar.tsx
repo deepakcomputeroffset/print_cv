@@ -10,6 +10,7 @@ import {
     SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
+    SidebarMenuBadge,
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarRail,
@@ -21,11 +22,14 @@ import { NavUser } from "./nav-user";
 import { Session } from "next-auth";
 import { routes } from "./routes";
 import { COMPANY_DATA } from "@/lib/constants";
+import { useNotificationStore } from "@/provider/notification.provider";
 
 export function AppSidebar({ session }: { session: Session | null }) {
     const currentPath = usePathname();
     const isRouteActive = (pattern: RegExp) => pattern.test(currentPath);
     const { isMobile, toggleSidebar, state } = useSidebar();
+    const reviewCount = useNotificationStore((s) => s.reviewCount);
+    const taskCount = useNotificationStore((s) => s.taskCount);
 
     return (
         <Sidebar
@@ -102,6 +106,22 @@ export function AppSidebar({ session }: { session: Session | null }) {
                                                 </span>
                                             </Link>
                                         </SidebarMenuButton>
+                                        {item.title === "Review Orders" &&
+                                            reviewCount > 0 && (
+                                                <SidebarMenuBadge className="bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center">
+                                                    {reviewCount > 99
+                                                        ? "99+"
+                                                        : reviewCount}
+                                                </SidebarMenuBadge>
+                                            )}
+                                        {item.title === "Tasks" &&
+                                            taskCount > 0 && (
+                                                <SidebarMenuBadge className="bg-blue-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center">
+                                                    {taskCount > 99
+                                                        ? "99+"
+                                                        : taskCount}
+                                                </SidebarMenuBadge>
+                                            )}
                                     </SidebarMenuItem>
                                 ))}
                         </SidebarMenu>

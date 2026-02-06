@@ -3,6 +3,7 @@ import serverResponse from "@/lib/serverResponse";
 import { Prisma } from "@/lib/prisma";
 import { NextRequest } from "next/server";
 import { STATUS } from "@prisma/client";
+import { notifyNewOrderForReview } from "@/lib/sse/events";
 
 export async function POST(request: NextRequest) {
     try {
@@ -110,6 +111,13 @@ export async function POST(request: NextRequest) {
                 status: STATUS.FILE_UPLOADED,
                 updatedAt: new Date(),
             },
+        });
+
+        // Notify admins/order managers that files are ready for review
+        notifyNewOrderForReview({
+            orderId: updatedOrder.id,
+            customerName: session.user.customer.name ?? "Customer",
+            productName: "File uploaded",
         });
 
         return serverResponse({

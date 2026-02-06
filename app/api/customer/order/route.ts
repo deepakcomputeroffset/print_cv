@@ -11,6 +11,7 @@ import {
     Prisma as PrismaType,
 } from "@prisma/client";
 import { placeOrder } from "@/lib/placeOrder";
+import { notifyNewOrderForReview } from "@/lib/sse/events";
 
 function calculateProductPrice(
     productItem: {
@@ -213,6 +214,13 @@ export async function POST(request: Request) {
             basePrice,
             fileOption,
         );
+
+        // Notify admins/order managers in real time
+        notifyNewOrderForReview({
+            orderId: order.id,
+            customerName: session.user.customer.name ?? "Customer",
+            productName: order.productItem?.product?.name,
+        });
 
         return serverResponse({
             status: 201,
