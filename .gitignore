@@ -47,3 +47,5 @@ upload_scripts/
 
 # database backups
 /backups/
+/scripts/snapshot/
+/scripts/snapshots/
