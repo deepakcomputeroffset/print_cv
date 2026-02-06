@@ -16,6 +16,7 @@ export const productItemSchema = z.object({
         })
         .min(0),
     isAvailable: z.boolean().default(true),
+    isDefault: z.boolean().default(false),
     pricing: z.array(productPriceSchema),
     productAttributeOptions: z.array(
         z.object({

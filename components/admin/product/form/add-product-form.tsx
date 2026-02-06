@@ -221,11 +221,24 @@ export function ProductForm() {
             pricing: pricing,
             uploadGroupId: -1,
             isAvailable: form?.getValues("isAvailable"),
+            isDefault: index === 0,
         }));
 
         setVariants(newVariants);
         form.setValue("productItems", newVariants, { shouldDirty: true });
     }, [selectedAttributes, selectedOptions, pricing]);
+
+    const handleSetDefault = useCallback(
+        (defaultIndex: number) => {
+            const updated = variants.map((v, i) => ({
+                ...v,
+                isDefault: i === defaultIndex,
+            }));
+            setVariants(updated);
+            form.setValue("productItems", updated, { shouldDirty: true });
+        },
+        [variants, form],
+    );
 
     useEffect(() => {
         if (selectedAttributes?.length > 0 && selectedOptions?.length > 0)
@@ -474,6 +487,7 @@ export function ProductForm() {
                         getAttributeNameById={getAttributeNameById}
                         pricing={pricing}
                         uploadGroups={uploadGroups}
+                        onSetDefault={handleSetDefault}
                     />
                 )}
 

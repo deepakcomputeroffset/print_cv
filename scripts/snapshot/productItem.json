@@ -1,0 +1,4295 @@
+[
+    {
+        "id": 1204,
+        "productId": 16,
+        "sku": "TMU-58",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 925,
+        "productId": 50,
+        "sku": "VC_Gloss_coated_small-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-01T12:08:05.317Z",
+        "updatedAt": "2025-08-18T09:11:21.832Z"
+    },
+    {
+        "id": 1301,
+        "productId": 21,
+        "sku": "E68-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:13:55.027Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1302,
+        "productId": 21,
+        "sku": "E68-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:13:55.027Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 689,
+        "productId": 56,
+        "sku": "sl_sc-28",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 690,
+        "productId": 56,
+        "sku": "sl_sc-29",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 691,
+        "productId": 56,
+        "sku": "sl_sc-30",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 662,
+        "productId": 56,
+        "sku": "sl_sc-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 663,
+        "productId": 56,
+        "sku": "sl_sc-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 664,
+        "productId": 56,
+        "sku": "sl_sc-3",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 665,
+        "productId": 56,
+        "sku": "sl_sc-4",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 666,
+        "productId": 56,
+        "sku": "sl_sc-5",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 667,
+        "productId": 56,
+        "sku": "sl_sc-6",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 603,
+        "productId": 33,
+        "sku": "BB3-50",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 604,
+        "productId": 33,
+        "sku": "BB3-51",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 926,
+        "productId": 50,
+        "sku": "VC_Gloss_coated_small-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-01T12:08:05.317Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 1111,
+        "productId": 61,
+        "sku": "LH100DEO-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:58:21.954Z",
+        "updatedAt": "2025-09-14T14:26:46.723Z"
+    },
+    {
+        "id": 1112,
+        "productId": 61,
+        "sku": "LH100DEO-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:58:21.954Z",
+        "updatedAt": "2025-09-14T14:26:46.723Z"
+    },
+    {
+        "id": 1113,
+        "productId": 61,
+        "sku": "LH100DEO-3",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:58:21.954Z",
+        "updatedAt": "2025-09-14T14:26:46.723Z"
+    },
+    {
+        "id": 605,
+        "productId": 33,
+        "sku": "BB3-52",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 606,
+        "productId": 33,
+        "sku": "BB3-53",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 903,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-29",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 895,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-21",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 905,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-31",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 897,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-23",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 1237,
+        "productId": 57,
+        "sku": "TM-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1238,
+        "productId": 57,
+        "sku": "TM-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1239,
+        "productId": 57,
+        "sku": "TM-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1240,
+        "productId": 57,
+        "sku": "TM-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1241,
+        "productId": 57,
+        "sku": "TM-5",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1242,
+        "productId": 57,
+        "sku": "TM-6",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1243,
+        "productId": 57,
+        "sku": "TM-7",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1244,
+        "productId": 57,
+        "sku": "TM-8",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 607,
+        "productId": 33,
+        "sku": "BB3-54",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 1322,
+        "productId": 63,
+        "sku": "pvcwcm-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:35:46.507Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1323,
+        "productId": 63,
+        "sku": "pvcwcm-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:35:46.507Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1324,
+        "productId": 63,
+        "sku": "pvcwcm-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:35:46.507Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1325,
+        "productId": 63,
+        "sku": "pvcwcm-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:35:46.507Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1334,
+        "productId": 65,
+        "sku": "pvcwcmb-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1335,
+        "productId": 65,
+        "sku": "pvcwcmb-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1337,
+        "productId": 65,
+        "sku": "pvcwcmb-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1245,
+        "productId": 57,
+        "sku": "TM-9",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1246,
+        "productId": 57,
+        "sku": "TM-10",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1247,
+        "productId": 57,
+        "sku": "TM-11",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1248,
+        "productId": 57,
+        "sku": "TM-12",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1249,
+        "productId": 57,
+        "sku": "TM-13",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1250,
+        "productId": 57,
+        "sku": "TM-14",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1251,
+        "productId": 57,
+        "sku": "TM-15",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1252,
+        "productId": 57,
+        "sku": "TM-16",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 891,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-17",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 899,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-25",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 901,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-27",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 893,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-19",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 892,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-18",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 894,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-20",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 896,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-22",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 898,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-24",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 900,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-26",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 902,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-28",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 904,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-30",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 1253,
+        "productId": 57,
+        "sku": "TM-17",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1254,
+        "productId": 57,
+        "sku": "TM-18",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1255,
+        "productId": 57,
+        "sku": "TM-19",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 927,
+        "productId": 50,
+        "sku": "VC_Gloss_coated_small-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-01T12:08:05.317Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1256,
+        "productId": 57,
+        "sku": "TM-20",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1257,
+        "productId": 57,
+        "sku": "TM-21",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1258,
+        "productId": 57,
+        "sku": "TM-22",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1259,
+        "productId": 57,
+        "sku": "TM-23",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1260,
+        "productId": 57,
+        "sku": "TM-24",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1261,
+        "productId": 57,
+        "sku": "TM-25",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1262,
+        "productId": 57,
+        "sku": "TM-26",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1263,
+        "productId": 57,
+        "sku": "TM-27",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1264,
+        "productId": 57,
+        "sku": "TM-28",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1265,
+        "productId": 57,
+        "sku": "TM-29",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1266,
+        "productId": 57,
+        "sku": "TM-30",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:30:05.968Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1114,
+        "productId": 61,
+        "sku": "LH100DEO-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:58:21.954Z",
+        "updatedAt": "2025-09-14T14:26:46.723Z"
+    },
+    {
+        "id": 1115,
+        "productId": 61,
+        "sku": "LH100DEO-5",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:58:21.954Z",
+        "updatedAt": "2025-09-14T14:26:46.723Z"
+    },
+    {
+        "id": 1338,
+        "productId": 65,
+        "sku": "pvcwcmb-5",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1339,
+        "productId": 65,
+        "sku": "pvcwcmb-6",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1341,
+        "productId": 65,
+        "sku": "pvcwcmb-8",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1342,
+        "productId": 65,
+        "sku": "pvcwcmb-9",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1343,
+        "productId": 65,
+        "sku": "pvcwcmb-10",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1345,
+        "productId": 65,
+        "sku": "pvcwcmb-12",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1346,
+        "productId": 65,
+        "sku": "pvcwcmb-13",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1347,
+        "productId": 65,
+        "sku": "pvcwcmb-14",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1349,
+        "productId": 65,
+        "sku": "pvcwcmb-16",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1328,
+        "productId": 64,
+        "sku": "pvcgcb-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:44:47.220Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1332,
+        "productId": 64,
+        "sku": "pvcgcb-7",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:44:47.220Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1336,
+        "productId": 65,
+        "sku": "pvcwcmb-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1117,
+        "productId": 14,
+        "sku": "TGS-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1118,
+        "productId": 14,
+        "sku": "TGS-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1119,
+        "productId": 14,
+        "sku": "TGS-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1120,
+        "productId": 14,
+        "sku": "TGS-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1121,
+        "productId": 14,
+        "sku": "TGS-5",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1122,
+        "productId": 14,
+        "sku": "TGS-6",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1123,
+        "productId": 14,
+        "sku": "TGS-7",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1124,
+        "productId": 14,
+        "sku": "TGS-8",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1125,
+        "productId": 14,
+        "sku": "TGS-9",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1126,
+        "productId": 14,
+        "sku": "TGS-10",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1127,
+        "productId": 14,
+        "sku": "TGS-11",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1128,
+        "productId": 14,
+        "sku": "TGS-12",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1129,
+        "productId": 14,
+        "sku": "TGS-13",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1130,
+        "productId": 14,
+        "sku": "TGS-14",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1267,
+        "productId": 17,
+        "sku": "EM9.7x4.2-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:40:19.515Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1268,
+        "productId": 17,
+        "sku": "EM9.7x4.2-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:40:19.515Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1269,
+        "productId": 17,
+        "sku": "EM9.7x4.2-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:40:19.515Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1270,
+        "productId": 17,
+        "sku": "EM9.7x4.2-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:40:19.515Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1271,
+        "productId": 17,
+        "sku": "EM9.7x4.2-5",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:40:19.515Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1272,
+        "productId": 17,
+        "sku": "EM9.7x4.2-6",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:40:19.515Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1273,
+        "productId": 17,
+        "sku": "EM9.7x4.2-7",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:40:19.515Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1069,
+        "productId": 58,
+        "sku": "PM90GSM-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T11:33:07.413Z",
+        "updatedAt": "2025-10-24T11:35:57.747Z"
+    },
+    {
+        "id": 1070,
+        "productId": 58,
+        "sku": "PM90GSM-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T11:33:07.413Z",
+        "updatedAt": "2025-10-24T11:35:57.747Z"
+    },
+    {
+        "id": 1377,
+        "productId": 72,
+        "sku": "sbsmb-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-30T16:42:02.324Z"
+    },
+    {
+        "id": 1378,
+        "productId": 72,
+        "sku": "sbsmb-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-30T16:42:02.324Z"
+    },
+    {
+        "id": 1379,
+        "productId": 72,
+        "sku": "sbsmb-3",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-30T16:42:02.324Z"
+    },
+    {
+        "id": 1380,
+        "productId": 72,
+        "sku": "sbsmb-4",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-30T16:42:02.324Z"
+    },
+    {
+        "id": 1381,
+        "productId": 72,
+        "sku": "sbsmb-5",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-30T16:42:02.324Z"
+    },
+    {
+        "id": 1382,
+        "productId": 72,
+        "sku": "sbsmb-6",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-30T16:42:02.324Z"
+    },
+    {
+        "id": 1383,
+        "productId": 72,
+        "sku": "sbsmb-7",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-30T16:42:02.324Z"
+    },
+    {
+        "id": 1384,
+        "productId": 72,
+        "sku": "sbsmb-8",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-30T16:42:02.324Z"
+    },
+    {
+        "id": 1385,
+        "productId": 72,
+        "sku": "sbsmb-9",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-30T16:42:02.324Z"
+    },
+    {
+        "id": 1386,
+        "productId": 72,
+        "sku": "sbsmb-10",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-30T16:42:02.324Z"
+    },
+    {
+        "id": 1387,
+        "productId": 72,
+        "sku": "sbsmb-11",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-30T16:42:02.324Z"
+    },
+    {
+        "id": 1388,
+        "productId": 72,
+        "sku": "sbsmb-12",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-30T16:42:02.324Z"
+    },
+    {
+        "id": 1371,
+        "productId": 71,
+        "sku": "sbsgb-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-10-30T16:30:08.973Z",
+        "updatedAt": "2025-10-30T16:42:45.739Z"
+    },
+    {
+        "id": 1372,
+        "productId": 71,
+        "sku": "sbsgb-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-10-30T16:30:08.973Z",
+        "updatedAt": "2025-10-30T16:42:45.739Z"
+    },
+    {
+        "id": 1373,
+        "productId": 71,
+        "sku": "sbsgb-3",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-10-30T16:30:08.973Z",
+        "updatedAt": "2025-10-30T16:42:45.739Z"
+    },
+    {
+        "id": 1374,
+        "productId": 71,
+        "sku": "sbsgb-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-10-30T16:30:08.973Z",
+        "updatedAt": "2025-10-30T16:42:45.739Z"
+    },
+    {
+        "id": 1375,
+        "productId": 71,
+        "sku": "sbsgb-5",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-10-30T16:30:08.973Z",
+        "updatedAt": "2025-10-30T16:42:45.739Z"
+    },
+    {
+        "id": 1376,
+        "productId": 71,
+        "sku": "sbsgb-6",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-10-30T16:30:08.973Z",
+        "updatedAt": "2025-10-30T16:42:45.739Z"
+    },
+    {
+        "id": 1274,
+        "productId": 17,
+        "sku": "EM9.7x4.2-8",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:40:19.515Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1275,
+        "productId": 17,
+        "sku": "EM9.7x4.2-9",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:40:19.515Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 881,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-7",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 876,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 878,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 880,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-6",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1276,
+        "productId": 17,
+        "sku": "EM9.7x4.2-10",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:40:19.515Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1277,
+        "productId": 17,
+        "sku": "EM9.7x4.2-11",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:40:19.515Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1278,
+        "productId": 17,
+        "sku": "EM9.7x4.2-12",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:40:19.515Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1303,
+        "productId": 22,
+        "sku": "E86106-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:17:10.813Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1304,
+        "productId": 22,
+        "sku": "E86106-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:17:10.813Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1305,
+        "productId": 22,
+        "sku": "E86106-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:17:10.813Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1306,
+        "productId": 22,
+        "sku": "E86106-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:17:10.813Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 668,
+        "productId": 56,
+        "sku": "sl_sc-7",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 669,
+        "productId": 56,
+        "sku": "sl_sc-8",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 670,
+        "productId": 56,
+        "sku": "sl_sc-9",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 671,
+        "productId": 56,
+        "sku": "sl_sc-10",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 672,
+        "productId": 56,
+        "sku": "sl_sc-11",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 673,
+        "productId": 56,
+        "sku": "sl_sc-12",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 674,
+        "productId": 56,
+        "sku": "sl_sc-13",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 675,
+        "productId": 56,
+        "sku": "sl_sc-14",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 676,
+        "productId": 56,
+        "sku": "sl_sc-15",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 677,
+        "productId": 56,
+        "sku": "sl_sc-16",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 678,
+        "productId": 56,
+        "sku": "sl_sc-17",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 679,
+        "productId": 56,
+        "sku": "sl_sc-18",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 680,
+        "productId": 56,
+        "sku": "sl_sc-19",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 681,
+        "productId": 56,
+        "sku": "sl_sc-20",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 682,
+        "productId": 56,
+        "sku": "sl_sc-21",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 683,
+        "productId": 56,
+        "sku": "sl_sc-22",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 684,
+        "productId": 56,
+        "sku": "sl_sc-23",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 685,
+        "productId": 56,
+        "sku": "sl_sc-24",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 686,
+        "productId": 56,
+        "sku": "sl_sc-25",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 687,
+        "productId": 56,
+        "sku": "sl_sc-26",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 688,
+        "productId": 56,
+        "sku": "sl_sc-27",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-08-18T09:26:24.731Z"
+    },
+    {
+        "id": 1326,
+        "productId": 64,
+        "sku": "pvcgcb-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:44:47.220Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1327,
+        "productId": 64,
+        "sku": "pvcgcb-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:44:47.220Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1329,
+        "productId": 64,
+        "sku": "pvcgcb-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:44:47.220Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1330,
+        "productId": 64,
+        "sku": "pvcgcb-5",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:44:47.220Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1331,
+        "productId": 64,
+        "sku": "pvcgcb-6",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:44:47.220Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1333,
+        "productId": 64,
+        "sku": "pvcgcb-8",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:44:47.220Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1356,
+        "productId": 66,
+        "sku": "LH70-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-09-14T13:55:24.974Z",
+        "updatedAt": "2025-09-14T13:55:24.974Z"
+    },
+    {
+        "id": 1357,
+        "productId": 66,
+        "sku": "LH70-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-09-14T13:55:24.974Z",
+        "updatedAt": "2025-09-14T13:55:24.974Z"
+    },
+    {
+        "id": 1358,
+        "productId": 66,
+        "sku": "LH70-3",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-09-14T13:55:24.974Z",
+        "updatedAt": "2025-09-14T13:55:24.974Z"
+    },
+    {
+        "id": 1169,
+        "productId": 16,
+        "sku": "TMU-23",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1171,
+        "productId": 16,
+        "sku": "TMU-25",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1205,
+        "productId": 16,
+        "sku": "TMU-59",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1173,
+        "productId": 16,
+        "sku": "TMU-27",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1172,
+        "productId": 16,
+        "sku": "TMU-26",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1198,
+        "productId": 16,
+        "sku": "TMU-52",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1201,
+        "productId": 16,
+        "sku": "TMU-55",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1170,
+        "productId": 16,
+        "sku": "TMU-24",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1168,
+        "productId": 16,
+        "sku": "TMU-22",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1174,
+        "productId": 16,
+        "sku": "TMU-28",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1197,
+        "productId": 16,
+        "sku": "TMU-51",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1203,
+        "productId": 16,
+        "sku": "TMU-57",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1199,
+        "productId": 16,
+        "sku": "TMU-53",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1176,
+        "productId": 16,
+        "sku": "TMU-30",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1206,
+        "productId": 16,
+        "sku": "TMU-60",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1175,
+        "productId": 16,
+        "sku": "TMU-29",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1200,
+        "productId": 16,
+        "sku": "TMU-54",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1167,
+        "productId": 16,
+        "sku": "TMU-21",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1071,
+        "productId": 59,
+        "sku": "PM115GSM-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T11:46:52.973Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 1202,
+        "productId": 16,
+        "sku": "TMU-56",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1131,
+        "productId": 14,
+        "sku": "TGS-15",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1132,
+        "productId": 14,
+        "sku": "TGS-16",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1133,
+        "productId": 14,
+        "sku": "TGS-17",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1134,
+        "productId": 14,
+        "sku": "TGS-18",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 534,
+        "productId": 31,
+        "sku": "AtmGloss-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-27T10:04:17.608Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 535,
+        "productId": 31,
+        "sku": "AtmGloss-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-27T10:04:17.608Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1072,
+        "productId": 59,
+        "sku": "PM115GSM-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T11:46:52.973Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1155,
+        "productId": 16,
+        "sku": "TMU-9",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1152,
+        "productId": 16,
+        "sku": "TMU-6",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1181,
+        "productId": 16,
+        "sku": "TMU-35",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1211,
+        "productId": 16,
+        "sku": "TMU-65",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1178,
+        "productId": 16,
+        "sku": "TMU-32",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1156,
+        "productId": 16,
+        "sku": "TMU-10",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1210,
+        "productId": 16,
+        "sku": "TMU-64",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1208,
+        "productId": 16,
+        "sku": "TMU-62",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1184,
+        "productId": 16,
+        "sku": "TMU-38",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1183,
+        "productId": 16,
+        "sku": "TMU-37",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1149,
+        "productId": 16,
+        "sku": "TMU-3",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1148,
+        "productId": 16,
+        "sku": "TMU-2",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1154,
+        "productId": 16,
+        "sku": "TMU-8",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1182,
+        "productId": 16,
+        "sku": "TMU-36",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1212,
+        "productId": 16,
+        "sku": "TMU-66",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1209,
+        "productId": 16,
+        "sku": "TMU-63",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1150,
+        "productId": 16,
+        "sku": "TMU-4",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1177,
+        "productId": 16,
+        "sku": "TMU-31",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1151,
+        "productId": 16,
+        "sku": "TMU-5",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1186,
+        "productId": 16,
+        "sku": "TMU-40",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1207,
+        "productId": 16,
+        "sku": "TMU-61",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1189,
+        "productId": 16,
+        "sku": "TMU-43",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1164,
+        "productId": 16,
+        "sku": "TMU-18",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1158,
+        "productId": 16,
+        "sku": "TMU-12",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1166,
+        "productId": 16,
+        "sku": "TMU-20",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1196,
+        "productId": 16,
+        "sku": "TMU-50",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1163,
+        "productId": 16,
+        "sku": "TMU-17",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1161,
+        "productId": 16,
+        "sku": "TMU-15",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1187,
+        "productId": 16,
+        "sku": "TMU-41",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1195,
+        "productId": 16,
+        "sku": "TMU-49",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1159,
+        "productId": 16,
+        "sku": "TMU-13",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1192,
+        "productId": 16,
+        "sku": "TMU-46",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1188,
+        "productId": 16,
+        "sku": "TMU-42",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1191,
+        "productId": 16,
+        "sku": "TMU-45",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1194,
+        "productId": 16,
+        "sku": "TMU-48",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1160,
+        "productId": 16,
+        "sku": "TMU-14",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1165,
+        "productId": 16,
+        "sku": "TMU-19",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1193,
+        "productId": 16,
+        "sku": "TMU-47",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1162,
+        "productId": 16,
+        "sku": "TMU-16",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1190,
+        "productId": 16,
+        "sku": "TMU-44",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1157,
+        "productId": 16,
+        "sku": "TMU-11",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1135,
+        "productId": 14,
+        "sku": "TGS-19",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1136,
+        "productId": 14,
+        "sku": "TGS-20",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1137,
+        "productId": 14,
+        "sku": "TGS-21",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1138,
+        "productId": 14,
+        "sku": "TGS-22",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1139,
+        "productId": 14,
+        "sku": "TGS-23",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1140,
+        "productId": 14,
+        "sku": "TGS-24",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1141,
+        "productId": 14,
+        "sku": "TGS-25",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1142,
+        "productId": 14,
+        "sku": "TGS-26",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1143,
+        "productId": 14,
+        "sku": "TGS-27",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1144,
+        "productId": 14,
+        "sku": "TGS-28",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1145,
+        "productId": 14,
+        "sku": "TGS-29",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 1146,
+        "productId": 14,
+        "sku": "TGS-30",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-27T17:14:03.254Z",
+        "updatedAt": "2025-08-18T09:17:53.059Z"
+    },
+    {
+        "id": 626,
+        "productId": 32,
+        "sku": "BB2-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 1359,
+        "productId": 67,
+        "sku": "LH90-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-09-14T14:10:17.231Z",
+        "updatedAt": "2025-09-14T14:10:17.231Z"
+    },
+    {
+        "id": 1360,
+        "productId": 67,
+        "sku": "LH90-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-09-14T14:10:17.231Z",
+        "updatedAt": "2025-09-14T14:10:17.231Z"
+    },
+    {
+        "id": 1361,
+        "productId": 67,
+        "sku": "LH90-3",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-09-14T14:10:17.231Z",
+        "updatedAt": "2025-09-14T14:10:17.231Z"
+    },
+    {
+        "id": 1074,
+        "productId": 60,
+        "sku": "PM170GSM-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T11:53:52.850Z",
+        "updatedAt": "2025-09-10T13:59:01.229Z"
+    },
+    {
+        "id": 882,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-8",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 884,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-10",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 886,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-12",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 888,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-14",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 890,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-16",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1232,
+        "productId": 16,
+        "sku": "TMU-86",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1236,
+        "productId": 16,
+        "sku": "TMU-90",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1228,
+        "productId": 16,
+        "sku": "TMU-82",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1229,
+        "productId": 16,
+        "sku": "TMU-83",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1230,
+        "productId": 16,
+        "sku": "TMU-84",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1234,
+        "productId": 16,
+        "sku": "TMU-88",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1231,
+        "productId": 16,
+        "sku": "TMU-85",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1227,
+        "productId": 16,
+        "sku": "TMU-81",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1235,
+        "productId": 16,
+        "sku": "TMU-89",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 1233,
+        "productId": 16,
+        "sku": "TMU-87",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 644,
+        "productId": 53,
+        "sku": "E_G-1",
+        "isAvailable": false,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T07:50:41.425Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 645,
+        "productId": 53,
+        "sku": "E_G-2",
+        "isAvailable": false,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T07:50:41.425Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1279,
+        "productId": 18,
+        "sku": "EM10.75x4.75-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:57:14.107Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1280,
+        "productId": 18,
+        "sku": "EM10.75x4.75-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:57:14.107Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1281,
+        "productId": 18,
+        "sku": "EM10.75x4.75-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:57:14.107Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1282,
+        "productId": 18,
+        "sku": "EM10.75x4.75-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T07:57:14.107Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1307,
+        "productId": 23,
+        "sku": "E94124-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:20:35.610Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1308,
+        "productId": 23,
+        "sku": "E94124-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:20:35.610Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1309,
+        "productId": 23,
+        "sku": "E94124-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:20:35.610Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1310,
+        "productId": 23,
+        "sku": "E94124-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:20:35.610Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1311,
+        "productId": 23,
+        "sku": "E94124-5",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:20:35.610Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1312,
+        "productId": 23,
+        "sku": "E94124-6",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:20:35.610Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1313,
+        "productId": 23,
+        "sku": "E94124-7",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:20:35.610Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1314,
+        "productId": 23,
+        "sku": "E94124-8",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:20:35.610Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1315,
+        "productId": 23,
+        "sku": "E94124-9",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:20:35.610Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1316,
+        "productId": 23,
+        "sku": "E94124-10",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:20:35.610Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1317,
+        "productId": 23,
+        "sku": "E94124-11",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:20:35.610Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1318,
+        "productId": 23,
+        "sku": "E94124-12",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:20:35.610Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1295,
+        "productId": 20,
+        "sku": "E57-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:10:35.488Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1215,
+        "productId": 16,
+        "sku": "TMU-69",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1216,
+        "productId": 16,
+        "sku": "TMU-70",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1214,
+        "productId": 16,
+        "sku": "TMU-68",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1213,
+        "productId": 16,
+        "sku": "TMU-67",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1217,
+        "productId": 16,
+        "sku": "TMU-71",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1225,
+        "productId": 16,
+        "sku": "TMU-79",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1223,
+        "productId": 16,
+        "sku": "TMU-77",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1226,
+        "productId": 16,
+        "sku": "TMU-80",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1224,
+        "productId": 16,
+        "sku": "TMU-78",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1220,
+        "productId": 16,
+        "sku": "TMU-74",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1219,
+        "productId": 16,
+        "sku": "TMU-73",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1218,
+        "productId": 16,
+        "sku": "TMU-72",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1221,
+        "productId": 16,
+        "sku": "TMU-75",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1222,
+        "productId": 16,
+        "sku": "TMU-76",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 1296,
+        "productId": 20,
+        "sku": "E57-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:10:35.488Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1297,
+        "productId": 20,
+        "sku": "E57-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:10:35.488Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1298,
+        "productId": 20,
+        "sku": "E57-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:10:35.488Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1299,
+        "productId": 20,
+        "sku": "E57-5",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:10:35.488Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1300,
+        "productId": 20,
+        "sku": "E57-6",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:10:35.488Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 627,
+        "productId": 32,
+        "sku": "BB2-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 628,
+        "productId": 32,
+        "sku": "BB2-3",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 629,
+        "productId": 32,
+        "sku": "BB2-4",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 630,
+        "productId": 32,
+        "sku": "BB2-5",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 631,
+        "productId": 32,
+        "sku": "BB2-6",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 632,
+        "productId": 32,
+        "sku": "BB2-7",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 633,
+        "productId": 32,
+        "sku": "BB2-8",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 634,
+        "productId": 32,
+        "sku": "BB2-9",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 635,
+        "productId": 32,
+        "sku": "BB2-10",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 636,
+        "productId": 32,
+        "sku": "BB2-11",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 637,
+        "productId": 32,
+        "sku": "BB2-12",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 638,
+        "productId": 32,
+        "sku": "BB2-13",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 639,
+        "productId": 32,
+        "sku": "BB2-14",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 640,
+        "productId": 32,
+        "sku": "BB2-15",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 641,
+        "productId": 32,
+        "sku": "BB2-16",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 642,
+        "productId": 32,
+        "sku": "BB2-17",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 643,
+        "productId": 32,
+        "sku": "BB2-18",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:35:27.686Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 568,
+        "productId": 33,
+        "sku": "BB3-15",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 569,
+        "productId": 33,
+        "sku": "BB3-16",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 570,
+        "productId": 33,
+        "sku": "BB3-17",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 571,
+        "productId": 33,
+        "sku": "BB3-18",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 572,
+        "productId": 33,
+        "sku": "BB3-19",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 573,
+        "productId": 33,
+        "sku": "BB3-20",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 574,
+        "productId": 33,
+        "sku": "BB3-21",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 575,
+        "productId": 33,
+        "sku": "BB3-22",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 576,
+        "productId": 33,
+        "sku": "BB3-23",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 577,
+        "productId": 33,
+        "sku": "BB3-24",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 578,
+        "productId": 33,
+        "sku": "BB3-25",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 1073,
+        "productId": 60,
+        "sku": "PM170GSM-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T11:53:52.850Z",
+        "updatedAt": "2025-09-10T13:59:01.229Z"
+    },
+    {
+        "id": 318,
+        "productId": 35,
+        "sku": "VC_Matt+UV-3",
+        "isAvailable": true,
+        "uploadGroupId": 4,
+        "createdAt": "2025-05-23T18:18:22.087Z",
+        "updatedAt": "2025-08-18T09:10:13.290Z"
+    },
+    {
+        "id": 316,
+        "productId": 35,
+        "sku": "VC_Matt+UV-1",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-05-23T18:18:22.087Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 648,
+        "productId": 54,
+        "sku": "sl_whc-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T07:59:11.851Z",
+        "updatedAt": "2025-08-18T09:26:32.168Z"
+    },
+    {
+        "id": 1185,
+        "productId": 16,
+        "sku": "TMU-39",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 354,
+        "productId": 39,
+        "sku": "VC_Gloss-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-23T18:50:21.209Z",
+        "updatedAt": "2025-08-18T09:11:21.832Z"
+    },
+    {
+        "id": 365,
+        "productId": 52,
+        "sku": "VC_Without_lamination_small-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-23T19:19:02.936Z",
+        "updatedAt": "2025-08-18T09:11:21.832Z"
+    },
+    {
+        "id": 362,
+        "productId": 51,
+        "sku": "VC_Without_lamination-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-23T19:16:36.855Z",
+        "updatedAt": "2025-08-18T09:11:21.832Z"
+    },
+    {
+        "id": 357,
+        "productId": 49,
+        "sku": "VC_Gloss_coated-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-23T19:08:23.910Z",
+        "updatedAt": "2025-08-18T09:11:21.832Z"
+    },
+    {
+        "id": 1293,
+        "productId": 19,
+        "sku": "E94-11",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:07:16.477Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1294,
+        "productId": 19,
+        "sku": "E94-12",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:07:16.477Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1283,
+        "productId": 19,
+        "sku": "E94-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:07:16.477Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1284,
+        "productId": 19,
+        "sku": "E94-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:07:16.477Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1285,
+        "productId": 19,
+        "sku": "E94-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:07:16.477Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1286,
+        "productId": 19,
+        "sku": "E94-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:07:16.477Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1287,
+        "productId": 19,
+        "sku": "E94-5",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:07:16.477Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1288,
+        "productId": 19,
+        "sku": "E94-6",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:07:16.477Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1289,
+        "productId": 19,
+        "sku": "E94-7",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:07:16.477Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1290,
+        "productId": 19,
+        "sku": "E94-8",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:07:16.477Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1291,
+        "productId": 19,
+        "sku": "E94-9",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:07:16.477Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 1292,
+        "productId": 19,
+        "sku": "E94-10",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-28T08:07:16.477Z",
+        "updatedAt": "2025-08-18T09:22:39.594Z"
+    },
+    {
+        "id": 655,
+        "productId": 55,
+        "sku": "sl_rc-6",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-08-18T09:25:48.789Z"
+    },
+    {
+        "id": 656,
+        "productId": 55,
+        "sku": "sl_rc-7",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-08-18T09:25:48.789Z"
+    },
+    {
+        "id": 657,
+        "productId": 55,
+        "sku": "sl_rc-8",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-08-18T09:25:48.789Z"
+    },
+    {
+        "id": 658,
+        "productId": 55,
+        "sku": "sl_rc-9",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-08-18T09:25:48.789Z"
+    },
+    {
+        "id": 659,
+        "productId": 55,
+        "sku": "sl_rc-10",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-08-18T09:25:48.789Z"
+    },
+    {
+        "id": 660,
+        "productId": 55,
+        "sku": "sl_rc-11",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-08-18T09:25:48.789Z"
+    },
+    {
+        "id": 661,
+        "productId": 55,
+        "sku": "sl_rc-12",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-08-18T09:25:48.789Z"
+    },
+    {
+        "id": 649,
+        "productId": 54,
+        "sku": "sl_whc-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T07:59:11.851Z",
+        "updatedAt": "2025-08-18T09:26:32.168Z"
+    },
+    {
+        "id": 579,
+        "productId": 33,
+        "sku": "BB3-26",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 580,
+        "productId": 33,
+        "sku": "BB3-27",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 581,
+        "productId": 33,
+        "sku": "BB3-28",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 582,
+        "productId": 33,
+        "sku": "BB3-29",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 583,
+        "productId": 33,
+        "sku": "BB3-30",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 906,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-32",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 364,
+        "productId": 52,
+        "sku": "VC_Without_lamination_small-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-23T19:19:02.936Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 361,
+        "productId": 51,
+        "sku": "VC_Without_lamination-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-23T19:16:36.855Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 356,
+        "productId": 49,
+        "sku": "VC_Gloss_coated-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-23T19:08:23.910Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 584,
+        "productId": 33,
+        "sku": "BB3-31",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 312,
+        "productId": 34,
+        "sku": "VC-180-Micron-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-23T17:57:11.407Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 313,
+        "productId": 34,
+        "sku": "VC-180-Micron-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-23T17:57:11.407Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 319,
+        "productId": 36,
+        "sku": "VC_Matt-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-23T18:21:56.115Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 1319,
+        "productId": 13,
+        "sku": "PM70GSM",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-07-27T07:41:02.312Z",
+        "updatedAt": "2025-08-16T08:43:26.029Z"
+    },
+    {
+        "id": 1075,
+        "productId": 12,
+        "sku": "PS-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-14T10:28:25.589Z"
+    },
+    {
+        "id": 1362,
+        "productId": 68,
+        "sku": "LH100BOND-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-09-14T14:20:03.184Z",
+        "updatedAt": "2025-09-14T14:20:03.184Z"
+    },
+    {
+        "id": 1363,
+        "productId": 68,
+        "sku": "LH100BOND-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-09-14T14:20:03.184Z",
+        "updatedAt": "2025-09-14T14:20:03.184Z"
+    },
+    {
+        "id": 1364,
+        "productId": 68,
+        "sku": "LH100BOND-3",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-09-14T14:20:03.184Z",
+        "updatedAt": "2025-09-14T14:20:03.184Z"
+    },
+    {
+        "id": 363,
+        "productId": 51,
+        "sku": "VC_Without_lamination-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-23T19:16:36.855Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 358,
+        "productId": 49,
+        "sku": "VC_Gloss_coated-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-23T19:08:23.910Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 585,
+        "productId": 33,
+        "sku": "BB3-32",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 314,
+        "productId": 34,
+        "sku": "VC-180-Micron-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-23T17:57:11.407Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 315,
+        "productId": 34,
+        "sku": "VC-180-Micron-4",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-23T17:57:11.407Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 320,
+        "productId": 36,
+        "sku": "VC_Matt-2",
+        "isAvailable": false,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-23T18:21:56.115Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 1147,
+        "productId": 16,
+        "sku": "TMU-1",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1179,
+        "productId": 16,
+        "sku": "TMU-33",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1153,
+        "productId": 16,
+        "sku": "TMU-7",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 1180,
+        "productId": 16,
+        "sku": "TMU-34",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-06-28T07:02:09.879Z",
+        "updatedAt": "2025-08-17T08:51:03.908Z"
+    },
+    {
+        "id": 586,
+        "productId": 33,
+        "sku": "BB3-33",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 353,
+        "productId": 39,
+        "sku": "VC_Gloss-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-23T18:50:21.209Z",
+        "updatedAt": "2025-08-18T08:36:56.376Z"
+    },
+    {
+        "id": 355,
+        "productId": 39,
+        "sku": "VC_Gloss-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-23T18:50:21.209Z",
+        "updatedAt": "2025-08-18T08:36:56.376Z"
+    },
+    {
+        "id": 317,
+        "productId": 35,
+        "sku": "VC_Matt+UV-2",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-05-23T18:18:22.087Z",
+        "updatedAt": "2025-08-18T09:09:21.295Z"
+    },
+    {
+        "id": 587,
+        "productId": 33,
+        "sku": "BB3-34",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 588,
+        "productId": 33,
+        "sku": "BB3-35",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 589,
+        "productId": 33,
+        "sku": "BB3-36",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 590,
+        "productId": 33,
+        "sku": "BB3-37",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 591,
+        "productId": 33,
+        "sku": "BB3-38",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 592,
+        "productId": 33,
+        "sku": "BB3-39",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 593,
+        "productId": 33,
+        "sku": "BB3-40",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 594,
+        "productId": 33,
+        "sku": "BB3-41",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 595,
+        "productId": 33,
+        "sku": "BB3-42",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 596,
+        "productId": 33,
+        "sku": "BB3-43",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 597,
+        "productId": 33,
+        "sku": "BB3-44",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 598,
+        "productId": 33,
+        "sku": "BB3-45",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 599,
+        "productId": 33,
+        "sku": "BB3-46",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 600,
+        "productId": 33,
+        "sku": "BB3-47",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 601,
+        "productId": 33,
+        "sku": "BB3-48",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 602,
+        "productId": 33,
+        "sku": "BB3-49",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 1076,
+        "productId": 12,
+        "sku": "PS-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1077,
+        "productId": 12,
+        "sku": "PS-3",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 650,
+        "productId": 55,
+        "sku": "sl_rc-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-08-18T09:25:48.789Z"
+    },
+    {
+        "id": 1116,
+        "productId": 61,
+        "sku": "LH100DEO-6",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:58:21.954Z",
+        "updatedAt": "2025-09-14T14:26:46.723Z"
+    },
+    {
+        "id": 1365,
+        "productId": 69,
+        "sku": "sbsgs-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-10-30T16:16:20.823Z",
+        "updatedAt": "2025-10-30T16:43:36.212Z"
+    },
+    {
+        "id": 1366,
+        "productId": 69,
+        "sku": "sbsgs-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-10-30T16:16:20.823Z",
+        "updatedAt": "2025-10-30T16:43:36.212Z"
+    },
+    {
+        "id": 883,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-9",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 875,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 887,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-13",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 877,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 889,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-15",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 885,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-11",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 879,
+        "productId": 37,
+        "sku": "VC_Matt+Texture-5",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-05-30T15:39:49.048Z",
+        "updatedAt": "2025-08-16T08:46:29.960Z"
+    },
+    {
+        "id": 651,
+        "productId": 55,
+        "sku": "sl_rc-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-08-18T09:25:48.789Z"
+    },
+    {
+        "id": 652,
+        "productId": 55,
+        "sku": "sl_rc-3",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-08-18T09:25:48.789Z"
+    },
+    {
+        "id": 653,
+        "productId": 55,
+        "sku": "sl_rc-4",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-08-18T09:25:48.789Z"
+    },
+    {
+        "id": 654,
+        "productId": 55,
+        "sku": "sl_rc-5",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-08-18T09:25:48.789Z"
+    },
+    {
+        "id": 554,
+        "productId": 33,
+        "sku": "BB3-1",
+        "isAvailable": false,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 555,
+        "productId": 33,
+        "sku": "BB3-2",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 556,
+        "productId": 33,
+        "sku": "BB3-3",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 557,
+        "productId": 33,
+        "sku": "BB3-4",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 558,
+        "productId": 33,
+        "sku": "BB3-5",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 559,
+        "productId": 33,
+        "sku": "BB3-6",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 560,
+        "productId": 33,
+        "sku": "BB3-7",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 561,
+        "productId": 33,
+        "sku": "BB3-8",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 562,
+        "productId": 33,
+        "sku": "BB3-9",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 563,
+        "productId": 33,
+        "sku": "BB3-10",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 564,
+        "productId": 33,
+        "sku": "BB3-11",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 565,
+        "productId": 33,
+        "sku": "BB3-12",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 566,
+        "productId": 33,
+        "sku": "BB3-13",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 567,
+        "productId": 33,
+        "sku": "BB3-14",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-05-27T10:26:30.546Z",
+        "updatedAt": "2025-08-18T09:28:20.876Z"
+    },
+    {
+        "id": 1320,
+        "productId": 62,
+        "sku": "pvcgc-1",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:26:31.879Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1321,
+        "productId": 62,
+        "sku": "pvcgc-2",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:26:31.879Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1340,
+        "productId": 65,
+        "sku": "pvcwcmb-7",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1344,
+        "productId": 65,
+        "sku": "pvcwcmb-11",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1348,
+        "productId": 65,
+        "sku": "pvcwcmb-15",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-08-18T09:29:23.611Z"
+    },
+    {
+        "id": 1078,
+        "productId": 12,
+        "sku": "PS-4",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1079,
+        "productId": 12,
+        "sku": "PS-5",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1080,
+        "productId": 12,
+        "sku": "PS-6",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1081,
+        "productId": 12,
+        "sku": "PS-7",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1082,
+        "productId": 12,
+        "sku": "PS-8",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1083,
+        "productId": 12,
+        "sku": "PS-9",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1084,
+        "productId": 12,
+        "sku": "PS-10",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1085,
+        "productId": 12,
+        "sku": "PS-11",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1086,
+        "productId": 12,
+        "sku": "PS-12",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1087,
+        "productId": 12,
+        "sku": "PS-13",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1088,
+        "productId": 12,
+        "sku": "PS-14",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1089,
+        "productId": 12,
+        "sku": "PS-15",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1090,
+        "productId": 12,
+        "sku": "PS-16",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1091,
+        "productId": 12,
+        "sku": "PS-17",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1092,
+        "productId": 12,
+        "sku": "PS-18",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1093,
+        "productId": 12,
+        "sku": "PS-19",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1094,
+        "productId": 12,
+        "sku": "PS-20",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1095,
+        "productId": 12,
+        "sku": "PS-21",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1096,
+        "productId": 12,
+        "sku": "PS-22",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1097,
+        "productId": 12,
+        "sku": "PS-23",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1098,
+        "productId": 12,
+        "sku": "PS-24",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-06-26T12:21:22.145Z",
+        "updatedAt": "2025-09-10T14:20:42.972Z"
+    },
+    {
+        "id": 1367,
+        "productId": 70,
+        "sku": "sbsms-1",
+        "isAvailable": true,
+        "uploadGroupId": 1,
+        "createdAt": "2025-10-30T16:21:41.315Z",
+        "updatedAt": "2025-10-30T16:43:20.675Z"
+    },
+    {
+        "id": 1368,
+        "productId": 70,
+        "sku": "sbsms-2",
+        "isAvailable": true,
+        "uploadGroupId": 5,
+        "createdAt": "2025-10-30T16:21:41.315Z",
+        "updatedAt": "2025-10-30T16:43:20.675Z"
+    },
+    {
+        "id": 1369,
+        "productId": 70,
+        "sku": "sbsms-3",
+        "isAvailable": true,
+        "uploadGroupId": 2,
+        "createdAt": "2025-10-30T16:21:41.315Z",
+        "updatedAt": "2025-10-30T16:43:20.675Z"
+    },
+    {
+        "id": 1370,
+        "productId": 70,
+        "sku": "sbsms-4",
+        "isAvailable": true,
+        "uploadGroupId": 3,
+        "createdAt": "2025-10-30T16:21:41.315Z",
+        "updatedAt": "2025-10-30T16:43:20.675Z"
+    }
+]

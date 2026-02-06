@@ -1,0 +1,58 @@
+[
+    {
+        "id": 3,
+        "customerId": 3,
+        "balance": 0,
+        "createdAt": "2025-05-25T10:41:13.221Z",
+        "updatedAt": "2025-05-25T10:41:13.221Z"
+    },
+    {
+        "id": 4,
+        "customerId": 4,
+        "balance": 0,
+        "createdAt": "2025-05-25T10:41:58.105Z",
+        "updatedAt": "2025-05-25T10:41:58.105Z"
+    },
+    {
+        "id": 5,
+        "customerId": 5,
+        "balance": 0,
+        "createdAt": "2025-05-25T10:42:27.366Z",
+        "updatedAt": "2025-05-25T10:42:27.366Z"
+    },
+    {
+        "id": 6,
+        "customerId": 6,
+        "balance": 0,
+        "createdAt": "2025-05-25T10:43:05.773Z",
+        "updatedAt": "2025-05-25T10:43:05.773Z"
+    },
+    {
+        "id": 11,
+        "customerId": 11,
+        "balance": 80000,
+        "createdAt": "2026-02-06T10:24:46.724Z",
+        "updatedAt": "2026-02-06T10:27:07.893Z"
+    },
+    {
+        "id": 2,
+        "customerId": 2,
+        "balance": 965833.12,
+        "createdAt": "2025-05-17T13:45:00.105Z",
+        "updatedAt": "2026-02-06T11:26:37.462Z"
+    },
+    {
+        "id": 1,
+        "customerId": 1,
+        "balance": 9966175.300999995,
+        "createdAt": "2025-05-10T12:41:12.898Z",
+        "updatedAt": "2026-02-06T16:58:50.774Z"
+    },
+    {
+        "id": 10,
+        "customerId": 10,
+        "balance": 0,
+        "createdAt": "2025-11-05T06:09:46.352Z",
+        "updatedAt": "2025-11-05T06:09:46.352Z"
+    }
+]

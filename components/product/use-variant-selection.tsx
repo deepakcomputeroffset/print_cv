@@ -13,8 +13,9 @@ export const useVariantSelection = (
     >,
 ) => {
     const baseVariant = useMemo(
-        () => getBaseVarient(distinctAttributeWithOptions),
-        [distinctAttributeWithOptions],
+        () =>
+            getBaseVarient(distinctAttributeWithOptions, product.productItems),
+        [distinctAttributeWithOptions, product.productItems],
     );
     const [selectedAttributes, setSelectedAttributes] =
         useState<Record<number, number>>(baseVariant);

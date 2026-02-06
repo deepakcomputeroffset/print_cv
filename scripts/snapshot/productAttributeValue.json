@@ -1,0 +1,898 @@
+[
+    {
+        "id": 2,
+        "productAttributeTypeId": 2,
+        "productAttributeValue": "Single Side Only",
+        "createdAt": "2025-05-08T17:35:07.065Z",
+        "updatedAt": "2025-05-08T17:35:07.065Z"
+    },
+    {
+        "id": 3,
+        "productAttributeTypeId": 3,
+        "productAttributeValue": "Both Side Printing + Single Side UV",
+        "createdAt": "2025-05-08T17:35:07.624Z",
+        "updatedAt": "2025-05-08T17:35:07.624Z"
+    },
+    {
+        "id": 4,
+        "productAttributeTypeId": 4,
+        "productAttributeValue": "Die no. 1",
+        "createdAt": "2025-05-08T17:35:08.164Z",
+        "updatedAt": "2025-05-08T17:35:08.164Z"
+    },
+    {
+        "id": 1,
+        "productAttributeTypeId": 1,
+        "productAttributeValue": "400 GSM",
+        "createdAt": "2025-05-08T17:35:06.142Z",
+        "updatedAt": "2025-05-08T17:51:24.282Z"
+    },
+    {
+        "id": 8,
+        "productAttributeTypeId": 3,
+        "productAttributeValue": "Single Side Printing + Single Side UV",
+        "createdAt": "2025-05-08T20:52:41.619Z",
+        "updatedAt": "2025-05-08T20:52:41.619Z"
+    },
+    {
+        "id": 9,
+        "productAttributeTypeId": 3,
+        "productAttributeValue": "Both Side Printing + Both Side UV",
+        "createdAt": "2025-05-08T20:52:44.900Z",
+        "updatedAt": "2025-05-08T20:52:44.900Z"
+    },
+    {
+        "id": 10,
+        "productAttributeTypeId": 4,
+        "productAttributeValue": "Die no. 2",
+        "createdAt": "2025-05-08T20:52:47.142Z",
+        "updatedAt": "2025-05-08T20:52:47.142Z"
+    },
+    {
+        "id": 11,
+        "productAttributeTypeId": 1,
+        "productAttributeValue": "800 GSM",
+        "createdAt": "2025-05-08T20:52:52.741Z",
+        "updatedAt": "2025-05-08T20:52:52.741Z"
+    },
+    {
+        "id": 12,
+        "productAttributeTypeId": 3,
+        "productAttributeValue": "Both Side",
+        "createdAt": "2025-05-08T20:53:06.554Z",
+        "updatedAt": "2025-05-08T20:53:06.554Z"
+    },
+    {
+        "id": 13,
+        "productAttributeTypeId": 3,
+        "productAttributeValue": "Single Side",
+        "createdAt": "2025-05-08T20:53:07.187Z",
+        "updatedAt": "2025-05-08T20:53:07.187Z"
+    },
+    {
+        "id": 14,
+        "productAttributeTypeId": 5,
+        "productAttributeValue": "Single Side",
+        "createdAt": "2025-05-08T20:53:33.697Z",
+        "updatedAt": "2025-05-08T20:53:33.697Z"
+    },
+    {
+        "id": 15,
+        "productAttributeTypeId": 6,
+        "productAttributeValue": "15x20",
+        "createdAt": "2025-05-08T20:53:34.233Z",
+        "updatedAt": "2025-05-08T20:53:34.233Z"
+    },
+    {
+        "id": 16,
+        "productAttributeTypeId": 7,
+        "productAttributeValue": "70 GSM - Maplitho Paper",
+        "createdAt": "2025-05-08T20:53:34.822Z",
+        "updatedAt": "2025-05-08T20:53:34.822Z"
+    },
+    {
+        "id": 17,
+        "productAttributeTypeId": 7,
+        "productAttributeValue": "90 GSM - Art Paper",
+        "createdAt": "2025-05-08T20:53:36.722Z",
+        "updatedAt": "2025-05-08T20:53:36.722Z"
+    },
+    {
+        "id": 18,
+        "productAttributeTypeId": 7,
+        "productAttributeValue": "115 GSM - Art Paper",
+        "createdAt": "2025-05-08T20:53:38.769Z",
+        "updatedAt": "2025-05-08T20:53:38.769Z"
+    },
+    {
+        "id": 19,
+        "productAttributeTypeId": 7,
+        "productAttributeValue": "170 GSM - Art Paper",
+        "createdAt": "2025-05-08T20:53:40.599Z",
+        "updatedAt": "2025-05-08T20:53:40.599Z"
+    },
+    {
+        "id": 20,
+        "productAttributeTypeId": 5,
+        "productAttributeValue": "Both Side",
+        "createdAt": "2025-05-08T20:53:41.224Z",
+        "updatedAt": "2025-05-08T20:53:41.224Z"
+    },
+    {
+        "id": 21,
+        "productAttributeTypeId": 6,
+        "productAttributeValue": "18x23",
+        "createdAt": "2025-05-08T20:53:49.283Z",
+        "updatedAt": "2025-05-08T20:53:49.283Z"
+    },
+    {
+        "id": 22,
+        "productAttributeTypeId": 6,
+        "productAttributeValue": "20x30",
+        "createdAt": "2025-05-08T20:54:04.017Z",
+        "updatedAt": "2025-05-08T20:54:04.017Z"
+    },
+    {
+        "id": 23,
+        "productAttributeTypeId": 8,
+        "productAttributeValue": "Small",
+        "createdAt": "2025-05-08T20:54:21.006Z",
+        "updatedAt": "2025-05-08T20:54:21.006Z"
+    },
+    {
+        "id": 24,
+        "productAttributeTypeId": 9,
+        "productAttributeValue": "Die no. 1",
+        "createdAt": "2025-05-08T20:54:21.545Z",
+        "updatedAt": "2025-05-08T20:54:21.545Z"
+    },
+    {
+        "id": 25,
+        "productAttributeTypeId": 9,
+        "productAttributeValue": "Die no. 2",
+        "createdAt": "2025-05-08T20:54:22.854Z",
+        "updatedAt": "2025-05-08T20:54:22.854Z"
+    },
+    {
+        "id": 26,
+        "productAttributeTypeId": 9,
+        "productAttributeValue": "Die no. 3",
+        "createdAt": "2025-05-08T20:54:24.185Z",
+        "updatedAt": "2025-05-08T20:54:24.185Z"
+    },
+    {
+        "id": 27,
+        "productAttributeTypeId": 8,
+        "productAttributeValue": "Medium",
+        "createdAt": "2025-05-08T20:54:24.921Z",
+        "updatedAt": "2025-05-08T20:54:24.921Z"
+    },
+    {
+        "id": 28,
+        "productAttributeTypeId": 8,
+        "productAttributeValue": "Large",
+        "createdAt": "2025-05-08T20:54:28.629Z",
+        "updatedAt": "2025-05-08T20:54:28.629Z"
+    },
+    {
+        "id": 29,
+        "productAttributeTypeId": 10,
+        "productAttributeValue": "Single Side Printing + Single Side UV",
+        "createdAt": "2025-05-08T20:54:44.775Z",
+        "updatedAt": "2025-05-08T20:54:44.775Z"
+    },
+    {
+        "id": 30,
+        "productAttributeTypeId": 10,
+        "productAttributeValue": "Both Side Printing + Single Side UV",
+        "createdAt": "2025-05-08T20:54:46.493Z",
+        "updatedAt": "2025-05-08T20:54:46.493Z"
+    },
+    {
+        "id": 31,
+        "productAttributeTypeId": 10,
+        "productAttributeValue": "Both Side Printing + Both Side UV",
+        "createdAt": "2025-05-08T20:54:48.261Z",
+        "updatedAt": "2025-05-08T20:54:48.261Z"
+    },
+    {
+        "id": 32,
+        "productAttributeTypeId": 11,
+        "productAttributeValue": "70 GSM Maplitho Paper",
+        "createdAt": "2025-05-08T20:55:32.221Z",
+        "updatedAt": "2025-05-08T20:55:32.221Z"
+    },
+    {
+        "id": 33,
+        "productAttributeTypeId": 12,
+        "productAttributeValue": "Required",
+        "createdAt": "2025-05-08T20:55:32.802Z",
+        "updatedAt": "2025-05-08T20:55:32.802Z"
+    },
+    {
+        "id": 34,
+        "productAttributeTypeId": 13,
+        "productAttributeValue": "Short Opening (with center pasting)",
+        "createdAt": "2025-05-08T20:55:33.338Z",
+        "updatedAt": "2025-05-08T20:55:33.338Z"
+    },
+    {
+        "id": 35,
+        "productAttributeTypeId": 13,
+        "productAttributeValue": "Long Opening (with side pasting)",
+        "createdAt": "2025-05-08T20:55:35.031Z",
+        "updatedAt": "2025-05-08T20:55:35.031Z"
+    },
+    {
+        "id": 36,
+        "productAttributeTypeId": 12,
+        "productAttributeValue": "Not Required",
+        "createdAt": "2025-05-08T20:55:36.180Z",
+        "updatedAt": "2025-05-08T20:55:36.180Z"
+    },
+    {
+        "id": 37,
+        "productAttributeTypeId": 11,
+        "productAttributeValue": "90 GSM Sunshine Paper",
+        "createdAt": "2025-05-08T20:55:39.532Z",
+        "updatedAt": "2025-05-08T20:55:39.532Z"
+    },
+    {
+        "id": 38,
+        "productAttributeTypeId": 11,
+        "productAttributeValue": "100 GSM Deo Paper",
+        "createdAt": "2025-05-08T20:55:47.036Z",
+        "updatedAt": "2025-05-08T20:55:47.036Z"
+    },
+    {
+        "id": 39,
+        "productAttributeTypeId": 11,
+        "productAttributeValue": "90 GSM Art Paper",
+        "createdAt": "2025-05-10T13:20:46.766Z",
+        "updatedAt": "2025-05-10T13:20:46.766Z"
+    },
+    {
+        "id": 40,
+        "productAttributeTypeId": 11,
+        "productAttributeValue": "115 GSM Art Paper",
+        "createdAt": "2025-05-10T13:21:03.284Z",
+        "updatedAt": "2025-05-10T13:21:03.284Z"
+    },
+    {
+        "id": 41,
+        "productAttributeTypeId": 11,
+        "productAttributeValue": "170 GSM Art Paper",
+        "createdAt": "2025-05-10T13:21:18.064Z",
+        "updatedAt": "2025-05-10T13:21:18.064Z"
+    },
+    {
+        "id": 48,
+        "productAttributeTypeId": 17,
+        "productAttributeValue": "Single Side",
+        "createdAt": "2025-05-11T05:40:06.628Z",
+        "updatedAt": "2025-05-11T05:40:06.628Z"
+    },
+    {
+        "id": 49,
+        "productAttributeTypeId": 18,
+        "productAttributeValue": "Not Required",
+        "createdAt": "2025-05-11T05:40:58.008Z",
+        "updatedAt": "2025-05-11T05:40:58.008Z"
+    },
+    {
+        "id": 50,
+        "productAttributeTypeId": 18,
+        "productAttributeValue": "Pad (10 x 100 letter heads)",
+        "createdAt": "2025-05-11T05:42:08.905Z",
+        "updatedAt": "2025-05-11T05:42:08.905Z"
+    },
+    {
+        "id": 51,
+        "productAttributeTypeId": 18,
+        "productAttributeValue": "Pockets (10 x 100 Letter Heads)",
+        "createdAt": "2025-05-11T05:42:53.616Z",
+        "updatedAt": "2025-05-11T05:42:53.616Z"
+    },
+    {
+        "id": 52,
+        "productAttributeTypeId": 17,
+        "productAttributeValue": "Both Side",
+        "createdAt": "2025-05-11T05:56:02.252Z",
+        "updatedAt": "2025-05-11T05:56:02.252Z"
+    },
+    {
+        "id": 53,
+        "productAttributeTypeId": 19,
+        "productAttributeValue": "Both Side",
+        "createdAt": "2025-05-11T06:03:37.691Z",
+        "updatedAt": "2025-05-11T06:03:37.691Z"
+    },
+    {
+        "id": 54,
+        "productAttributeTypeId": 20,
+        "productAttributeValue": "Gloss",
+        "createdAt": "2025-05-11T06:04:28.011Z",
+        "updatedAt": "2025-05-11T06:04:28.011Z"
+    },
+    {
+        "id": 55,
+        "productAttributeTypeId": 20,
+        "productAttributeValue": "Matt",
+        "createdAt": "2025-05-11T06:04:33.200Z",
+        "updatedAt": "2025-05-11T06:04:33.200Z"
+    },
+    {
+        "id": 56,
+        "productAttributeTypeId": 21,
+        "productAttributeValue": "90 GSM Sunshine Paper ( 1 Side Printing )",
+        "createdAt": "2025-05-11T07:19:34.930Z",
+        "updatedAt": "2025-05-11T07:19:34.930Z"
+    },
+    {
+        "id": 57,
+        "productAttributeTypeId": 21,
+        "productAttributeValue": "100 GSM DEO Paper ( 1 Side Printing )",
+        "createdAt": "2025-05-11T07:19:52.130Z",
+        "updatedAt": "2025-05-11T07:19:52.130Z"
+    },
+    {
+        "id": 58,
+        "productAttributeTypeId": 21,
+        "productAttributeValue": "100 GSM DEO Paper ( 2 Side Printing )",
+        "createdAt": "2025-05-11T07:20:05.584Z",
+        "updatedAt": "2025-05-11T07:20:05.584Z"
+    },
+    {
+        "id": 59,
+        "productAttributeTypeId": 22,
+        "productAttributeValue": "White",
+        "createdAt": "2025-05-11T07:20:26.317Z",
+        "updatedAt": "2025-05-11T07:20:26.317Z"
+    },
+    {
+        "id": 60,
+        "productAttributeTypeId": 22,
+        "productAttributeValue": "Pink",
+        "createdAt": "2025-05-11T07:20:32.901Z",
+        "updatedAt": "2025-05-11T07:20:32.901Z"
+    },
+    {
+        "id": 61,
+        "productAttributeTypeId": 22,
+        "productAttributeValue": "Yellow",
+        "createdAt": "2025-05-11T07:20:39.169Z",
+        "updatedAt": "2025-05-11T07:20:39.169Z"
+    },
+    {
+        "id": 63,
+        "productAttributeTypeId": 23,
+        "productAttributeValue": "Normal",
+        "createdAt": "2025-05-11T07:21:20.597Z",
+        "updatedAt": "2025-05-11T07:21:20.597Z"
+    },
+    {
+        "id": 64,
+        "productAttributeTypeId": 23,
+        "productAttributeValue": "Premium",
+        "createdAt": "2025-05-11T07:21:27.981Z",
+        "updatedAt": "2025-05-11T07:21:27.981Z"
+    },
+    {
+        "id": 65,
+        "productAttributeTypeId": 24,
+        "productAttributeValue": "Whie",
+        "createdAt": "2025-05-11T07:24:45.314Z",
+        "updatedAt": "2025-05-11T07:24:45.314Z"
+    },
+    {
+        "id": 66,
+        "productAttributeTypeId": 24,
+        "productAttributeValue": "Pink",
+        "createdAt": "2025-05-11T07:24:58.797Z",
+        "updatedAt": "2025-05-11T07:24:58.797Z"
+    },
+    {
+        "id": 67,
+        "productAttributeTypeId": 24,
+        "productAttributeValue": "Yellow",
+        "createdAt": "2025-05-11T07:25:09.502Z",
+        "updatedAt": "2025-05-11T07:25:09.502Z"
+    },
+    {
+        "id": 68,
+        "productAttributeTypeId": 25,
+        "productAttributeValue": "None",
+        "createdAt": "2025-05-23T17:54:38.906Z",
+        "updatedAt": "2025-05-23T17:54:38.906Z"
+    },
+    {
+        "id": 69,
+        "productAttributeTypeId": 25,
+        "productAttributeValue": "Gloss",
+        "createdAt": "2025-05-23T17:54:46.522Z",
+        "updatedAt": "2025-05-23T17:54:46.522Z"
+    },
+    {
+        "id": 70,
+        "productAttributeTypeId": 26,
+        "productAttributeValue": "Texture no. 101",
+        "createdAt": "2025-05-23T18:26:38.728Z",
+        "updatedAt": "2025-05-23T18:26:38.728Z"
+    },
+    {
+        "id": 71,
+        "productAttributeTypeId": 26,
+        "productAttributeValue": "Texture no. 102",
+        "createdAt": "2025-05-23T18:26:44.866Z",
+        "updatedAt": "2025-05-23T18:26:44.866Z"
+    },
+    {
+        "id": 72,
+        "productAttributeTypeId": 26,
+        "productAttributeValue": "Texture no. 103",
+        "createdAt": "2025-05-23T18:26:50.157Z",
+        "updatedAt": "2025-05-23T18:26:50.157Z"
+    },
+    {
+        "id": 73,
+        "productAttributeTypeId": 26,
+        "productAttributeValue": "Texture no. 104",
+        "createdAt": "2025-05-23T18:26:55.550Z",
+        "updatedAt": "2025-05-23T18:26:55.550Z"
+    },
+    {
+        "id": 74,
+        "productAttributeTypeId": 26,
+        "productAttributeValue": "Texture no. 105",
+        "createdAt": "2025-05-23T18:27:00.867Z",
+        "updatedAt": "2025-05-23T18:27:00.867Z"
+    },
+    {
+        "id": 75,
+        "productAttributeTypeId": 26,
+        "productAttributeValue": "Texture no. 106",
+        "createdAt": "2025-05-23T18:27:06.457Z",
+        "updatedAt": "2025-05-23T18:27:06.457Z"
+    },
+    {
+        "id": 76,
+        "productAttributeTypeId": 26,
+        "productAttributeValue": "Texture no. 107",
+        "createdAt": "2025-05-23T18:27:11.730Z",
+        "updatedAt": "2025-05-23T18:27:11.730Z"
+    },
+    {
+        "id": 77,
+        "productAttributeTypeId": 26,
+        "productAttributeValue": "Texture no. 108",
+        "createdAt": "2025-05-23T18:27:16.726Z",
+        "updatedAt": "2025-05-23T18:27:16.726Z"
+    },
+    {
+        "id": 78,
+        "productAttributeTypeId": 3,
+        "productAttributeValue": "Single with Black Print Back",
+        "createdAt": "2025-05-23T18:43:39.165Z",
+        "updatedAt": "2025-05-23T18:43:39.165Z"
+    },
+    {
+        "id": 79,
+        "productAttributeTypeId": 27,
+        "productAttributeValue": "80.00 mm x H: 50.00 mm",
+        "createdAt": "2025-05-23T18:56:53.498Z",
+        "updatedAt": "2025-05-23T18:56:53.498Z"
+    },
+    {
+        "id": 80,
+        "productAttributeTypeId": 27,
+        "productAttributeValue": "87.00 mm × H: 51.00 mm",
+        "createdAt": "2025-05-23T18:57:15.009Z",
+        "updatedAt": "2025-05-23T18:57:15.009Z"
+    },
+    {
+        "id": 81,
+        "productAttributeTypeId": 9,
+        "productAttributeValue": "Die no. 4",
+        "createdAt": "2025-05-27T08:38:03.955Z",
+        "updatedAt": "2025-05-27T08:38:03.955Z"
+    },
+    {
+        "id": 82,
+        "productAttributeTypeId": 9,
+        "productAttributeValue": "Die no. 5",
+        "createdAt": "2025-05-27T08:38:08.608Z",
+        "updatedAt": "2025-05-27T08:38:08.608Z"
+    },
+    {
+        "id": 83,
+        "productAttributeTypeId": 9,
+        "productAttributeValue": "Die no. 6",
+        "createdAt": "2025-05-27T08:38:13.778Z",
+        "updatedAt": "2025-05-27T08:38:13.778Z"
+    },
+    {
+        "id": 84,
+        "productAttributeTypeId": 9,
+        "productAttributeValue": "Die no. 7",
+        "createdAt": "2025-05-27T08:38:19.199Z",
+        "updatedAt": "2025-05-27T08:38:19.199Z"
+    },
+    {
+        "id": 85,
+        "productAttributeTypeId": 9,
+        "productAttributeValue": "Die no. 8",
+        "createdAt": "2025-05-27T08:38:26.667Z",
+        "updatedAt": "2025-05-27T08:38:26.667Z"
+    },
+    {
+        "id": 86,
+        "productAttributeTypeId": 9,
+        "productAttributeValue": "Die no. 9",
+        "createdAt": "2025-05-27T08:38:31.875Z",
+        "updatedAt": "2025-05-27T08:38:31.875Z"
+    },
+    {
+        "id": 87,
+        "productAttributeTypeId": 9,
+        "productAttributeValue": "Die no. 10",
+        "createdAt": "2025-05-27T08:38:41.840Z",
+        "updatedAt": "2025-05-27T08:38:41.840Z"
+    },
+    {
+        "id": 88,
+        "productAttributeTypeId": 28,
+        "productAttributeValue": "small",
+        "createdAt": "2025-05-30T07:50:21.476Z",
+        "updatedAt": "2025-05-30T07:50:21.476Z"
+    },
+    {
+        "id": 89,
+        "productAttributeTypeId": 28,
+        "productAttributeValue": "medium",
+        "createdAt": "2025-05-30T07:50:28.281Z",
+        "updatedAt": "2025-05-30T07:50:28.281Z"
+    },
+    {
+        "id": 90,
+        "productAttributeTypeId": 29,
+        "productAttributeValue": "7x9.5 (inch)",
+        "createdAt": "2025-05-30T07:56:04.979Z",
+        "updatedAt": "2025-05-30T07:56:04.979Z"
+    },
+    {
+        "id": 91,
+        "productAttributeTypeId": 30,
+        "productAttributeValue": "Not Required",
+        "createdAt": "2025-05-30T07:56:20.908Z",
+        "updatedAt": "2025-05-30T07:56:20.908Z"
+    },
+    {
+        "id": 92,
+        "productAttributeTypeId": 30,
+        "productAttributeValue": "Gloss Lamination",
+        "createdAt": "2025-05-30T07:56:38.477Z",
+        "updatedAt": "2025-05-30T07:56:38.477Z"
+    },
+    {
+        "id": 93,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "1 Sticker (Size - 170 MM)",
+        "createdAt": "2025-05-30T08:02:37.269Z",
+        "updatedAt": "2025-05-30T08:02:37.269Z"
+    },
+    {
+        "id": 94,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "2 Sticker (Size - 115 MM)",
+        "createdAt": "2025-05-30T08:02:51.486Z",
+        "updatedAt": "2025-05-30T08:02:51.486Z"
+    },
+    {
+        "id": 95,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "6 Sticker (Size - 75 MM)",
+        "createdAt": "2025-05-30T08:03:11.610Z",
+        "updatedAt": "2025-05-30T08:03:11.610Z"
+    },
+    {
+        "id": 96,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "12 Sticker (Size - 55 MM)",
+        "createdAt": "2025-05-30T08:03:25.714Z",
+        "updatedAt": "2025-05-30T08:03:25.714Z"
+    },
+    {
+        "id": 97,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "20 Sticker (Size - 40 MM)",
+        "createdAt": "2025-05-30T08:03:37.012Z",
+        "updatedAt": "2025-05-30T08:03:37.012Z"
+    },
+    {
+        "id": 98,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "35 Sticker (Size - 30 MM)",
+        "createdAt": "2025-05-30T08:03:48.767Z",
+        "updatedAt": "2025-05-30T08:03:48.767Z"
+    },
+    {
+        "id": 99,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "2 Sticker (Size - 178x118 MM)",
+        "createdAt": "2025-05-30T08:13:41.151Z",
+        "updatedAt": "2025-05-30T08:13:41.151Z"
+    },
+    {
+        "id": 100,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "3 Sticker (Size - 178x79 MM)",
+        "createdAt": "2025-05-30T08:13:52.970Z",
+        "updatedAt": "2025-05-30T08:13:52.970Z"
+    },
+    {
+        "id": 101,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "4 Sticker (Size - 178x59 MM)",
+        "createdAt": "2025-05-30T08:14:07.600Z",
+        "updatedAt": "2025-05-30T08:14:07.600Z"
+    },
+    {
+        "id": 103,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "4 Sticker (Size - 90x118 MM)",
+        "createdAt": "2025-05-30T08:17:00.285Z",
+        "updatedAt": "2025-05-30T08:17:00.285Z"
+    },
+    {
+        "id": 104,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "6 Sticker (Size - 178x40 MM)",
+        "createdAt": "2025-05-30T08:17:20.140Z",
+        "updatedAt": "2025-05-30T08:17:20.140Z"
+    },
+    {
+        "id": 105,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "6 Sticker (Size - 90x80 MM)",
+        "createdAt": "2025-05-30T08:17:32.228Z",
+        "updatedAt": "2025-05-30T08:17:32.228Z"
+    },
+    {
+        "id": 106,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "6 Sticker (Size - 60x120 MM)",
+        "createdAt": "2025-05-30T08:17:45.327Z",
+        "updatedAt": "2025-05-30T08:17:45.327Z"
+    },
+    {
+        "id": 107,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "8 Sticker (Size - 90x59 MM)",
+        "createdAt": "2025-05-30T08:18:05.943Z",
+        "updatedAt": "2025-05-30T08:18:05.943Z"
+    },
+    {
+        "id": 108,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "9 Sticker (Size - 60x80 MM)",
+        "createdAt": "2025-05-30T08:18:21.324Z",
+        "updatedAt": "2025-05-30T08:18:21.324Z"
+    },
+    {
+        "id": 109,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "10 Sticker (Size - 178x24 MM)",
+        "createdAt": "2025-05-30T08:19:25.642Z",
+        "updatedAt": "2025-05-30T08:19:25.642Z"
+    },
+    {
+        "id": 110,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "12 Sticker (Size - 90x40 MM)",
+        "createdAt": "2025-05-30T08:19:40.350Z",
+        "updatedAt": "2025-05-30T08:19:40.350Z"
+    },
+    {
+        "id": 111,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "12 Sticker (Size - 60x60 MM)",
+        "createdAt": "2025-05-30T08:19:52.652Z",
+        "updatedAt": "2025-05-30T08:19:52.652Z"
+    },
+    {
+        "id": 112,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "18 Sticker (Size - 60x40 MM)",
+        "createdAt": "2025-05-30T08:20:05.693Z",
+        "updatedAt": "2025-05-30T08:20:05.693Z"
+    },
+    {
+        "id": 113,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "20 Sticker (Size - 90x24 MM)",
+        "createdAt": "2025-05-30T08:20:20.412Z",
+        "updatedAt": "2025-05-30T08:20:20.412Z"
+    },
+    {
+        "id": 114,
+        "productAttributeTypeId": 31,
+        "productAttributeValue": "30 Sticker (Size - 60x24 MM)",
+        "createdAt": "2025-05-30T08:20:37.973Z",
+        "updatedAt": "2025-05-30T08:20:37.973Z"
+    },
+    {
+        "id": 115,
+        "productAttributeTypeId": 32,
+        "productAttributeValue": "UV",
+        "createdAt": "2025-05-30T15:35:48.336Z",
+        "updatedAt": "2025-05-30T15:35:48.336Z"
+    },
+    {
+        "id": 116,
+        "productAttributeTypeId": 32,
+        "productAttributeValue": "No Required",
+        "createdAt": "2025-05-30T15:35:57.638Z",
+        "updatedAt": "2025-05-30T15:35:57.638Z"
+    },
+    {
+        "id": 117,
+        "productAttributeTypeId": 25,
+        "productAttributeValue": "Matt",
+        "createdAt": "2025-05-30T15:39:32.435Z",
+        "updatedAt": "2025-05-30T15:39:32.435Z"
+    },
+    {
+        "id": 121,
+        "productAttributeTypeId": 10,
+        "productAttributeValue": "Both Side",
+        "createdAt": "2025-06-08T16:27:37.889Z",
+        "updatedAt": "2025-06-08T16:27:37.889Z"
+    },
+    {
+        "id": 122,
+        "productAttributeTypeId": 35,
+        "productAttributeValue": "Single Side",
+        "createdAt": "2025-06-26T11:28:46.158Z",
+        "updatedAt": "2025-06-26T11:28:46.158Z"
+    },
+    {
+        "id": 123,
+        "productAttributeTypeId": 35,
+        "productAttributeValue": "Both Side",
+        "createdAt": "2025-06-26T11:28:51.959Z",
+        "updatedAt": "2025-06-26T11:28:51.959Z"
+    },
+    {
+        "id": 125,
+        "productAttributeTypeId": 37,
+        "productAttributeValue": "Multicolor at outer side only",
+        "createdAt": "2025-07-27T09:05:54.721Z",
+        "updatedAt": "2025-07-27T09:05:54.721Z"
+    },
+    {
+        "id": 126,
+        "productAttributeTypeId": 37,
+        "productAttributeValue": "Multicolor at outer + inside side",
+        "createdAt": "2025-07-27T09:06:18.789Z",
+        "updatedAt": "2025-07-27T09:06:18.789Z"
+    },
+    {
+        "id": 127,
+        "productAttributeTypeId": 38,
+        "productAttributeValue": "Outer side only",
+        "createdAt": "2025-07-27T09:34:26.043Z",
+        "updatedAt": "2025-07-27T09:34:26.043Z"
+    },
+    {
+        "id": 128,
+        "productAttributeTypeId": 38,
+        "productAttributeValue": "Not Required",
+        "createdAt": "2025-07-27T09:34:33.606Z",
+        "updatedAt": "2025-07-27T09:34:33.606Z"
+    },
+    {
+        "id": 129,
+        "productAttributeTypeId": 39,
+        "productAttributeValue": "Left Side",
+        "createdAt": "2025-07-27T09:42:36.095Z",
+        "updatedAt": "2025-07-27T09:42:36.095Z"
+    },
+    {
+        "id": 130,
+        "productAttributeTypeId": 39,
+        "productAttributeValue": "Right Side",
+        "createdAt": "2025-07-27T09:42:40.733Z",
+        "updatedAt": "2025-07-27T09:42:40.733Z"
+    },
+    {
+        "id": 131,
+        "productAttributeTypeId": 39,
+        "productAttributeValue": "Both Side",
+        "createdAt": "2025-07-27T09:42:46.385Z",
+        "updatedAt": "2025-07-27T09:42:46.385Z"
+    },
+    {
+        "id": 132,
+        "productAttributeTypeId": 39,
+        "productAttributeValue": "Not Required",
+        "createdAt": "2025-07-27T09:42:54.306Z",
+        "updatedAt": "2025-07-27T09:42:54.306Z"
+    },
+    {
+        "id": 133,
+        "productAttributeTypeId": 40,
+        "productAttributeValue": "Multicolor Outer Side Only",
+        "createdAt": "2025-10-30T16:10:33.618Z",
+        "updatedAt": "2025-10-30T16:10:33.618Z"
+    },
+    {
+        "id": 134,
+        "productAttributeTypeId": 40,
+        "productAttributeValue": "Multicolor Outer Side + Black Color Inside",
+        "createdAt": "2025-10-30T16:10:55.985Z",
+        "updatedAt": "2025-10-30T16:10:55.985Z"
+    },
+    {
+        "id": 135,
+        "productAttributeTypeId": 41,
+        "productAttributeValue": "Not Required",
+        "createdAt": "2025-10-30T16:19:27.485Z",
+        "updatedAt": "2025-10-30T16:19:27.485Z"
+    },
+    {
+        "id": 136,
+        "productAttributeTypeId": 41,
+        "productAttributeValue": "Outer Side Only",
+        "createdAt": "2025-10-30T16:19:38.001Z",
+        "updatedAt": "2025-10-30T16:19:38.001Z"
+    },
+    {
+        "id": 137,
+        "productAttributeTypeId": 42,
+        "productAttributeValue": "Multicolor Outer Side Only",
+        "createdAt": "2025-10-30T16:25:44.253Z",
+        "updatedAt": "2025-10-30T16:25:44.253Z"
+    },
+    {
+        "id": 138,
+        "productAttributeTypeId": 42,
+        "productAttributeValue": "Multicolor Outer Side + Black Color Inside",
+        "createdAt": "2025-10-30T16:26:06.955Z",
+        "updatedAt": "2025-10-30T16:26:06.955Z"
+    },
+    {
+        "id": 139,
+        "productAttributeTypeId": 43,
+        "productAttributeValue": "Not Required",
+        "createdAt": "2025-10-30T16:26:41.290Z",
+        "updatedAt": "2025-10-30T16:26:41.290Z"
+    },
+    {
+        "id": 140,
+        "productAttributeTypeId": 43,
+        "productAttributeValue": "Left Side",
+        "createdAt": "2025-10-30T16:26:47.222Z",
+        "updatedAt": "2025-10-30T16:26:47.222Z"
+    },
+    {
+        "id": 141,
+        "productAttributeTypeId": 43,
+        "productAttributeValue": "Right  Side",
+        "createdAt": "2025-10-30T16:26:52.869Z",
+        "updatedAt": "2025-10-30T16:26:52.869Z"
+    },
+    {
+        "id": 142,
+        "productAttributeTypeId": 44,
+        "productAttributeValue": "Outer side Only",
+        "createdAt": "2025-10-30T16:32:22.024Z",
+        "updatedAt": "2025-10-30T16:32:22.024Z"
+    },
+    {
+        "id": 143,
+        "productAttributeTypeId": 44,
+        "productAttributeValue": "Not Required",
+        "createdAt": "2025-10-30T16:32:30.105Z",
+        "updatedAt": "2025-10-30T16:32:30.105Z"
+    }
+]

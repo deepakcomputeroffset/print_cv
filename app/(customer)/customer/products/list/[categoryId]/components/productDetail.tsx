@@ -106,6 +106,8 @@ export default function ProductDetails({
         (variant: ProductItemTypeWithAttribute | null) => {
             if (variant && !selectedProduct.isTieredPricing) {
                 setQty(variant.pricing[0]?.qty || 0);
+            } else if (variant && selectedProduct.isTieredPricing) {
+                setQty(variant.pricing[0]?.qty || null);
             } else {
                 setQty(null);
             }

@@ -1,0 +1,615 @@
+[
+    {
+        "id": 12,
+        "name": "Poster",
+        "description": "## Product Description\n\n- **Product:** Poster  \n- **Available Sizes:** 15\"x20\" | 18\"x23\" | 20\"x30\"  \n- **Delivery Time:** Within 2 days  \n- **Paper:** 70 GSM Maplitho | 90 GSM Art Paper | 115 GSM Art Paper | 170 GSM Art Paper  \n- **Printing:** High Quality Full Colour (Single Side)  \n\n## Finished Sizes\n\n- **Finished Size (18 x 23):** 17.4” x 22.5”  \n- **Finished Size (15 x 20):** 14.4” x 19.4”",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746072161425"
+        ],
+        "categoryId": 3,
+        "isAvailable": true,
+        "sku": "PS",
+        "isTieredPricing": true,
+        "createdAt": "2025-05-01T04:08:59.510Z",
+        "updatedAt": "2025-10-24T11:55:00.998Z"
+    },
+    {
+        "id": 62,
+        "name": "PVC File (Gloss Coated, Small Size)",
+        "description": "- **Size (In inch):** 9\"x12\"\n- **Lamination Type:** Gloss Coated\n- **Pocket Option:** Not Available\n- **Production Time:** 3 Working Days\n- **Paper Quality:** 300 Micron PP Sheet\n- **Number of creases at the center fold:** One\n- **Product Ref.:** DF-1/2nd Edition (Sample File)\n- **Uses:** For Doctor Files, Hospital Use and Corporate Purposes\n\n---\n\n## Product Specialization\n\n- **Scratch-Resistant LED Inks:** Ensuring a flawless and long-lasting finish.\n- **Premium Quality PP Material:** Durable and designed for superior strength.\n- **Eco-Friendly Printing:** Sustainable processes that are gentle on the environment.\n\n---\n\n## Points to be Noted\n\n- Please note that the \"PVC Clip\" is not included with this order. To purchase it, kindly place a separate order. Due to packaging limitations, the clip will not be attached to the doctor's file and will be delivered separately.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1753608380588"
+        ],
+        "categoryId": 4,
+        "isAvailable": false,
+        "sku": "pvcgc",
+        "isTieredPricing": false,
+        "createdAt": "2025-07-27T09:26:31.879Z",
+        "updatedAt": "2025-10-30T14:46:51.424Z"
+    },
+    {
+        "id": 71,
+        "name": "SBS File (Gloss Lamination, Big Size)",
+        "description": "- **Size (In inch):** 9.5\"x12.5\"\n- **Lamination Type:** Gloss Lamination\n- **Pocket Option:**  Available\n- **Production Time:** 3 Working Days\n- **Paper Quality:** 320 Gsm SBS Paper\n- **Number of creases at the center fold:** One\n- **Uses:** For Doctor Files, Hospital Use and Corporate Purposes",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1761841471395_"
+        ],
+        "categoryId": 14,
+        "isAvailable": true,
+        "sku": "sbsgb",
+        "isTieredPricing": false,
+        "createdAt": "2025-10-30T16:30:08.973Z",
+        "updatedAt": "2025-10-31T14:32:29.950Z"
+    },
+    {
+        "id": 13,
+        "name": "Pamphlet - 70 GSM",
+        "description": "- **Product Code:** PM70GSM  \n- **Product Class:** Regular  \n- **Product Size:** Letter Size (8.5\" × 11\")  \n- **Product Core:** Excellent Printing with Latest Machines  \n- **Production Time:** Within 48 hours from file upload  \n- **Printing Options:** Single Side  \n- **Price Discount:** Automatically calculated with increased quantity",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746072704909"
+        ],
+        "categoryId": 12,
+        "isAvailable": true,
+        "sku": "PM70GSM",
+        "isTieredPricing": true,
+        "createdAt": "2025-05-01T04:16:08.847Z",
+        "updatedAt": "2025-07-27T07:41:02.312Z"
+    },
+    {
+        "id": 14,
+        "name": "Gloss",
+        "description": "- **Product Code:** TGS  \n- **Product Class:** Super Gloss Coated  \n- **Product Core:** Gloss Coat with Excellent printing  \n- **Production Time:** Within 7–10 Days from file upload  \n- **Coated Type:** Hi-Gloss  \n- **Availability:** 10 unique die shapes, available in 3 sizes (Small, Medium, Large)  \n\n## Points to be Noted\n\n### Small Tags\n\n- **Tag Design Size:** W: 56.00 mm × H: 54.00 mm  \n- **Text/Matter Area:** W: 43.00 mm × H: 43.00 mm  \n- **Tag After Cutting:** W: 48.00 mm × H: 48.00 mm  \n\n### Medium Tags\n\n- **Tag Design Size:** W: 54.00 mm × H: 90.00 mm  \n- **Text/Matter Area:** W: 40.00 mm × H: 76.00 mm  \n- **Tag After Cutting:** W: 48.00 mm × H: 84.00 mm  \n\n### Large Tags\n\n- **Tag Design Size:** W: 56.00 mm × H: 108.00 mm  \n- **Text/Matter Area:** W: 42.00 mm × H: 94.00 mm  \n- **Tag After Cutting:** W: 50.00 mm × H: 102.00 mm\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746073214455",
+            "https://storage.googleapis.com/printvc/images/1_1_1746073214456",
+            "https://storage.googleapis.com/printvc/images/1_2_1746073214456"
+        ],
+        "categoryId": 2,
+        "isAvailable": true,
+        "sku": "TGS",
+        "isTieredPricing": true,
+        "createdAt": "2025-05-01T04:23:41.133Z",
+        "updatedAt": "2025-07-27T08:11:34.320Z"
+    },
+    {
+        "id": 63,
+        "name": "PVC File (Without Coated - Matt Finish, Small Size)",
+        "description": "## Product Description\n\n- **Size (In inch):** 9\"x12\"\n- **Lamination:** Matt Finish (No Lamination)\n- **Pocket Option:** Not Available\n- **Production Time:** 3 Working Days\n- **Paper Quality:** 300 Micron PP Sheet\n- **Number of creases at the center fold:** One\n- **Product Ref.:** DF-2/2nd Edition (Sample File)\n- **Uses:** For Doctor Files, Hospital Use and Corporate Purposes\n\n---\n\n## Product Specialization\n\n- **Scratch-Resistant LED Inks:** Ensuring a flawless and long-lasting finish.\n- **Premium Quality PP Material:** Durable and designed for superior strength.\n- **Eco-Friendly Printing:** Sustainable processes that are gentle on the environment.\n\n---\n\n## Points to be Noted\n\n- Please note that the PVC file clip is not included with this order. To purchase it, kindly place a separate order. Due to packaging limitations, the clip will not be attached to the doctor's file and will be delivered separately.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1753608759614"
+        ],
+        "categoryId": 4,
+        "isAvailable": false,
+        "sku": "pvcwcm",
+        "isTieredPricing": false,
+        "createdAt": "2025-07-27T09:35:46.507Z",
+        "updatedAt": "2025-10-30T14:46:52.798Z"
+    },
+    {
+        "id": 72,
+        "name": "SBS File (Matt Lamination, Big Size)",
+        "description": "- **Size (In inch):** 9.5\"x12.5\"\n- **Lamination Type:** Matt Lamination\n- **Pocket Option:** Available\n- **Production Time:** 3 Working Days\n- **Paper Quality:** 320 Gsm SBS Paper\n- **Number of creases at the center fold:** One\n- **Uses:** For Doctor Files, Hospital Use and Corporate Purposes",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1761841841899_"
+        ],
+        "categoryId": 14,
+        "isAvailable": true,
+        "sku": "sbsmb",
+        "isTieredPricing": false,
+        "createdAt": "2025-10-30T16:42:02.324Z",
+        "updatedAt": "2025-10-31T14:31:38.608Z"
+    },
+    {
+        "id": 17,
+        "name": "Envelop Multicolor 9.7x4.2",
+        "description": "- **Product Code:** EM9.7x4.2  \n- **Product Class:** Regular  \n- **Product Size:** Envelope (9.7\" × 4.2\")  \n- **Production Time:** Within 4 days from file upload  \n- **Paper Options:**  \n  - 70 GSM Maplitho  \n  - 90 GSM Sunshine  \n  - 100 GSM Deo  \n- **Pricing:** Price discount applicable (System auto-calculates based on quantity)\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746075057396"
+        ],
+        "categoryId": 6,
+        "isAvailable": true,
+        "sku": "EM9.7x4.2",
+        "isTieredPricing": true,
+        "createdAt": "2025-05-01T04:53:50.243Z",
+        "updatedAt": "2025-07-27T08:22:16.021Z"
+    },
+    {
+        "id": 18,
+        "name": "Envelop 10.75x4.75",
+        "description": "- **Product Code:** EM10.75x4.75  \n- **Product Class:** Regular  \n- **Product Size:** Envelope (10.75\" × 4.75\")  \n- **Production Time:** Within 4 days from file upload  \n- **Paper Options:**  \n  - 70 GSM Maplitho  \n  - 90 GSM Sunshine  \n  - 100 GSM Deo  \n- **Pricing:** Price discount applicable (System auto-calculates based on quantity)\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746075403666"
+        ],
+        "categoryId": 6,
+        "isAvailable": true,
+        "sku": "EM10.75x4.75",
+        "isTieredPricing": true,
+        "createdAt": "2025-05-01T04:58:34.569Z",
+        "updatedAt": "2025-07-27T08:23:23.069Z"
+    },
+    {
+        "id": 19,
+        "name": " Envelopes - 9x4",
+        "description": "- **Product Code:** E94  \n- **Product Class:** Regular  \n- **Product Size:** Envelope (9\" × 4\")  \n- **Production Time:** Within 4 days from file upload  \n- **Paper Options:**  \n  - 70 GSM Maplitho  \n  - 90 GSM Sunshine  \n  - 100 GSM Deo  \n- **Pricing:** Price discount applicable (System auto-calculates based on quantity)\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746882179170"
+        ],
+        "categoryId": 6,
+        "isAvailable": true,
+        "sku": "E94",
+        "isTieredPricing": true,
+        "createdAt": "2025-05-10T13:05:24.216Z",
+        "updatedAt": "2025-07-27T08:24:31.138Z"
+    },
+    {
+        "id": 21,
+        "name": "Envelopes - 6x8",
+        "description": "- **Product Code:** E68  \n- **Product Class:** Regular  \n- **Product Size:** Envelope (6\" × 8\")  \n- **Production Time:** Within 4 days from file upload  \n- **Paper Options:**  \n  - 70 GSM Maplitho  \n  - 90 GSM Sunshine  \n  - 100 GSM Deo  \n- **Pricing:** Price discount applicable (System auto-calculates based on quantity)\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746882768681"
+        ],
+        "categoryId": 6,
+        "isAvailable": true,
+        "sku": "E68",
+        "isTieredPricing": true,
+        "createdAt": "2025-05-10T13:14:09.789Z",
+        "updatedAt": "2025-07-27T08:26:39.640Z"
+    },
+    {
+        "id": 22,
+        "name": "Envelopes - 8.60x10.60",
+        "description": "- **Product Code:** E86106  \n- **Product Class:** Regular  \n- **Product Size:** Envelope (8.6\" × 10.6\")  \n- **Production Time:** Within 4 days from file upload  \n- **Paper Option:**  \n  - 90 GSM Sunshine  \n- **Pricing:** Price discount applicable (System auto-calculates based on quantity)\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746882991543"
+        ],
+        "categoryId": 6,
+        "isAvailable": true,
+        "sku": "E86106",
+        "isTieredPricing": true,
+        "createdAt": "2025-05-10T13:18:04.799Z",
+        "updatedAt": "2025-07-27T08:27:22.390Z"
+    },
+    {
+        "id": 23,
+        "name": "Envelopes - 9.40x12.40",
+        "description": "- **Product Code:** E94124  \n- **Product Class:** Regular  \n- **Product Size:** Envelope (9.4\" × 12.4\")  \n- **Production Time:** Within 4 days from file upload  \n- **Paper Options:**  \n  - 90 GSM Art  \n  - 115 GSM Art  \n  - 170 GSM Art  \n- **Pricing:** Price discount applicable (system auto-calculates with increase in quantity)\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746883182833"
+        ],
+        "categoryId": 6,
+        "isAvailable": true,
+        "sku": "E94124",
+        "isTieredPricing": true,
+        "createdAt": "2025-05-10T13:21:29.081Z",
+        "updatedAt": "2025-07-27T08:28:31.610Z"
+    },
+    {
+        "id": 20,
+        "name": "Envelopes - 5x7",
+        "description": "- **Product Code:** E57  \n- **Product Class:** Regular  \n- **Product Size:** Envelope (5\" × 7\")  \n- **Production Time:** Within 4 days from file upload  \n- **Paper Options:**  \n  - 70 GSM Maplitho  \n  - 90 GSM Sunshine  \n  - 100 GSM Deo  \n  - 100 GSM Deo + UV  \n- **Pricing:** Price discount applicable (System auto-calculates based on quantity)\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746882421439"
+        ],
+        "categoryId": 6,
+        "isAvailable": true,
+        "sku": "E57",
+        "isTieredPricing": true,
+        "createdAt": "2025-05-10T13:09:36.449Z",
+        "updatedAt": "2025-07-27T08:25:18.435Z"
+    },
+    {
+        "id": 64,
+        "name": "PVC File (Gloss Coated, Big Size)",
+        "description": "## Product Description\n\n- **Size (In inch):** 9.5\"x12.5\"\n- **Lamination Type:** Gloss Coated\n- **Pocket Option:** Available\n- **Production Time:** 4 Working Days\n- **Paper Quality:** 300 Micron PP Sheet\n- **Number of creases at the center fold:** Two\n- **Product Ref.:** DF-3/2nd Edition (Sample File)\n- **Uses:** For Doctor Files, Hospital Use and Corporate Purposes\n\n---\n\n## Product Specialization\n\n- **Scratch-Resistant LED Inks:** Ensuring a flawless and long-lasting finish.\n- **Premium Quality PP Material:** Durable and designed for superior strength.\n- **Eco-Friendly Printing:** Sustainable processes that are gentle on the environment.\n\n---\n\n## Points to be Noted\n\n- Please note that the PVC file clip is not included with this order. To purchase it, kindly place a separate order. Due to packaging limitations, the clip will not be attached to the doctor's file and will be delivered separately.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1753609242328"
+        ],
+        "categoryId": 4,
+        "isAvailable": false,
+        "sku": "pvcgcb",
+        "isTieredPricing": false,
+        "createdAt": "2025-07-27T09:44:47.220Z",
+        "updatedAt": "2025-10-30T14:51:46.375Z"
+    },
+    {
+        "id": 33,
+        "name": "A4 Bill Book - 3 Copy",
+        "description": "- **Product Code:** BB3  \n- **Product Core:** Best Binding Quality  \n- **Paper Quality:**  \n  - **1st Copy:** 100 GSM Deo / 90 GSM Sunshine with Multicolor Printing  \n  - **2nd Copy:** 56 GSM Maplitho with Single Color Printing  \n  - **3rd Copy:** 56 GSM Maplitho with Single Color Printing  \n- **Production Time:** 5–7 Working Days  \n\n## Important Note\n\n- Both side printing available **only** on 100 GSM Deo Paper  \n- Please mention starting serial number in CDR or PDF file\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746948190111"
+        ],
+        "categoryId": 8,
+        "isAvailable": true,
+        "sku": "BB3",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-11T07:25:52.558Z",
+        "updatedAt": "2025-07-27T08:31:49.941Z"
+    },
+    {
+        "id": 31,
+        "name": "ATM Pouch",
+        "description": "- **Product Code:** AtmGloss \n- **Product Class:** Classic  \n- **Product Core:** Gloss Shining with Excellent Printing  \n- **Paper Quality:** 170 GSM Art Paper  \n- **Lamination Type:** Gloss  \n- **Production Time:** Within 3–7 days from file upload  \n\n## Points to be Noted\n\n- **Card Design Size:** W: 94.00 mm × H: 61.00 mm  \n- **Text / Matter Area:** W: 74.00 mm × H: 46.00 mm  \n- **Size After Cutting:** W: 88.00 mm × H: 57.00 mm  \n- Use high-resolution imagery for the clearest & sharpest results.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746943364335"
+        ],
+        "categoryId": 7,
+        "isAvailable": true,
+        "sku": "AtmGloss",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-11T06:05:06.094Z",
+        "updatedAt": "2025-07-27T08:29:55.587Z"
+    },
+    {
+        "id": 32,
+        "name": "A4 Bill Book - 2 Copy",
+        "description": "- **Product Code:** BB-2  \n- **Product Core:** Best Binding Quality  \n- **Paper Quality:**  \n  - **1st Copy:** 100 GSM Deo / 90 GSM Sunshine with Multicolor Printing  \n  - **2nd Copy:** 56 GSM Maplitho with Single Color Printing  \n- **Production Time:** 5–7 Working Days  \n\n## Important Note\n\n- Both side printing available **only** on 100 GSM Deo Paper  \n- Please mention starting serial number in CDR or PDF file\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746947837583"
+        ],
+        "categoryId": 8,
+        "isAvailable": true,
+        "sku": "BB2",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-11T07:21:53.307Z",
+        "updatedAt": "2025-07-27T08:31:00.863Z"
+    },
+    {
+        "id": 65,
+        "name": "PVC File (Without Coated - Matt Finish, Big Size)",
+        "description": "## Product Description\n\n- **Size (In inch):** 9.5\"x12.5\"\n- **Lamination:** Matt Finish (No Lamination)\n- **Pocket Option:** Available\n- **Production Time:** 4 Working Days\n- **Paper Quality:** 300 Micron PP Sheet\n- **Number of creases at the center fold:** Two\n- **Product Ref.:** DF-4/2nd Edition (Sample File)\n- **Uses:** For Doctor Files, Hospital Use and Corporate Purposes\n\n---\n\n## Product Specialization\n\n- **Scratch-Resistant LED Inks:** Ensuring a flawless and long-lasting finish.\n- **Premium Quality PP Material:** Durable and designed for superior strength.\n- **Eco-Friendly Printing:** Sustainable processes that are gentle on the environment.\n\n---\n\n## Points to be Noted\n\n- Please note that the PVC file clip is not included with this order. To purchase it, kindly place a separate order. Due to packaging limitations, the clip will not be attached to the doctor's file and will be delivered separately.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1753609940089"
+        ],
+        "categoryId": 4,
+        "isAvailable": false,
+        "sku": "pvcwcmb",
+        "isTieredPricing": false,
+        "createdAt": "2025-07-27T09:53:29.174Z",
+        "updatedAt": "2025-10-30T14:51:48.074Z"
+    },
+    {
+        "id": 35,
+        "name": "Matt + UV",
+        "description": "- **Product Code:** VC_Matt+UV  \n- **Product Class:** Premium  \n- **Product Core:** Smooth Matt with Fine UV  \n- **Paper Quality:** Imported 400 GSM Art Paper  \n- **Production Time:** 2 days  \n- **Lamination Type:** Matt  \n- **Product Features:** Elegant look with sophisticated feel  \n- **Highlight:** Embossed Spot UV adds to the magnificence of the card and provides a glossy finish on selected areas  \n\n## Points to be Noted\n\n- **Card Design Size:** W: 96.00 mm × H: 58.00 mm  \n- **Text / Matter Area:** W: 84.00 mm × H: 46.00 mm  \n- **Size After Cutting:** W: 90.00 mm × H: 53.00 mm  \n- The **color saturation and print quality** on these cards is extremely high—ideal for colorful or darker designs.  \n- Use **high-resolution imagery** for the clearest & sharpest results.  \n- **Embossed Spot UV** is perfect for bold & large text fields (**10 pt. or larger font**).\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748024293836.jpeg"
+        ],
+        "categoryId": 1,
+        "isAvailable": true,
+        "sku": "VC_Matt+UV",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-23T18:18:22.087Z",
+        "updatedAt": "2025-07-27T08:02:27.182Z"
+    },
+    {
+        "id": 36,
+        "name": "Matt Lamination",
+        "description": "- **Product Code:** VC_Matt  \n- **Product Class:** Classic  \n- **Product Core:** Smooth Matte with Excellent Printing  \n- **Paper Quality:** 350 GSM Art Paper  \n- **Production Time:** 2 days  \n- **Lamination Type:** Matt  \n- **Product Features:** Natural look  \n\n## Points to be Noted\n\n- **Card Design Size:** W: 96.00 mm × H: 58.00 mm  \n- **Text / Matter Area:** W: 84.00 mm × H: 46.00 mm  \n- **Size After Cutting:** W: 90.00 mm × H: 53.00 mm  \n- The **color saturation and print quality** on these cards is extremely high—ideal for colorful or darker designs.  \n- Use **high-resolution imagery** for the clearest & sharpest results.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748024377895.jpeg"
+        ],
+        "categoryId": 1,
+        "isAvailable": true,
+        "sku": "VC_Matt",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-23T18:21:56.115Z",
+        "updatedAt": "2025-07-27T08:03:30.855Z"
+    },
+    {
+        "id": 39,
+        "name": "Gloss Lamination",
+        "description": "- **Product Code:** VC_Gloss  \n- **Product Class:** Regular  \n- **Product Core:** Gloss lamination with Excellent printing  \n- **Production Time:** 1 day  \n- **Lamination Type:** Gloss  \n- **Product Feature:** Shiny look  \n\n## Points to be Noted\n\n- **Card Design Size:** W: 90.00 mm × H: 54.00 mm  \n- **Text / Matter Area:** W: 80.00 mm × H: 44.00 mm  \n- **Size After Cutting:** W: 87.00 mm × H: 51.00 mm  \n- The **color saturation and print quality** on these cards is extremely high—ideal for more colorful or darker designs.  \n- Use **high-resolution imagery** for the clearest & sharpest results.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748026125436.jpeg"
+        ],
+        "categoryId": 1,
+        "isAvailable": true,
+        "sku": "VC_Gloss",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-23T18:50:21.209Z",
+        "updatedAt": "2025-09-09T15:43:02.310Z"
+    },
+    {
+        "id": 66,
+        "name": "Letter Head - 70 GSM, Maplitho Paper",
+        "description": "- **Product Code:** LH70  \n- **Product Class:** Regular  \n- **Product Size:** A4 Size (8.26\" × 11.69\")  \n- **Product Core:** Excellent printing with latest machines  \n- **Production Time:** Within 48 hours from file upload  \n- **Paper Quality:** 70 GSM, Maplitho Paper\n- **Printing Options:** Single Side  \n- **Pricing:** Price discount applicable (system auto-calculates with increase in quantity)\n\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1757858702430_1_0"
+        ],
+        "categoryId": 5,
+        "isAvailable": true,
+        "sku": "LH70",
+        "isTieredPricing": true,
+        "createdAt": "2025-09-14T13:55:24.974Z",
+        "updatedAt": "2025-09-14T16:15:15.128Z"
+    },
+    {
+        "id": 67,
+        "name": "Letter Head - 90 GSM, Sunshine Paper",
+        "description": "- **Product Code:** LH90  \n- **Product Class:** Regular  \n- **Product Size:** A4 Size (8.26\" × 11.69\")  \n- **Product Core:** Excellent printing with latest machines  \n- **Production Time:** Within 48 hours from file upload  \n- **Paper Quality:** 90 GSM, Sunshine Paper\n- **Printing Options:** Single Side  \n- **Pricing:** Price discount applicable (system auto-calculates with increase in quantity)\n\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1757858777567_1_0"
+        ],
+        "categoryId": 5,
+        "isAvailable": true,
+        "sku": "LH90",
+        "isTieredPricing": true,
+        "createdAt": "2025-09-14T14:10:17.231Z",
+        "updatedAt": "2025-09-14T14:10:17.231Z"
+    },
+    {
+        "id": 68,
+        "name": "Letter Head - 100 GSM, Bond Paper",
+        "description": "- **Product Code:** LH100BOND  \n- **Product Class:** Regular  \n- **Product Size:** A4 Size (8.26\" × 11.69\")  \n- **Product Core:** Excellent printing with latest machines  \n- **Production Time:** Within 48 hours from file upload  \n- **Paper Quality:** 100 GSM, Bond Paper  \n- **Printing Options:** Single Side  \n- **Pricing:** Price discount applicable (system auto-calculates with increase in quantity)\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1757859591515_1_0"
+        ],
+        "categoryId": 5,
+        "isAvailable": true,
+        "sku": "LH100BOND",
+        "isTieredPricing": true,
+        "createdAt": "2025-09-14T14:20:03.184Z",
+        "updatedAt": "2025-09-14T16:29:04.428Z"
+    },
+    {
+        "id": 53,
+        "name": "Gift Envelopes",
+        "description": "Gift Envelopes",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748591272605"
+        ],
+        "categoryId": 6,
+        "isAvailable": false,
+        "sku": "E_G",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-30T07:48:40.499Z",
+        "updatedAt": "2025-05-30T07:48:40.499Z"
+    },
+    {
+        "id": 51,
+        "name": "Without Lamination",
+        "description": "- **Product Code:** VC_Without_lamination  \n- **Product Class:** Regular  \n- **Product Core:** Excellent printing (No Gloss coating)  \n- **Production Time:** 2 days  \n- **Lamination Type:** N/A  \n- **Product Feature:** Regular look  \n\n## Points to be Noted\n\n- **Card Design Size:** W: 90.00 mm × H: 54.00 mm  \n- **Text / Matter Area:** W: 80.00 mm × H: 44.00 mm  \n- **Size After Cutting:** W: 87.00 mm × H: 51.00 mm  \n- The **color saturation and print quality** on these cards is extremely high—ideal for more colorful or darker designs.  \n- Use **high-resolution imagery** for the clearest & sharpest results.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748027663948.jpeg"
+        ],
+        "categoryId": 1,
+        "isAvailable": true,
+        "sku": "VC_Without_lamination",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-23T19:16:36.855Z",
+        "updatedAt": "2025-07-27T08:09:49.118Z"
+    },
+    {
+        "id": 54,
+        "name": "Sticker  (without half cut)",
+        "description": "- **Product Code:** sl_whc  \n- **Product Size:** 7\" × 9.5\"  \n- **Half-Cut Options:** Available with 6 cut size options:\n  - ➤ 1 round sticker of 170 × 170 mm  \n  - ➤ 2 round stickers of 115 × 115 mm  \n  - ➤ 6 round stickers of 75 × 75 mm  \n  - ➤ 12 round stickers of 55 × 55 mm  \n  - ➤ 20 round stickers of 40 × 40 mm  \n  - ➤ 35 round stickers of 30 × 30 mm  \n- **Production Time:** Within 7 days from file upload\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748591622770"
+        ],
+        "categoryId": 9,
+        "isAvailable": true,
+        "sku": "sl_whc",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-30T07:57:23.137Z",
+        "updatedAt": "2025-07-27T08:33:15.585Z"
+    },
+    {
+        "id": 55,
+        "name": "Sticker  (with round cut)",
+        "description": "- **Product Code:** sl_rc  \n- **Product Size:** 7\" × 9.5\"  \n- **Half-Cut Options:** Available with 6 cut size options:\n  - ➤ 1 round sticker of 170 × 170 mm  \n  - ➤ 2 round stickers of 115 × 115 mm  \n  - ➤ 6 round stickers of 75 × 75 mm  \n  - ➤ 12 round stickers of 55 × 55 mm  \n  - ➤ 20 round stickers of 40 × 40 mm  \n  - ➤ 35 round stickers of 30 × 30 mm  \n- **Production Time:** Within 7 days from file upload\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748592002700",
+            "https://storage.googleapis.com/printvc/images/1_0_1748592021144"
+        ],
+        "categoryId": 9,
+        "isAvailable": true,
+        "sku": "sl_rc",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-30T08:06:07.816Z",
+        "updatedAt": "2025-07-27T08:34:20.789Z"
+    },
+    {
+        "id": 56,
+        "name": "Sticker ( With Straight Cut )",
+        "description": "- **Product Code:** sl_sc  \n- **Product Size:** Available with  \n    ⇒ 7\" × 9.5\"  \n- **Half-Cut Options:** Available with 15 cut size options  \n- **Production Time:** Within 7 days from file upload\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748592924405",
+            "https://storage.googleapis.com/printvc/images/1_0_1748592931950"
+        ],
+        "categoryId": 9,
+        "isAvailable": true,
+        "sku": "sl_sc",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-30T08:26:22.349Z",
+        "updatedAt": "2025-07-27T08:37:16.219Z"
+    },
+    {
+        "id": 37,
+        "name": "Texture",
+        "description": "- **Product Code:** VC_Texture  \n- **Product Class:** Premium  \n- **Product Core:** Smooth Matt with Unique Texture  \n- **Paper Quality:** High Bulk 350 GSM Paper  \n- **Production Time:** 3 days  \n- **Lamination Type:** Matt / Gloss  \n- **Product Feature:** Elegant look with textured feel  \n\n## Points to be Noted\n\n- **Card Design Size:** W: 96.00 mm × H: 58.00 mm  \n- **Text / Matter Area:** W: 84.00 mm × H: 46.00 mm  \n- **Size After Cutting:** W: 90.00 mm × H: 53.00 mm  \n- The **color saturation and print quality** on these cards is extremely high—perfect for colorful or dark designs.  \n- Use **high-resolution imagery** for the clearest & sharpest results.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748025191451.jpeg",
+            "https://storage.googleapis.com/printvc/images/1_0_1748025187643.jpeg",
+            "https://storage.googleapis.com/printvc/images/1_0_1748025184311.jpeg",
+            "https://storage.googleapis.com/printvc/images/1_0_1748025180951.jpeg",
+            "https://storage.googleapis.com/printvc/images/1_0_1748025153223.jpeg",
+            "https://storage.googleapis.com/printvc/images/1_0_1748025200834.jpeg",
+            "https://storage.googleapis.com/printvc/images/1_0_1748025197023.jpeg",
+            "https://storage.googleapis.com/printvc/images/1_0_1748025194223.jpeg"
+        ],
+        "categoryId": 1,
+        "isAvailable": true,
+        "sku": "VC_Texture",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-23T18:33:35.644Z",
+        "updatedAt": "2025-09-09T15:47:06.050Z"
+    },
+    {
+        "id": 61,
+        "name": "Letter Head - 100 GSM, Deo Paper",
+        "description": "- **Product Code:** LH100DEO  \n- **Product Class:** Regular  \n- **Product Size:** A4 Size (8.26\" × 11.69\")  \n- **Product Core:** Excellent printing with latest machines  \n- **Production Time:** Within 48 hours from file upload  \n- **Paper Quality:** 100 GSM, Deo Paper  \n- **Printing Options:** Single Side | Both Side  \n- **Pricing:** Price discount applicable (system auto-calculates with increase in quantity)\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1750942215636"
+        ],
+        "categoryId": 5,
+        "isAvailable": true,
+        "sku": "LH100DEO",
+        "isTieredPricing": true,
+        "createdAt": "2025-06-26T12:58:21.954Z",
+        "updatedAt": "2025-09-14T14:14:17.596Z"
+    },
+    {
+        "id": 58,
+        "name": "Pamphlet 90 GSM",
+        "description": "- **Product Code:** PM90GSM  \n- **Product Class:** Regular  \n- **Product Size:** Letter Size (8.5\" x 11\")  \n- **Product Core:** Excellent Printing with Latest Machines  \n- **Production Time:** Within 48 hours from file upload  \n- **Printing Options:** Single Side | Both Side  \n- **Price Discount:** Automatically calculated with increased quantity\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1750937154097"
+        ],
+        "categoryId": 12,
+        "isAvailable": true,
+        "sku": "PM90GSM",
+        "isTieredPricing": true,
+        "createdAt": "2025-06-26T11:33:07.413Z",
+        "updatedAt": "2025-10-24T13:35:50.470Z"
+    },
+    {
+        "id": 57,
+        "name": "Matt",
+        "description": "- **Product Code:** TM  \n- **Product Size:** Small | Medium | Large  \n- **Die Options:** Available with 10 options  \n- **Production Time:** Within 7 days from file upload\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1749399948889"
+        ],
+        "categoryId": 2,
+        "isAvailable": true,
+        "sku": "TM",
+        "isTieredPricing": true,
+        "createdAt": "2025-06-08T16:28:18.397Z",
+        "updatedAt": "2025-10-24T13:46:06.992Z"
+    },
+    {
+        "id": 59,
+        "name": "Pamphlet - 115 GSM",
+        "description": "- **Product Code:** PM115GSM  \n- **Product Class:** Regular  \n- **Product Size:** Letter Size (8.5\" x 11\")  \n- **Product Core:** Excellent Printing with Latest Machines  \n- **Production Time:** Within 48 hours from file upload  \n- **Printing Options:** Single Side | Both Side  \n- **Price Discount:** Automatically calculated with increased quantity\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1750938221622"
+        ],
+        "categoryId": 12,
+        "isAvailable": true,
+        "sku": "PM115GSM",
+        "isTieredPricing": true,
+        "createdAt": "2025-06-26T11:46:52.973Z",
+        "updatedAt": "2025-10-24T13:35:00.663Z"
+    },
+    {
+        "id": 60,
+        "name": "Pamphlet - 170 GSM",
+        "description": "- **Product Code:** PM170GSM  \n- **Product Class:** Regular  \n- **Product Size:** Letter Size (8.5\" x 11\")  \n- **Product Core:** Excellent Printing with Latest Machines  \n- **Production Time:** Within 48 hours from file upload  \n- **Printing Options:** Single Side | Both Side  \n- **Price Discount:** Automatically calculated with increased quantity\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1750938652479"
+        ],
+        "categoryId": 12,
+        "isAvailable": true,
+        "sku": "PM170GSM",
+        "isTieredPricing": true,
+        "createdAt": "2025-06-26T11:53:52.850Z",
+        "updatedAt": "2025-10-24T13:35:19.755Z"
+    },
+    {
+        "id": 69,
+        "name": "SBS File (Gloss Lamination, Small Size)",
+        "description": "## Product Description\n\n- **Size (In inch):** 9\"x12\"\n- **Lamination Type:** Gloss Lamination\n- **Pocket Option:** Not Available\n- **Production Time:** 3 Working Days\n- **Paper Quality:** 260 Gsm SBS Paper\n- **Number of creases at the center fold:** One\n- **Uses:** For Doctor Files, Hospital Use and Corporate Purposes",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1761840858157_"
+        ],
+        "categoryId": 13,
+        "isAvailable": true,
+        "sku": "sbsgs",
+        "isTieredPricing": false,
+        "createdAt": "2025-10-30T16:16:20.823Z",
+        "updatedAt": "2025-10-30T16:16:20.823Z"
+    },
+    {
+        "id": 70,
+        "name": "SBS File (Matt Lamination, Small Size)",
+        "description": "## Product Description\n\n- **Size (In inch):** 9\"x12\"\n- **Lamination Type:** Matt Lamination\n- **Pocket Option:** Not Available\n- **Production Time:** 3 Working Days\n- **Paper Quality:** 260 Gsm SBS Paper\n- **Number of creases at the center fold:** One\n- **Uses:** For Doctor Files, Hospital Use and Corporate Purposes",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1761841101595_"
+        ],
+        "categoryId": 13,
+        "isAvailable": true,
+        "sku": "sbsms",
+        "isTieredPricing": false,
+        "createdAt": "2025-10-30T16:21:41.315Z",
+        "updatedAt": "2025-10-30T16:21:41.315Z"
+    },
+    {
+        "id": 34,
+        "name": "180 Micron NT Card",
+        "description": "- **Product Code:** VC-180-Micron  \n- **Product Class:** Classic  \n- **Product Core:** PVC with shiny Gloss  \n- **Paper Quality:** PVC 180 Micron  \n- **Production Time:** 2 days  \n- **Lamination Type:** Gloss  \n- **Product Features:** Vibrant look  \n- **Printing Options:** Both Side Printing Available  \n\n## Points to be Noted\n\n- **Card Design Size:** W: 90.00 mm × H: 54.00 mm  \n- **Text / Matter Area:** W: 80.00 mm × H: 44.00 mm  \n- **Size After Cutting:** W: 87.00 mm × H: 51.00 mm  \n- The **color saturation and print quality** on these cards is extremely high—great for colorful or darker designs.  \n- Use **high-resolution imagery** for the clearest & sharpest results.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748022759326.jpeg"
+        ],
+        "categoryId": 1,
+        "isAvailable": true,
+        "sku": "VC-180-Micron",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-23T17:57:11.407Z",
+        "updatedAt": "2025-07-27T08:01:33.063Z"
+    },
+    {
+        "id": 49,
+        "name": "Gloss Coated",
+        "description": "- **Product Code:** VC_Gloss_coated  \n- **Product Class:** Regular  \n- **Product Core:** Gloss Coat with Excellent printing  \n- **Production Time:** 12 hours  \n- **Lamination Type:** N/A  \n- **Product Feature:** Shiny look  \n\n## Points to be Noted\n\n- **Card Design Size:** W: 90.00 mm × H: 54.00 mm  \n- **Text / Matter Area:** W: 80.00 mm × H: 44.00 mm  \n- **Size After Cutting:** W: 87.00 mm × H: 51.00 mm  \n- The **color saturation and print quality** on these cards is extremely high—ideal for more colorful or darker designs.  \n- Use **high-resolution imagery** for the clearest & sharpest results.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748026964997.jpeg"
+        ],
+        "categoryId": 1,
+        "isAvailable": true,
+        "sku": "VC_Gloss_coated",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-23T19:08:23.910Z",
+        "updatedAt": "2025-07-27T08:08:08.335Z"
+    },
+    {
+        "id": 50,
+        "name": "Gloss Coated Small",
+        "description": "- **Product Code:** VC_Gloss_coated_small  \n- **Product Class:** Regular  \n- **Product Core:** Gloss Coat with Excellent printing  \n- **Production Time:** 1 day  \n- **Lamination Type:** N/A  \n- **Product Feature:** Shiny look  \n\n## Points to be Noted\n\n- **Card Design Size:** W: 83.00 mm × H: 52.00 mm  \n- **Text Area:** W: 74.00 mm × H: 44.00 mm  \n- **Size After Cutting:** W: 80.00 mm × H: 50.00 mm  \n- The **color saturation and print quality** on these cards is extremely high—great for more colorful or darker designs.  \n- Use **high-resolution imagery** for the clearest & sharpest results.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748027598449.jpeg"
+        ],
+        "categoryId": 1,
+        "isAvailable": true,
+        "sku": "VC_Gloss_coated_small",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-23T19:13:30.455Z",
+        "updatedAt": "2025-07-27T08:08:53.078Z"
+    },
+    {
+        "id": 52,
+        "name": "Without Lamination Small",
+        "description": "- **Product Code:** VC_Without_lamination_small  \n- **Product Class:** Regular  \n- **Product Core:** Excellent printing (Without Lamination)  \n- **Production Time:** 2 days  \n- **Lamination Type:** N/A  \n- **Product Feature:** Regular look  \n\n## Points to be Noted\n\n- **Card Design Size:** W: 83.00 mm × H: 52.00 mm  \n- **Text Area:** W: 74.00 mm × H: 44.00 mm  \n- **Size After Cutting:** W: 80.00 mm × H: 50.00 mm  \n- The **color saturation and print quality** on these cards is extremely high—great for more colorful or darker designs.  \n- Use **high-resolution imagery** for the clearest & sharpest results.\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1748027896752.jpeg"
+        ],
+        "categoryId": 1,
+        "isAvailable": true,
+        "sku": "VC_Without_lamination_small",
+        "isTieredPricing": false,
+        "createdAt": "2025-05-23T19:19:02.936Z",
+        "updatedAt": "2025-07-27T08:10:37.685Z"
+    },
+    {
+        "id": 16,
+        "name": "Matt + UV",
+        "description": "## Product Description\n\n- **Product Ref.:** TAG/1st Edition (Sample File)  \n- **Product Code:** Tag-3  \n- **Product Class:** Premium  \n- **Product Core:** Smooth Matt with Fine UV  \n- **Paper Quality:** Imported 400 GSM Art Paper  \n- **Production Time:** Within 7–10 days from file upload  \n- **Lamination Type:** Matt  \n- **Finish:** Embossed Spot UV adds to the magnificence of the card and provides a glossy finish on the selected areas  \n- **Availability:** 10 unique die shapes, available in 3 sizes (Small, Medium, Large)  \n\n### Small Tags\n\n- **Tag Design Size:** W: 57.00 mm × H: 59.00 mm  \n- **Text/Matter Area:** W: 44.00 mm × H: 44.00 mm  \n- **Tag After Cutting:** W: 50.00 mm × H: 50.00 mm  \n\n### Medium Tags\n\n- **Tag Design Size:** W: 57.00 mm × H: 94.00 mm  \n- **Text/Matter Area:** W: 45.00 mm × H: 82.00 mm  \n- **Tag After Cutting:** W: 50.50 mm × H: 87.50 mm  \n\n### Large Tags\n\n- **Tag Design Size:** W: 58.50 mm × H: 113.50 mm  \n- **Text/Matter Area:** W: 46.00 mm × H: 101.00 mm  \n- **Tag After Cutting:** W: 52.00 mm × H: 107.00 mm\n",
+        "imageUrl": [
+            "https://storage.googleapis.com/printvc/images/1_0_1746073919031"
+        ],
+        "categoryId": 2,
+        "isAvailable": true,
+        "sku": "TMU",
+        "isTieredPricing": true,
+        "createdAt": "2025-05-01T04:35:26.404Z",
+        "updatedAt": "2025-07-27T08:13:09.814Z"
+    }
+]

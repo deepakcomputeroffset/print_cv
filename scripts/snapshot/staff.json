@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "name": "Developer",
+        "email": "aaditya1392@gmail.com",
+        "phone": "7479796212",
+        "role": "ADMIN",
+        "isBanned": false,
+        "password": "$2a$10$weO0UPIS.r8SQIz0eZtSpe7GWAKrzqdtdqAbc8v1m9hCJzHTI0NpO",
+        "createdAt": "2025-05-08T17:35:03.029Z",
+        "updatedAt": "2025-05-11T09:33:37.214Z"
+    },
+    {
+        "id": 3,
+        "name": "SAGAR",
+        "email": "DEEPAKCOMPUTEROFFSET@GMAIL.COM",
+        "phone": "6396959217",
+        "role": "JOB_MANAGER",
+        "isBanned": false,
+        "password": "$2a$10$lQh0jwDJ3MA1ly7gOzdIE.t.csymbUu51BpNNR6lfVAJNPiwpDjPW",
+        "createdAt": "2026-01-03T06:40:54.458Z",
+        "updatedAt": "2026-01-03T06:44:39.227Z"
+    },
+    {
+        "id": 2,
+        "name": "Deep Singh",
+        "email": "deepakcomputeroffset@gmail.com",
+        "phone": "9311831919",
+        "role": "ADMIN",
+        "isBanned": false,
+        "password": "$2a$10$rGtNpRBKx221uakaC5YLZ.VhgF0VR1MOiM6qXklQPzmISlvNSMUN6",
+        "createdAt": "2025-05-11T08:38:25.280Z",
+        "updatedAt": "2026-01-04T09:23:59.662Z"
+    },
+    {
+        "id": 4,
+        "name": "Aditya Kumar",
+        "email": "aaditya1392@gmail.com",
+        "phone": "1234567890",
+        "role": "STAFF",
+        "isBanned": false,
+        "password": "$2a$10$yYa0ATGXSIDwuEICr7dazOxIbRO1TFxlJR0Ztwuz5rgVf74qkvpKm",
+        "createdAt": "2026-01-04T09:05:15.294Z",
+        "updatedAt": "2026-01-04T10:04:17.626Z"
+    }
+]

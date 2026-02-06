@@ -1,0 +1,112 @@
+[
+    {
+        "id": 1,
+        "line": "bhagwanput",
+        "pinCode": "843101",
+        "cityId": 110,
+        "ownerId": 1,
+        "ownerType": "CUSTOMER",
+        "createdAt": "2025-05-10T12:41:12.913Z",
+        "updatedAt": "2025-05-10T12:41:12.913Z"
+    },
+    {
+        "id": 2,
+        "line": "delhi",
+        "pinCode": "123456",
+        "cityId": 751,
+        "ownerId": 2,
+        "ownerType": "STAFF",
+        "createdAt": "2025-05-11T08:38:25.284Z",
+        "updatedAt": "2025-05-11T08:38:25.284Z"
+    },
+    {
+        "id": 3,
+        "line": "a-24",
+        "pinCode": "110095",
+        "cityId": 750,
+        "ownerId": 2,
+        "ownerType": "CUSTOMER",
+        "createdAt": "2025-05-17T13:45:00.121Z",
+        "updatedAt": "2025-05-17T13:45:00.121Z"
+    },
+    {
+        "id": 4,
+        "line": "test address",
+        "pinCode": "123456",
+        "cityId": 751,
+        "ownerId": 3,
+        "ownerType": "CUSTOMER",
+        "createdAt": "2025-05-25T10:41:13.324Z",
+        "updatedAt": "2025-05-25T10:41:13.324Z"
+    },
+    {
+        "id": 5,
+        "line": "test address",
+        "pinCode": "123456",
+        "cityId": 751,
+        "ownerId": 4,
+        "ownerType": "CUSTOMER",
+        "createdAt": "2025-05-25T10:41:58.114Z",
+        "updatedAt": "2025-05-25T10:41:58.114Z"
+    },
+    {
+        "id": 6,
+        "line": "test address",
+        "pinCode": "123456",
+        "cityId": 751,
+        "ownerId": 5,
+        "ownerType": "CUSTOMER",
+        "createdAt": "2025-05-25T10:42:27.374Z",
+        "updatedAt": "2025-05-25T10:42:27.374Z"
+    },
+    {
+        "id": 7,
+        "line": "test address",
+        "pinCode": "123456",
+        "cityId": 751,
+        "ownerId": 6,
+        "ownerType": "CUSTOMER",
+        "createdAt": "2025-05-25T10:43:05.782Z",
+        "updatedAt": "2025-05-25T10:43:05.782Z"
+    },
+    {
+        "id": 11,
+        "line": "A-24, DSIDC COMPLEX",
+        "pinCode": "110095",
+        "cityId": 755,
+        "ownerId": 10,
+        "ownerType": "CUSTOMER",
+        "createdAt": "2025-11-05T06:09:46.370Z",
+        "updatedAt": "2025-11-05T06:09:46.370Z"
+    },
+    {
+        "id": 12,
+        "line": "A-24, DSIDC COMPLEX",
+        "pinCode": "110095",
+        "cityId": 750,
+        "ownerId": 3,
+        "ownerType": "STAFF",
+        "createdAt": "2026-01-03T06:40:54.465Z",
+        "updatedAt": "2026-01-03T06:40:54.465Z"
+    },
+    {
+        "id": 13,
+        "line": "test",
+        "pinCode": "123456",
+        "cityId": 110,
+        "ownerId": 4,
+        "ownerType": "STAFF",
+        "createdAt": "2026-01-04T09:05:15.298Z",
+        "updatedAt": "2026-01-04T09:05:15.298Z"
+    },
+    {
+        "id": 14,
+        "line": "1/11449, GALI NO. 2, SHUBHASH PARK EXTN.",
+        "pinCode": "110032",
+        "cityId": 755,
+        "ownerId": 11,
+        "ownerType": "CUSTOMER",
+        "createdAt": "2026-02-06T10:24:46.734Z",
+        "updatedAt": "2026-02-06T10:24:46.734Z"
+    }
+]

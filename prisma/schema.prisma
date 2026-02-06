@@ -170,6 +170,7 @@ model productItem {
     sku                     String                  @unique
     pricing                 pricing[]
     isAvailable             Boolean                 @default(false)
+    isDefault               Boolean                 @default(false)
     productAttributeOptions productAttributeValue[]
     orders                  order[]
     uploadGroupId           Int

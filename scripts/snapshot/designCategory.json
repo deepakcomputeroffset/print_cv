@@ -1,0 +1,380 @@
+[
+    {
+        "id": 1,
+        "parentCategoryId": null,
+        "name": "Visiting Card",
+        "img": "https://storage.googleapis.com/printvc/design_category/Visiting_Card_1753456202446.jpg"
+    },
+    {
+        "id": 2,
+        "parentCategoryId": null,
+        "name": "Die Cut Visiting Card",
+        "img": "https://storage.googleapis.com/printvc/design_category/Die_Cut_Visiting_Card_1753456202449.jpg"
+    },
+    {
+        "id": 3,
+        "parentCategoryId": null,
+        "name": "Letter Head",
+        "img": "https://storage.googleapis.com/printvc/design_category/Letter_Head_1753456202449.jpg"
+    },
+    {
+        "id": 4,
+        "parentCategoryId": null,
+        "name": "Envelope",
+        "img": "https://storage.googleapis.com/printvc/design_category/Envelope_1753456202450.jpg"
+    },
+    {
+        "id": 6,
+        "parentCategoryId": null,
+        "name": "ATM Pouch",
+        "img": "https://storage.googleapis.com/printvc/design_category/ATM_Pouch_1753456202450.jpg"
+    },
+    {
+        "id": 7,
+        "parentCategoryId": null,
+        "name": "Doctor Files",
+        "img": "https://storage.googleapis.com/printvc/design_category/Doctor_Files_1753456202451.jpg"
+    },
+    {
+        "id": 8,
+        "parentCategoryId": null,
+        "name": "UV Texture",
+        "img": "https://storage.googleapis.com/printvc/design_category/UV_Texture_1753456202451.jpg"
+    },
+    {
+        "id": 9,
+        "parentCategoryId": null,
+        "name": "Garments Tags",
+        "img": "https://storage.googleapis.com/printvc/design_category/Garments_Tags_1753456202452.jpg"
+    },
+    {
+        "id": 10,
+        "parentCategoryId": null,
+        "name": "Sticker",
+        "img": "https://storage.googleapis.com/printvc/design_category/Sticker_1753456202452.jpg"
+    },
+    {
+        "id": 49,
+        "parentCategoryId": 2,
+        "name": "METAL VISITING CARDS",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/metal_20vc_20new_20img_20a_1761143278705.png"
+    },
+    {
+        "id": 50,
+        "parentCategoryId": 2,
+        "name": "Die No. 1",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/Die_201_20Sub_20Catgory_1761143278709.png"
+    },
+    {
+        "id": 51,
+        "parentCategoryId": 2,
+        "name": "Die No. 2",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/die_20no_202_20cus_1761143278710.png"
+    },
+    {
+        "id": 52,
+        "parentCategoryId": 2,
+        "name": "Die No. 3",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/DIE_20NO_203_20CUS_1761143278708.png"
+    },
+    {
+        "id": 53,
+        "parentCategoryId": 2,
+        "name": "Die No. 4",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_204_1761143278711.jpg"
+    },
+    {
+        "id": 54,
+        "parentCategoryId": 2,
+        "name": "Die No. 5",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_205_1761143278708.jpg"
+    },
+    {
+        "id": 55,
+        "parentCategoryId": 2,
+        "name": "Die No. 6",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/1_1761143278712.png"
+    },
+    {
+        "id": 56,
+        "parentCategoryId": 2,
+        "name": "Die No. 7",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_207_1761143278709.jpg"
+    },
+    {
+        "id": 57,
+        "parentCategoryId": 2,
+        "name": "Die No. 8",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_208_1761143278685.jpg"
+    },
+    {
+        "id": 58,
+        "parentCategoryId": 2,
+        "name": "Die No. 9",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_209_1761143278712.jpg"
+    },
+    {
+        "id": 59,
+        "parentCategoryId": 2,
+        "name": "Die No. 10",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_2010_1761143278712.jpg"
+    },
+    {
+        "id": 60,
+        "parentCategoryId": 2,
+        "name": "Die No. 11",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_2011_1761143278712.jpg"
+    },
+    {
+        "id": 61,
+        "parentCategoryId": 2,
+        "name": "Die No. 12",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/cloth_1761143278713.png"
+    },
+    {
+        "id": 62,
+        "parentCategoryId": 2,
+        "name": "Die No. 13",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_2013_1761143278713.jpg"
+    },
+    {
+        "id": 63,
+        "parentCategoryId": 2,
+        "name": "Die No. 14",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_2014_1761143278714.jpg"
+    },
+    {
+        "id": 64,
+        "parentCategoryId": 2,
+        "name": "Die No. 15",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_2015_1761143278713.jpg"
+    },
+    {
+        "id": 65,
+        "parentCategoryId": 2,
+        "name": "Die No. 16",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_2016_1761143278705.jpg"
+    },
+    {
+        "id": 66,
+        "parentCategoryId": 2,
+        "name": "Die No. 17",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/Shoes_1761143278707.jpg"
+    },
+    {
+        "id": 67,
+        "parentCategoryId": 2,
+        "name": "Die No. 18",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/18_1761143278707.jpg"
+    },
+    {
+        "id": 68,
+        "parentCategoryId": 2,
+        "name": "Die No. 19",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/Blade_20Shape_20A_1761143278707.png"
+    },
+    {
+        "id": 69,
+        "parentCategoryId": 2,
+        "name": "Die No. 20",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/JIO_20SIM_1761143278707.png"
+    },
+    {
+        "id": 70,
+        "parentCategoryId": 2,
+        "name": "Die No. 21",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/21_1761143278706.jpg"
+    },
+    {
+        "id": 71,
+        "parentCategoryId": 2,
+        "name": "Die No. 22",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_2022_1761143278706.jpg"
+    },
+    {
+        "id": 72,
+        "parentCategoryId": 2,
+        "name": "Die No. 23",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/VV_20DIE_2023_1761143278715.jpg"
+    },
+    {
+        "id": 73,
+        "parentCategoryId": 2,
+        "name": "Die No. 24",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/DIE_20No__2024_1761143278713.png"
+    },
+    {
+        "id": 74,
+        "parentCategoryId": 2,
+        "name": "Die No. 25",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/DIE_20No__2025_1761143278708.png"
+    },
+    {
+        "id": 75,
+        "parentCategoryId": 2,
+        "name": "Die No. 26",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/DIE_20No__2026_1761143278708.png"
+    },
+    {
+        "id": 76,
+        "parentCategoryId": 2,
+        "name": "Die No. 27",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/DIE_20No__2027_1761143278715.png"
+    },
+    {
+        "id": 77,
+        "parentCategoryId": 2,
+        "name": "Die No. 28",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/DIE_20No__2028_1761143278714.png"
+    },
+    {
+        "id": 78,
+        "parentCategoryId": 2,
+        "name": "Die No. 29",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/AAA_1761143278714.png"
+    },
+    {
+        "id": 79,
+        "parentCategoryId": 2,
+        "name": "Die No. 30",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/DIE_20No__2030_1761143278709.png"
+    },
+    {
+        "id": 80,
+        "parentCategoryId": 2,
+        "name": "Die No. 31",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/die_20no_2031_20cus_1761143278711.png"
+    },
+    {
+        "id": 81,
+        "parentCategoryId": 2,
+        "name": "Die No. 32",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/Die_20No_2032_20Cus_1761143278711.png"
+    },
+    {
+        "id": 82,
+        "parentCategoryId": 2,
+        "name": "Die No. 33",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/die_20no_2033_20cus_1761143278711.png"
+    },
+    {
+        "id": 83,
+        "parentCategoryId": 2,
+        "name": "Die No. 34",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/Die_20No_2034_20Cus_1761143278709.png"
+    },
+    {
+        "id": 84,
+        "parentCategoryId": 2,
+        "name": "Die No. 35",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/Die_20No_2035_20Cus_1761143278712.png"
+    },
+    {
+        "id": 85,
+        "parentCategoryId": 2,
+        "name": "Die Shape : 36",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/DIE_201_1761143278710.jpg"
+    },
+    {
+        "id": 86,
+        "parentCategoryId": 4,
+        "name": "ENVELOPE - 9x4",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/ENV_201A_1761145414941.jpg"
+    },
+    {
+        "id": 87,
+        "parentCategoryId": 4,
+        "name": "ENVELOPE - 9.70x4.20",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/ENV_201A_1761145414949.jpg"
+    },
+    {
+        "id": 88,
+        "parentCategoryId": 4,
+        "name": "ENVELOPE - 10.75x4.75",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/ENV_203A_1761145414949.jpg"
+    },
+    {
+        "id": 89,
+        "parentCategoryId": 4,
+        "name": "ENVELOPE - 5x7",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/ENV_204A_1761145414948.jpg"
+    },
+    {
+        "id": 90,
+        "parentCategoryId": 4,
+        "name": "ENVELOPE - 6x8",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/ENV_205A_1761145414948.jpg"
+    },
+    {
+        "id": 91,
+        "parentCategoryId": 4,
+        "name": "ENVELOPE - 8.60x10.60",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/ENV_206A_1761145414948.jpg"
+    },
+    {
+        "id": 92,
+        "parentCategoryId": 4,
+        "name": "ENVELOPE - 9.40x12.40",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/ENV_207A_1761145414948.jpg"
+    },
+    {
+        "id": 93,
+        "parentCategoryId": 4,
+        "name": "GIFT ENVELOPE",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/ENV_208b_1761145414947.jpg"
+    },
+    {
+        "id": 11,
+        "parentCategoryId": null,
+        "name": "Bill Book",
+        "img": "https://storage.googleapis.com/printvc/design_category/Bill_Book_1753456202450.jpg"
+    },
+    {
+        "id": 94,
+        "parentCategoryId": 10,
+        "name": "Round Cut",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/Mock_20up_1761149009522.jpg"
+    },
+    {
+        "id": 95,
+        "parentCategoryId": 10,
+        "name": "Straight Cut",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/Untitled-2_1761149009532.jpg"
+    },
+    {
+        "id": 96,
+        "parentCategoryId": 9,
+        "name": "Large Tags",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/Common_20File_20For_20JPG_2011_1761149316505.jpg"
+    },
+    {
+        "id": 97,
+        "parentCategoryId": 9,
+        "name": "Medium Tags",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/Common_20File_20For_20JPG_1761149316530.jpg"
+    },
+    {
+        "id": 98,
+        "parentCategoryId": 9,
+        "name": "Small Tags",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/Common_20File_20For_20JPG_203_1761149316527.jpg"
+    },
+    {
+        "id": 99,
+        "parentCategoryId": 7,
+        "name": "Small Size 9'x12'",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/96_Texture_20UV_20Type-1_1761151078175.jpg"
+    },
+    {
+        "id": 100,
+        "parentCategoryId": 7,
+        "name": "Big Size 9.5'x12.5'",
+        "img": "https://storage.googleapis.com/printvc/design_category_items/97_Texture_20UV_20Type-2_1761151078183.jpg"
+    },
+    {
+        "id": 5,
+        "parentCategoryId": null,
+        "name": "ID Card",
+        "img": "https://storage.googleapis.com/printvc/design_category/ID_Card_1753456202452.jpg"
+    }
+]

@@ -44,3 +44,6 @@ next-env.d.ts
 # tests
 /testing/
 upload_scripts/
+
+# database backups
+/backups/

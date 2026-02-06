@@ -245,11 +245,24 @@ export function EditProductForm({
             pricing: pricing,
             uploadGroupId: -1,
             isAvailable: form?.getValues("isAvailable"),
+            isDefault: index === 0,
         }));
 
         setVariants(newVariants);
         form.setValue("productItems", newVariants, { shouldDirty: true });
     }, [selectedAttributes, selectedOptions, pricing]);
+
+    const handleSetDefault = useCallback(
+        (defaultIndex: number) => {
+            const updated = variants.map((v, i) => ({
+                ...v,
+                isDefault: i === defaultIndex,
+            }));
+            setVariants(updated);
+            form.setValue("productItems", updated, { shouldDirty: true });
+        },
+        [variants, form],
+    );
 
     const dirtyFields = form.formState.dirtyFields;
     const dirtyFieldsWithValues = getDirtyFieldsWithValues(
@@ -557,6 +570,7 @@ export function EditProductForm({
                         getAttributeNameById={getAttributeNameById}
                         pricing={pricing}
                         uploadGroups={uploadGroups}
+                        onSetDefault={handleSetDefault}
                     />
                 )}
 

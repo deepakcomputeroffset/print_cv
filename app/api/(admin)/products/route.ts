@@ -189,9 +189,10 @@ export async function POST(req: Request) {
                 isTieredPricing: safeData.isTieredPricing,
                 sku: safeData.sku,
                 productItems: {
-                    create: safeData.productItems.map((item) => ({
+                    create: safeData.productItems.map((item, idx) => ({
                         sku: item.sku,
                         isAvailable: item.isAvailable,
+                        isDefault: item.isDefault ?? idx === 0,
                         uploadGroupId: item.uploadGroupId,
                         pricing: {
                             create: item.pricing.map((qp) => ({

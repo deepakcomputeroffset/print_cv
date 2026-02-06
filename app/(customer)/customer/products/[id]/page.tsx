@@ -73,6 +73,7 @@ export default async function ProductPage({
             id: item.id,
             productId: item.productId,
             isAvailable: item.isAvailable,
+            isDefault: item.isDefault,
             productAttributeOptions: item.productAttributeOptions,
             sku: item.sku,
             createdAt: item.createdAt,

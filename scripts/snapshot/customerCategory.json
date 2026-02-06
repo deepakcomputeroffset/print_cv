@@ -1,0 +1,34 @@
+[
+    {
+        "id": 3,
+        "name": "Associate",
+        "discount": 0,
+        "level": 1,
+        "createdAt": "2025-05-08T17:34:45.657Z",
+        "updatedAt": "2025-05-25T10:50:35.560Z"
+    },
+    {
+        "id": 1,
+        "name": "Elite",
+        "discount": 1,
+        "level": 3,
+        "createdAt": "2025-05-08T17:34:45.656Z",
+        "updatedAt": "2025-05-25T10:50:35.560Z"
+    },
+    {
+        "id": 4,
+        "name": "Gold",
+        "discount": 0.5,
+        "level": 2,
+        "createdAt": "2025-05-08T17:34:45.656Z",
+        "updatedAt": "2025-05-25T10:50:35.560Z"
+    },
+    {
+        "id": 2,
+        "name": "Premium",
+        "discount": 2,
+        "level": 4,
+        "createdAt": "2025-05-08T17:34:45.657Z",
+        "updatedAt": "2025-05-25T10:50:35.560Z"
+    }
+]

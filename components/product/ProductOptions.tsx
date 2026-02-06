@@ -143,16 +143,14 @@ export default function ProductOptions({
                                 <SelectValue placeholder={`Select Qty`} />
                             </SelectTrigger>
                             <SelectContent>
-                                {product?.productItems?.[0]?.pricing?.map(
-                                    (pricing) => (
-                                        <SelectItem
-                                            key={pricing.id}
-                                            value={pricing?.qty?.toString()}
-                                        >
-                                            {pricing?.qty}
-                                        </SelectItem>
-                                    ),
-                                )}
+                                {selectedVariant?.pricing?.map((pricing) => (
+                                    <SelectItem
+                                        key={pricing.id}
+                                        value={pricing?.qty?.toString()}
+                                    >
+                                        {pricing?.qty}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                     </div>

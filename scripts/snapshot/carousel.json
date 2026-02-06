@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "title": "Premium Printing Solutions",
+        "description": "Transform your ideas into stunning print materials with our professional services",
+        "imageUrl": "https://storage.googleapis.com/printvc/carousel/uZYSV4nuQeyq64azfVIn_15130980706_64134efc6e_o.webp",
+        "linkUrl": null,
+        "isActive": true,
+        "order": 1,
+        "createdAt": "2025-12-10T17:06:24.109Z",
+        "updatedAt": "2025-12-10T17:06:24.109Z"
+    },
+    {
+        "id": 2,
+        "title": "Business Printing Made Easy",
+        "description": "From business cards to banners, we've got all your corporate needs covered",
+        "imageUrl": "https://storage.googleapis.com/printvc/carousel/photo-1456456496250-d5e7c0a9b44d.webp",
+        "linkUrl": null,
+        "isActive": true,
+        "order": 3,
+        "createdAt": "2025-12-10T17:17:17.719Z",
+        "updatedAt": "2025-12-10T17:59:31.651Z"
+    },
+    {
+        "id": 3,
+        "title": "Fast, Reliable, High-Quality",
+        "description": "Experience print perfection with our state-of-the-art technology and expert team",
+        "imageUrl": "https://storage.googleapis.com/printvc/carousel/photo-1581078426770-6d336e5de7bf.webp",
+        "linkUrl": null,
+        "isActive": true,
+        "order": 2,
+        "createdAt": "2025-12-10T17:19:13.881Z",
+        "updatedAt": "2025-12-10T17:59:41.284Z"
+    }
+]

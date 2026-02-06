@@ -1,0 +1,268 @@
+[
+    {
+        "id": 1,
+        "name": "Paper",
+        "productCategoryId": 1,
+        "createdAt": "2025-05-08T17:35:03.401Z",
+        "updatedAt": "2025-05-08T17:35:03.401Z"
+    },
+    {
+        "id": 2,
+        "name": "Gold Foil Side",
+        "productCategoryId": 1,
+        "createdAt": "2025-05-08T17:35:03.661Z",
+        "updatedAt": "2025-05-08T17:35:03.661Z"
+    },
+    {
+        "id": 3,
+        "name": "Print",
+        "productCategoryId": 1,
+        "createdAt": "2025-05-08T17:35:03.838Z",
+        "updatedAt": "2025-05-08T17:35:03.838Z"
+    },
+    {
+        "id": 4,
+        "name": "Die Shape",
+        "productCategoryId": 1,
+        "createdAt": "2025-05-08T17:35:04.016Z",
+        "updatedAt": "2025-05-08T17:35:04.016Z"
+    },
+    {
+        "id": 5,
+        "name": "Print",
+        "productCategoryId": 3,
+        "createdAt": "2025-05-08T17:35:04.193Z",
+        "updatedAt": "2025-05-08T17:35:04.193Z"
+    },
+    {
+        "id": 6,
+        "name": "Size",
+        "productCategoryId": 3,
+        "createdAt": "2025-05-08T17:35:04.366Z",
+        "updatedAt": "2025-05-08T17:35:04.366Z"
+    },
+    {
+        "id": 7,
+        "name": "Paper",
+        "productCategoryId": 3,
+        "createdAt": "2025-05-08T17:35:04.551Z",
+        "updatedAt": "2025-05-08T17:35:04.551Z"
+    },
+    {
+        "id": 8,
+        "name": "Size",
+        "productCategoryId": 2,
+        "createdAt": "2025-05-08T17:35:04.732Z",
+        "updatedAt": "2025-05-08T17:35:04.732Z"
+    },
+    {
+        "id": 9,
+        "name": "Die Shape",
+        "productCategoryId": 2,
+        "createdAt": "2025-05-08T17:35:04.905Z",
+        "updatedAt": "2025-05-08T17:35:04.905Z"
+    },
+    {
+        "id": 10,
+        "name": "Print",
+        "productCategoryId": 2,
+        "createdAt": "2025-05-08T17:35:05.086Z",
+        "updatedAt": "2025-05-08T17:35:05.086Z"
+    },
+    {
+        "id": 11,
+        "name": "Paper",
+        "productCategoryId": 6,
+        "createdAt": "2025-05-08T17:35:05.303Z",
+        "updatedAt": "2025-05-08T17:35:05.303Z"
+    },
+    {
+        "id": 12,
+        "name": "Window",
+        "productCategoryId": 6,
+        "createdAt": "2025-05-08T17:35:05.485Z",
+        "updatedAt": "2025-05-08T17:35:05.485Z"
+    },
+    {
+        "id": 13,
+        "name": "Flap Opening",
+        "productCategoryId": 6,
+        "createdAt": "2025-05-08T17:35:05.682Z",
+        "updatedAt": "2025-05-08T17:35:05.682Z"
+    },
+    {
+        "id": 17,
+        "name": "Print",
+        "productCategoryId": 5,
+        "createdAt": "2025-05-11T05:36:45.861Z",
+        "updatedAt": "2025-05-11T05:36:45.861Z"
+    },
+    {
+        "id": 18,
+        "name": "Bind",
+        "productCategoryId": 5,
+        "createdAt": "2025-05-11T05:38:09.493Z",
+        "updatedAt": "2025-05-11T05:38:09.493Z"
+    },
+    {
+        "id": 19,
+        "name": "Print",
+        "productCategoryId": 7,
+        "createdAt": "2025-05-11T06:03:25.083Z",
+        "updatedAt": "2025-05-11T06:03:25.083Z"
+    },
+    {
+        "id": 20,
+        "name": "Lamination",
+        "productCategoryId": 7,
+        "createdAt": "2025-05-11T06:04:16.406Z",
+        "updatedAt": "2025-05-11T06:04:16.406Z"
+    },
+    {
+        "id": 21,
+        "name": "1st Paper Quality",
+        "productCategoryId": 8,
+        "createdAt": "2025-05-11T07:18:17.794Z",
+        "updatedAt": "2025-05-11T07:18:17.794Z"
+    },
+    {
+        "id": 22,
+        "name": "2nd Copy Paper Color",
+        "productCategoryId": 8,
+        "createdAt": "2025-05-11T07:18:27.078Z",
+        "updatedAt": "2025-05-11T07:18:27.078Z"
+    },
+    {
+        "id": 23,
+        "name": "Binding Quality",
+        "productCategoryId": 8,
+        "createdAt": "2025-05-11T07:18:42.681Z",
+        "updatedAt": "2025-05-11T07:18:42.681Z"
+    },
+    {
+        "id": 24,
+        "name": "3rd Copy Paper Color",
+        "productCategoryId": 8,
+        "createdAt": "2025-05-11T07:24:01.087Z",
+        "updatedAt": "2025-05-11T07:24:01.087Z"
+    },
+    {
+        "id": 25,
+        "name": "Lamination",
+        "productCategoryId": 1,
+        "createdAt": "2025-05-23T17:54:12.031Z",
+        "updatedAt": "2025-05-23T17:54:12.031Z"
+    },
+    {
+        "id": 26,
+        "name": "Texture",
+        "productCategoryId": 1,
+        "createdAt": "2025-05-23T18:25:31.082Z",
+        "updatedAt": "2025-05-23T18:25:31.082Z"
+    },
+    {
+        "id": 27,
+        "name": "Size",
+        "productCategoryId": 1,
+        "createdAt": "2025-05-23T18:55:18.628Z",
+        "updatedAt": "2025-05-23T18:55:18.628Z"
+    },
+    {
+        "id": 28,
+        "name": "Size",
+        "productCategoryId": 6,
+        "createdAt": "2025-05-30T07:50:04.002Z",
+        "updatedAt": "2025-05-30T07:50:04.002Z"
+    },
+    {
+        "id": 29,
+        "name": "sheet size",
+        "productCategoryId": 9,
+        "createdAt": "2025-05-30T07:55:22.492Z",
+        "updatedAt": "2025-05-30T07:55:22.492Z"
+    },
+    {
+        "id": 30,
+        "name": "lamination",
+        "productCategoryId": 9,
+        "createdAt": "2025-05-30T07:55:34.365Z",
+        "updatedAt": "2025-05-30T07:55:34.365Z"
+    },
+    {
+        "id": 31,
+        "name": "Stickers Count Per Sheet",
+        "productCategoryId": 9,
+        "createdAt": "2025-05-30T08:02:13.607Z",
+        "updatedAt": "2025-05-30T08:02:13.607Z"
+    },
+    {
+        "id": 32,
+        "name": "Lamination",
+        "productCategoryId": 2,
+        "createdAt": "2025-05-30T15:35:36.223Z",
+        "updatedAt": "2025-05-30T15:35:36.223Z"
+    },
+    {
+        "id": 35,
+        "name": "Printing",
+        "productCategoryId": 12,
+        "createdAt": "2025-06-26T11:28:31.686Z",
+        "updatedAt": "2025-06-26T11:28:31.686Z"
+    },
+    {
+        "id": 37,
+        "name": "Printing",
+        "productCategoryId": 4,
+        "createdAt": "2025-07-27T09:05:32.024Z",
+        "updatedAt": "2025-07-27T09:05:32.024Z"
+    },
+    {
+        "id": 38,
+        "name": "Spot UV",
+        "productCategoryId": 4,
+        "createdAt": "2025-07-27T09:34:03.311Z",
+        "updatedAt": "2025-07-27T09:34:03.311Z"
+    },
+    {
+        "id": 39,
+        "name": "Pocket",
+        "productCategoryId": 4,
+        "createdAt": "2025-07-27T09:42:07.736Z",
+        "updatedAt": "2025-07-27T09:42:07.736Z"
+    },
+    {
+        "id": 40,
+        "name": "Printing",
+        "productCategoryId": 13,
+        "createdAt": "2025-10-30T16:09:47.079Z",
+        "updatedAt": "2025-10-30T16:09:47.079Z"
+    },
+    {
+        "id": 41,
+        "name": "Spot UV",
+        "productCategoryId": 13,
+        "createdAt": "2025-10-30T16:19:05.098Z",
+        "updatedAt": "2025-10-30T16:19:05.098Z"
+    },
+    {
+        "id": 42,
+        "name": "Printing",
+        "productCategoryId": 14,
+        "createdAt": "2025-10-30T16:25:09.652Z",
+        "updatedAt": "2025-10-30T16:25:09.652Z"
+    },
+    {
+        "id": 43,
+        "name": "Pocket",
+        "productCategoryId": 14,
+        "createdAt": "2025-10-30T16:25:14.887Z",
+        "updatedAt": "2025-10-30T16:25:14.887Z"
+    },
+    {
+        "id": 44,
+        "name": "Spot UV",
+        "productCategoryId": 14,
+        "createdAt": "2025-10-30T16:31:42.055Z",
+        "updatedAt": "2025-10-30T16:31:42.055Z"
+    }
+]

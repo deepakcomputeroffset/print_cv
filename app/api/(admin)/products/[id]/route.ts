@@ -159,6 +159,7 @@ export async function PATCH(
                 create: itemsToCreate.map((item) => ({
                     sku: item.sku,
                     isAvailable: item.isAvailable,
+                    isDefault: item.isDefault ?? false,
                     uploadGroupId: item.uploadGroupId,
                     pricing: {
                         create: item.pricing?.map((p) => ({
@@ -178,6 +179,7 @@ export async function PATCH(
                     data: {
                         sku: item.sku,
                         isAvailable: item.isAvailable,
+                        isDefault: item.isDefault ?? false,
                         uploadGroupId: item.uploadGroupId,
                         pricing: {
                             deleteMany: {}, // Clear old pricing
