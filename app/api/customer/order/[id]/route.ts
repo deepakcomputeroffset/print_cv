@@ -102,7 +102,6 @@ export async function POST(
                             amount: order.total,
                             type: TRANSACTION_TYPE.CREDIT,
                             description: `Refund for order id: ${orderId}`,
-                            createBy: customerId,
                         },
                     }),
                 ]);

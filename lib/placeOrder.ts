@@ -99,7 +99,6 @@ export async function placeOrder(
                     amount: totalPrice,
                     type: TRANSACTION_TYPE.DEBIT,
                     description: `Order Payment for Product: ${sku}, Qty: ${qty}`,
-                    createBy: customerId,
                 },
                 select: { id: true },
             });

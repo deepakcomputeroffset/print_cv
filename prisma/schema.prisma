@@ -123,9 +123,9 @@ model transaction {
     amount      Float
     type        TRANSACTION_TYPE
     description String
-    createBy    Int
+    createBy    Int?
     wallet      wallet           @relation(fields: [walletId], references: [id], onDelete: Restrict)
-    staff       staff            @relation(fields: [createBy], references: [id])
+    staff       staff?           @relation(fields: [createBy], references: [id])
     createdAt   DateTime         @default(now())
     updatedAt   DateTime         @updatedAt
 }
