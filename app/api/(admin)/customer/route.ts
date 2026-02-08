@@ -184,7 +184,7 @@ export async function POST(req: Request) {
                 email: safeData?.email,
                 customerCategory: {
                     connect: {
-                        level: 1,
+                        level: 4,
                     },
                 },
                 password: await generateHash(safeData?.password),

@@ -290,6 +290,9 @@ export default function DispatchPage({
                                     <TableHead className="font-medium">
                                         Status
                                     </TableHead>
+                                    <TableHead className="font-medium">
+                                        Doc
+                                    </TableHead>
                                     {/* <TableHead className="font-medium">
                                         Actions
                                     </TableHead> */}
@@ -441,6 +444,20 @@ export default function DispatchPage({
                                                     </Button>
                                                 </div>
                                             </TableCell> */}
+
+                                             <TableCell>
+                                                <div className="flex flex-col gap-2">
+                                                    <LabelButton
+                                                        order={order}
+                                                    />
+                                                    <LabelButtonWithAttachment
+                                                        order={order}
+                                                    />
+                                                    <InvoiceButton
+                                                        order={order}
+                                                    />
+                                                </div>
+                                            </TableCell>
                                         </TableRow>
                                     ))
                                 )}
