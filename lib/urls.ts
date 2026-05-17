@@ -10,6 +10,7 @@ export const productAttributeTypeBaseUrl = "/api/product-attribute-type";
 export const productAttributeValueBaseUrl = "/api/product-attribute-value";
 export const departmentBaseUrl = "/api/department";
 export const jobBaseUrl = "/api/job";
+export const jobPrefixBaseUrl = "/api/job-prefix";
 export const ordersBaseUrl = "/api/orders";
 export const tasksBaseUrl = "/api/tasks";
 export const dispatchBaseUrl = "/api/dispatch";

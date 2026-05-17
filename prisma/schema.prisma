@@ -304,6 +304,8 @@ model distribution {
 model job {
     id          Int       @id @default(autoincrement())
     name        String    @unique
+    prefixId    Int?
+    jobPrefix   jobPrefix? @relation(fields: [prefixId], references: [id], onDelete: SetNull)
     orders      order[]
     isVerified  Boolean   @default(false)
     isCompleted Boolean   @default(false)
@@ -316,6 +318,16 @@ model job {
 
     @@index([name])
     @@index([id])
+}
+
+model jobPrefix {
+    id        Int      @id @default(autoincrement())
+    prefix    String   @unique
+    jobs      job[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([prefix])
 }
 
 model task {

@@ -234,13 +234,22 @@ export const columns: ColumnDef<orderType>[] = [
     },
     {
         id: "job",
-        accessorFn: (row) => row.job?.name || "",
+        accessorFn: (row) =>
+            row.job?.jobPrefix?.prefix
+                ? `${row.job.jobPrefix.prefix}-${row.job.name}`
+                : row.job?.name || "",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Job Id" />
         ),
         cell: ({ row }) => {
             const job = row.original.job;
-            return <span className="font-medium">{job?.name}</span>;
+            return (
+                <span className="font-medium">
+                    {job?.jobPrefix?.prefix
+                        ? `${job.jobPrefix.prefix}-${job.name}`
+                        : job?.name}
+                </span>
+            );
         },
         enableSorting: true,
     },

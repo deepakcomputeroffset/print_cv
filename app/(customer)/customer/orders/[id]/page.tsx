@@ -39,6 +39,7 @@ export default async function OrderPage({
                 },
                 job: {
                     include: {
+                        jobPrefix: true,
                         staff: {
                             select: {
                                 id: true,

@@ -11,10 +11,11 @@ import { JobListTable } from "@/components/admin/job/job-list-table";
 import { JobAddModal } from "@/components/admin/job/modal/job-create-modal";
 import { JobEditModal } from "@/components/admin/job/modal/job-edit-modal";
 import { JobDeleteModal } from "@/components/admin/job/modal/job-delete-modal";
+import { ManagePrefixesModal } from "@/components/admin/job/modal/manage-prefixes-modal";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
 import { JobFilter } from "@/components/admin/job/job-filter";
-import { Plus } from "lucide-react";
+import { Plus, Tag } from "lucide-react";
 
 export default function DepartmentsPage({
     searchParams,
@@ -52,13 +53,24 @@ export default function DepartmentsPage({
                     <SidebarTrigger className="w-8 h-8" />
                     <h1 className="text-2xl font-semibold">Jobs</h1>
                 </div>
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => onOpen("addJob", {})}
-                >
-                    <Plus />
-                </Button>
+                <div className="flex items-center gap-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => onOpen("managePrefixes", {})}
+                        title="Manage Prefixes"
+                    >
+                        <Tag className="w-4 h-4 mr-1" />
+                        Prefixes
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => onOpen("addJob", {})}
+                    >
+                        <Plus />
+                    </Button>
+                </div>
             </div>
 
             <Card className="p-4">
@@ -77,10 +89,11 @@ export default function DepartmentsPage({
                 </CardContent>
             </Card>
 
-            {/* Modal */}
+            {/* Modals */}
             <JobAddModal />
             <JobEditModal />
             <JobDeleteModal />
+            <ManagePrefixesModal />
         </div>
     );
 }

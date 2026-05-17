@@ -87,7 +87,9 @@ export function OrderInfo({ order }: OrderDetailsPageProps) {
                             Job Reference
                         </span>
                         <span className="font-medium">
-                            {order?.job?.name || "Not assigned"}
+                            {(order?.job)?.jobPrefix?.prefix
+                                ? `${(order.job).jobPrefix.prefix}-${order.job?.name}`
+                                : order?.job?.name || "Not assigned"}
                         </span>
                     </div>
                 </div>

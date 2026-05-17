@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table";
 import { MessageRow } from "@/components/message-row";
 import { LoadingRow } from "@/components/loaders/loading-row";
-import { job } from "@prisma/client";
+import { job, jobPrefix } from "@prisma/client";
 import { Eye, Pencil, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
@@ -19,7 +19,7 @@ export const JobListTable = ({
     jobs,
     isLoading,
 }: {
-    jobs: job[];
+    jobs: (job & { jobPrefix?: jobPrefix | null })[];
     isLoading: boolean;
 }) => {
     const { onOpen } = useModal();
@@ -40,13 +40,15 @@ export const JobListTable = ({
                 ) : jobs.length === 0 ? (
                     <MessageRow colSpan={8} text="No Job found" />
                 ) : (
-                    jobs?.map((job: job) => (
+                    jobs?.map((job: job & { jobPrefix?: jobPrefix | null }) => (
                         <TableRow key={job?.id}>
                             <TableCell className="text-center">
                                 {job?.id}
                             </TableCell>
                             <TableCell className="font-medium">
-                                {job?.name}
+                                {job?.jobPrefix?.prefix
+                                    ? `${job.jobPrefix.prefix}-${job?.name}`
+                                    : job?.name}
                             </TableCell>
                             <TableCell className="font-medium">
                                 {job?.isVerified ? "Yes" : "No"}

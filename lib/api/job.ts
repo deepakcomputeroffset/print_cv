@@ -2,7 +2,7 @@ import queryString from "query-string";
 import axios from "axios";
 import { QueryParams, ServerResponseType } from "@/types/types";
 import { jobBaseUrl } from "../urls";
-import { job, order, task } from "@prisma/client";
+import { job, order, task, jobPrefix } from "@prisma/client";
 import { z } from "zod";
 import { jobFormSchema } from "@/schemas/job.form.schema";
 import { taskSchema } from "@/schemas/task.form.schema";
@@ -15,7 +15,7 @@ export async function fetchJobs(params: QueryParams = {}) {
     return await axios<
         ServerResponseType<
             QueryParams & {
-                jobs: job[];
+                jobs: (job & { jobPrefix?: jobPrefix | null })[];
             }
         >
     >(url);

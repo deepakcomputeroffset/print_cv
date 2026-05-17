@@ -12,6 +12,7 @@ import {
     design,
     designCategory,
     job,
+    jobPrefix,
     order,
     product,
     productAttributeType,
@@ -60,7 +61,8 @@ type ModalType =
     | "editDesign"
     | "createCarousel"
     | "editCarousel"
-    | "deleteCarousel";
+    | "deleteCarousel"
+    | "managePrefixes";
 
 type DataType = {
     staff?: staffType;
@@ -73,7 +75,9 @@ type DataType = {
     productAttribute?: productAttributeType;
     customerCategory?: customerCategory;
     taskType?: taskType;
-    job?: job;
+    job?: job & {
+        jobPrefix?: jobPrefix | null;
+    };
     orders?: orderType[];
     orderId?: number;
     cityId?: number;

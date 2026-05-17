@@ -46,6 +46,7 @@ export default async function JobPage({
     const job = await Prisma.job.findUnique({
         where: { id: parseInt(id) },
         include: {
+            jobPrefix: true,
             staff: true,
             tasks: {
                 include: {
@@ -86,7 +87,7 @@ export default async function JobPage({
                     <div className="flex items-center gap-2">
                         <SidebarTrigger className="w-8 h-8" />
                         <h1 className="text-2xl font-bold">
-                            Job: {job.name} ({job.id})
+                            Job: {job.jobPrefix?.prefix ? `${job.jobPrefix.prefix}-${job.name}` : job.name} ({job.id})
                         </h1>
                     </div>
                     <div className="mt-2 space-y-1 text-muted-foreground">

@@ -91,7 +91,7 @@ export const AddToJobModal = ({
                 <SelectContent>
                     {jobs?.map((job) => (
                         <SelectItem value={job.id.toString()} key={job.id}>
-                            {job?.name}
+                            {job?.jobPrefix?.prefix ? `${job.jobPrefix.prefix}-${job.name}` : job?.name}
                         </SelectItem>
                     ))}
                 </SelectContent>

@@ -20,6 +20,7 @@ import {
     uploadGroup,
     taskType,
     orderComment,
+    jobPrefix,
 } from "@prisma/client";
 import { z, ZodIssue } from "zod";
 
@@ -105,7 +106,7 @@ export interface OrderWithDetails extends order {
 
 export interface orderType extends order {
     attachment?: attachment[];
-    job: job & { tasks: task[] };
+    job: (job & { tasks: task[]; jobPrefix?: jobPrefix | null }) | null;
     productItem: productItem & {
         pricing: pricing[];
         product: product & {
@@ -169,8 +170,9 @@ export interface OrderDetailsPageProps {
                   staff: Pick<staff, "id" | "name"> | null;
                   tasks: (task & {
                       taskType: taskType | null;
-                      assignee: Pick<staff, "id" | "name"> | null;
+                  assignee: Pick<staff, "id" | "name"> | null;
                   })[];
+                  jobPrefix?: jobPrefix | null;
               })
             | null;
         attachment?: attachment[];

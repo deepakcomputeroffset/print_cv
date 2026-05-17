@@ -70,7 +70,11 @@ export default async function OrderDetail({
                 },
             },
             attachment: true,
-            job: true,
+            job: {
+                include: {
+                    jobPrefix: true,
+                },
+            },
             comments: {
                 include: {
                     staff: true,
@@ -298,8 +302,9 @@ export default async function OrderDetail({
                                         href={`/admin/job/${order.jobId}`}
                                         className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium hover:underline"
                                     >
-                                        {order.job?.name ||
-                                            `Job #${order.jobId}`}
+                                        {(order.job)?.jobPrefix?.prefix 
+                                            ? `${(order.job).jobPrefix.prefix}-${order.job?.name}` 
+                                            : order.job?.name || `Job #${order.jobId}`}
                                         <ExternalLink className="h-3 w-3" />
                                     </Link>
                                 </div>

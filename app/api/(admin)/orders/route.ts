@@ -124,7 +124,7 @@ export async function GET(request: Request) {
                 include: {
                     attachment: true,
                     job: {
-                        include: { tasks: true },
+                        include: { tasks: true, jobPrefix: true },
                     },
                     productItem: {
                         include: {

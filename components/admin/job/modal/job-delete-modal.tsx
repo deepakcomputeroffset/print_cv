@@ -28,7 +28,9 @@ export const JobDeleteModal = () => {
                     Are you sure you want to delete?
                     <br />
                     <span className="font-semibold text-indigo-500">
-                        {data?.job?.name}
+                        {(data?.job)?.jobPrefix?.prefix
+                            ? `${(data?.job).jobPrefix.prefix}-${data?.job?.name}`
+                            : data?.job?.name}
                     </span>
                 </>
             }

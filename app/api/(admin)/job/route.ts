@@ -58,6 +58,9 @@ export async function GET(request: Request) {
             Prisma.job.count({ where }),
             Prisma.job.findMany({
                 where,
+                include: {
+                    jobPrefix: true,
+                },
                 orderBy: {
                     [query?.sortby ?? "id"]: query?.sortorder || "asc",
                 },
@@ -127,6 +130,20 @@ export async function POST(req: Request) {
             });
         }
 
+        // Validate prefix if provided
+        if (safeData.prefixId) {
+            const prefix = await Prisma.jobPrefix.findUnique({
+                where: { id: safeData.prefixId },
+            });
+            if (!prefix) {
+                return serverResponse({
+                    status: 404,
+                    success: false,
+                    message: "Selected prefix does not exist.",
+                });
+            }
+        }
+
         const isExit = await Prisma.job.findUnique({
             where: {
                 name: safeData.name,
@@ -135,15 +152,16 @@ export async function POST(req: Request) {
 
         if (isExit) {
             return serverResponse({
-                status: 404,
+                status: 409,
                 success: false,
-                message: "job already exist with this name.",
+                message: "Job already exists with this name.",
             });
         }
 
         const createdjob = await Prisma.job.create({
             data: {
                 name: safeData.name,
+                ...(safeData.prefixId ? { prefixId: safeData.prefixId } : {}),
             },
         });
 
