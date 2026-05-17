@@ -80,9 +80,7 @@ export const EditJobForm = () => {
                             <Select
                                 onValueChange={(val) =>
                                     field.onChange(
-                                        val === "none"
-                                            ? null
-                                            : parseInt(val),
+                                        val === "none" ? null : parseInt(val),
                                     )
                                 }
                                 value={
@@ -141,10 +139,7 @@ export const EditJobForm = () => {
                                             {selectedPrefix.prefix}-
                                         </Badge>
                                     )}
-                                    <Input
-                                        placeholder="Job Name"
-                                        {...field}
-                                    />
+                                    <Input placeholder="Job Name" {...field} />
                                 </div>
                             </FormControl>
                             <FormMessage />

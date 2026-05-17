@@ -170,7 +170,7 @@ export interface OrderDetailsPageProps {
                   staff: Pick<staff, "id" | "name"> | null;
                   tasks: (task & {
                       taskType: taskType | null;
-                  assignee: Pick<staff, "id" | "name"> | null;
+                      assignee: Pick<staff, "id" | "name"> | null;
                   })[];
                   jobPrefix?: jobPrefix | null;
               })

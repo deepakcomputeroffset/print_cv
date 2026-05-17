@@ -35,7 +35,9 @@ function ManagePrefixesContent() {
         defaultValues: { prefix: "" },
     });
 
-    const handleCreate = async (values: z.infer<typeof jobPrefixFormSchema>) => {
+    const handleCreate = async (
+        values: z.infer<typeof jobPrefixFormSchema>,
+    ) => {
         await createPrefix({ prefix: values.prefix.toUpperCase() });
         form.reset();
     };

@@ -52,8 +52,6 @@ function ManagePrefixesDialog({
         deletePrefix: { mutateAsync: deletePrefix, isPending: deleting },
     } = useJobPrefix();
 
-
-
     const handleCreate = async () => {
         const val = newPrefix.trim().toUpperCase();
         if (!val) return;
@@ -168,9 +166,7 @@ function ManagePrefixesDialog({
                                             variant="ghost"
                                             size="icon"
                                             className="h-7 w-7 text-muted-foreground hover:text-destructive"
-                                            onClick={() =>
-                                                setConfirmId(p.id)
-                                            }
+                                            onClick={() => setConfirmId(p.id)}
                                         >
                                             <Trash2 className="w-3.5 h-3.5" />
                                         </Button>
@@ -314,9 +310,7 @@ export const AddJobForm = () => {
                                 {!showQuickCreate ? (
                                     <button
                                         type="button"
-                                        onClick={() =>
-                                            setShowQuickCreate(true)
-                                        }
+                                        onClick={() => setShowQuickCreate(true)}
                                         className="flex items-center gap-1 text-xs text-primary hover:underline mt-1"
                                     >
                                         <Plus className="w-3 h-3" />

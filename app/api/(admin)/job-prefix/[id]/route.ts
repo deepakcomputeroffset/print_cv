@@ -11,10 +11,7 @@ function isAuthorized(session: Awaited<ReturnType<typeof auth>>) {
         allowedRoleForJobManagement.includes(
             session?.user?.staff?.role as ROLE,
         ) &&
-        !(
-            session.user.staff?.role !== "ADMIN" &&
-            session.user.staff?.isBanned
-        )
+        !(session.user.staff?.role !== "ADMIN" && session.user.staff?.isBanned)
     );
 }
 

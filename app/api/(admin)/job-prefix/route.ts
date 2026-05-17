@@ -10,10 +10,7 @@ const jobPrefixSchema = z.object({
         .string()
         .min(1, "Prefix is required")
         .max(10, "Prefix must be 10 characters or less")
-        .regex(
-            /^[A-Za-z0-9]+$/,
-            "Prefix must contain only letters and numbers",
-        )
+        .regex(/^[A-Za-z0-9]+$/, "Prefix must contain only letters and numbers")
         .transform((val) => val.toUpperCase()),
 });
 
@@ -24,10 +21,7 @@ function isAuthorized(session: Awaited<ReturnType<typeof auth>>) {
         allowedRoleForJobManagement.includes(
             session?.user?.staff?.role as ROLE,
         ) &&
-        !(
-            session.user.staff?.role !== "ADMIN" &&
-            session.user.staff?.isBanned
-        )
+        !(session.user.staff?.role !== "ADMIN" && session.user.staff?.isBanned)
     );
 }
 
