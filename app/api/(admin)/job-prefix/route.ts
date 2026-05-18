@@ -3,16 +3,7 @@ import { auth } from "@/lib/auth";
 import serverResponse from "@/lib/serverResponse";
 import { allowedRoleForJobManagement } from "@/lib/constants";
 import { ROLE } from "@prisma/client";
-import { z } from "zod";
-
-const jobPrefixSchema = z.object({
-    prefix: z
-        .string()
-        .min(1, "Prefix is required")
-        .max(10, "Prefix must be 10 characters or less")
-        .regex(/^[A-Za-z0-9]+$/, "Prefix must contain only letters and numbers")
-        .transform((val) => val.toUpperCase()),
-});
+import { jobPrefixFormSchema } from "@/schemas/job.form.schema";
 
 function isAuthorized(session: Awaited<ReturnType<typeof auth>>) {
     return (
@@ -68,7 +59,7 @@ export async function POST(req: Request) {
         }
 
         const body = await req.json();
-        const parsed = jobPrefixSchema.safeParse(body);
+        const parsed = jobPrefixFormSchema.safeParse(body);
 
         if (!parsed.success) {
             return serverResponse({

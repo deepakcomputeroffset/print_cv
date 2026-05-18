@@ -10,8 +10,7 @@ export const jobPrefixFormSchema = z.object({
     prefix: z
         .string()
         .min(1, "Prefix is required")
-        .max(10, "Max 10 characters")
-        .regex(/^[A-Za-z0-9]+$/, "Only letters and numbers allowed"),
+        .max(10, "Max 10 characters"),
 });
 
 export const addOrdersToJobFormSchema = z.object({
