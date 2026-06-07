@@ -34,6 +34,7 @@ export const AddToJobModal = ({
     const { data: jobs, isLoading } = useJob({
         perpage: 100,
         isVerified: "false",
+        completed: "false",
     });
     const [selectedJob, setSelectedJob] = useState<string>();
     const { mutateAsync, isPending } = addJobToOrders;

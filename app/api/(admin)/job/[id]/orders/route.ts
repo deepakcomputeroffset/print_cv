@@ -29,8 +29,16 @@ export async function POST(
         }
 
         const isJobExist = await Prisma?.job.findUnique({
-            where: { id: parseInt(id) },
+            where: { id: parseInt(id), isCompleted: false },
         });
+
+        if(!isJobExist) {
+            return serverResponse({
+                status: 404,
+                success: false,
+                message: "Job not found or already completed",
+            });
+        }
 
         const isOrdersExist = await Prisma?.order.findMany({
             where: {
@@ -41,7 +49,7 @@ export async function POST(
             },
         });
 
-        if (!isJobExist || !isOrdersExist) {
+        if (!isOrdersExist || isOrdersExist.length === 0) {
             return serverResponse({
                 status: 404,
                 success: false,

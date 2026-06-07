@@ -42,12 +42,12 @@ interface InvoiceButtonProps {
 const toDateInputValue = (date?: Date | string | null) => {
     const value = date ? new Date(date) : new Date();
     const timezoneOffset = value.getTimezoneOffset() * 60000;
-    return new Date(value.getTime() - timezoneOffset).toISOString().slice(0, 10);
+    return new Date(value.getTime() - timezoneOffset)
+        .toISOString()
+        .slice(0, 10);
 };
 
-export function InvoiceButton({
-    order,
-}: InvoiceButtonProps) {
+export function InvoiceButton({ order }: InvoiceButtonProps) {
     const { data: session, status } = useSession();
     const role = session?.user?.staff?.role;
     const isAdmin = role === "ADMIN";
@@ -106,7 +106,9 @@ export function InvoiceButton({
             const payload = await response.json();
 
             if (!response.ok || !payload?.success) {
-                throw new Error(payload?.message || "Failed to generate invoice");
+                throw new Error(
+                    payload?.message || "Failed to generate invoice",
+                );
             }
 
             const updatedOrder = {
@@ -142,7 +144,9 @@ export function InvoiceButton({
                 body: JSON.stringify({
                     id: currentOrder.id,
                     action: "set-date",
-                    invoiceDate: new Date(`${invoiceDate}T00:00:00`).toISOString(),
+                    invoiceDate: new Date(
+                        `${invoiceDate}T00:00:00`,
+                    ).toISOString(),
                 }),
             });
 
