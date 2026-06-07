@@ -164,17 +164,18 @@ export function DataTable<TData, TValue>({
                         </Table>
 
                         {selectedRows?.length > 0 && (
-                            <div className="flex justify-end p-2">
+                            <div className="fixed bottom-6 right-6 z-50">
                                 <Button
                                     variant={"outline"}
                                     size={"sm"}
+                                    className="h-10 rounded-full border-primary/20 bg-background px-4 shadow-lg"
                                     onClick={() =>
                                         onOpen("selectJob", {
                                             orders: selectedRows,
                                         })
                                     }
                                 >
-                                    Add To Job
+                                    Add To Job ({selectedRows.length})
                                 </Button>
                             </div>
                         )}
