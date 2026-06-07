@@ -28,7 +28,7 @@ export default async function AdminLayout({
     }
 
     return (
-        <div className="flex h-full bg-white">
+        <div className="admin-theme flex h-full bg-white">
             <AdminNotificationWrapper
                 session={session}
                 initialReviewCount={initialReviewCount}
