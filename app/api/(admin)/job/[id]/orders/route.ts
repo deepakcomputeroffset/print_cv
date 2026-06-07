@@ -32,7 +32,7 @@ export async function POST(
             where: { id: parseInt(id), isCompleted: false },
         });
 
-        if(!isJobExist) {
+        if (!isJobExist) {
             return serverResponse({
                 status: 404,
                 success: false,
