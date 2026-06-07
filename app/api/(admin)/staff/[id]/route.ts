@@ -2,6 +2,7 @@ import { Prisma } from "@/lib/prisma";
 import { staffFormSchema } from "@/schemas/staff.form.schema";
 import serverResponse from "@/lib/serverResponse";
 import { auth } from "@/lib/auth";
+import { generateHash } from "@/lib/hash";
 
 export async function GET(
     request: Request,
@@ -94,7 +95,7 @@ export async function PATCH(
         if (validatedData.phone) updateData.phone = validatedData.phone;
         if (validatedData.role) updateData.role = validatedData.role;
         if (validatedData.password)
-            updateData.password = validatedData.password;
+            updateData.password = await generateHash(validatedData.password);
 
         // Handle address updates
         if (validatedData.line || validatedData.pinCode || validatedData.city) {

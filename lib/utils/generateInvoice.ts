@@ -2,6 +2,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { order, pricing, product, productItem } from "@prisma/client";
 import qrcode from "qrcode";
+import { format } from "date-fns";
 import {
     COMPANY_DATA,
     IGST_TAX_IN_PERCENTAGE,
@@ -9,18 +10,20 @@ import {
 } from "../constants";
 import { addressType } from "@/types/types";
 
-interface InvoiceOrder extends order {
+type InvoiceOrder = Omit<order, "invoiceDate" | "invoiceGeneratedAt"> & {
     productItem: productItem & {
         pricing: pricing[];
         product: product;
     };
+    invoiceDate?: Date | string | null;
+    invoiceGeneratedAt?: Date | string | null;
     customer: {
         address?: addressType;
         businessName: string;
         name: string;
         phone: string;
     };
-}
+};
 
 export const generateInvoice = async (order: InvoiceOrder) => {
     // Create PDF with A4 dimensions
@@ -194,11 +197,10 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     );
 
     // Invoice date
-    const invoiceDate = new Date().toLocaleDateString("en-US", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-    });
+    const invoiceDateSource = order?.invoiceDate
+        ? new Date(order.invoiceDate)
+        : new Date(order.createdAt);
+    const invoiceDate = format(invoiceDateSource, "dd MMM yyyy");
     doc.text(`Invoice Date: ${invoiceDate}`, rightColumnX + 5, 79);
 
     // Payment terms
@@ -464,7 +466,7 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     // });
 
     // Save the PDF with a proper name
-    const invoiceNumber = `Tax_Invoice_${order.id}_${new Date().toISOString().slice(0, 10)}`;
+    const invoiceNumber = `Tax_Invoice_${order.id}_${format(invoiceDateSource, "yyyy-MM-dd")}`;
     doc.save(`${invoiceNumber}.pdf`);
 };
 

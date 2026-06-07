@@ -238,6 +238,8 @@ model order {
     comments             orderComment[]
     deliveryVia          DELIVERYVIA    @default(NONE)
     distribution         distribution?
+    invoiceDate          DateTime?
+    invoiceGeneratedAt   DateTime?
 
     job         job?        @relation(fields: [jobId], references: [id], onDelete: SetNull)
     productItem productItem @relation(fields: [productItemId], references: [id], onDelete: Restrict)
