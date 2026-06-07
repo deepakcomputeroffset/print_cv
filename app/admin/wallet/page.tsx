@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
+
 import Pagination from "@/components/pagination";
 import { CustomerFilter } from "@/components/admin/customer/customer-filter";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
 import { customerType, QueryParams } from "@/types/types";
 import { useWalletM } from "@/hooks/use-walletM";
 import { defaultCustomerPerPage } from "@/lib/constants";
@@ -39,20 +39,16 @@ export default function WalletManagemen({
     const { onOpen } = useModal();
     return (
         <div className="space-y-6 h-full min-h-full">
-            <div className="flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                    <SidebarTrigger className="w-8 h-8" />
-                    <h1 className="text-2xl font-semibold">Wallet</h1>
-                </div>
+            <div className="gmail-page-header">
+                <h1 className="gmail-page-title">Wallet</h1>
             </div>
 
-            <Card className="p-4">
+            <div className="gmail-filter-bar">
                 {/* Filter */}
                 <CustomerFilter filters={filters} />
-            </Card>
+            </div>
 
-            <Card>
-                <CardContent className="p-6">
+            <div className="gmail-table-container">
                     <div className="rounded-md border">
                         <Table>
                             <TableHeader>
@@ -140,10 +136,11 @@ export default function WalletManagemen({
                         </Table>
                     </div>
 
-                    {/* Pagination */}
+                {/* Pagination */}
+                <div className="p-4">
                     <Pagination isLoading={isLoading} totalPage={totalPages} />
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
             <TransactionCreateModal />
         </div>

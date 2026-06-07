@@ -1,14 +1,5 @@
 "use client";
 
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Clock, AlertCircle } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
@@ -30,69 +21,57 @@ interface RecentTasksProps {
     tasks: Task[];
 }
 
-export function RecentTasks({ tasks }: RecentTasksProps) {
-    const getStatusBadge = (status: Task["status"]) => {
-        switch (status) {
-            case "COMPLETED":
-                return (
-                    <Badge className="bg-green-100 text-green-700 hover:bg-green-200">
-                        <CheckCircle2 className="w-3 h-3 mr-1" />
-                        Completed
-                    </Badge>
-                );
-            case "IN_PROGRESS":
-                return (
-                    <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-200">
-                        <Clock className="w-3 h-3 mr-1" />
-                        In Progress
-                    </Badge>
-                );
-            case "PENDING":
-                return (
-                    <Badge className="bg-yellow-100 text-yellow-700 hover:bg-yellow-200">
-                        <AlertCircle className="w-3 h-3 mr-1" />
-                        Pending
-                    </Badge>
-                );
-        }
-    };
+const statusConfig = {
+    COMPLETED: {
+        icon: CheckCircle2,
+        className: "bg-green-50 text-green-700",
+        label: "Done",
+    },
+    IN_PROGRESS: {
+        icon: Clock,
+        className: "bg-blue-50 text-blue-700",
+        label: "Active",
+    },
+    PENDING: {
+        icon: AlertCircle,
+        className: "bg-yellow-50 text-yellow-700",
+        label: "Pending",
+    },
+};
 
+export function RecentTasks({ tasks }: RecentTasksProps) {
     return (
-        <div className="space-y-4">
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Job</TableHead>
-                        <TableHead>Task Type</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Started</TableHead>
-                        <TableHead>Created</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {tasks.map((task) => (
-                        <TableRow key={task.id}>
-                            <TableCell className="font-medium">
+        <div className="divide-y" style={{ borderColor: "hsl(var(--gmail-border))" }}>
+            {tasks.map((task) => {
+                const config = statusConfig[task.status];
+                const StatusIcon = config.icon;
+                return (
+                    <div
+                        key={task.id}
+                        className="flex items-center gap-4 px-4 py-3 hover:bg-gmail-hover transition-colors cursor-default"
+                    >
+                        <div className={`flex items-center justify-center w-8 h-8 rounded-full ${config.className}`}>
+                            <StatusIcon className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gmail-text truncate">
                                 {task.job.name}
-                            </TableCell>
-                            <TableCell>{task.taskType.name}</TableCell>
-                            <TableCell>{getStatusBadge(task.status)}</TableCell>
-                            <TableCell>
-                                {task.startedAt
-                                    ? formatDistanceToNow(task.startedAt, {
-                                          addSuffix: true,
-                                      })
-                                    : "-"}
-                            </TableCell>
-                            <TableCell>
-                                {formatDistanceToNow(task.createdAt, {
-                                    addSuffix: true,
-                                })}
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                            </p>
+                            <p className="text-xs text-gmail-text-secondary truncate">
+                                {task.taskType.name}
+                            </p>
+                        </div>
+                        <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${config.className}`}>
+                            {config.label}
+                        </span>
+                        <span className="text-xs text-gmail-text-secondary whitespace-nowrap">
+                            {formatDistanceToNow(task.createdAt, {
+                                addSuffix: true,
+                            })}
+                        </span>
+                    </div>
+                );
+            })}
         </div>
     );
 }

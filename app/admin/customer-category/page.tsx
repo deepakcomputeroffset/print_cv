@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
+
 import { useCustomerCategory } from "@/hooks/use-customer-category";
 import { CustomerCategoryAddModal } from "@/components/admin/customer-category/modal/customer-category-add-modal";
 import { CustomerCategoryEditModal } from "@/components/admin/customer-category/modal/customer-category-edit-modal";
@@ -40,13 +40,10 @@ export default function CustomerCategoryPage() {
 
     return (
         <div className="space-y-6 h-full min-h-full">
-            <div className="flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                    <SidebarTrigger className="w-8 h-8" />
-                    <h1 className="text-2xl font-semibold">
-                        Customer Category
-                    </h1>
-                </div>
+            <div className="gmail-page-header">
+                <h1 className="gmail-page-title">
+                    Customer Category
+                </h1>
                 <Button
                     variant={"outline"}
                     size={"sm"}
@@ -56,8 +53,7 @@ export default function CustomerCategoryPage() {
                 </Button>
             </div>
 
-            <Card>
-                <CardContent className="p-6">
+            <div className="gmail-table-container">
                     <div className="rounded-md border">
                         <Table>
                             <TableHeader>
@@ -142,8 +138,7 @@ export default function CustomerCategoryPage() {
                     </div>
 
                     {/* Pagination */}
-                </CardContent>
-            </Card>
+            </div>
 
             {/* Modal */}
             <CustomerCategoryAddModal />

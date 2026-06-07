@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { AdminNotificationWrapper } from "@/components/admin/admin-notification-wrapper";
 import { getOrdersCountToReview } from "./review/reminder.action";
 import { getPendingTaskCount } from "./tasks/task-count.action";
+import { AdminHeader } from "@/components/admin/admin-header";
 
 export default async function AdminLayout({
     children,
@@ -27,7 +28,7 @@ export default async function AdminLayout({
     }
 
     return (
-        <div className="flex h-full bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+        <div className="flex h-full bg-white">
             <AdminNotificationWrapper
                 session={session}
                 initialReviewCount={initialReviewCount}
@@ -35,11 +36,12 @@ export default async function AdminLayout({
             >
                 <SidebarProvider>
                     <AppSidebar session={session} />
-                    <main className="flex-1 overflow-y-auto p-6">
-                        {/* <div className="max-w-7xl mx-auto"> */}
-                        {children}
-                        {/* </div> */}
-                    </main>
+                    <div className="flex-1 flex flex-col overflow-hidden">
+                        <AdminHeader />
+                        <main className="flex-1 overflow-y-auto px-6 py-4">
+                            {children}
+                        </main>
+                    </div>
                 </SidebarProvider>
             </AdminNotificationWrapper>
             <CheckSession />

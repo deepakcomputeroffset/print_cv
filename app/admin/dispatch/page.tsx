@@ -1,6 +1,6 @@
 "use client";
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+
 import { QueryParams } from "@/types/types";
 import React, { use } from "react";
 import { useDispatch } from "@/hooks/use-dispatch";
@@ -14,8 +14,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
-import { sourceSerif4 } from "@/lib/font";
+
 import { Package, Truck, MapPin, User, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { LoadingRow } from "@/components/loaders/loading-row";
@@ -40,18 +39,10 @@ export default function DispatchPage({
         useDispatch({ ...filters, dispatched: "true" });
     return (
         <div className="space-y-6 h-full min-h-full">
-            <div className="flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                    <SidebarTrigger className="w-8 h-8" />
-                    <h1
-                        className={cn(
-                            "text-2xl font-semibold",
-                            sourceSerif4.className,
-                        )}
-                    >
-                        Dispatch Management
-                    </h1>
-                </div>
+            <div className="gmail-page-header">
+                <h1 className="gmail-page-title">
+                    Dispatch Management
+                </h1>
                 {/* <div className="flex items-center gap-2">
                     <Button variant="outline" size="sm">
                         <Truck className="w-4 h-4 mr-2" />
@@ -64,11 +55,11 @@ export default function DispatchPage({
                 </div> */}
             </div>
 
-            <Card className="border-primary/5">
-                <CardHeader>
-                    <CardTitle>Orders to Dispatch</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
+            <div className="gmail-table-container">
+                <div className="gmail-section-header">
+                    <h2 className="text-lg font-medium text-[#202124]">Orders to Dispatch</h2>
+                </div>
+                <div className="gmail-section-body p-0">
                     <div className="relative overflow-x-auto">
                         <Table>
                             <TableHeader>
@@ -262,15 +253,15 @@ export default function DispatchPage({
                             </TableBody>
                         </Table>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
             {/* Dispatched Orders */}
-            <Card className="border-primary/5">
-                <CardHeader>
-                    <CardTitle>Dispatched Orders</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
+            <div className="gmail-table-container">
+                <div className="gmail-section-header">
+                    <h2 className="text-lg font-medium text-[#202124]">Dispatched Orders</h2>
+                </div>
+                <div className="gmail-section-body p-0">
                     <div className="relative overflow-x-auto">
                         <Table>
                             <TableHeader>
@@ -464,8 +455,8 @@ export default function DispatchPage({
                             </TableBody>
                         </Table>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
             <SelectDributorModal
                 dispatchDirectly={updateOrderDispatch}

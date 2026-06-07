@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Card } from "@/components/ui/card";
+
 import { Button } from "@/components/ui/button";
 import {
     Table,
@@ -24,7 +24,7 @@ import { ProductCategoryDeleteModal } from "@/components/admin/category/modal/pr
 import { productCategoryWithSubCategory, QueryParams } from "@/types/types";
 import { CategoryFilter } from "@/components/admin/category-filter";
 import Pagination from "@/components/pagination";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
 
 export default function CategoriesPage({
     searchParams,
@@ -38,11 +38,8 @@ export default function CategoriesPage({
 
     return (
         <div className="space-y-6 h-full min-h-full">
-            <div className="flex justify-between items-center mb-6">
-                <div className="flex items-center gap-3">
-                    <SidebarTrigger className="w-8 h-8" />
-                    <h1 className="text-2xl font-semibold">Categories</h1>
-                </div>
+            <div className="gmail-page-header mb-4">
+                <h1 className="gmail-page-title">Categories</h1>
                 <Button
                     variant={"outline"}
                     size={"sm"}
@@ -52,11 +49,11 @@ export default function CategoriesPage({
                     <Plus className="h-4 w-4" />
                 </Button>
             </div>
-            <Card className="p-4">
+            <div className="gmail-filter-bar">
                 <CategoryFilter filters={filters} />
-            </Card>
+            </div>
 
-            <Card className="p-6">
+            <div className="gmail-table-container">
                 <Table>
                     <TableHeader>
                         <TableRow>
@@ -92,7 +89,7 @@ export default function CategoriesPage({
                 </Table>
 
                 <Pagination isLoading={isLoading} totalPage={totalPages} />
-            </Card>
+            </div>
 
             <ProductCategoryCreateModal />
             <ProductCategoryEditModal />

@@ -1,5 +1,5 @@
 import { QueryParams } from "@/types/types";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Mail, Upload, AlertCircle } from "lucide-react";
 import { EmailReviewTab } from "./components/EmailReviewTab";
@@ -13,9 +13,8 @@ export default async function ReviewPage({
 }) {
     return (
         <div>
-            <div className="flex items-center gap-3 mb-6">
-                <SidebarTrigger className="w-8 h-8" />
-                <h1 className="text-2xl font-bold">Review Orders</h1>
+            <div className="gmail-page-header mb-4">
+                <h1 className="gmail-page-title">Review Orders</h1>
             </div>
 
             <Tabs defaultValue="email" className="space-y-4">

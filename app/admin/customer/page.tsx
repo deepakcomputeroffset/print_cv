@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
+
 import { useCustomers } from "@/hooks/use-customers";
 import Pagination from "@/components/pagination";
 import { CustomerEditModal } from "@/components/admin/customer/modal/customer-edit-modal";
@@ -11,7 +11,7 @@ import { defaultCustomerPerPage } from "@/lib/constants";
 import { CustomerFilter } from "@/components/admin/customer/customer-filter";
 import { CustomerListTable } from "@/components/admin/customer/customer-list-table";
 import { QueryParams } from "@/types/types";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
 
 export default function CustomersPage({
     searchParams,
@@ -49,31 +49,28 @@ export default function CustomersPage({
 
     return (
         <div className="space-y-6 h-full min-h-full">
-            <div className="flex items-center gap-3">
-                <SidebarTrigger className="w-8 h-8" />
-                <h1 className="text-2xl font-semibold">Customers</h1>
+            <div className="gmail-page-header">
+                <h1 className="gmail-page-title">Customers</h1>
             </div>
 
-            <Card className="p-4">
+            <div className="gmail-filter-bar">
                 {/* Filter */}
                 <CustomerFilter filters={filters} />
-            </Card>
+            </div>
 
-            <Card>
-                <CardContent className="p-6">
-                    <div className="rounded-md border">
-                        <CustomerListTable
-                            customers={customers}
-                            isLoading={isLoading}
-                            toggleBanStatus={toggleBanStatus}
-                            toggleVerifyStatus={toggleVerifyStatus}
-                        />
-                    </div>
+            <div className="gmail-table-container">
+                <CustomerListTable
+                    customers={customers}
+                    isLoading={isLoading}
+                    toggleBanStatus={toggleBanStatus}
+                    toggleVerifyStatus={toggleVerifyStatus}
+                />
 
-                    {/* Pagination */}
+                {/* Pagination */}
+                <div className="p-4">
                     <Pagination isLoading={isLoading} totalPage={totalPages} />
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
             {/* Modal */}
             <CustomerDeleteModal />

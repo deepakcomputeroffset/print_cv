@@ -19,21 +19,21 @@ interface SalesChartProps {
 
 export function SalesChart({ data }: SalesChartProps) {
     return (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={280}>
             <BarChart
                 data={data}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
             >
-                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--gmail-border))" vertical={false} />
                 <XAxis
                     dataKey="name"
-                    stroke="#888888"
+                    stroke="hsl(var(--gmail-text-secondary))"
                     fontSize={12}
                     tickLine={false}
                     axisLine={false}
                 />
                 <YAxis
-                    stroke="#888888"
+                    stroke="hsl(var(--gmail-text-secondary))"
                     fontSize={12}
                     tickLine={false}
                     axisLine={false}
@@ -42,13 +42,15 @@ export function SalesChart({ data }: SalesChartProps) {
                 <Tooltip
                     contentStyle={{
                         backgroundColor: "white",
-                        borderRadius: "8px",
-                        border: "1px solid #e5e7eb",
-                        boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                        borderRadius: "12px",
+                        border: "1px solid hsl(var(--gmail-border))",
+                        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+                        fontSize: "13px",
                     }}
-                    formatter={(value: number) => [`₹${value}`, "Sales"]}
+                    formatter={(value: number) => [`₹${value.toLocaleString()}`, "Revenue"]}
+                    cursor={{ fill: "hsl(var(--gmail-hover))" }}
                 />
-                <Bar dataKey="total" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="total" fill="hsl(var(--gmail-blue))" radius={[6, 6, 0, 0]} />
             </BarChart>
         </ResponsiveContainer>
     );

@@ -65,6 +65,13 @@ export default {
                 "dominant-color": "#720026",
                 "dominant-color-2": "#ce4257",
                 "charcoal-black": "#232323",
+                "gmail-blue": "hsl(var(--gmail-blue))",
+                "gmail-red": "hsl(var(--gmail-red))",
+                "gmail-hover": "hsl(var(--gmail-hover))",
+                "gmail-border": "hsl(var(--gmail-border))",
+                "gmail-text": "hsl(var(--gmail-text))",
+                "gmail-text-secondary": "hsl(var(--gmail-text-secondary))",
+                "gmail-surface": "hsl(var(--gmail-surface))",
             },
             borderRadius: {
                 lg: "var(--radius)",

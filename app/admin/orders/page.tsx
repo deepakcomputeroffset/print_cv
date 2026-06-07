@@ -3,7 +3,7 @@ import React from "react";
 import { QueryParams } from "@/types/types";
 import { useOrders } from "@/hooks/use-orders";
 import { defaultOrderPerPage } from "@/lib/constants";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
 import { DataTable } from "./components/data-table";
 import { columns } from "./components/columns";
 import { ViewFilesModal } from "../../../components/view-files-modal";
@@ -23,9 +23,8 @@ export default function OrdersPage({
     });
     return (
         <div>
-            <div className="flex items-center gap-3 mb-6">
-                <SidebarTrigger className="w-8 h-8" />
-                <h1 className="text-2xl font-bold">Orders Management</h1>
+            <div className="gmail-page-header mb-4">
+                <h1 className="gmail-page-title">Orders Management</h1>
             </div>
             <DataTable
                 columns={columns}

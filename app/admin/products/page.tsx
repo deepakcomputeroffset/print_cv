@@ -1,6 +1,6 @@
 import { Plus } from "lucide-react";
 import Link from "next/link";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
 import { QueryParams } from "@/types/types";
 import { ProductFilter } from "@/components/admin/product/product-filter";
 import { ProductLists } from "@/components/admin/product/product-lists";
@@ -14,11 +14,8 @@ export default function ProductsPage({
     const filters = React.use(searchParams);
     return (
         <div className="space-y-6 h-full">
-            <div className="flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                    <SidebarTrigger className="w-8 h-8" />
-                    <h1 className="text-2xl font-bold">Products</h1>
-                </div>
+            <div className="gmail-page-header">
+                <h1 className="gmail-page-title">Products</h1>
                 <Link
                     href={"/admin/products/create"}
                     className="flex items-center px-2 border py-2 rounded-md"

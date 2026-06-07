@@ -1,5 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -12,7 +10,6 @@ import {
     User,
     TrendingUp,
     DollarSign,
-    Calendar,
     CheckCircle2,
     Clock,
     ListTodo,
@@ -20,8 +17,7 @@ import {
     BarChart2,
     Star,
     ShoppingBag,
-    // UserPlus,
-    // Activity,
+    Calendar,
 } from "lucide-react";
 import { SalesChart } from "@/components/admin/sales-chart";
 import { TopProducts } from "@/components/admin/top-products";
@@ -51,14 +47,8 @@ interface AdminStats {
     }[];
     monthlyRevenue: { _sum: { total: number | null } };
     dailyRevenue: { _sum: { total: number | null } };
-    // productPriceStats: {
-    //     _avg: {
-    //         price: number | null;
-    //     };
-    // };
     availableProducts: number;
     customerCategories: {
-        // customerCategory: string;
         _count: { _all: number };
     }[];
     bannedCustomers: number;
@@ -155,7 +145,6 @@ export default async function AdminDashboard() {
                 monthlyOrders,
                 monthlyRevenue,
                 dailyRevenue,
-                // productPriceStats,
                 availableProducts,
                 customerCategories,
                 bannedCustomers,
@@ -232,12 +221,6 @@ export default async function AdminDashboard() {
                         total: true,
                     },
                 }),
-                // Product Price Statistics
-                // Prisma.product.aggregate({
-                //     _avg: {
-                //         price: true,
-                //     },
-                // }),
                 // Available Products Count
                 Prisma.product.count({
                     where: {
@@ -330,7 +313,6 @@ export default async function AdminDashboard() {
                 monthlyOrders,
                 monthlyRevenue,
                 dailyRevenue,
-                // productPriceStats,
                 availableProducts,
                 customerCategories,
                 bannedCustomers,
@@ -339,16 +321,18 @@ export default async function AdminDashboard() {
         }
 
         return (
-            <div className="space-y-8">
-                {/* Header Section */}
-                <div className="flex items-center justify-between flex-wrap">
-                    <div className="flex items-center gap-3">
-                        <SidebarTrigger className="w-8 h-8" />
-                        <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                            Dashboard
+            <div className="space-y-6">
+                {/* Welcome + Date */}
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h1 className="gmail-page-title">
+                            Welcome back, {session.user.staff.name}
                         </h1>
+                        <p className="text-sm text-gmail-text-secondary mt-0.5">
+                            Here&apos;s what&apos;s happening today
+                        </p>
                     </div>
-                    <div className="text-sm text-gray-500 ml-2">
+                    <div className="text-sm text-gmail-text-secondary px-3 py-1.5 rounded-full bg-gmail-surface">
                         {new Date().toLocaleDateString("en-US", {
                             weekday: "short",
                             year: "numeric",
@@ -358,418 +342,183 @@ export default async function AdminDashboard() {
                     </div>
                 </div>
 
-                {/* Task Overview Section */}
-                <section className="space-y-4">
-                    <h2 className="text-xl font-semibold flex items-center gap-2">
-                        <Briefcase className="h-5 w-5 text-gray-500" />
-                        Task Overview
-                    </h2>
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                        <Card className="bg-green-50 hover:bg-green-100 transition-all duration-300 hover:shadow-lg">
-                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-sm font-medium text-gray-600">
-                                    Completed Tasks
-                                </CardTitle>
-                                <CheckCircle2 className="h-4 w-4 text-green-500" />
-                            </CardHeader>
-                            <CardContent>
-                                <div className="text-3xl font-bold text-gray-900">
-                                    {completedTasks}
-                                </div>
-                                <p className="text-xs text-gray-500 mt-1">
-                                    Tasks completed successfully
-                                </p>
-                            </CardContent>
-                        </Card>
+                {/* Task Stats — Flat metric tiles */}
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    <StatTile
+                        label="Completed"
+                        value={completedTasks}
+                        icon={<CheckCircle2 className="w-5 h-5" />}
+                        iconColor="text-green-500"
+                        iconBg="bg-green-50"
+                    />
+                    <StatTile
+                        label="In Progress"
+                        value={inProgressTasks}
+                        icon={<Clock className="w-5 h-5" />}
+                        iconColor="text-blue-500"
+                        iconBg="bg-blue-50"
+                    />
+                    <StatTile
+                        label="Pending"
+                        value={pendingTasks}
+                        icon={<ListTodo className="w-5 h-5" />}
+                        iconColor="text-yellow-600"
+                        iconBg="bg-yellow-50"
+                    />
+                    <StatTile
+                        label="Today"
+                        value={todayTasks}
+                        icon={<Calendar className="w-5 h-5" />}
+                        iconColor="text-purple-500"
+                        iconBg="bg-purple-50"
+                    />
+                </div>
 
-                        <Card className="bg-blue-50 hover:bg-blue-100 transition-all duration-300 hover:shadow-lg">
-                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-sm font-medium text-gray-600">
-                                    In Progress
-                                </CardTitle>
-                                <Clock className="h-4 w-4 text-blue-500" />
-                            </CardHeader>
-                            <CardContent>
-                                <div className="text-3xl font-bold text-gray-900">
-                                    {inProgressTasks}
-                                </div>
-                                <p className="text-xs text-gray-500 mt-1">
-                                    Currently working on
-                                </p>
-                            </CardContent>
-                        </Card>
-
-                        <Card className="bg-green-50 hover:bg-green-100 transition-all duration-300 hover:shadow-lg">
-                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-sm font-medium text-gray-600">
-                                    Pending Tasks
-                                </CardTitle>
-                                <ListTodo className="h-4 w-4 text-yellow-500" />
-                            </CardHeader>
-                            <CardContent>
-                                <div className="text-3xl font-bold text-gray-900">
-                                    {pendingTasks}
-                                </div>
-                                <p className="text-xs text-gray-500 mt-1">
-                                    Waiting to be started
-                                </p>
-                            </CardContent>
-                        </Card>
-
-                        <Card className="bg-blue-50 hover:bg-blue-100 transition-all duration-300 hover:shadow-lg">
-                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-sm font-medium text-gray-600">
-                                    Today&apos;s Tasks
-                                </CardTitle>
-                                <Calendar className="h-4 w-4 text-purple-500" />
-                            </CardHeader>
-                            <CardContent>
-                                <div className="text-3xl font-bold text-gray-900">
-                                    {todayTasks}
-                                </div>
-                                <p className="text-xs text-gray-500 mt-1">
-                                    Tasks assigned today
-                                </p>
-                            </CardContent>
-                        </Card>
+                {/* Recent Tasks */}
+                <div className="gmail-section">
+                    <div className="gmail-section-header">
+                        <div className="flex items-center gap-2">
+                            <Briefcase className="w-4 h-4 text-gmail-text-secondary" />
+                            <span className="gmail-section-title">Recent Tasks</span>
+                        </div>
                     </div>
-                </section>
-
-                {/* Recent Tasks Section */}
-                <section className="space-y-4">
-                    <h2 className="text-xl font-semibold flex items-center gap-2">
-                        <ListTodo className="h-5 w-5 text-gray-500" />
-                        Recent Tasks
-                    </h2>
-                    <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-                        <CardContent className="p-6">
-                            <RecentTasks tasks={recentTasks} />
-                        </CardContent>
-                    </Card>
-                </section>
+                    <div className="gmail-section-body">
+                        <RecentTasks tasks={recentTasks} />
+                    </div>
+                </div>
 
                 {/* Admin Dashboard Section */}
                 {isAdmin && adminStats && (
                     <>
-                        {/* Business Overview Section */}
-                        <section className="space-y-4">
-                            <h2 className="text-xl font-semibold flex items-center gap-2">
-                                <BarChart2 className="h-5 w-5 text-gray-500" />
-                                Business Overview
-                            </h2>
-                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                                <InfoCard
-                                    name="Total Orders"
-                                    count={adminStats.totalOrders}
-                                    icon={
-                                        <ShoppingCart className="h-4 w-4 text-blue-500" />
-                                    }
-                                    color="blue"
-                                    description="Total orders received"
-                                />
-                                <InfoCard
-                                    name="Total Products"
-                                    count={adminStats.totalProducts}
-                                    icon={
-                                        <Package className="h-4 w-4 text-green-500" />
-                                    }
-                                    color="green"
-                                    description="Products in inventory"
-                                />
-                                <InfoCard
-                                    name="Total Customers"
-                                    count={adminStats.totalCustomers}
-                                    icon={
-                                        <Users className="h-4 w-4 text-purple-500" />
-                                    }
-                                    color="purple"
-                                    description="Registered customers"
-                                />
-                                <InfoCard
-                                    name="Total Staff"
-                                    count={adminStats.totalStaff}
-                                    icon={
-                                        <User className="h-4 w-4 text-orange-500" />
-                                    }
-                                    color="orange"
-                                    description="Active staff members"
-                                />
+                        {/* Business Overview Stats */}
+                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                            <StatTile
+                                label="Total Orders"
+                                value={adminStats.totalOrders}
+                                icon={<ShoppingCart className="w-5 h-5" />}
+                                iconColor="text-blue-500"
+                                iconBg="bg-blue-50"
+                            />
+                            <StatTile
+                                label="Products"
+                                value={adminStats.totalProducts}
+                                icon={<Package className="w-5 h-5" />}
+                                iconColor="text-green-500"
+                                iconBg="bg-green-50"
+                            />
+                            <StatTile
+                                label="Customers"
+                                value={adminStats.totalCustomers}
+                                icon={<Users className="w-5 h-5" />}
+                                iconColor="text-indigo-500"
+                                iconBg="bg-indigo-50"
+                            />
+                            <StatTile
+                                label="Staff"
+                                value={adminStats.totalStaff}
+                                icon={<User className="w-5 h-5" />}
+                                iconColor="text-orange-500"
+                                iconBg="bg-orange-50"
+                            />
+                        </div>
+
+                        {/* Revenue Row */}
+                        <div className="grid gap-4 md:grid-cols-2">
+                            <div className="gmail-stat-card">
+                                <div className="flex items-center justify-between mb-3">
+                                    <span className="text-sm font-medium text-gmail-text-secondary">
+                                        Yearly Revenue
+                                    </span>
+                                    <DollarSign className="w-4 h-4 text-gmail-text-secondary" />
+                                </div>
+                                <div className="text-2xl font-semibold text-gmail-text">
+                                    ₹{adminStats.monthlyRevenue._sum?.total?.toLocaleString() || 0}
+                                </div>
+                                <p className="text-xs text-gmail-text-secondary mt-1">
+                                    Total revenue this year
+                                </p>
                             </div>
-                        </section>
-
-                        {/* Revenue Section */}
-                        <section className="space-y-4">
-                            <h2 className="text-xl font-semibold flex items-center gap-2">
-                                <DollarSign className="h-5 w-5 text-gray-500" />
-                                Revenue Overview
-                            </h2>
-                            <div className="grid gap-6 md:grid-cols-2">
-                                <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-                                    <CardHeader>
-                                        <div className="flex items-center justify-between">
-                                            <CardTitle className="text-xl font-semibold">
-                                                Monthly Revenue
-                                            </CardTitle>
-                                            <Calendar className="h-5 w-5 text-gray-500" />
-                                        </div>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="text-3xl font-bold text-gray-900">
-                                            ₹
-                                            {adminStats.monthlyRevenue._sum?.total?.toLocaleString() ||
-                                                0}
-                                        </div>
-                                        <p className="text-sm text-gray-500 mt-2">
-                                            Total revenue this month
-                                        </p>
-                                    </CardContent>
-                                </Card>
-                                <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-                                    <CardHeader>
-                                        <div className="flex items-center justify-between">
-                                            <CardTitle className="text-xl font-semibold">
-                                                Daily Revenue
-                                            </CardTitle>
-                                            <TrendingUp className="h-5 w-5 text-gray-500" />
-                                        </div>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="text-3xl font-bold text-gray-900">
-                                            ₹
-                                            {adminStats.dailyRevenue._sum?.total?.toLocaleString() ||
-                                                0}
-                                        </div>
-                                        <p className="text-sm text-gray-500 mt-2">
-                                            Revenue today
-                                        </p>
-                                    </CardContent>
-                                </Card>
+                            <div className="gmail-stat-card">
+                                <div className="flex items-center justify-between mb-3">
+                                    <span className="text-sm font-medium text-gmail-text-secondary">
+                                        Today&apos;s Revenue
+                                    </span>
+                                    <TrendingUp className="w-4 h-4 text-green-500" />
+                                </div>
+                                <div className="text-2xl font-semibold text-gmail-text">
+                                    ₹{adminStats.dailyRevenue._sum?.total?.toLocaleString() || 0}
+                                </div>
+                                <p className="text-xs text-gmail-text-secondary mt-1">
+                                    Revenue earned today
+                                </p>
                             </div>
-                        </section>
+                        </div>
 
-                        {/* Analytics Section */}
-                        <section className="space-y-4">
-                            <h2 className="text-xl font-semibold flex items-center gap-2">
-                                <BarChart2 className="h-5 w-5 text-gray-500" />
-                                Analytics
-                            </h2>
-                            <div className="grid gap-6 md:grid-cols-2">
-                                <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-                                    <CardHeader>
-                                        <CardTitle className="text-xl font-semibold">
-                                            Recent Orders
-                                        </CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <RecentOrders
-                                            orders={adminStats.recentOrders}
-                                        />
-                                    </CardContent>
-                                </Card>
-                                <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-                                    <CardHeader>
-                                        <CardTitle className="text-xl font-semibold">
-                                            Sales Analytics
-                                        </CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <SalesChart
-                                            data={processMonthlyData(
-                                                adminStats.monthlyOrders,
-                                                currentYear,
-                                            )}
-                                        />
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </section>
-
-                        {/* Product Analytics Section */}
-                        <section className="space-y-4">
-                            <h2 className="text-xl font-semibold flex items-center gap-2">
-                                <Package className="h-5 w-5 text-gray-500" />
-                                Product Analytics
-                            </h2>
-                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                                {/* <Card className="bg-blue-50 hover:bg-blue-100 transition-all duration-300 hover:shadow-lg">
-                                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                        <CardTitle className="text-sm font-medium text-gray-600">
-                                            Average Price
-                                        </CardTitle>
-                                        <Tag className="h-4 w-4 text-blue-500" />
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="text-3xl font-bold text-gray-900">
-                                            ₹
-                                            {adminStats.productPriceStats._avg?.price?.toLocaleString() ||
-                                                0}
-                                        </div>
-                                        <p className="text-xs text-gray-500 mt-1">
-                                            Average product price
-                                        </p>
-                                    </CardContent>
-                                </Card> */}
-
-                                <Card className="bg-green-50 hover:bg-green-100 transition-all duration-300 hover:shadow-lg">
-                                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                        <CardTitle className="text-sm font-medium text-gray-600">
-                                            Available Products
-                                        </CardTitle>
-                                        <ShoppingBag className="h-4 w-4 text-green-500" />
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="text-3xl font-bold text-gray-900">
-                                            {adminStats.availableProducts}
-                                        </div>
-                                        <p className="text-xs text-gray-500 mt-1">
-                                            Products in stock
-                                        </p>
-                                    </CardContent>
-                                </Card>
-
-                                {/* <Card className="bg-purple-50 hover:bg-purple-100 transition-all duration-300 hover:shadow-lg">
-                                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                        <CardTitle className="text-sm font-medium text-gray-600">
-                                            Min Price
-                                        </CardTitle>
-                                        <Tag className="h-4 w-4 text-purple-500" />
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="text-3xl font-bold text-gray-900">
-                                            ₹
-                                            {adminStats.productPriceStats._avg?.minPrice?.toLocaleString() ||
-                                                0}
-                                        </div>
-                                        <p className="text-xs text-gray-500 mt-1">
-                                            Minimum product price
-                                        </p>
-                                    </CardContent>
-                                </Card> */}
-
-                                {/* <Card className="bg-orange-50 hover:bg-orange-100 transition-all duration-300 hover:shadow-lg">
-                                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                        <CardTitle className="text-sm font-medium text-gray-600">
-                                            Max Price
-                                        </CardTitle>
-                                        <Tag className="h-4 w-4 text-orange-500" />
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="text-3xl font-bold text-gray-900">
-                                            ₹
-                                            {adminStats.productPriceStats._avg?.maxPrice?.toLocaleString() ||
-                                                0}
-                                        </div>
-                                        <p className="text-xs text-gray-500 mt-1">
-                                            Maximum product price
-                                        </p>
-                                    </CardContent>
-                                </Card> */}
-                            </div>
-                        </section>
-
-                        {/* Customer Analytics Section */}
-                        <section className="space-y-4">
-                            <h2 className="text-xl font-semibold flex items-center gap-2">
-                                <Users className="h-5 w-5 text-gray-500" />
-                                Customer Analytics
-                            </h2>
-                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                                {/* <Card className="bg-blue-50 hover:bg-blue-100 transition-all duration-300 hover:shadow-lg">
-                                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                        <CardTitle className="text-sm font-medium text-gray-600">
-                                            High Value
-                                        </CardTitle>
-                                        <Star className="h-4 w-4 text-blue-500" />
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="text-3xl font-bold text-gray-900">
-                                            {adminStats.customerCategories.find(
-                                                (c) =>
-                                                    c.customerCategory ===
-                                                    "HIGH",
-                                            )?._count?._all || 0}
-                                        </div>
-                                        <p className="text-xs text-gray-500 mt-1">
-                                            High value customers
-                                        </p>
-                                    </CardContent>
-                                </Card> */}
-
-                                {/* <Card className="bg-green-50 hover:bg-green-100 transition-all duration-300 hover:shadow-lg">
-                                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                        <CardTitle className="text-sm font-medium text-gray-600">
-                                            Medium Value
-                                        </CardTitle>
-                                        <UserPlus className="h-4 w-4 text-green-500" />
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="text-3xl font-bold text-gray-900">
-                                            {adminStats.customerCategories.find(
-                                                (c) =>
-                                                    c.customerCategory ===
-                                                    "MEDIUM",
-                                            )?._count?._all || 0}
-                                        </div>
-                                        <p className="text-xs text-gray-500 mt-1">
-                                            Medium value customers
-                                        </p>
-                                    </CardContent>
-                                </Card> */}
-
-                                {/* <Card className="bg-purple-50 hover:bg-purple-100 transition-all duration-300 hover:shadow-lg">
-                                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                        <CardTitle className="text-sm font-medium text-gray-600">
-                                            Low Value
-                                        </CardTitle>
-                                        <Activity className="h-4 w-4 text-purple-500" />
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="text-3xl font-bold text-gray-900">
-                                            {adminStats.customerCategories.find(
-                                                (c) =>
-                                                    c.customerCategory ===
-                                                    "LOW",
-                                            )?._count?._all || 0}
-                                        </div>
-                                        <p className="text-xs text-gray-500 mt-1">
-                                            Low value customers
-                                        </p>
-                                    </CardContent>
-                                </Card> */}
-
-                                <Card className="bg-red-50 hover:bg-red-100 transition-all duration-300 hover:shadow-lg">
-                                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                        <CardTitle className="text-sm font-medium text-gray-600">
-                                            Banned
-                                        </CardTitle>
-                                        <User className="h-4 w-4 text-red-500" />
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="text-3xl font-bold text-gray-900">
-                                            {adminStats.bannedCustomers}
-                                        </div>
-                                        <p className="text-xs text-gray-500 mt-1">
-                                            Banned customers
-                                        </p>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </section>
-
-                        {/* Top Products Section */}
-                        <section className="space-y-4">
-                            <h2 className="text-xl font-semibold flex items-center gap-2">
-                                <Star className="h-5 w-5 text-gray-500" />
-                                Top Products
-                            </h2>
-                            <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-                                <CardContent className="p-6">
-                                    <TopProducts
-                                        products={adminStats.topProducts}
+                        {/* Analytics — Orders + Chart side by side */}
+                        <div className="grid gap-4 md:grid-cols-2">
+                            <div className="gmail-section">
+                                <div className="gmail-section-header">
+                                    <div className="flex items-center gap-2">
+                                        <ShoppingCart className="w-4 h-4 text-gmail-text-secondary" />
+                                        <span className="gmail-section-title">Recent Orders</span>
+                                    </div>
+                                </div>
+                                <div className="gmail-section-body">
+                                    <RecentOrders
+                                        orders={adminStats.recentOrders}
                                     />
-                                </CardContent>
-                            </Card>
-                        </section>
+                                </div>
+                            </div>
+                            <div className="gmail-section">
+                                <div className="gmail-section-header">
+                                    <div className="flex items-center gap-2">
+                                        <BarChart2 className="w-4 h-4 text-gmail-text-secondary" />
+                                        <span className="gmail-section-title">Sales Analytics</span>
+                                    </div>
+                                </div>
+                                <div className="p-4">
+                                    <SalesChart
+                                        data={processMonthlyData(
+                                            adminStats.monthlyOrders,
+                                            currentYear,
+                                        )}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Product & Customer Analytics */}
+                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                            <StatTile
+                                label="Available Products"
+                                value={adminStats.availableProducts}
+                                icon={<ShoppingBag className="w-5 h-5" />}
+                                iconColor="text-green-500"
+                                iconBg="bg-green-50"
+                            />
+                            <StatTile
+                                label="Banned Customers"
+                                value={adminStats.bannedCustomers}
+                                icon={<User className="w-5 h-5" />}
+                                iconColor="text-red-500"
+                                iconBg="bg-red-50"
+                            />
+                        </div>
+
+                        {/* Top Products */}
+                        <div className="gmail-section">
+                            <div className="gmail-section-header">
+                                <div className="flex items-center gap-2">
+                                    <Star className="w-4 h-4 text-gmail-text-secondary" />
+                                    <span className="gmail-section-title">Top Products</span>
+                                </div>
+                            </div>
+                            <div className="gmail-section-body">
+                                <TopProducts
+                                    products={adminStats.topProducts}
+                                />
+                            </div>
+                        </div>
                     </>
                 )}
             </div>
@@ -777,11 +526,18 @@ export default async function AdminDashboard() {
     } catch (error) {
         console.error("Error fetching dashboard data:", error);
         return (
-            <div className="p-4">
-                <h1 className="text-2xl font-bold text-red-600">
-                    Error loading dashboard
-                </h1>
-                <p className="text-gray-600">Please try refreshing the page</p>
+            <div className="flex items-center justify-center min-h-[400px]">
+                <div className="text-center">
+                    <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4">
+                        <BarChart2 className="w-6 h-6 text-red-500" />
+                    </div>
+                    <h2 className="text-lg font-medium text-gmail-text mb-1">
+                        Error loading dashboard
+                    </h2>
+                    <p className="text-sm text-gmail-text-secondary">
+                        Please try refreshing the page
+                    </p>
+                </div>
             </div>
         );
     }
@@ -811,36 +567,25 @@ function processMonthlyData(
     });
 }
 
-interface InfoCardProps {
-    name: string;
-    count: number;
+// Gmail-style flat stat tile component
+interface StatTileProps {
+    label: string;
+    value: number;
     icon: React.ReactNode;
-    color: "blue" | "green" | "purple" | "orange";
-    description: string;
+    iconColor: string;
+    iconBg: string;
 }
 
-const InfoCard = ({ name, count, icon, color, description }: InfoCardProps) => {
-    const colorClasses = {
-        blue: "bg-blue-50 hover:bg-blue-100",
-        green: "bg-green-50 hover:bg-green-100",
-        purple: "bg-purple-50 hover:bg-purple-100",
-        orange: "bg-orange-50 hover:bg-orange-100",
-    };
-
-    return (
-        <Card
-            className={`${colorClasses[color]} transition-all duration-300 hover:shadow-lg`}
-        >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">
-                    {name}
-                </CardTitle>
+const StatTile = ({ label, value, icon, iconColor, iconBg }: StatTileProps) => (
+    <div className="gmail-stat-card">
+        <div className="flex items-center gap-4">
+            <div className={`flex items-center justify-center w-10 h-10 rounded-xl ${iconBg} ${iconColor}`}>
                 {icon}
-            </CardHeader>
-            <CardContent>
-                <div className="text-3xl font-bold text-gray-900">{count}</div>
-                <p className="text-xs text-gray-500 mt-1">{description}</p>
-            </CardContent>
-        </Card>
-    );
-};
+            </div>
+            <div>
+                <p className="text-2xl font-semibold text-gmail-text">{value.toLocaleString()}</p>
+                <p className="text-xs font-medium text-gmail-text-secondary mt-0.5">{label}</p>
+            </div>
+        </div>
+    </div>
+);

@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
+
 import Pagination from "@/components/pagination";
 import { defaultJobsPerPage } from "@/lib/constants";
 import { QueryParams } from "@/types/types";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
 import { useJob } from "@/hooks/use-job";
 import { JobListTable } from "@/components/admin/job/job-list-table";
 import { JobAddModal } from "@/components/admin/job/modal/job-create-modal";
@@ -48,11 +48,8 @@ export default function DepartmentsPage({
 
     return (
         <div className="space-y-6 h-full min-h-full">
-            <div className="flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                    <SidebarTrigger className="w-8 h-8" />
-                    <h1 className="text-2xl font-semibold">Jobs</h1>
-                </div>
+            <div className="gmail-page-header">
+                <h1 className="gmail-page-title">Jobs</h1>
                 <div className="flex items-center gap-2">
                     <Button
                         variant="outline"
@@ -73,21 +70,19 @@ export default function DepartmentsPage({
                 </div>
             </div>
 
-            <Card className="p-4">
+            <div className="gmail-filter-bar">
                 {/* Filter */}
                 <JobFilter filters={filters} />
-            </Card>
+            </div>
 
-            <Card>
-                <CardContent className="p-6">
-                    <div className="rounded-md border">
-                        <JobListTable jobs={data} isLoading={isLoading} />
-                    </div>
+            <div className="gmail-table-container">
+                <JobListTable jobs={data} isLoading={isLoading} />
 
-                    {/* Pagination */}
+                {/* Pagination */}
+                <div className="p-4">
                     <Pagination isLoading={isLoading} totalPage={totalPages} />
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
             {/* Modals */}
             <JobAddModal />

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "@/components/ui/card";
+
 import {
     Table,
     TableBody,
@@ -15,7 +15,7 @@ import { MessageRow } from "@/components/message-row";
 import { CarouselCreateModal } from "@/components/admin/carousel/modal/carousel-create-modal";
 import { CarouselEditModal } from "@/components/admin/carousel/modal/carousel-edit-modal";
 import { CarouselDeleteModal } from "@/components/admin/carousel/modal/carousel-delete-modal";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
 import { Badge } from "@/components/ui/badge";
 import { getCarousels } from "./_actions/actions";
 import { CarouselActions } from "@/components/admin/carousel/carousel-actions";
@@ -35,17 +35,14 @@ export default async function CarouselPage({
             <CarouselDeleteModal />
 
             <div className="space-y-6 h-full min-h-full">
-                <div className="flex justify-between items-center mb-6">
-                    <div className="flex items-center gap-3">
-                        <SidebarTrigger className="w-8 h-8" />
-                        <h1 className="text-2xl font-semibold">
-                            Carousel Management
-                        </h1>
-                    </div>
+                <div className="gmail-page-header mb-4">
+                    <h1 className="gmail-page-title">
+                        Carousel Management
+                    </h1>
                     <CarouselActions />
                 </div>
 
-                <Card className="p-6">
+                <div className="gmail-table-container">
                     <Table>
                         <TableHeader>
                             <TableRow>
@@ -128,7 +125,7 @@ export default async function CarouselPage({
                             )}
                         </TableBody>
                     </Table>
-                </Card>
+                </div>
             </div>
         </>
     );

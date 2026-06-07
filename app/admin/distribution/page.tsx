@@ -2,8 +2,8 @@
 import { LoadingRow } from "@/components/loaders/loading-row";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
+
 import {
     Table,
     TableBody,
@@ -13,8 +13,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { useDistribution } from "@/hooks/use-distribution";
-import { sourceSerif4 } from "@/lib/font";
-import { cn } from "@/lib/utils";
+
 import { QueryParams } from "@/types/types";
 import { Check, Loader2, MapPin, Package, User } from "lucide-react";
 import React from "react";
@@ -35,26 +34,18 @@ export default function Distribution({
 
     return (
         <div className="space-y-6 h-full min-h-full">
-            <div className="flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                    <SidebarTrigger className="w-8 h-8" />
-                    <h1
-                        className={cn(
-                            "text-2xl font-semibold",
-                            sourceSerif4.className,
-                        )}
-                    >
-                        Distribution Management
-                    </h1>
-                </div>
+            <div className="gmail-page-header">
+                <h1 className="gmail-page-title">
+                    Distribution Management
+                </h1>
                 <CustomerFilterforDistributor filters={filters} />
             </div>
 
-            <Card className="border-primary/5">
-                <CardHeader>
-                    <CardTitle>Orders to Distribute</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
+            <div className="gmail-table-container">
+                <div className="gmail-section-header">
+                    <h2 className="text-lg font-medium text-[#202124]">Orders to Distribute</h2>
+                </div>
+                <div className="gmail-section-body p-0">
                     <div className="relative overflow-x-auto">
                         <Table>
                             <TableHeader>
@@ -225,14 +216,14 @@ export default function Distribution({
                             </TableBody>
                         </Table>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
-            <Card className="border-primary/5">
-                <CardHeader>
-                    <CardTitle>Distributed Orders</CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
+            <div className="gmail-table-container">
+                <div className="gmail-section-header">
+                    <h2 className="text-lg font-medium text-[#202124]">Distributed Orders</h2>
+                </div>
+                <div className="gmail-section-body p-0">
                     <div className="relative overflow-x-auto">
                         <Table>
                             <TableHeader>
@@ -371,8 +362,8 @@ export default function Distribution({
                             </TableBody>
                         </Table>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
         </div>
     );
 }

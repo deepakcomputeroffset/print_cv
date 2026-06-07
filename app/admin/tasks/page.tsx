@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { TASK_STATUS } from "@prisma/client";
 import ClientTaskTable from "./components/taskTable";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
 
 export default async function StaffTasks() {
     const session = await auth();
@@ -47,9 +47,8 @@ export default async function StaffTasks() {
 
     return (
         <div className="space-y-6 h-full min-h-full">
-            <div className="flex items-center gap-3">
-                <SidebarTrigger className="w-8 h-8" />
-                <h1 className="text-2xl font-semibold">Tasks</h1>
+            <div className="gmail-page-header">
+                <h1 className="gmail-page-title">Tasks</h1>
             </div>
             <Card className="mt-6">
                 <CardHeader>

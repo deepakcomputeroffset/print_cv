@@ -1,6 +1,6 @@
 "use client";
 import { Plus } from "lucide-react";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+
 import { QueryParams } from "@/types/types";
 import React from "react";
 import { Button } from "@/components/ui/button";
@@ -20,11 +20,8 @@ export default function Designspage({
     const { onOpen } = useModal();
     return (
         <div className="space-y-6 h-full">
-            <div className="flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                    <SidebarTrigger className="w-8 h-8" />
-                    <h1 className="text-2xl font-bold">Designs</h1>
-                </div>
+            <div className="gmail-page-header">
+                <h1 className="gmail-page-title">Designs</h1>
                 <Button
                     onClick={() => onOpen("createDesign", {})}
                     className="flex items-center px-2 border py-2 rounded-md"
