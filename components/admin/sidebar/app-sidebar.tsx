@@ -64,10 +64,17 @@ export function AppSidebar({ session }: { session: Session | null }) {
             className="border-r"
             style={{ borderColor: "hsl(var(--gmail-border))" }}
         >
-            <SidebarHeader className="border-b" style={{ borderColor: "hsl(var(--gmail-border))" }}>
+            <SidebarHeader
+                className="border-b"
+                style={{ borderColor: "hsl(var(--gmail-border))" }}
+            >
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" className="group-data-[collapsible=icon]:!mx-auto group-data-[collapsible=icon]:!p-0" asChild>
+                        <SidebarMenuButton
+                            size="lg"
+                            className="group-data-[collapsible=icon]:!mx-auto group-data-[collapsible=icon]:!p-0"
+                            asChild
+                        >
                             <div className="flex items-center gap-3 group-data-[collapsible=icon]:!gap-0">
                                 <div className="flex shrink-0 aspect-square size-8 items-center justify-center rounded-xl bg-gmail-blue text-white shadow-sm">
                                     <GalleryVerticalEnd className="size-5" />
@@ -158,7 +165,10 @@ export function AppSidebar({ session }: { session: Session | null }) {
                 })}
             </SidebarContent>
 
-            <SidebarFooter className="border-t" style={{ borderColor: "hsl(var(--gmail-border))" }}>
+            <SidebarFooter
+                className="border-t"
+                style={{ borderColor: "hsl(var(--gmail-border))" }}
+            >
                 <NavUser session={session} />
             </SidebarFooter>
             <SidebarRail />

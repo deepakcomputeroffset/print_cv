@@ -36,9 +36,7 @@ export default async function CarouselPage({
 
             <div className="space-y-6 h-full min-h-full">
                 <div className="gmail-page-header mb-4">
-                    <h1 className="gmail-page-title">
-                        Carousel Management
-                    </h1>
+                    <h1 className="gmail-page-title">Carousel Management</h1>
                     <CarouselActions />
                 </div>
 

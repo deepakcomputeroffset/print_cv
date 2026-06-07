@@ -64,10 +64,7 @@ export default function DepartmentsPage({
             </div>
 
             <div className="gmail-table-container">
-                <DepartmentListTable
-                    departments={data}
-                    isLoading={isLoading}
-                />
+                <DepartmentListTable departments={data} isLoading={isLoading} />
 
                 {/* Pagination */}
                 <div className="p-4">

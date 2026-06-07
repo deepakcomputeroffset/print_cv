@@ -3,7 +3,6 @@ import { LoadingRow } from "@/components/loaders/loading-row";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-
 import {
     Table,
     TableBody,
@@ -35,15 +34,15 @@ export default function Distribution({
     return (
         <div className="space-y-6 h-full min-h-full">
             <div className="gmail-page-header">
-                <h1 className="gmail-page-title">
-                    Distribution Management
-                </h1>
+                <h1 className="gmail-page-title">Distribution Management</h1>
                 <CustomerFilterforDistributor filters={filters} />
             </div>
 
             <div className="gmail-table-container">
                 <div className="gmail-section-header">
-                    <h2 className="text-lg font-medium text-[#202124]">Orders to Distribute</h2>
+                    <h2 className="text-lg font-medium text-[#202124]">
+                        Orders to Distribute
+                    </h2>
                 </div>
                 <div className="gmail-section-body p-0">
                     <div className="relative overflow-x-auto">
@@ -221,7 +220,9 @@ export default function Distribution({
 
             <div className="gmail-table-container">
                 <div className="gmail-section-header">
-                    <h2 className="text-lg font-medium text-[#202124]">Distributed Orders</h2>
+                    <h2 className="text-lg font-medium text-[#202124]">
+                        Distributed Orders
+                    </h2>
                 </div>
                 <div className="gmail-section-body p-0">
                     <div className="relative overflow-x-auto">

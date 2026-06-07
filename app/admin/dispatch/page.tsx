@@ -1,6 +1,5 @@
 "use client";
 
-
 import { QueryParams } from "@/types/types";
 import React, { use } from "react";
 import { useDispatch } from "@/hooks/use-dispatch";
@@ -40,9 +39,7 @@ export default function DispatchPage({
     return (
         <div className="space-y-6 h-full min-h-full">
             <div className="gmail-page-header">
-                <h1 className="gmail-page-title">
-                    Dispatch Management
-                </h1>
+                <h1 className="gmail-page-title">Dispatch Management</h1>
                 {/* <div className="flex items-center gap-2">
                     <Button variant="outline" size="sm">
                         <Truck className="w-4 h-4 mr-2" />
@@ -57,7 +54,9 @@ export default function DispatchPage({
 
             <div className="gmail-table-container">
                 <div className="gmail-section-header">
-                    <h2 className="text-lg font-medium text-[#202124]">Orders to Dispatch</h2>
+                    <h2 className="text-lg font-medium text-[#202124]">
+                        Orders to Dispatch
+                    </h2>
                 </div>
                 <div className="gmail-section-body p-0">
                     <div className="relative overflow-x-auto">
@@ -259,7 +258,9 @@ export default function DispatchPage({
             {/* Dispatched Orders */}
             <div className="gmail-table-container">
                 <div className="gmail-section-header">
-                    <h2 className="text-lg font-medium text-[#202124]">Dispatched Orders</h2>
+                    <h2 className="text-lg font-medium text-[#202124]">
+                        Dispatched Orders
+                    </h2>
                 </div>
                 <div className="gmail-section-body p-0">
                     <div className="relative overflow-x-auto">

@@ -24,7 +24,11 @@ export function SalesChart({ data }: SalesChartProps) {
                 data={data}
                 margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
             >
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--gmail-border))" vertical={false} />
+                <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="hsl(var(--gmail-border))"
+                    vertical={false}
+                />
                 <XAxis
                     dataKey="name"
                     stroke="hsl(var(--gmail-text-secondary))"
@@ -47,10 +51,17 @@ export function SalesChart({ data }: SalesChartProps) {
                         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
                         fontSize: "13px",
                     }}
-                    formatter={(value: number) => [`₹${value.toLocaleString()}`, "Revenue"]}
+                    formatter={(value: number) => [
+                        `₹${value.toLocaleString()}`,
+                        "Revenue",
+                    ]}
                     cursor={{ fill: "hsl(var(--gmail-hover))" }}
                 />
-                <Bar dataKey="total" fill="hsl(var(--gmail-blue))" radius={[6, 6, 0, 0]} />
+                <Bar
+                    dataKey="total"
+                    fill="hsl(var(--gmail-blue))"
+                    radius={[6, 6, 0, 0]}
+                />
             </BarChart>
         </ResponsiveContainer>
     );

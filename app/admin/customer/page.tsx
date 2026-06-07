@@ -12,7 +12,6 @@ import { CustomerFilter } from "@/components/admin/customer/customer-filter";
 import { CustomerListTable } from "@/components/admin/customer/customer-list-table";
 import { QueryParams } from "@/types/types";
 
-
 export default function CustomersPage({
     searchParams,
 }: {

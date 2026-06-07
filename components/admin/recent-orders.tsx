@@ -39,7 +39,10 @@ export function RecentOrders({
     }[];
 }) {
     return (
-        <div className="divide-y" style={{ borderColor: "hsl(var(--gmail-border))" }}>
+        <div
+            className="divide-y"
+            style={{ borderColor: "hsl(var(--gmail-border))" }}
+        >
             {orders.map((order) => (
                 <div
                     key={order.id}
@@ -56,7 +59,9 @@ export function RecentOrders({
                             {order?.productItem?.product?.name}
                         </p>
                     </div>
-                    <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${statusColors[order?.status] || "bg-gray-50 text-gray-700"}`}>
+                    <span
+                        className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${statusColors[order?.status] || "bg-gray-50 text-gray-700"}`}
+                    >
                         {order?.status}
                     </span>
                     <span className="text-xs text-gmail-text-secondary whitespace-nowrap">

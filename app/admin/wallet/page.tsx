@@ -49,92 +49,89 @@ export default function WalletManagemen({
             </div>
 
             <div className="gmail-table-container">
-                    <div className="rounded-md border">
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead className="text-center">
-                                        Customer Id
-                                    </TableHead>
-                                    <TableHead>Customer Info</TableHead>
-                                    <TableHead>Business</TableHead>
-                                    <TableHead>Balance</TableHead>
-                                    <TableHead className="text-right">
-                                        Actions
-                                    </TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {isLoading ? (
-                                    <LoadingRow
-                                        text="Loading customers..."
-                                        colSpan={7}
-                                    />
-                                ) : data.length === 0 ? (
-                                    <MessageRow
-                                        colSpan={7}
-                                        text="No customers found"
-                                    />
-                                ) : (
-                                    data?.map((customer: customerType) => (
-                                        <TableRow key={customer?.id}>
-                                            <TableCell className="text-center">
-                                                {customer?.id}
-                                            </TableCell>
-                                            <TableCell>
-                                                <div>
-                                                    <div className="font-medium">
-                                                        {customer?.name}
-                                                    </div>
-                                                    <div className="text-sm text-muted-foreground">
-                                                        {customer?.email}
-                                                    </div>
-                                                    <div className="text-sm text-muted-foreground">
-                                                        {customer?.phone}
-                                                    </div>
+                <div className="rounded-md border">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className="text-center">
+                                    Customer Id
+                                </TableHead>
+                                <TableHead>Customer Info</TableHead>
+                                <TableHead>Business</TableHead>
+                                <TableHead>Balance</TableHead>
+                                <TableHead className="text-right">
+                                    Actions
+                                </TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {isLoading ? (
+                                <LoadingRow
+                                    text="Loading customers..."
+                                    colSpan={7}
+                                />
+                            ) : data.length === 0 ? (
+                                <MessageRow
+                                    colSpan={7}
+                                    text="No customers found"
+                                />
+                            ) : (
+                                data?.map((customer: customerType) => (
+                                    <TableRow key={customer?.id}>
+                                        <TableCell className="text-center">
+                                            {customer?.id}
+                                        </TableCell>
+                                        <TableCell>
+                                            <div>
+                                                <div className="font-medium">
+                                                    {customer?.name}
                                                 </div>
-                                            </TableCell>
-                                            <TableCell>
-                                                {customer?.businessName}
-                                            </TableCell>
-                                            <TableCell>
-                                                {customer?.wallet?.balance}
-                                            </TableCell>
+                                                <div className="text-sm text-muted-foreground">
+                                                    {customer?.email}
+                                                </div>
+                                                <div className="text-sm text-muted-foreground">
+                                                    {customer?.phone}
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            {customer?.businessName}
+                                        </TableCell>
+                                        <TableCell>
+                                            {customer?.wallet?.balance}
+                                        </TableCell>
 
-                                            <TableCell>
-                                                <div className="flex items-center justify-end gap-2">
-                                                    <Link
-                                                        href={`/admin/wallet/${customer?.wallet?.id}?search=&sortorder=desc&perpage=100`}
-                                                    >
-                                                        <Button
-                                                            size={"icon"}
-                                                            variant={"ghost"}
-                                                        >
-                                                            <Eye className="h-4 w-4" />
-                                                        </Button>
-                                                    </Link>
+                                        <TableCell>
+                                            <div className="flex items-center justify-end gap-2">
+                                                <Link
+                                                    href={`/admin/wallet/${customer?.wallet?.id}?search=&sortorder=desc&perpage=100`}
+                                                >
                                                     <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        onClick={() =>
-                                                            onOpen(
-                                                                "transaction",
-                                                                {
-                                                                    customer,
-                                                                },
-                                                            )
-                                                        }
+                                                        size={"icon"}
+                                                        variant={"ghost"}
                                                     >
-                                                        <CreditCard className="h-4 w-4" />
+                                                        <Eye className="h-4 w-4" />
                                                     </Button>
-                                                </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                                )}
-                            </TableBody>
-                        </Table>
-                    </div>
+                                                </Link>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    onClick={() =>
+                                                        onOpen("transaction", {
+                                                            customer,
+                                                        })
+                                                    }
+                                                >
+                                                    <CreditCard className="h-4 w-4" />
+                                                </Button>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            )}
+                        </TableBody>
+                    </Table>
+                </div>
 
                 {/* Pagination */}
                 <div className="p-4">

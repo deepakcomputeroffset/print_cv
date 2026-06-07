@@ -41,8 +41,10 @@ export function AdminHeader() {
     const title = getPageTitle(pathname);
 
     return (
-        <header className="sticky top-0 z-20 flex items-center gap-3 px-4 h-14 border-b bg-white/80 backdrop-blur-sm"
-            style={{ borderColor: "hsl(var(--gmail-border))" }}>
+        <header
+            className="sticky top-0 z-20 flex items-center gap-3 px-4 h-14 border-b bg-white/80 backdrop-blur-sm"
+            style={{ borderColor: "hsl(var(--gmail-border))" }}
+        >
             {/* Sidebar toggle */}
             <SidebarTrigger className="w-8 h-8 text-gmail-text-secondary hover:bg-gmail-hover rounded-full transition-colors" />
 

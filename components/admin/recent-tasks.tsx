@@ -41,7 +41,10 @@ const statusConfig = {
 
 export function RecentTasks({ tasks }: RecentTasksProps) {
     return (
-        <div className="divide-y" style={{ borderColor: "hsl(var(--gmail-border))" }}>
+        <div
+            className="divide-y"
+            style={{ borderColor: "hsl(var(--gmail-border))" }}
+        >
             {tasks.map((task) => {
                 const config = statusConfig[task.status];
                 const StatusIcon = config.icon;
@@ -50,7 +53,9 @@ export function RecentTasks({ tasks }: RecentTasksProps) {
                         key={task.id}
                         className="flex items-center gap-4 px-4 py-3 hover:bg-gmail-hover transition-colors cursor-default"
                     >
-                        <div className={`flex items-center justify-center w-8 h-8 rounded-full ${config.className}`}>
+                        <div
+                            className={`flex items-center justify-center w-8 h-8 rounded-full ${config.className}`}
+                        >
                             <StatusIcon className="w-4 h-4" />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -61,7 +66,9 @@ export function RecentTasks({ tasks }: RecentTasksProps) {
                                 {task.taskType.name}
                             </p>
                         </div>
-                        <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${config.className}`}>
+                        <span
+                            className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${config.className}`}
+                        >
                             {config.label}
                         </span>
                         <span className="text-xs text-gmail-text-secondary whitespace-nowrap">

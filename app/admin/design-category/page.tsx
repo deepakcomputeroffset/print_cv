@@ -39,9 +39,7 @@ export default function CategoriesPage({
     return (
         <div className="space-y-6 h-full min-h-full">
             <div className="gmail-page-header mb-4">
-                <h1 className="gmail-page-title">
-                    Design Categories
-                </h1>
+                <h1 className="gmail-page-title">Design Categories</h1>
                 <Button
                     variant={"outline"}
                     size={"sm"}

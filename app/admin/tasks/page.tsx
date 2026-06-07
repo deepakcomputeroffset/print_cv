@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import { TASK_STATUS } from "@prisma/client";
 import ClientTaskTable from "./components/taskTable";
 
-
 export default async function StaffTasks() {
     const session = await auth();
     if (

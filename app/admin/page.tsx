@@ -379,7 +379,9 @@ export default async function AdminDashboard() {
                     <div className="gmail-section-header">
                         <div className="flex items-center gap-2">
                             <Briefcase className="w-4 h-4 text-gmail-text-secondary" />
-                            <span className="gmail-section-title">Recent Tasks</span>
+                            <span className="gmail-section-title">
+                                Recent Tasks
+                            </span>
                         </div>
                     </div>
                     <div className="gmail-section-body">
@@ -432,7 +434,9 @@ export default async function AdminDashboard() {
                                     <DollarSign className="w-4 h-4 text-gmail-text-secondary" />
                                 </div>
                                 <div className="text-2xl font-semibold text-gmail-text">
-                                    ₹{adminStats.monthlyRevenue._sum?.total?.toLocaleString() || 0}
+                                    ₹
+                                    {adminStats.monthlyRevenue._sum?.total?.toLocaleString() ||
+                                        0}
                                 </div>
                                 <p className="text-xs text-gmail-text-secondary mt-1">
                                     Total revenue this year
@@ -446,7 +450,9 @@ export default async function AdminDashboard() {
                                     <TrendingUp className="w-4 h-4 text-green-500" />
                                 </div>
                                 <div className="text-2xl font-semibold text-gmail-text">
-                                    ₹{adminStats.dailyRevenue._sum?.total?.toLocaleString() || 0}
+                                    ₹
+                                    {adminStats.dailyRevenue._sum?.total?.toLocaleString() ||
+                                        0}
                                 </div>
                                 <p className="text-xs text-gmail-text-secondary mt-1">
                                     Revenue earned today
@@ -460,7 +466,9 @@ export default async function AdminDashboard() {
                                 <div className="gmail-section-header">
                                     <div className="flex items-center gap-2">
                                         <ShoppingCart className="w-4 h-4 text-gmail-text-secondary" />
-                                        <span className="gmail-section-title">Recent Orders</span>
+                                        <span className="gmail-section-title">
+                                            Recent Orders
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="gmail-section-body">
@@ -473,7 +481,9 @@ export default async function AdminDashboard() {
                                 <div className="gmail-section-header">
                                     <div className="flex items-center gap-2">
                                         <BarChart2 className="w-4 h-4 text-gmail-text-secondary" />
-                                        <span className="gmail-section-title">Sales Analytics</span>
+                                        <span className="gmail-section-title">
+                                            Sales Analytics
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="p-4">
@@ -510,7 +520,9 @@ export default async function AdminDashboard() {
                             <div className="gmail-section-header">
                                 <div className="flex items-center gap-2">
                                     <Star className="w-4 h-4 text-gmail-text-secondary" />
-                                    <span className="gmail-section-title">Top Products</span>
+                                    <span className="gmail-section-title">
+                                        Top Products
+                                    </span>
                                 </div>
                             </div>
                             <div className="gmail-section-body">
@@ -579,12 +591,18 @@ interface StatTileProps {
 const StatTile = ({ label, value, icon, iconColor, iconBg }: StatTileProps) => (
     <div className="gmail-stat-card">
         <div className="flex items-center gap-4">
-            <div className={`flex items-center justify-center w-10 h-10 rounded-xl ${iconBg} ${iconColor}`}>
+            <div
+                className={`flex items-center justify-center w-10 h-10 rounded-xl ${iconBg} ${iconColor}`}
+            >
                 {icon}
             </div>
             <div>
-                <p className="text-2xl font-semibold text-gmail-text">{value.toLocaleString()}</p>
-                <p className="text-xs font-medium text-gmail-text-secondary mt-0.5">{label}</p>
+                <p className="text-2xl font-semibold text-gmail-text">
+                    {value.toLocaleString()}
+                </p>
+                <p className="text-xs font-medium text-gmail-text-secondary mt-0.5">
+                    {label}
+                </p>
             </div>
         </div>
     </div>
