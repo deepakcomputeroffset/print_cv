@@ -35,7 +35,12 @@ export default function DispatchPage({
         useDispatch(filters);
     const { onOpen } = useModal();
     const { orders: dispatchedOrders, isLoading: dispatchedOrdersLoading } =
-        useDispatch({ ...filters, dispatched: "true" });
+        useDispatch({
+            ...filters,
+            dispatched: "true",
+            sortby: "createdAt",
+            sortorder:"desc"
+        });
     return (
         <div className="space-y-6 h-full min-h-full">
             <div className="gmail-page-header">

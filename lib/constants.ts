@@ -48,13 +48,13 @@ export const FILE_UPLOAD_EMAIL_CHARGE = 20;
 export const NUMBER_PRECISION = 3;
 
 export const COMPANY_DATA = {
-    name: "Aditya Printify India",
-    shortName: "Aditya Printify",
-    addressLine1: "123 Print Street",
-    addressLine2: " Delhi, India",
+    name: "Aditya Printify India Private Limited",
+    shortName: "Aditya Printify India",
+    addressLine1: "F-55 T/F (Old-FC-6), Gali No 8 West Jyoti Nagar",
+    addressLine2: "sabhapur, Delhi North East, Delhi, India",
     url: "www.printvc.com",
-    pinCode: "110001",
-    phone: "+91-1147511919",
-    email: "deepakcomputeroffset@gmail.com",
+    pinCode: "110094",
+    phone: "+91-9311831919",
+    email: "adityaprintify@gmail.com",
     gst: "07ABDCA7756Q1ZX",
 };

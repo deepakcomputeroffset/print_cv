@@ -30,6 +30,7 @@ export const JobListTable = ({
                     <TableHead className="text-center">Id</TableHead>
                     <TableHead>Name</TableHead>
                     <TableHead>Verified</TableHead>
+                    <TableHead>Status</TableHead>
                     <TableHead>CreatedAt</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
@@ -52,6 +53,13 @@ export const JobListTable = ({
                             </TableCell>
                             <TableCell className="font-medium">
                                 {job?.isVerified ? "Yes" : "No"}
+                            </TableCell>
+                            <TableCell className="font-medium">
+                                {job?.isVerified
+                                    ? job?.isCompleted
+                                        ? "Completed"
+                                        : "In Progress"
+                                    : "Pending"}
                             </TableCell>
 
                             <TableCell>
