@@ -51,9 +51,9 @@ export function AppSidebar({ session }: { session: Session | null }) {
     // Define group order
     const groupOrder: RouteGroup[] = [
         "main",
+        "operations",
         "people",
         "catalog",
-        "operations",
         "content",
     ];
 

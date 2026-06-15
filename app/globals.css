@@ -98,7 +98,13 @@ html body[data-scroll-locked] {
     }
 
     .admin-theme {
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family:
+            "Inter",
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            sans-serif;
         --background: 0 0% 100%;
         --foreground: 220 9% 13%;
         --card: 0 0% 100%;
