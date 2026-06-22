@@ -39,7 +39,7 @@ export default function DispatchPage({
             ...filters,
             dispatched: "true",
             sortby: "createdAt",
-            sortorder:"desc"
+            sortorder: "desc",
         });
     return (
         <div className="space-y-6 h-full min-h-full">
