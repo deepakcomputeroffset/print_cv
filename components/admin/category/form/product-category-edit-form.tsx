@@ -42,6 +42,7 @@ export const ProductCategoryEditForm = () => {
             parentCategoryId: data?.productCategory?.id.toString(),
             isAvailable: data?.productCategory?.isAvailable,
             isList: data?.productCategory?.isList,
+            hsnCode: data?.productCategory?.hsnCode || "",
         },
     });
 
@@ -103,6 +104,19 @@ export const ProductCategoryEditForm = () => {
                             <FormLabel>Name</FormLabel>
                             <FormControl>
                                 <Input placeholder="Abc" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="hsnCode"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>HSNCode</FormLabel>
+                            <FormControl>
+                                <Input placeholder="9988" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

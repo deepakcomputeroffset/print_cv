@@ -29,7 +29,11 @@ export default async function OrderPage({
                 productItem: {
                     include: {
                         pricing: true,
-                        product: true,
+                        product: {
+                            include: {
+                                category: true,
+                            },
+                        },
                         productAttributeOptions: {
                             include: {
                                 productAttributeType: true,

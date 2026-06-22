@@ -17,6 +17,7 @@ export const Product_Categories: productCategoryType[] = [
         },
         isList: false,
         parentCategory: null,
+        hsnCode: "",
     },
     {
         id: 2,
@@ -33,6 +34,7 @@ export const Product_Categories: productCategoryType[] = [
         },
         isList: false,
         parentCategory: null,
+        hsnCode: "",
     },
     {
         id: 3,
@@ -50,6 +52,7 @@ export const Product_Categories: productCategoryType[] = [
         },
         isList: false,
         parentCategory: null,
+        hsnCode: "",
     },
     {
         id: 5,
@@ -67,6 +70,7 @@ export const Product_Categories: productCategoryType[] = [
         },
         isList: true,
         parentCategory: null,
+        hsnCode: "",
     },
     {
         id: 6,
@@ -84,6 +88,7 @@ export const Product_Categories: productCategoryType[] = [
         },
         isList: false,
         parentCategory: null,
+        hsnCode: "",
     },
     {
         id: 7,
@@ -101,6 +106,7 @@ export const Product_Categories: productCategoryType[] = [
             subCategories: 0,
         },
         parentCategory: null,
+        hsnCode: "",
     },
     // {
     //     id: 8,

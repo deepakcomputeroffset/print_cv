@@ -7,6 +7,7 @@ export const getProductCategorySchema = () => {
         name: z
             .string({ required_error: "Name is required." })
             .min(1, { message: "Name must be at least 1 character long." }),
+        hsnCode: z.string().optional(),
         description: z
             .string()
             .min(1, {

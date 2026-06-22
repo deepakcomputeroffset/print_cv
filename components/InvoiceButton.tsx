@@ -2,7 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { order, pricing, product, productItem } from "@prisma/client";
+import {
+    order,
+    pricing,
+    product,
+    productCategory,
+    productItem,
+} from "@prisma/client";
 import { CalendarDays, Check, FileDown, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -25,7 +31,9 @@ interface InvoiceOrder extends order {
     invoiceGeneratedAt: Date | null;
     productItem: productItem & {
         pricing: pricing[];
-        product: product;
+        product: product & {
+            category: productCategory;
+        };
     };
     customer: {
         address?: addressType;

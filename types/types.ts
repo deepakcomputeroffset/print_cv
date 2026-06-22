@@ -154,7 +154,9 @@ export interface OrderDetailsPageProps {
     order: order & {
         productItem: productItem & {
             pricing: pricing[];
-            product: product;
+            product: product & {
+                category: productCategory;
+            };
             productAttributeOptions: (productAttributeValue & {
                 productAttributeType: productAttributeType;
             })[];

@@ -269,6 +269,7 @@ export default async function AdminDashboard() {
                                     category: {
                                         select: {
                                             name: true,
+                                            hsnCode: true,
                                         },
                                     },
                                 },

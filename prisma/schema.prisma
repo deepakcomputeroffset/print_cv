@@ -137,6 +137,7 @@ model productCategory {
     imageUrl              String
     isAvailable           Boolean                @default(false)
     isList                Boolean                @default(false)
+    hsnCode               String?
     products              product[]
     productAttributeTypes productAttributeType[]
 
@@ -304,19 +305,19 @@ model distribution {
 }
 
 model job {
-    id          Int       @id @default(autoincrement())
-    name        String    @unique
+    id          Int        @id @default(autoincrement())
+    name        String     @unique
     prefixId    Int?
     jobPrefix   jobPrefix? @relation(fields: [prefixId], references: [id], onDelete: SetNull)
     orders      order[]
-    isVerified  Boolean   @default(false)
-    isCompleted Boolean   @default(false)
+    isVerified  Boolean    @default(false)
+    isCompleted Boolean    @default(false)
     verifiedBy  Int?
-    staff       staff?    @relation(fields: [verifiedBy], references: [id], onDelete: Restrict)
+    staff       staff?     @relation(fields: [verifiedBy], references: [id], onDelete: Restrict)
     tasks       task[]
     verifiedAt  DateTime?
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
 
     @@index([name])
     @@index([id])

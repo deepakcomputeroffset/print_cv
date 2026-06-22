@@ -1,6 +1,12 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import { order, pricing, product, productItem } from "@prisma/client";
+import {
+    order,
+    pricing,
+    product,
+    productCategory,
+    productItem,
+} from "@prisma/client";
 import qrcode from "qrcode";
 import { format } from "date-fns";
 import {
@@ -13,7 +19,9 @@ import { addressType } from "@/types/types";
 type InvoiceOrder = Omit<order, "invoiceDate" | "invoiceGeneratedAt"> & {
     productItem: productItem & {
         pricing: pricing[];
-        product: product;
+        product: product & {
+            category: productCategory;
+        };
     };
     invoiceDate?: Date | string | null;
     invoiceGeneratedAt?: Date | string | null;
@@ -237,16 +245,20 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     autoTable(doc, {
         startY: 110,
         head: [
-            ["S. No.", "Product Details", "Quantity", "Unit Price", "Amount"],
+            [
+                "S. No.",
+                "Product Details",
+                "HSN Code",
+                "Quantity",
+                "Unit Price",
+                "Amount",
+            ],
         ],
         body: [
             [
                 "1",
-                // Format product details with SKU in parentheses
-                {
-                    content: `${order.productItem.product.name} (${order.productItem.sku})`,
-                    styles: { cellWidth: "auto", minCellWidth: 70 },
-                },
+                `${order.productItem.product.name} (${order.productItem.sku})`,
+                order?.productItem.product.category.hsnCode,
                 order.qty.toString(),
                 `Rs. ${(order.price / (order.qty / (findPrice()?.qty ?? 0))).toFixed(NUMBER_PRECISION)}`,
                 `Rs. ${(order.price || 0).toFixed(NUMBER_PRECISION)}`,
@@ -266,11 +278,12 @@ export const generateInvoice = async (order: InvoiceOrder) => {
             halign: "center",
         },
         columnStyles: {
-            0: { halign: "center", cellWidth: 20 },
+            0: { halign: "center", cellWidth: 15 },
             1: { fontStyle: "normal", cellWidth: "auto", halign: "left" },
-            2: { halign: "center", cellWidth: 25 },
-            3: { halign: "right", cellWidth: 30 },
-            4: { halign: "right", cellWidth: 30 },
+            2: { halign: "center", cellWidth: 28 },
+            3: { halign: "center", cellWidth: 25 },
+            4: { halign: "right", cellWidth: 28 },
+            5: { halign: "right", cellWidth: 28 },
         },
         didParseCell: function (data) {
             if (data.section === "body" && data.column.index === 1) {
@@ -294,37 +307,13 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     autoTable(doc, {
         startY: tableEndY + 5,
         body: [
-            [
-                "",
-                "",
-                "",
-                "Subtotal",
-                `Rs. ${subtotal.toFixed(NUMBER_PRECISION)}`,
-            ],
-            ["", "", "", "IGST (18%)", `Rs. ${igst.toFixed(NUMBER_PRECISION)}`],
-            ["", "", "", "CGST (0%)", "Rs. 0.00"],
-            ["", "", "", "SGST (0%)", "Rs. 0.00"],
-            [
-                "",
-                "",
-                "",
-                "Shipping Charges",
-                `Rs. ${shippingCost.toFixed(NUMBER_PRECISION)}`,
-            ],
-            [
-                "",
-                "",
-                "",
-                "Upload Charges",
-                `Rs. ${uploadCharge.toFixed(NUMBER_PRECISION)}`,
-            ],
-            [
-                "",
-                "",
-                "",
-                "Total Amount",
-                `Rs. ${totalAmount.toFixed(NUMBER_PRECISION)}`,
-            ],
+            ["", "", "", "", "Subtotal", `Rs. ${subtotal.toFixed(NUMBER_PRECISION)}`],
+            ["", "", "", "", "IGST (18%)", `Rs. ${igst.toFixed(NUMBER_PRECISION)}`],
+            ["", "", "", "", "CGST (0%)", "Rs. 0.00"],
+            ["", "", "", "", "SGST (0%)", "Rs. 0.00"],
+            ["", "", "", "", "Shipping Charges", `Rs. ${shippingCost.toFixed(NUMBER_PRECISION)}`],
+            ["", "", "", "", "Upload Charges", `Rs. ${uploadCharge.toFixed(NUMBER_PRECISION)}`],
+            ["", "", "", "", "Total Amount", `Rs. ${totalAmount.toFixed(NUMBER_PRECISION)}`],
         ],
         theme: "grid",
         styles: {
@@ -333,11 +322,12 @@ export const generateInvoice = async (order: InvoiceOrder) => {
             lineColor: [220, 220, 220],
         },
         columnStyles: {
-            0: { cellWidth: 20 },
+            0: { cellWidth: 15 },
             1: { cellWidth: "auto" },
-            2: { cellWidth: 25 },
-            3: { fontStyle: "bold", cellWidth: 60 },
-            4: { halign: "right", fontStyle: "bold", cellWidth: 30 },
+            2: { cellWidth: 28 },
+            3: { cellWidth: 25 },
+            4: { fontStyle: "bold", cellWidth: 28 },
+            5: { halign: "right", fontStyle: "bold", cellWidth: 28 },
         },
         alternateRowStyles: {
             fillColor: [248, 249, 250],

@@ -104,6 +104,20 @@ export const ProductCategoryCreateForm = () => {
 
                 <FormField
                     control={form.control}
+                    name="hsnCode"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>HSNCode</FormLabel>
+                            <FormControl>
+                                <Input placeholder="9988" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
                     name="description"
                     render={({ field }) => (
                         <FormItem>
