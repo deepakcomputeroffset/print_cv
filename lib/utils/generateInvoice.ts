@@ -306,14 +306,15 @@ export const generateInvoice = async (order: InvoiceOrder) => {
     // TAX BREAKDOWN TABLE with IGST
     autoTable(doc, {
         startY: tableEndY + 5,
+        // margin: { left: pageWidth - margin - 90 },
         body: [
-            ["", "", "", "", "Subtotal", `Rs. ${subtotal.toFixed(NUMBER_PRECISION)}`],
-            ["", "", "", "", "IGST (18%)", `Rs. ${igst.toFixed(NUMBER_PRECISION)}`],
-            ["", "", "", "", "CGST (0%)", "Rs. 0.00"],
-            ["", "", "", "", "SGST (0%)", "Rs. 0.00"],
-            ["", "", "", "", "Shipping Charges", `Rs. ${shippingCost.toFixed(NUMBER_PRECISION)}`],
-            ["", "", "", "", "Upload Charges", `Rs. ${uploadCharge.toFixed(NUMBER_PRECISION)}`],
-            ["", "", "", "", "Total Amount", `Rs. ${totalAmount.toFixed(NUMBER_PRECISION)}`],
+            ["Subtotal", `Rs. ${subtotal.toFixed(NUMBER_PRECISION)}`],
+            ["IGST (18%)", `Rs. ${igst.toFixed(NUMBER_PRECISION)}`],
+            ["CGST (0%)", "Rs. 0.00"],
+            ["SGST (0%)", "Rs. 0.00"],
+            ["Shipping Charges", `Rs. ${shippingCost.toFixed(NUMBER_PRECISION)}`],
+            ["Upload Charges", `Rs. ${uploadCharge.toFixed(NUMBER_PRECISION)}`],
+            ["Total Amount", `Rs. ${totalAmount.toFixed(NUMBER_PRECISION)}`],
         ],
         theme: "grid",
         styles: {
@@ -322,12 +323,8 @@ export const generateInvoice = async (order: InvoiceOrder) => {
             lineColor: [220, 220, 220],
         },
         columnStyles: {
-            0: { cellWidth: 15 },
-            1: { cellWidth: "auto" },
-            2: { cellWidth: 28 },
-            3: { cellWidth: 25 },
-            4: { fontStyle: "bold", cellWidth: 28 },
-            5: { halign: "right", fontStyle: "bold", cellWidth: 28 },
+            0: { fontStyle: "bold", halign: "right", cellWidth: "auto" },
+            1: { halign: "right", fontStyle: "bold", cellWidth: "auto" },
         },
         alternateRowStyles: {
             fillColor: [248, 249, 250],
