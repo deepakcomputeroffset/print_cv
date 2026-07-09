@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { toast } from "sonner";
@@ -62,7 +62,10 @@ export default function ProductDetails({
     const [fileOption, setFileOption] = useState<UPLOADVIA>("UPLOAD");
 
     const router = useRouter();
-    const distinctAttributeWithOptions = getDistinctOptionsWithDetails(product);
+    const distinctAttributeWithOptions = useMemo(
+        () => getDistinctOptionsWithDetails(product),
+        [product],
+    );
 
     const { selectedAttributes, selectedVariant, handleAttributeChange } =
         useVariantSelection(product, distinctAttributeWithOptions);

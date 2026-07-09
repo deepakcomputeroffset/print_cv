@@ -23,11 +23,31 @@ export const useVariantSelection = (
         useState<ProductItemTypeWithAttribute | null>(null);
 
     /**
-     * When the product or available options change, reset the selected attributes
-     * to the computed base variant so the UI reflects the new product immediately.
+     * Reset `selectedAttributes` to the computed `baseVariant` when the
+     * product's available options change (for example, when a different
+     * product is loaded). This ensures the UI reflects the new product's
+     * default configuration.
+     *
+     * Do NOT reset when the user updates `selectedAttributes` — doing so would
+     * immediately overwrite user selections and prevent changes from sticking.
+     *
+     * To avoid unnecessary updates and render loops, the effect compares
+     * numeric `typeId`/`optionId` pairs rather than relying on object identity.
      */
     useEffect(() => {
-        setSelectedAttributes(baseVariant);
+        const basePairs = Object.entries(baseVariant).map(
+            ([typeIdStr, optionId]) => [Number(typeIdStr), Number(optionId)],
+        ) as [number, number][];
+
+        if (basePairs.length === 0) return;
+
+        const isMatching = basePairs.every(([typeId, optionId]) => {
+            return selectedAttributes[typeId] === optionId;
+        });
+
+        if (!isMatching) {
+            setSelectedAttributes(baseVariant);
+        }
     }, [baseVariant]);
 
     const findVariant = useCallback(() => {
@@ -44,10 +64,10 @@ export const useVariantSelection = (
 
     useEffect(() => {
         const variant = findVariant();
-        if (variant) {
+        if (variant && variant.id !== selectedVariant?.id) {
             setSelectedVariant(variant);
         }
-    }, [selectedAttributes, findVariant]);
+    }, [selectedAttributes, findVariant, selectedVariant]);
 
     const handleAttributeChange = (typeId: number, valueId: number) => {
         setSelectedAttributes((prev) => ({ ...prev, [typeId]: valueId }));
