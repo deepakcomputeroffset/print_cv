@@ -22,6 +22,14 @@ export const useVariantSelection = (
     const [selectedVariant, setSelectedVariant] =
         useState<ProductItemTypeWithAttribute | null>(null);
 
+    /**
+     * When the product or available options change, reset the selected attributes
+     * to the computed base variant so the UI reflects the new product immediately.
+     */
+    useEffect(() => {
+        setSelectedAttributes(baseVariant);
+    }, [baseVariant]);
+
     const findVariant = useCallback(() => {
         return product.productItems.find((item) =>
             Object.entries(selectedAttributes).every(([typeId, valueId]) =>

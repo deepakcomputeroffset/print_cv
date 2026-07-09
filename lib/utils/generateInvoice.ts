@@ -312,7 +312,10 @@ export const generateInvoice = async (order: InvoiceOrder) => {
             ["IGST (18%)", `Rs. ${igst.toFixed(NUMBER_PRECISION)}`],
             ["CGST (0%)", "Rs. 0.00"],
             ["SGST (0%)", "Rs. 0.00"],
-            ["Shipping Charges", `Rs. ${shippingCost.toFixed(NUMBER_PRECISION)}`],
+            [
+                "Shipping Charges",
+                `Rs. ${shippingCost.toFixed(NUMBER_PRECISION)}`,
+            ],
             ["Upload Charges", `Rs. ${uploadCharge.toFixed(NUMBER_PRECISION)}`],
             ["Total Amount", `Rs. ${totalAmount.toFixed(NUMBER_PRECISION)}`],
         ],
